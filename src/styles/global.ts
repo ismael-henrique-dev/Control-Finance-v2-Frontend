@@ -5,10 +5,11 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Inter", sans-serif;
   }
 
   body {
-    background-color: ${(props) => props.theme.colors.primary};
-    color: ${(props) => props.theme.colors.text};
+    background-color: ${(props) => props.theme.colors.gray_2};
+    
   }
 `

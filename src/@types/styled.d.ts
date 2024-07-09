@@ -9,6 +9,10 @@ declare module "styled-components" {
       primary: string
       secundary: string
       text: string
+      white: string
+      gray_1: string
+      gray_2: string
+      invertColor: string
     }
   }
 }
