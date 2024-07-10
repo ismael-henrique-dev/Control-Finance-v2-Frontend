@@ -7,11 +7,12 @@ export const MainContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  
 `
 
 export const ContainerLogin = styled.main`
   background-color: ${(props) => props.theme.colors.gray_1};
-  /* margin: 0 auto; */
   display: flex;
   align-items: center;
   flex: wrap;
@@ -21,6 +22,10 @@ export const ContainerLogin = styled.main`
 
   @media (max-width: 768px) {
     flex-direction: column;
+    /* position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 0%); */
   }
 `
 
@@ -108,6 +113,22 @@ export const Button = styled.button<ButtonProps>`
     margin-right: 0.5rem;
     width: 1.5rem;
     height: 1.5rem;
+  }
+`
+
+export const Divisory = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.25rem 0;
+  gap: 0.75rem;
+  color: ${(props) => props.theme.colors.primary};
+
+  &::before,
+  &::after {
+    content: "";
+    width: 8.5rem;
+    border-bottom: 2px solid ${(props) => props.theme.colors.primary};
   }
 `
 

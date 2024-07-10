@@ -5,7 +5,7 @@ import iconGoogle from "../../assets/icon-google.svg"
 
 import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material"
 import { Lock, LockOpen, PersonStanding } from "lucide-react"
-import { Button, ContainerLogin, ContainerSponsor, Form, FormControlContainer, MainContainer } from "./styles"
+import { Button, ContainerLogin, ContainerSponsor, Divisory, Form, FormControlContainer, MainContainer } from "./styles"
 import { NavLink } from "react-router-dom"
 
 export function Login() {
@@ -30,7 +30,7 @@ export function Login() {
         <Form>
           <FormControlContainer variant="standard">
             <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
-            <Input type="email" />
+            <Input type="email" error={false} />
           </FormControlContainer>
           <FormControlContainer variant="standard">
             <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
@@ -51,9 +51,7 @@ export function Login() {
           </FormControlContainer>
           <Button type="submit">Entrar</Button>
           <NavLink to="/">esqueceu a senha?</NavLink>
-          <fieldset>
-            <legend>ou</legend>
-          </fieldset>
+          <Divisory>ou</Divisory> 
           <section>
             <Button type="submit" variant="goToWithGoogle">
               <img src={iconGoogle}  />

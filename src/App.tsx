@@ -32,15 +32,15 @@ export function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <BrowserRouter>
-        <div>
+        {/* <div>
           <input
             type="checkbox"
             onChange={toggleTheme}
             checked={themeSelectedCheckbox}
           />
-          <button>{theme.title === "light" ? "light" : "dark"}</button>
+          <button>{theme.title === "light" ? "light" : "dark"}</button> */}
           <Login />
-        </div>
+        {/* </div> */}
       </BrowserRouter>
     </ThemeProvider>
   )
