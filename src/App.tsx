@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import dark from "./styles/themes/dark"
 import light from "./styles/themes/light"
 import { BrowserRouter } from "react-router-dom"
+import { Home } from "./pages/Home"
 
 export function App() {
   const [theme, setTheme] = useState(() => {
@@ -28,6 +29,7 @@ export function App() {
     localStorage.setItem("theme", JSON.stringify(theme))
   }, [theme])
 
+  
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -39,7 +41,8 @@ export function App() {
             checked={themeSelectedCheckbox}
           />
           <button>{theme.title === "light" ? "light" : "dark"}</button> */}
-          <Login />
+          {/* <Login /> */}
+          <Home />
         {/* </div> */}
       </BrowserRouter>
     </ThemeProvider>

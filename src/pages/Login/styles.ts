@@ -6,9 +6,7 @@ export const MainContainer = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  
+  justify-content: center;  
 `
 
 export const ContainerLogin = styled.main`
@@ -22,10 +20,6 @@ export const ContainerLogin = styled.main`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    /* position: absolute;
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, 0%); */
   }
 `
 
