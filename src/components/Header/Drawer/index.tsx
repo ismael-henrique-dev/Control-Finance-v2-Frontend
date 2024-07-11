@@ -6,8 +6,7 @@ import ListItem from "@mui/material/ListItem"
 import ListItemButton from "@mui/material/ListItemButton"
 import { Menu } from "lucide-react"
 import { useState } from "react"
-
-
+import { ContainerBox } from "./styles"
 
 export function DrawerBasic() {
   const [open, setOpen] = useState(false)
@@ -26,7 +25,7 @@ export function DrawerBasic() {
     }
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <ContainerBox sx={{ display: "flex" }}>
       <Menu onClick={toggleDrawer(true)} />
       <Drawer open={open} onClose={toggleDrawer(false)}>
         <Box
@@ -51,6 +50,6 @@ export function DrawerBasic() {
           </List>
         </Box>
       </Drawer>
-    </Box>
+    </ContainerBox>
   )
 }

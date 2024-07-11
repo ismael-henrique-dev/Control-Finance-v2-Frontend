@@ -8,8 +8,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: "Inter", sans-serif;
   }
 
+  :focus {
+    outline: 0;
+  }
+
   body {
     background-color: ${(props) => props.theme.colors.gray_2};
-    
   }
 `

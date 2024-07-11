@@ -7,8 +7,10 @@ import dark from "./styles/themes/dark"
 import light from "./styles/themes/light"
 import { BrowserRouter } from "react-router-dom"
 import { Home } from "./pages/Home"
+import { Router } from "./Router"
 
 export function App() {
+  
   const [theme, setTheme] = useState(() => {
     const storedValueTheme = localStorage.getItem("theme")
 
@@ -29,21 +31,25 @@ export function App() {
     localStorage.setItem("theme", JSON.stringify(theme))
   }, [theme])
 
-  
+  function handleToggleTheme() {
+    toggleTheme()
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <BrowserRouter>
-        {/* <div>
+        <div>
           <input
             type="checkbox"
             onChange={toggleTheme}
             checked={themeSelectedCheckbox}
           />
-          <button>{theme.title === "light" ? "light" : "dark"}</button> */}
+          <button onClick={handleToggleTheme}>{theme.title === "light" ? "light" : "dark"}</button>
           {/* <Login /> */}
-          <Home />
-        {/* </div> */}
+          {/* <Home /> */}
+          <Router />
+        </div>
       </BrowserRouter>
     </ThemeProvider>
   )
