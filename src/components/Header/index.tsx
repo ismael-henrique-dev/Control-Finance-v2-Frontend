@@ -3,9 +3,15 @@ import { ActionsContainer, HeaderContainer, InputArea, LeftContainer } from "./s
 import logo from "../../assets/logo-white.svg"
 import { NavLink } from "react-router-dom"
 import { DrawerBasic } from "./Drawer"
+import { SearchBarArea } from "./SearchBarArea"
+import { useState } from "react"
 
 
 export function Header() {
+
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   
   return (
     <HeaderContainer>
@@ -13,12 +19,12 @@ export function Header() {
         <DrawerBasic />
         <img src={logo} />
       </LeftContainer>
-      <InputArea>
+      <InputArea onClick={handleOpen}>
         <Search />
-        <input type="search" placeholder="Pesquisar" />
+        {/* <input type="search" placeholder="Pesquisar" disabled /> */}
       </InputArea>
       <ActionsContainer>
-        <button>
+        <button onClick={handleOpen}>
           <Search />
         </button>
         <button>
@@ -29,6 +35,8 @@ export function Header() {
           <span>Preferências da conta</span>
         </NavLink>
       </ActionsContainer>
+
+      <SearchBarArea open={open} handleClose={handleClose} />
     </HeaderContainer>
   )
 }

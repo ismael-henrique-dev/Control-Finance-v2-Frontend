@@ -6,6 +6,7 @@ export const HeaderContainer = styled.header`
   height: 5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0 1.5rem;
   gap: 8rem;
 
@@ -16,8 +17,12 @@ export const HeaderContainer = styled.header`
 
   @media (max-width: 768px) {
     & {
-      gap: 1.25rem;
-      padding: 0;
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+
+    img {
+      width: 9rem;
     }
   }
 `
@@ -73,7 +78,7 @@ export const ActionsContainer = styled.div`
   align-items: center;
   gap: 1.5rem;
 
-  &:first-child {
+  button:first-child {
     display: none;
   }
 
@@ -110,7 +115,11 @@ export const ActionsContainer = styled.div`
   }
 
   @media (max-width: 768px) {
-    &:first-child {
+    & {
+      gap: 1rem;
+    }
+
+    button:first-child {
       display: flex;
     }
 
