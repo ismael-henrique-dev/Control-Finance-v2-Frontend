@@ -10,7 +10,7 @@ export const MainContainer = styled.div`
 `
 
 export const ContainerLogin = styled.main`
-  background-color: ${(props) => props.theme.colors.gray_1};
+  background-color: ${(props) => props.theme.colors.primaryGray};
   display: flex;
   align-items: center;
   flex: wrap;
@@ -33,7 +33,7 @@ export const ContainerSponsor = styled.div`
   padding: 2.25rem 1.5rem;
   gap: 1rem;
   border-radius: 12px;
-  background-color: ${(props) => props.theme.colors.gray_2};
+  background-color: ${(props) => props.theme.colors.secundaryGray};
   color: ${(props) => props.theme.colors.text};
 `
 
@@ -96,7 +96,7 @@ export const Button = styled.button<ButtonProps>`
       case "goToWithGoogle":
         return props.theme.colors.text
       case "visitMode":
-        return props.theme.colors.gray_2
+        return props.theme.colors.secundaryGray
       default:
         return props.theme.colors.secundary
     }

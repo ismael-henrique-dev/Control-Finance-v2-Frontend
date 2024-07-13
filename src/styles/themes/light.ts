@@ -6,8 +6,8 @@ export default {
     secundary: "#6741D9",
     text: "#000",
     white: "#fff",
-    gray_1: "#DEDAD6",
-    gray_2: "#CCC9C6",
+    primaryGray: "#DEDAD6",
+    secundaryGray: "#CCC9C6",
     invertColor: "#fff",
   },
 }

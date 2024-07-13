@@ -31,10 +31,11 @@ export function App() {
     localStorage.setItem("theme", JSON.stringify(theme))
   }, [theme])
 
-  function handleToggleTheme() {
+  function handleClickCheckbox() {
     toggleTheme()
   }
 
+  
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -45,7 +46,7 @@ export function App() {
             onChange={toggleTheme}
             checked={themeSelectedCheckbox}
           />
-          <button onClick={handleToggleTheme}>{theme.title === "light" ? "light" : "dark"}</button>
+          <button onClick={handleClickCheckbox}>{theme.title === "light" ? "light" : "dark"}</button>
           {/* <Login /> */}
           {/* <Home /> */}
           <Router />

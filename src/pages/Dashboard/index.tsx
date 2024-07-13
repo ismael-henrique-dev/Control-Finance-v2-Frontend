@@ -1,9 +1,9 @@
 import { Header } from "../../components/Header";
 
-export function Home() {
+export function Dashboard() {
   return (
     <>
-      <h1>Home</h1>
+      <h1>Dashboard</h1>
     </>
   )
 }

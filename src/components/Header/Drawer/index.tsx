@@ -1,12 +1,12 @@
-import Box from "@mui/material/Box"
-import Divider from "@mui/material/Divider"
 import Drawer from "@mui/material/Drawer"
-import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
-import ListItemButton from "@mui/material/ListItemButton"
 import { Menu } from "lucide-react"
 import { useState } from "react"
-import { ContainerBox } from "./styles"
+import { ContainerDrawer, ListContainer, PresentationSection } from "./styles"
+
+import testImage from "../../../assets/test-image.svg"
+import  Box  from "@mui/material/Box"
+import { NavLink } from "react-router-dom"
 
 export function DrawerBasic() {
   const [open, setOpen] = useState(false)
@@ -25,31 +25,38 @@ export function DrawerBasic() {
     }
 
   return (
-    <ContainerBox sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }}>
       <Menu onClick={toggleDrawer(true)} />
       <Drawer open={open} onClose={toggleDrawer(false)}>
-        <Box
-          role="presentation"
+        <ContainerDrawer
+          role="menu"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text) => (
-              <ListItem key={text}>
-                <ListItemButton>{text}</ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text) => (
-              <ListItem key={text}>
-                <ListItemButton>{text}</ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
+          <PresentationSection>
+            <img src={testImage} />
+            <span>Bem-vindo(a) novamente!</span>
+            <strong>Ismael Henrique</strong>
+          </PresentationSection>
+          <ListContainer>
+            <ListItem>
+              <NavLink to="/">Dashboard</NavLink>
+            </ListItem>
+            <ListItem>
+              <NavLink to="/transacoes">Transações</NavLink>
+            </ListItem>
+            <ListItem>
+              <NavLink to="/contas">Contas</NavLink>
+            </ListItem>
+            <ListItem>
+              <NavLink to="/rendimento">Rendimento</NavLink>
+            </ListItem>
+            <ListItem>
+              <NavLink to="/metas">Metas</NavLink>
+            </ListItem>
+          </ListContainer>
+        </ContainerDrawer>
       </Drawer>
-    </ContainerBox>
+    </Box>
   )
 }

@@ -1,18 +1,30 @@
 import styled from "styled-components"
 
 export const HeaderContainer = styled.header`
-  background-color: ${(props) => props.theme.colors.gray_1};
+  background-color: ${(props) => props.theme.colors.primaryGray};
   width: 100%;
   height: 5rem;
   display: flex;
   align-items: center;
   padding: 0 1.5rem;
   gap: 8rem;
+
+  img {
+    width: 11rem;
+    height: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    & {
+      gap: 1.25rem;
+      padding: 0;
+    }
+  }
 `
 
 export const InputArea = styled.div`
   border-radius: 12px;
-  background-color: ${(props) => props.theme.colors.gray_2};
+  background-color: ${(props) => props.theme.colors.secundaryGray};
   color: ${(props) => props.theme.colors.text};
   height: 2.5rem;
   display: flex;
@@ -41,6 +53,12 @@ export const InputArea = styled.div`
     font-size: 1rem;
     font-weight: 500;
   }
+
+  @media (max-width: 768px) {
+    & {
+      display: none;
+    }
+  }
 `
 
 export const LeftContainer = styled.div`
@@ -55,8 +73,12 @@ export const ActionsContainer = styled.div`
   align-items: center;
   gap: 1.5rem;
 
+  &:first-child {
+    display: none;
+  }
+
   button {
-    background-color: ${(props) => props.theme.colors.gray_2};
+    background-color: ${(props) => props.theme.colors.secundaryGray};
     color: ${(props) => props.theme.colors.text};
     display: flex;
     align-items: center;
@@ -68,7 +90,7 @@ export const ActionsContainer = styled.div`
   }
 
   a {
-    background-color: ${(props) => props.theme.colors.gray_2};
+    background-color: ${(props) => props.theme.colors.secundaryGray};
     color: ${(props) => props.theme.colors.text};
     display: flex;
     align-items: center;
@@ -86,17 +108,33 @@ export const ActionsContainer = styled.div`
   a:hover {
     cursor: pointer;
   }
+
+  @media (max-width: 768px) {
+    &:first-child {
+      display: flex;
+    }
+
+    a {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 100%;
+    }
+
+    span {
+      display: none;
+    }
+  }
 `
 
 const BaseStyle = styled.button`
-  background-color: ${(props) => props.theme.colors.gray_2};
+  background-color: ${(props) => props.theme.colors.secundaryGray};
   color: ${(props) => props.theme.colors.text};
   display: flex;
   align-items: center;
 `
 
 export const ToggleThemeButton = styled.button`
-  background-color: ${(props) => props.theme.colors.gray_2};
+  background-color: ${(props) => props.theme.colors.secundaryGray};
   color: ${(props) => props.theme.colors.text};
   display: flex;
   align-items: center;
