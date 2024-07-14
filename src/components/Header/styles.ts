@@ -15,6 +15,10 @@ export const HeaderContainer = styled.header`
     height: 1.5rem;
   }
 
+  svg {
+    color: ${(props) => props.theme.colors.text};
+  }
+
   @media (max-width: 768px) {
     & {
       gap: 1rem;
@@ -41,6 +45,7 @@ export const InputArea = styled.div`
   svg {
     width: 1.25rem;
     height: 1.25rem;
+    color: ${(props) => props.theme.colors.text};
   }
 
   div {

@@ -1,11 +1,19 @@
 import Drawer from "@mui/material/Drawer"
 import ListItem from "@mui/material/ListItem"
-import { Menu } from "lucide-react"
+import {
+  ArrowRightLeft,
+  BarChart,
+  Goal,
+  LogOut,
+  Menu,
+  PieChart,
+  PiggyBank,
+} from "lucide-react"
 import { useState } from "react"
 import { ContainerDrawer, ListContainer, PresentationSection } from "./styles"
 
 import testImage from "../../../assets/test-image.svg"
-import  Box  from "@mui/material/Box"
+import Box from "@mui/material/Box"
 import { NavLink } from "react-router-dom"
 
 export function DrawerBasic() {
@@ -40,19 +48,28 @@ export function DrawerBasic() {
           </PresentationSection>
           <ListContainer>
             <ListItem>
+              <PieChart />
               <NavLink to="/">Dashboard</NavLink>
             </ListItem>
             <ListItem>
+              <ArrowRightLeft />
               <NavLink to="/transacoes">Transações</NavLink>
             </ListItem>
             <ListItem>
+              <PiggyBank />
               <NavLink to="/contas">Contas</NavLink>
             </ListItem>
             <ListItem>
+              <BarChart />
               <NavLink to="/rendimento">Rendimento</NavLink>
             </ListItem>
             <ListItem>
+              <Goal />
               <NavLink to="/metas">Metas</NavLink>
+            </ListItem>
+            <ListItem>
+              <LogOut />
+              <NavLink to="/singUp">Log-out</NavLink>
             </ListItem>
           </ListContainer>
         </ContainerDrawer>
