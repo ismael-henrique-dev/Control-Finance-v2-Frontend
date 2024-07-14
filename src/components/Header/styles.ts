@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const HeaderContainer = styled.header`
-  background-color: ${(props) => props.theme.colors.primaryGray};
+  background-color: ${(props) => props.theme.primaryGray};
   width: 100%;
   height: 5rem;
   display: flex;
@@ -16,7 +16,7 @@ export const HeaderContainer = styled.header`
   }
 
   svg {
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.text};
   }
 
   @media (max-width: 768px) {
@@ -33,8 +33,8 @@ export const HeaderContainer = styled.header`
 
 export const InputArea = styled.div`
   border-radius: 12px;
-  background-color: ${(props) => props.theme.colors.secundaryGray};
-  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.secundaryGray};
+  color: ${(props) => props.theme.text};
   height: 2.5rem;
   display: flex;
   align-items: center;
@@ -45,19 +45,19 @@ export const InputArea = styled.div`
   svg {
     width: 1.25rem;
     height: 1.25rem;
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.text};
   }
 
   div {
     background-color: transparent;
     border: 0;
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.text};
     flex: 1;
     line-height: 0.5;
     font-size: 1rem;
 
     span {
-      color: ${(props) => props.theme.colors.text};
+      color: ${(props) => props.theme.text};
       font-size: 1rem;
       font-weight: 500;
     }
@@ -87,8 +87,8 @@ export const ActionsContainer = styled.div`
   }
 
   button {
-    background-color: ${(props) => props.theme.colors.secundaryGray};
-    color: ${(props) => props.theme.colors.text};
+    background-color: ${(props) => props.theme.secundaryGray};
+    color: ${(props) => props.theme.text};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,8 +99,8 @@ export const ActionsContainer = styled.div`
   }
 
   a {
-    background-color: ${(props) => props.theme.colors.secundaryGray};
-    color: ${(props) => props.theme.colors.text};
+    background-color: ${(props) => props.theme.secundaryGray};
+    color: ${(props) => props.theme.text};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -139,16 +139,9 @@ export const ActionsContainer = styled.div`
   }
 `
 
-const BaseStyle = styled.button`
-  background-color: ${(props) => props.theme.colors.secundaryGray};
-  color: ${(props) => props.theme.colors.text};
-  display: flex;
-  align-items: center;
-`
-
 export const ToggleThemeButton = styled.button`
-  background-color: ${(props) => props.theme.colors.secundaryGray};
-  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.secundaryGray};
+  color: ${(props) => props.theme.text};
   display: flex;
   align-items: center;
 `

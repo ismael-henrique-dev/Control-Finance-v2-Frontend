@@ -5,7 +5,7 @@ import List from "@mui/material/List"
 export const ContainerDrawer = styled(Box)`
   width: 20rem;
   height: 100vh;
-  background-color: ${(props) => props.theme.colors.primaryGray};
+  background-color: ${(props) => props.theme.primaryGray};
   display: flex;
   flex-direction: column;
   padding: 0 2rem;
@@ -29,11 +29,11 @@ export const PresentationSection = styled.section`
   span {
     font-size: 0.875rem;
     font-weight: 500;
-    color: ${(props) => props.theme.colors.secundary};
+    color: ${(props) => props.theme.secundary};
   }
 
   strong {
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.text};
     font-size: 1.5rem;
   }
 `
@@ -46,12 +46,12 @@ export const ListContainer = styled(List)`
   svg {
     width: 1.5rem;
     height: 1.5rem;
-    color: ${(props) => props.theme.colors.secundary};
+    color: ${(props) => props.theme.secundary};
   }
 
   a {
     text-decoration: none;
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.text};
     font-size: 1rem;
     font-weight: 500;
   }
@@ -72,7 +72,7 @@ export const ListContainer = styled(List)`
       margin-top: 10%;
 
       a {
-        color: ${(props) => props.theme.colors.secundary};
+        color: ${(props) => props.theme.secundary};
         font-size: 0.875rem;
       }
     }

@@ -1,43 +1,36 @@
-import { createContext, ReactNode, useEffect, useState } from "react"
-import light from "../styles/themes/light"
-import dark from "../styles/themes/dark"
-import { DefaultTheme } from "styled-components"
+import { createContext, useState, useEffect, ReactNode } from "react"
 
-interface StyledThemeContextType {
-  theme: DefaultTheme
+interface ThemeContextType {
+  theme: "light" | "dark"
   toggleTheme: () => void
 }
 
-export const StyledThemeContext = createContext({} as StyledThemeContextType)
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined
+)
 
-interface StyledThemeProviderProps {
+interface ThemeProviderProps {
   children: ReactNode
 }
 
-export function StyledThemeProvider({ children }: StyledThemeProviderProps) {
-  const [theme, setTheme] = useState<DefaultTheme>(() => {
-    const storedValueTheme = localStorage.getItem("theme")
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    const storedTheme = localStorage.getItem("theme") as "dark" | "light" | null //indica uma dessas três opções, porque se não o ts não comprrende
 
-    if (storedValueTheme) {
-      return JSON.parse(storedValueTheme)
-    } else {
-      return light
-    }
+    return storedTheme || "light"
   })
 
-  function toggleTheme() {
-    setTheme(theme.title === "light" ? dark : light)
+  const toggleTheme = () => {
+    setTheme((state) => (state === "light" ? "dark" : "light"))
   }
 
-  // const themeSelectedCheckbox = theme.title === "dark"
-
   useEffect(() => {
-    localStorage.setItem("theme", JSON.stringify(theme))
+    localStorage.setItem("theme", theme)
   }, [theme])
 
   return (
-    <StyledThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
-    </StyledThemeContext.Provider>
+    </ThemeContext.Provider>
   )
 }

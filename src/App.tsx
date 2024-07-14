@@ -1,57 +1,37 @@
-import { ThemeProvider } from "styled-components"
-import { Login } from "./pages/Login"
+// App.tsx
+import { useContext } from "react"
+import { ThemeProvider as StyledThemeProvider } from "styled-components"
+import { ThemeProvider, ThemeContext } from "./contexts/styledThemeContext"
 import { GlobalStyle } from "./styles/global"
-import { useEffect, useState } from "react"
-
-import dark from "./styles/themes/dark"
-import light from "./styles/themes/light"
+import { lightTheme } from "./styles/themes/light"
+import { darkTheme } from "./styles/themes/dark"
 import { BrowserRouter } from "react-router-dom"
-import { Home } from "./pages/Home"
 import { Router } from "./Router"
 
-export function App() {
-  
-  const [theme, setTheme] = useState(() => {
-    const storedValueTheme = localStorage.getItem("theme")
+function App() {
+  const themeContext = useContext(ThemeContext)
 
-    if (storedValueTheme) {
-      return JSON.parse(storedValueTheme)
-    } else {
-      return light
-    }
-  })
-
-  function toggleTheme() {
-    setTheme(theme.title === "light" ? dark : light)
+  if (!themeContext) {
+    throw new Error("Default value underfined")
   }
 
-  const themeSelectedCheckbox = theme.title === "dark"
+  const { theme } = themeContext
 
-  useEffect(() => {
-    localStorage.setItem("theme", JSON.stringify(theme))
-  }, [theme])
+  // colocar o current theme para que ele não deixe como string
+  const currentTheme = theme === "light" ? lightTheme : darkTheme
 
-  function handleClickCheckbox() {
-    toggleTheme()
-  }
-
-  
   return (
-    <ThemeProvider theme={theme}>
+    <StyledThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <BrowserRouter>
-        <div>
-          <input
-            type="checkbox"
-            onChange={toggleTheme}
-            checked={themeSelectedCheckbox}
-          />
-          <button onClick={handleClickCheckbox}>{theme.title === "light" ? "light" : "dark"}</button>
-          {/* <Login /> */}
-          {/* <Home /> */}
-          <Router />
-        </div>
+        <Router />
       </BrowserRouter>
-    </ThemeProvider>
+    </StyledThemeProvider>
   )
 }
+
+export default () => (
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>
+)

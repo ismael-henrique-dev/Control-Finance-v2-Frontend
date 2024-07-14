@@ -10,7 +10,7 @@ export const MainContainer = styled.div`
 `
 
 export const ContainerLogin = styled.main`
-  background-color: ${(props) => props.theme.colors.primaryGray};
+  background-color: ${(props) => props.theme.primaryGray};
   display: flex;
   align-items: center;
   flex: wrap;
@@ -33,8 +33,8 @@ export const ContainerSponsor = styled.div`
   padding: 2.25rem 1.5rem;
   gap: 1rem;
   border-radius: 12px;
-  background-color: ${(props) => props.theme.colors.secundaryGray};
-  color: ${(props) => props.theme.colors.text};
+  background-color: ${(props) => props.theme.secundaryGray};
+  color: ${(props) => props.theme.text};
 `
 
 export const Form = styled.form`
@@ -49,7 +49,7 @@ export const Form = styled.form`
 
   a {
     text-decoration: none;
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.text};
     font-weight: 400;
   }
 
@@ -60,7 +60,7 @@ export const Form = styled.form`
   }
 
   span {
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.text};
   }
 `
 
@@ -81,11 +81,11 @@ export const Button = styled.button<ButtonProps>`
   color: ${(props) => {
     switch (props.variant) {
       case "goToWithGoogle":
-        return props.theme.colors.invertColor
+        return props.theme.invertColor
       case "visitMode":
-        return props.theme.colors.text
+        return props.theme.text
       default:
-        return props.theme.colors.white
+        return props.theme.white
     }
   }};
 
@@ -94,11 +94,11 @@ export const Button = styled.button<ButtonProps>`
   background-color: ${(props) => {
     switch (props.variant) {
       case "goToWithGoogle":
-        return props.theme.colors.text
+        return props.theme.text
       case "visitMode":
-        return props.theme.colors.secundaryGray
+        return props.theme.secundaryGray
       default:
-        return props.theme.colors.secundary
+        return props.theme.secundary
     }
   }};
 
@@ -116,13 +116,13 @@ export const Divisory = styled.div`
   text-align: center;
   margin: 1.25rem 0;
   gap: 0.75rem;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.primary};
 
   &::before,
   &::after {
     content: "";
     width: 8.5rem;
-    border-bottom: 2px solid ${(props) => props.theme.colors.primary};
+    border-bottom: 2px solid ${(props) => props.theme.primary};
   }
 `
 
@@ -130,50 +130,50 @@ export const FormControlContainer = styled(FormControl)`
   width: 20rem;
 
   & .MuiInputLabel-root {
-    color: ${(props) => props.theme.colors.primary}; // Cor do label padrão
+    color: ${(props) => props.theme.primary}; // Cor do label padrão
   }
 
   & .MuiInputLabel-root.Mui-focused {
     color: ${(props) =>
-      props.theme.colors.secundary}; // Cor do label quando focado
+      props.theme.secundary}; // Cor do label quando focado
   }
 
   & .MuiInput-underline:before {
     border-bottom-width: 2px;
     border-bottom-color: ${(props) =>
-      props.theme.colors.primary}; // Cor da borda padrão
+      props.theme.primary}; // Cor da borda padrão
   }
 
   & .MuiInput-underline:hover:before {
     border-bottom-color: ${(props) =>
-      props.theme.colors
+      props.theme
         .primary}; // Cor da borda quando o mouse passa sobre o campo
   }
 
   & .MuiInput-underline:after {
     border-bottom-color: ${(props) =>
-      props.theme.colors.primary}; // Cor da borda quando o campo está focado
+      props.theme.primary}; // Cor da borda quando o campo está focado
   }
 
   & .MuiInput-underline:hover {
     border-bottom-width: 3px;
     border-bottom-color: ${(props) =>
-      props.theme.colors.primary}; // Cor da borda quando o campo está focado
+      props.theme.primary}; // Cor da borda quando o campo está focado
   }
 
   & .MuiInput-underline:hover:not(.Mui-disabled):before {
     border-bottom-color: ${(props) =>
-      props.theme.colors
+      props.theme
         .secundary}; // Cor da borda quando o mouse passa sobre o campo
   }
 
   input {
-    color: ${(props) => props.theme.colors.secundary};
+    color: ${(props) => props.theme.secundary};
   }
 
   button svg {
     margin-bottom: 0.25rem;
-    color: ${(props) => props.theme.colors.primary};
+    color: ${(props) => props.theme.primary};
     width: 1.5rem;
     height: 1.5rem;
   }
