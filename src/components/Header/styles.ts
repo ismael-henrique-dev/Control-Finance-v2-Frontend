@@ -43,20 +43,19 @@ export const InputArea = styled.div`
     height: 1.25rem;
   }
 
-  input {
+  div {
     background-color: transparent;
     border: 0;
     color: ${(props) => props.theme.colors.text};
     flex: 1;
-    /* height: 1.25rem; */
     line-height: 0.5;
     font-size: 1rem;
-  }
 
-  input::placeholder {
-    color: ${(props) => props.theme.colors.text};
-    font-size: 1rem;
-    font-weight: 500;
+    span {
+      color: ${(props) => props.theme.colors.text};
+      font-size: 1rem;
+      font-weight: 500;
+    }
   }
 
   @media (max-width: 768px) {

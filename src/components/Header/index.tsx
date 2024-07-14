@@ -1,18 +1,21 @@
 import { CircleUserRound, Search, Sun } from "lucide-react"
-import { ActionsContainer, HeaderContainer, InputArea, LeftContainer } from "./styles"
+import {
+  ActionsContainer,
+  HeaderContainer,
+  InputArea,
+  LeftContainer,
+} from "./styles"
 import logo from "../../assets/logo-white.svg"
 import { NavLink } from "react-router-dom"
 import { DrawerBasic } from "./Drawer"
 import { SearchBarArea } from "./SearchBarArea"
 import { useState } from "react"
 
-
 export function Header() {
-
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  
+
   return (
     <HeaderContainer>
       <LeftContainer>
@@ -21,7 +24,9 @@ export function Header() {
       </LeftContainer>
       <InputArea onClick={handleOpen}>
         <Search />
-        {/* <input type="search" placeholder="Pesquisar" disabled /> */}
+        <div>
+          <span>Pesquisar</span>
+        </div>
       </InputArea>
       <ActionsContainer>
         <button onClick={handleOpen}>

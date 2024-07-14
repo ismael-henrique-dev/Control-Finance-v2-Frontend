@@ -8,6 +8,7 @@ export default {
     white: "#fff",
     primaryGray: "#DEDAD6",
     secundaryGray: "#CCC9C6",
+    terciaryGray: "#524A42",
     invertColor: "#fff",
   },
 }

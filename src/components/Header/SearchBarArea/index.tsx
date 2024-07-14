@@ -1,7 +1,11 @@
-import Modal from "@mui/material/Modal"
-import { InputArea } from "../styles"
 import { ChevronRight, Search, SearchCheck } from "lucide-react"
-import { ContainerModal, Suggestion, SuggestionArea } from "./styles"
+import {
+  ContainerModal,
+  InputAreaFunctional,
+  ModalStyled,
+  Suggestion,
+  SuggestionArea,
+} from "./styles"
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
@@ -18,13 +22,14 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
   })
 
   return (
-    <Modal open={open} onClose={handleClose}>
+    <ModalStyled open={open} onClose={handleClose}>
       <ContainerModal>
         <header>
-          <InputArea>
+          <InputAreaFunctional>
             <Search />
             <input type="search" placeholder="Pesquisar" />
-          </InputArea>
+          </InputAreaFunctional>
+          <button onClick={handleClose}>cancelar</button>
         </header>
         <main>
           {/* Suggestions area */}
@@ -82,6 +87,6 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
           </SuggestionArea>
         </main>
       </ContainerModal>
-    </Modal>
+    </ModalStyled>
   )
 }

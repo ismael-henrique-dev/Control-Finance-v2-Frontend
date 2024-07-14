@@ -12,6 +12,7 @@ declare module "styled-components" {
       white: string
       primaryGray: string
       secundaryGray: string
+      terciaryGray: string
       invertColor: string
     }
   }
