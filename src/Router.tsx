@@ -7,12 +7,13 @@ import { Accounts } from "./pages/Accounts"
 import { FinancialIncome } from "./pages/FinancialIncome"
 import { Goals } from "./pages/Goals"
 import { Profile } from "./pages/Profile"
+import { SingUp } from "./pages/SingIn"
 
 export function Router() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      {/* <Route path={} element={} /> */}
+      <Route path="/singUp" element={<SingUp />} />
 
       <Route path="" element={<DefaultLayout />}>
         <Route path="/" element={<Dashboard />} />
