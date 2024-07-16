@@ -9,4 +9,6 @@ export const lightTheme: DefaultTheme = {
   secundaryGray: "#CCC9C6",
   terciaryGray: "#524A42",
   invertColor: "#fff",
+  red: "#DC2626",
+  green: "#16A34A",
 }

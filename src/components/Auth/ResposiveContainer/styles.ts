@@ -12,9 +12,10 @@ export const ContainerResposive = styled.main`
   background-color: ${(props) => props.theme.primaryGray};
   display: flex;
   align-items: center;
+  justify-content: center;
   flex: wrap;
   gap: 2.5rem;
-  padding: 4rem 8rem;
+  padding: 4rem 4rem;
   border-radius: 12px;
 
   a {
@@ -29,5 +30,6 @@ export const ContainerResposive = styled.main`
 
   @media (max-width: 768px) {
     flex-direction: column;
+    padding: 4rem 2rem;
   }
 `

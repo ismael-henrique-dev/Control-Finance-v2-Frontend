@@ -69,7 +69,7 @@ export function DrawerBasic() {
             </ListItem>
             <ListItem>
               <LogOut />
-              <NavLink to="/singUp">Log-out</NavLink>
+              <NavLink to="/login">Log-out</NavLink>
             </ListItem>
           </ListContainer>
         </ContainerDrawer>

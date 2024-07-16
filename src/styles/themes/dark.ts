@@ -9,4 +9,6 @@ export const darkTheme: DefaultTheme = {
   secundaryGray: "#333639",
   terciaryGray: "#ADB5BD",
   invertColor: "#000",
+  red: "#DC2626",
+  green: "#16A34A",
 }
