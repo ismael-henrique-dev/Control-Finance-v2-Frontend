@@ -1,25 +1,35 @@
 import { NavLink } from "react-router-dom";
-import { ContainerDefault, HomeContainer } from "./styles";
+import { ContainerDefault, HomeContainer, TopContainer } from "./styles";
 import { AccountCard } from "../../components/Cards/AccountCard";
+import { GoalCard } from "../../components/Cards/GoalCard";
 
 export function Home() {
+
   return (
     <HomeContainer>
       <ContainerDefault></ContainerDefault>
+
       <ContainerDefault>
-        <header>
+        <TopContainer>
           <strong>Contas</strong>
           <NavLink to="/contas">ver mais</NavLink>
-        </header>
-        <div>
+        </TopContainer>
+        <main>
           <AccountCard />
-        </div>
+          <AccountCard />
+          <AccountCard />
+        </main>
       </ContainerDefault>
+
       <ContainerDefault>
-        <header>
+        <TopContainer>
           <strong>Metas</strong>
           <NavLink to="/metas">ver mais</NavLink>
-        </header>
+        </TopContainer>
+        <main>
+          <GoalCard />
+          <GoalCard />
+        </main>
       </ContainerDefault>
     </HomeContainer>
   )

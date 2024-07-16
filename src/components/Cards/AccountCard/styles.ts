@@ -18,9 +18,14 @@ export const AccountCardConatiner = styled.div`
   }
 
   header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
     strong {
       font-weight: 600;
       font-size: 1.5rem;
+      color: ${(props) => props.theme.text};
     }
 
     div {

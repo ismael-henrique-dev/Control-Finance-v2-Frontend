@@ -1,34 +1,55 @@
 import styled from "styled-components"
 
 export const HomeContainer = styled.div`
+  max-width: 74rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 2rem 0; /* alterar dps */
+  align-items: center;
+  margin: 2rem auto; /* alterar dps */
+
+  @media (max-width: 768px) {
+  }
 `
 
 export const ContainerDefault = styled.div`
-  width: 100%;
-  max-width: 72rem;
   display: flex;
   align-items: center;
   margin: auto;
+  flex-direction: column;
 
-  header {
+  main {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    strong {
-      color: ${(props) => props.theme.text};
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
+    justify-content: center;
+    margin: auto;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+`
 
-    a {
-      text-decoration: none;
-      color: ${(props) => props.theme.secundary};
-      font-size: 1.25rem;
-    }
+export const TopContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 0.75rem;
+
+  strong {
+    color: ${(props) => props.theme.text};
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  a {
+    text-decoration: none;
+    color: ${(props) => props.theme.secundary};
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    
   }
 `
