@@ -64,7 +64,7 @@ export const BarLinearProgress = styled(LinearProgress)`
 `
 
 export const HomeSummary = styled.div`
-width: 20rem;
+  width: 20rem;
   border-radius: 12px;
   background-color: ${(props) => props.theme.primaryGray};
   display: flex;
@@ -73,7 +73,7 @@ width: 20rem;
   flex-direction: column;
   padding: 1.5rem;
   gap: 1.5rem;
-  
+
   section {
     display: flex;
     flex-direction: column;
