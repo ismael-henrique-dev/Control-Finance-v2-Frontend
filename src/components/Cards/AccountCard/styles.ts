@@ -41,6 +41,11 @@ export const AccountCardConatiner = styled.div`
   }
 `
 
+export const ActionsArea = styled.section`
+  display: flex;
+  gap: 0.75rem;
+`
+
 export const AccountSummary = styled.section`
   width: 100%;
   display: flex;

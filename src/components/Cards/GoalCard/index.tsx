@@ -1,8 +1,13 @@
-import { CircleDollarSign, EllipsisVertical } from "lucide-react"
+import { CircleDollarSign } from "lucide-react"
 import { useState } from "react"
 import { BarLinearProgress, ContainerCard } from "./styles"
+import { MouseOverPopover } from "./SpeedDial"
 
-export function GoalCard() {
+export interface MouseOverProps {
+  isGoalsPage: boolean
+}
+
+export function GoalCard({isGoalsPage}:MouseOverProps) {
   const [progress, setProgress] = useState(60) // na real progress virá do backend
 
   return (
@@ -12,7 +17,7 @@ export function GoalCard() {
           <CircleDollarSign size={32} />
           <strong>Juntar essa grana para viajar</strong>
         </div>
-        <EllipsisVertical />
+        <MouseOverPopover isGoalsPage={isGoalsPage} />
       </header>
       <span>Vencimento: 26/08/2025</span>
       <section>

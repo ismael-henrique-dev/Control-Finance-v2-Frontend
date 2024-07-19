@@ -33,9 +33,9 @@ export function Home() {
       </TopContainer>
       <ContainerDefault content="start">
         <main>
-          <AccountCard />
-          <AccountCard />
-          <AccountCard />
+          <AccountCard isPageAccounts={false} />
+          <AccountCard isPageAccounts={false} />
+          <AccountCard isPageAccounts={false} />
         </main>
       </ContainerDefault>
       <TopContainer>
@@ -44,8 +44,8 @@ export function Home() {
       </TopContainer>
       <ContainerDefault content="start">
         <main>
-          <GoalCard />
-          <GoalCard />
+          <GoalCard isGoalsPage={false} />
+          <GoalCard isGoalsPage={false} />
           {/* <GoalCard /> */}
         </main>
       </ContainerDefault>

@@ -1,7 +1,17 @@
-import { Plus, TrendingDown, TrendingUp, Wallet } from "lucide-react";
-import { AccountCardConatiner, AccountSummary, ButtonAdd, SummaryType } from "./styles";
+import { Plus, Settings2, TrendingDown, TrendingUp, Wallet } from "lucide-react"
+import {
+  AccountCardConatiner,
+  AccountSummary,
+  ActionsArea,
+  ButtonAdd,
+  SummaryType,
+} from "./styles"
 
-export function AccountCard() {
+interface AccountCardProps {
+  isPageAccounts: boolean
+}
+
+export function AccountCard({ isPageAccounts }: AccountCardProps) {
   return (
     <AccountCardConatiner>
       <header>
@@ -9,9 +19,16 @@ export function AccountCard() {
           <Wallet size={32} />
           <strong>Carteira</strong>
         </div>
-        <ButtonAdd>
-          <Plus />
-        </ButtonAdd>
+        <ActionsArea>
+          {isPageAccounts && (
+            <ButtonAdd>
+              <Settings2 />
+            </ButtonAdd>
+          )}
+          <ButtonAdd>
+            <Plus />
+          </ButtonAdd>
+        </ActionsArea>
       </header>
       <strong>R$ 100,00</strong>
       <AccountSummary>
