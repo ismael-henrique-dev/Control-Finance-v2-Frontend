@@ -1,13 +1,13 @@
 import { CircleDollarSign } from "lucide-react"
 import { useState } from "react"
 import { BarLinearProgress, ContainerCard } from "./styles"
-import { MouseOverPopover } from "./SpeedDial"
+import { ClickPopover } from "./SpeedDial"
 
-export interface MouseOverProps {
+export interface GoalCardProps {
   isGoalsPage: boolean
 }
 
-export function GoalCard({isGoalsPage}:MouseOverProps) {
+export function GoalCard({ isGoalsPage }: GoalCardProps) {
   const [progress, setProgress] = useState(60) // na real progress virá do backend
 
   return (
@@ -17,7 +17,9 @@ export function GoalCard({isGoalsPage}:MouseOverProps) {
           <CircleDollarSign size={32} />
           <strong>Juntar essa grana para viajar</strong>
         </div>
-        <MouseOverPopover isGoalsPage={isGoalsPage} />
+        <button>
+          <ClickPopover isGoalsPage={isGoalsPage} />
+        </button>
       </header>
       <span>Vencimento: 26/08/2025</span>
       <section>

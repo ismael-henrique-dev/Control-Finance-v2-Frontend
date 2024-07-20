@@ -21,6 +21,14 @@ export const ContainerCard = styled.div`
       gap: 0.75rem;
     }
 
+    button {
+      border: none;
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
     svg {
       color: ${(props) => props.theme.secundary};
       font-size: 2rem;
@@ -62,5 +70,3 @@ export const BarLinearProgress = styled(LinearProgress)`
       props.theme.secundaryGray}; /* cor do fundo da barra */
   }
 `
-
-

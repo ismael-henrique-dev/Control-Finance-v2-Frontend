@@ -9,9 +9,9 @@ import {
   X,
 } from "lucide-react"
 import { Actions, Container } from "./styles"
-import { MouseOverProps } from ".."
+import { GoalCardProps } from ".."
 
-export function MouseOverPopover({ isGoalsPage }: MouseOverProps) {
+export function ClickPopover({ isGoalsPage }: GoalCardProps) {
   const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
   const [open, setOpen] = React.useState(false)
 
