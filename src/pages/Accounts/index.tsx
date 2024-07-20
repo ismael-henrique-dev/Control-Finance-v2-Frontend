@@ -1,7 +1,9 @@
+import { Summary } from "../../components/Summary";
+
 export function Accounts() {
   return (
     <>
-      <h1>Accounts</h1>
+      <Summary />
     </>
   )
 }

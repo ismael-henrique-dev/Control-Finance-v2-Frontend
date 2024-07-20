@@ -2,6 +2,8 @@ import logoWhite from "../../assets/logo-white.svg"
 import { InputOTP } from "./InputOTP"
 import { AuthContainer } from "./styles"
 
+const erro = "Erro" // SÓ PRA ESTILIZAR
+
 export function Auth() {
   return (
     <AuthContainer>
@@ -13,7 +15,7 @@ export function Auth() {
       </p>
       <InputOTP />
       <button>Validar código</button>
-      {/* Caso der erro */}
+      {!erro && (<span>Código inválido</span>)}
       <p>
         Não recebeu o código de verificação? <span>Enviar novamente</span>
       </p>

@@ -5,6 +5,7 @@ export const AuthContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   border-radius: 12px;
   background-color: ${(props) => props.theme.primaryGray};
   display: flex;
@@ -19,6 +20,12 @@ export const AuthContainer = styled.div`
     font-size: 1.25rem;
     font-weight: 600;
     color: ${(props) => props.theme.text};
+  }
+
+  span {
+    color: ${(props) => props.theme.red};
+    font-weight: 500;
+    font-size: 0.875rem;
   }
 
   p {
@@ -51,7 +58,10 @@ export const AuthContainer = styled.div`
 
   @media (max-width: 768px) {
     & {
-      top: 10%;
+      padding: 2rem;
+      top: 0;
+      height: 100vh;
+      justify-content: start;
       transform: translate(-50%, 0%);
     }
   }
