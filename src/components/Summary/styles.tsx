@@ -1,17 +1,22 @@
 import styled from "styled-components"
 
 export const ContainerSummary = styled.div`
-  width: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem 1.25rem;
   background-color: ${(props) => props.theme.primaryGray};
-  margin: 24px;
   gap: 1.5rem;
   border-radius: 12px;
   flex-wrap: wrap;
-`
+
+  @media (max-width: 768px) {
+    & {
+      width: 20rem;
+      justify-content: start;
+    }
+  }
+`;
 
 interface TransactionTypeVariants {
   variant: "total" | "income" | "outcome"
