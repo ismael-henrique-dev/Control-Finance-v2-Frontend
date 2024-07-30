@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerAccounts = styled.div`
+export const ContainerGoals = styled.div`
   max-width: 64rem;
   display: flex;
   flex-direction: column;
