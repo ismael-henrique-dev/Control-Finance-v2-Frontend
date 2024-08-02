@@ -16,6 +16,7 @@ export function Home() {
       <ContainerDefault content="center">
         <EstatisticCard>
           <strong>Saldo total</strong>
+          
           <Summary />
         </EstatisticCard>
         <EstatisticCard>

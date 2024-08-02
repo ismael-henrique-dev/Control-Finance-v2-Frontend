@@ -8,7 +8,7 @@ export interface GoalCardProps {
 }
 
 export function GoalCard({ isGoalsPage }: GoalCardProps) {
-  const [progress, setProgress] = useState(60) // na real progress virá do backend
+  const [progress, setProgress] = useState(75) // na real progress virá do backend
 
   return (
     <ContainerCard>

@@ -1,7 +1,16 @@
+import { Summary } from "../../components/Summary";
+import { ContainerBarSummary, ContainerTransactions, MainContainer } from "./styles";
+import { Table } from "./Table";
+
 export function Transactions() {
   return (
-    <>
-      <h1>Transactions</h1>
-    </>
+    <ContainerTransactions>
+      <ContainerBarSummary>
+        <Summary />
+      </ContainerBarSummary>
+      <MainContainer>
+        <Table />
+      </MainContainer>
+    </ContainerTransactions>
   )
 }
