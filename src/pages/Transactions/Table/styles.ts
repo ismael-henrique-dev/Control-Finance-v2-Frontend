@@ -4,8 +4,7 @@ export const ContainerTable = styled.div`
   width: 100%;
   max-width: 1214px;
   display: flex;
- 
-  
+
   /* margin: 4rem auto 0; */
   /* padding: 0 1.5rem; */
 `;
@@ -15,7 +14,7 @@ export const TransactionsTable = styled.table`
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
-  margin-top: 1.5rem;
+  /*margin-top: 1.5rem;*/
   /* background-color: ${(props) => props.theme.primaryGray}; */
   font-size: 0.875rem;
   font-weight: 600;
@@ -29,12 +28,12 @@ export const TransactionsTable = styled.table`
         background-color: ${(props) => props.theme.secundary};
 
         &:first-child {
-          border-top-left-radius: 6px;
+          border-top-left-radius: 12px;
           width: 35%;
         }
 
         &:last-child {
-          border-top-right-radius: 6px;
+          border-top-right-radius: 12px;
         }
       }
     }
@@ -63,7 +62,6 @@ export const TransactionsTable = styled.table`
         }
 
         &:first-child {
-          border-top-left-radius: 6px;
           width: 35rem;
         }
 
@@ -71,6 +69,36 @@ export const TransactionsTable = styled.table`
           padding: 1.25rem 1rem;
         }
       }
+    }
+  }
+
+  tfoot {
+    background-color: ${(props) => props.theme.primaryGray};
+    tr {
+      td {
+        padding: 1.25rem 2rem;
+        white-space: nowrap;
+
+        &:first-child {
+          border-bottom-left-radius: 12px;
+        }
+        &:last-child {
+          border-bottom-right-radius: 12px;
+        }
+
+        section {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          margin-left: 2rem;
+        }
+      }
+    }
+
+    span {
+      font-weight: 400;
+      font-size: 0.875rem;
+      color: ${(props) => props.theme.text};
     }
   }
 `;
@@ -87,4 +115,24 @@ export const MoreButton = styled.button`
   border-radius: 6px;
   padding: 6px;
   font-size: 1rem;
+`;
+
+export const NavButton = styled.button`
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.primary};
+  border: none;
+  color: ${(props) => props.theme.white};
+  border-radius: 6px;
+  padding: 6px;
+  font-size: 1rem;
+`;
+
+export const NavContainer = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 `;

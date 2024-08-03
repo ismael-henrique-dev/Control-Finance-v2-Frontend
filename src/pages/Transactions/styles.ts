@@ -33,6 +33,12 @@ export const MainContainer = styled.main`
   flex-wrap: wrap;
   gap: 2rem;
 
+  strong {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: ${(props) => props.theme.text};
+  }
+
   @media (max-width: 768px) {
     & {
       justify-content: center;

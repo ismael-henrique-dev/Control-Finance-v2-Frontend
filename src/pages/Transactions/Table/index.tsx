@@ -1,5 +1,11 @@
-import { Banknote, MoreHorizontal, Wallet } from "lucide-react";
-import { ContainerTable, MoreButton, TransactionsTable } from "./styles";
+import { Banknote, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal, Wallet } from "lucide-react";
+import {
+  ContainerTable,
+  MoreButton,
+  NavButton,
+  NavContainer,
+  TransactionsTable,
+} from "./styles";
 
 export function Table() {
   return (
@@ -60,6 +66,32 @@ export function Table() {
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={4}>
+              <span>Mostrando 10 de 68 transações</span>
+            </td>
+            <td colSpan={3}>
+              <section>
+                <span>Página 1 de 7</span>
+                <NavContainer>
+                  <NavButton>
+                    <ChevronsLeft />
+                  </NavButton>
+                  <NavButton>
+                    <ChevronLeft />
+                  </NavButton>
+                  <NavButton>
+                    <ChevronRight />
+                  </NavButton>
+                  <NavButton>
+                    <ChevronsRight />
+                  </NavButton>
+                </NavContainer>
+              </section>
+            </td>
+          </tr>
+        </tfoot>
       </TransactionsTable>
     </ContainerTable>
   );
