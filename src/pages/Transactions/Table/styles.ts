@@ -1,23 +1,24 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const ContainerTable = styled.div`
   width: 100%;
   max-width: 1214px;
   display: flex;
 
-  /* margin: 4rem auto 0; */
-  /* padding: 0 1.5rem; */
-`;
+  @media (max-width: 600px) {
+    overflow-x: scroll;
+    width: 20rem;
+  }
+`
 
 export const TransactionsTable = styled.table`
   background-color: transparent;
-  width: 100%;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
-  /*margin-top: 1.5rem;*/
-  /* background-color: ${(props) => props.theme.primaryGray}; */
+
   font-size: 0.875rem;
   font-weight: 600;
+  min-width: 100px; 
 
   thead {
     tr {
@@ -47,7 +48,7 @@ export const TransactionsTable = styled.table`
         padding: 1.25rem 2rem;
         font-size: 0.875rem;
         font-weight: 400;
-        color: ${(props) => props.theme.text};
+        color: ${(props) => props.theme.terciaryGray};
         white-space: nowrap;
 
         .icon-text {
@@ -98,41 +99,42 @@ export const TransactionsTable = styled.table`
     span {
       font-weight: 400;
       font-size: 0.875rem;
-      color: ${(props) => props.theme.text};
+      color: ${(props) => props.theme.terciaryGray};
     }
   }
-`;
+`
 
-export const MoreButton = styled.button`
+interface ButtonVariant {
+  variant?: "more" | "nav"
+}
+
+export const Button = styled.button<ButtonVariant>`
   width: 1.75rem;
   height: 1.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.secundaryGray};
+  background-color: ${(props) =>
+    props.variant === "more" ? props.theme.secundaryGray : props.theme.primary};
   border: none;
-  color: ${(props) => props.theme.text};
+  color: ${(props) =>
+    props.variant === "more" ? props.theme.text : props.theme.white};
   border-radius: 6px;
   padding: 6px;
   font-size: 1rem;
-`;
 
-export const NavButton = styled.button`
-  width: 1.75rem;
-  height: 1.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${(props) => props.theme.primary};
-  border: none;
-  color: ${(props) => props.theme.white};
-  border-radius: 6px;
-  padding: 6px;
-  font-size: 1rem;
-`;
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`
 
 export const NavContainer = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-`;
+`

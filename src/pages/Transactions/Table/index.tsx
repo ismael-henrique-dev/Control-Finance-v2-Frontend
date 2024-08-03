@@ -1,11 +1,18 @@
-import { Banknote, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal, Wallet } from "lucide-react";
 import {
+  Banknote,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  MoreHorizontal,
+  Wallet,
+} from "lucide-react"
+import {
+  Button,
   ContainerTable,
-  MoreButton,
-  NavButton,
   NavContainer,
   TransactionsTable,
-} from "./styles";
+} from "./styles"
 
 export function Table() {
   return (
@@ -39,9 +46,9 @@ export function Table() {
               </div>
             </td>
             <td>
-              <MoreButton>
+              <Button variant="more">
                 <MoreHorizontal />
-              </MoreButton>
+              </Button>
             </td>
           </tr>
           <tr>
@@ -60,9 +67,30 @@ export function Table() {
               </div>
             </td>
             <td>
-              <MoreButton>
+              <Button variant="more">
                 <MoreHorizontal />
-              </MoreButton>
+              </Button>
+            </td>
+          </tr>
+          <tr>
+            <td>Pagamento Mensal</td>
+            <td>R$ 1200,00</td>
+            <td>Há 2 meses</td>
+            <td>Depósito</td>
+            <td>
+              <div className="icon-text">
+                <Wallet /> Carteira
+              </div>
+            </td>
+            <td>
+              <div className="icon-text">
+                <Banknote /> Salário
+              </div>
+            </td>
+            <td>
+              <Button variant="more">
+                <MoreHorizontal />
+              </Button>
             </td>
           </tr>
         </tbody>
@@ -75,18 +103,18 @@ export function Table() {
               <section>
                 <span>Página 1 de 7</span>
                 <NavContainer>
-                  <NavButton>
+                  <Button variant="nav">
                     <ChevronsLeft />
-                  </NavButton>
-                  <NavButton>
+                  </Button>
+                  <Button variant="nav">
                     <ChevronLeft />
-                  </NavButton>
-                  <NavButton>
+                  </Button>
+                  <Button variant="nav">
                     <ChevronRight />
-                  </NavButton>
-                  <NavButton>
+                  </Button>
+                  <Button variant="nav">
                     <ChevronsRight />
-                  </NavButton>
+                  </Button>
                 </NavContainer>
               </section>
             </td>
@@ -94,5 +122,5 @@ export function Table() {
         </tfoot>
       </TransactionsTable>
     </ContainerTable>
-  );
+  )
 }

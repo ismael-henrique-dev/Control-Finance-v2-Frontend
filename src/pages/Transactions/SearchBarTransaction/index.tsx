@@ -1,5 +1,5 @@
-import { Search } from "lucide-react";
-import { ContainerSearchBarTransaction } from "./styles";
+import { Search } from "lucide-react"
+import { ContainerSearchBarTransaction } from "./styles"
 
 export function SearchBarTransaction() {
   return (
@@ -9,5 +9,5 @@ export function SearchBarTransaction() {
         <input type="text" placeholder="Buscar transação" />
       </div>
     </ContainerSearchBarTransaction>
-  );
+  )
 }

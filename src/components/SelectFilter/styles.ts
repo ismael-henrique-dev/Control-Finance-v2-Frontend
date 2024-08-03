@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const ContainerFilterSelect = styled.div`
   width: 10rem;
@@ -16,5 +16,7 @@ export const ContainerFilterSelect = styled.div`
     justify-content: space-between;
     align-items: center;
     gap: 0.75rem;
+    border-bottom: 3px solid ${(props) => props.theme.secundary};
+    padding: 0.5rem 0;
   }
-`;
+`

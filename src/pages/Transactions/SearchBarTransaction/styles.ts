@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const ContainerSearchBarTransaction = styled.div`
   border-radius: 12px;
@@ -26,7 +26,6 @@ export const ContainerSearchBarTransaction = styled.div`
     border: 0;
     color: ${(props) => props.theme.text};
     font-size: 1rem;
-    
   }
 
   input::placeholder {
@@ -34,4 +33,4 @@ export const ContainerSearchBarTransaction = styled.div`
     font-size: 1rem;
     font-weight: 500;
   }
-`;
+`

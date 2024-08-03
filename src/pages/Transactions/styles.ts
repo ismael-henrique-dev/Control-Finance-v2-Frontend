@@ -1,7 +1,7 @@
-import { styled } from "styled-components";
+import { styled } from "styled-components"
 
 export const ContainerTransactions = styled.div`
-  max-width: 64rem;
+  max-width: 68rem;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -9,7 +9,7 @@ export const ContainerTransactions = styled.div`
   padding: 0;
   margin: 2rem auto;
   gap: 2rem;
-`;
+`
 
 export const ContainerBarSummary = styled.div`
   width: 100%;
@@ -17,7 +17,7 @@ export const ContainerBarSummary = styled.div`
   justify-content: start;
   align-items: center;
   gap: 2rem;
-  flex-wrap: wrap-reverse;
+  flex-wrap: wrap;
 
   @media (max-width: 768px) {
     & {
@@ -25,13 +25,20 @@ export const ContainerBarSummary = styled.div`
       flex-direction: column-reverse;
     }
   }
-`;
+`
 
 export const MainContainer = styled.main`
   display: flex;
   justify-content: start;
-  flex-wrap: wrap;
+  /* align-items: center; */
+  flex-direction: column;
+  /* flex-wrap: wrap; */
   gap: 2rem;
+
+  @media (max-width: 768px) {
+    width: 20rem;
+    margin: auto;
+  }
 
   strong {
     font-size: 1.5rem;
@@ -44,4 +51,4 @@ export const MainContainer = styled.main`
       justify-content: center;
     }
   }
-`;
+`

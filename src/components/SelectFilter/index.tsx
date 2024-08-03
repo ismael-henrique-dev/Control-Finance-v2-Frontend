@@ -10,8 +10,8 @@ export function SelectFilter() {
       <div>
         <Filter />
         <span>Filtrar</span>
+        <ChevronDown />
       </div>
-      <ChevronDown />
     </ContainerFilterSelect>
-  );
+  )
 }
