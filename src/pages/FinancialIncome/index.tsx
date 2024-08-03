@@ -1,7 +1,10 @@
+import { CardStatus } from "./CardStatus";
+
+
 export function FinancialIncome() {
   return (
     <>
-      <h1>FinancialIncome</h1>
+      <CardStatus />
     </>
   )
 }
