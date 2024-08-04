@@ -1,18 +1,18 @@
-import { SelectFilter } from "../../components/SelectFilter"
+import { SelectFilter } from "../../components/FilterSelect"
 import { Summary } from "../../components/Summary"
+import { Button } from "../../components/Button"
 import { Table } from "./Table"
 import { SearchBarTransaction } from "./SearchBarTransaction"
 import {
   ContainerBarSummary,
-  ContainerTransactions,
   MainContainer,
+  TransactionsContainer,
 } from "./styles"
-import { Button } from "../../components/Button"
 
 export function Transactions() {
   return (
-    <ContainerTransactions>
-      <ContainerBarSummary>
+    <TransactionsContainer>
+      <ContainerBarSummary> {/* Analisar para ver se deve ser dividirei em um componente */}
         <Summary />
         <SearchBarTransaction />
         <SelectFilter />
@@ -22,6 +22,6 @@ export function Transactions() {
         <strong>Histórico de transações</strong>
         <Table />
       </MainContainer>
-    </ContainerTransactions>
+    </TransactionsContainer>
   )
 }

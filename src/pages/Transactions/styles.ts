@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
 
-export const ContainerTransactions = styled.div`
+export const TransactionsContainer = styled.div`
   max-width: 68rem;
   display: flex;
   flex-direction: column;

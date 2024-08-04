@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import {
-  ContainerDefault,
+  DefaultContainer,
   EstatisticCard,
   HomeContainer,
   TopContainer,
@@ -13,10 +13,9 @@ import { Summary } from "./HomeSummary"
 export function Home() {
   return (
     <HomeContainer>
-      <ContainerDefault content="center">
+      <DefaultContainer content="center">
         <EstatisticCard>
           <strong>Saldo total</strong>
-          
           <Summary />
         </EstatisticCard>
         <EstatisticCard>
@@ -27,29 +26,28 @@ export function Home() {
           <strong>Resumo dos saques</strong>
           <DonutChart />
         </EstatisticCard>
-      </ContainerDefault>
+      </DefaultContainer>
       <TopContainer>
         <strong>Contas</strong>
         <NavLink to="/contas">ver mais</NavLink>
       </TopContainer>
-      <ContainerDefault content="start">
+      <DefaultContainer content="start">
         <main>
           <AccountCard isPageAccounts={false} />
           <AccountCard isPageAccounts={false} />
           <AccountCard isPageAccounts={false} />
         </main>
-      </ContainerDefault>
+      </DefaultContainer>
       <TopContainer>
         <strong>Metas</strong>
         <NavLink to="/metas">ver mais</NavLink>
       </TopContainer>
-      <ContainerDefault content="start">
+      <DefaultContainer content="start">
         <main>
           <GoalCard isGoalsPage={false} />
           <GoalCard isGoalsPage={false} />
-          {/* <GoalCard /> */}
         </main>
-      </ContainerDefault>
+      </DefaultContainer>
     </HomeContainer>
   )
 }

@@ -1,16 +1,16 @@
-import { Lock, Mail, Pencil, UserRound } from "lucide-react"
+import { Lock, Mail, UserRound } from "lucide-react"
 import {
   Button,
   Card,
   ContainerButtonsForm,
   ContainerCards,
   ContainerForm,
-  ContainerInput,
   ContainerInputs,
-  ContainerProfile,
   Label,
+  ProfileContainer,
 } from "./styles"
 import { InputFileUpload } from "./InputFileUpload"
+import { EditableInput } from "./EditableInput"
 
 const teste = {
   email: "Ismael@gmail.com",
@@ -20,34 +20,28 @@ const teste = {
 
 export function Profile() {
   return (
-    <ContainerProfile>
+    <ProfileContainer>
       <ContainerForm>
         <InputFileUpload />
         <ContainerInputs>
           <Label>Email</Label>
-          <ContainerInput>
-            <div>
-              <Mail />
-              <input type="email" value={teste.email} />
-            </div>
-            <Pencil />
-          </ContainerInput>
+          <EditableInput
+            initialValue={teste.email}
+            svgIcon={<Mail />}
+            type="email"
+          />
           <Label>Senha</Label>
-          <ContainerInput>
-            <div>
-              <Lock />
-              <input type="password" value={teste.password} />
-            </div>
-            <Pencil />
-          </ContainerInput>
+          <EditableInput
+            initialValue={teste.password}
+            svgIcon={<Lock />}
+            type="password"
+          />
           <Label>Nome</Label>
-          <ContainerInput>
-            <div>
-              <UserRound />
-              <input type="text" value={teste.name} />
-            </div>
-            <Pencil />
-          </ContainerInput>
+          <EditableInput
+            initialValue={teste.name}
+            svgIcon={<UserRound />}
+            type="text"
+          />
           <ContainerButtonsForm>
             <Button>Cancelar</Button>
             <Button variant="purple">Alterar dados</Button>
@@ -73,6 +67,6 @@ export function Profile() {
           <Button variant="purple">Resetar conta</Button>
         </Card>
       </ContainerCards>
-    </ContainerProfile>
+    </ProfileContainer>
   )
 }

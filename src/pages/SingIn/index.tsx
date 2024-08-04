@@ -1,10 +1,10 @@
 import { Sponsor } from "../../components/Auth/Sponsor"
 import { AuthForm } from "../../components/Auth/AuthForm"
-import { ResposiveContainerAuth } from "../../components/Auth/ResposiveContainer"
+import { AuthResposiveContainer } from "../../components/Auth/ResposiveContainer"
 
 export function SingUp() {
   return (
-    <ResposiveContainerAuth>
+    <AuthResposiveContainer>
       <Sponsor />
       <AuthForm
         isLogin={false}
@@ -13,6 +13,6 @@ export function SingUp() {
         routeAuth="/login"
         navLinkText="Entrar"
       />
-    </ResposiveContainerAuth>
+    </AuthResposiveContainer>
   )
 }

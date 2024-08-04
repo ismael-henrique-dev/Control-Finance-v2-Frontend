@@ -1,13 +1,12 @@
-
 import { Button } from "../../components/Button";
 import { AccountCard } from "../../components/Cards/AccountCard";
 import { PaginationMenu } from "../../components/PaginationMenu";
 import { Summary } from "../../components/Summary";
-import { ContainerAccounts, ContainerBarSummary, MainContainer, Section } from "./styles";
+import { AccountsContainer, ContainerBarSummary, MainContainer, Section } from "./styles";
 
 export function Accounts() {
   return (
-    <ContainerAccounts>
+    <AccountsContainer>
       <ContainerBarSummary>
         <Summary />
         <Button />
@@ -22,6 +21,6 @@ export function Accounts() {
         <AccountCard isPageAccounts />
         <AccountCard isPageAccounts />
       </MainContainer>
-    </ContainerAccounts>
+    </AccountsContainer>
   );
 }

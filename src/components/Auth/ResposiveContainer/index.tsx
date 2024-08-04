@@ -1,14 +1,14 @@
 import { ReactNode } from "react"
-import { ContainerResposive, MainContainer } from "./styles"
+import { ResposiveContainer, MainContainer } from "./styles"
 
-interface ResposiveContainerAuthProps {
+interface AuthResposiveContainerProps {
   children: ReactNode
 }
 
-export function ResposiveContainerAuth({children}: ResposiveContainerAuthProps) {
+export function AuthResposiveContainer({ children }: AuthResposiveContainerProps) {
   return (
     <MainContainer>
-      <ContainerResposive>{children}</ContainerResposive>
+      <ResposiveContainer>{children}</ResposiveContainer>
     </MainContainer>
   )
 }

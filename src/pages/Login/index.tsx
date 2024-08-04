@@ -1,10 +1,10 @@
 import { Sponsor } from "../../components/Auth/Sponsor"
-import { ResposiveContainerAuth } from "../../components/Auth/ResposiveContainer"
+import { AuthResposiveContainer } from "../../components/Auth/ResposiveContainer"
 import { AuthForm } from "../../components/Auth/AuthForm"
 
 export function Login() {
   return (
-    <ResposiveContainerAuth>
+    <AuthResposiveContainer>
       <Sponsor />
       <AuthForm
         isLogin
@@ -13,6 +13,6 @@ export function Login() {
         navLinkText="Cadraste-se"
         authType="Entrar"
       />
-    </ResposiveContainerAuth>
+    </AuthResposiveContainer>
   )
 }

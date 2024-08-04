@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const ContainerProfile = styled.div`
+export const ProfileContainer = styled.div`
   max-width: 50.75rem;
   background-color: ${(props) => props.theme.primaryGray};
   display: flex;

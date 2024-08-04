@@ -14,11 +14,11 @@ export const HomeContainer = styled.div`
   }
 `
 
-interface ContainerDefaultProps {
+interface DefaultContainerProps {
   content: "center" | "start"
 }
 
-export const ContainerDefault = styled.div<ContainerDefaultProps>`
+export const DefaultContainer = styled.div<DefaultContainerProps>`
   display: flex;
 
   gap: 2rem;

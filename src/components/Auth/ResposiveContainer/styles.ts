@@ -8,7 +8,7 @@ export const MainContainer = styled.div`
   justify-content: center;
 `
 
-export const ContainerResposive = styled.main`
+export const ResposiveContainer = styled.main`
   background-color: ${(props) => props.theme.primaryGray};
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 import { ArrowDown, ArrowUp } from "lucide-react"
-import { HomeSummary, MainBalance, TypeTransaction } from "./styles"
+import { HomeSummary, MainBalance, TransactionType } from "./styles"
 
 export function Summary() {
   return (
@@ -9,18 +9,18 @@ export function Summary() {
         <span>Saldo atual</span>
       </MainBalance>
       <section>
-        <TypeTransaction variant="income">
+        <TransactionType variant="income">
           <div>
             <ArrowUp />
           </div>
           <span>R$ 600,00</span>
-        </TypeTransaction>
-        <TypeTransaction variant="outcome">
+        </TransactionType>
+        <TransactionType variant="outcome">
           <div>
             <ArrowDown />
           </div>
           <span>R$ 200,00</span>
-        </TypeTransaction>
+        </TransactionType>
       </section>
     </HomeSummary>
   )

@@ -42,7 +42,7 @@ interface TypeTransactionIconProps {
   variant: "income" | "outcome"
 }
 
-export const TypeTransaction = styled.div<TypeTransactionIconProps>`
+export const TransactionType = styled.div<TypeTransactionIconProps>`
   display: flex;
   justify-content: center;
   align-items: center;
