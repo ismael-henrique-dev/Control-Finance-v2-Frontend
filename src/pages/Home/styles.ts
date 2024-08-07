@@ -9,6 +9,7 @@ export const HomeContainer = styled.div`
   margin: 2rem auto; /* alterar dps */
   /* flex-wrap: wrap; */
   gap: 2rem;
+  min-height: 100vh;
 
   @media (max-width: 768px) {
   }

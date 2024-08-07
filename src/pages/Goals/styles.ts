@@ -9,6 +9,7 @@ export const GoalsContainer = styled.div`
   padding: 0;
   margin: 2rem auto;
   gap: 2rem;
+  min-height: 100vh;
 `
 
 export const ContainerBarSummary = styled.div`
@@ -50,6 +51,7 @@ export const MainContainer = styled.main`
   justify-content: start;
   flex-wrap: wrap;
   gap: 2rem;
+ 
 
   @media (max-width: 768px) {
     & {
