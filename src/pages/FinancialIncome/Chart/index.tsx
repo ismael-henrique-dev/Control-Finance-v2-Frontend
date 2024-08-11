@@ -4,11 +4,15 @@ import styled from "styled-components"
 
 const ChartContainer = styled.div`
   max-width: 854px;
+  min-height: 444px;
   margin: auto;
-  /* padding: 20px; */
+  padding: 20px;
   background-color: #2b2b2b;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  /* box-shadow: 0 4px 8px hsla(0, 0%, 0%, 0.1); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 const ColumnChart: React.FC = () => {
@@ -92,8 +96,8 @@ const ColumnChart: React.FC = () => {
         options={chartOptions}
         series={series}
         type="bar"
-        height={350}
-        width={854}
+        height={394}
+        width={824}
       />
     </ChartContainer>
   )
