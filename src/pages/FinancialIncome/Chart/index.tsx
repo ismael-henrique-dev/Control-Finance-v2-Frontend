@@ -1,37 +1,37 @@
 import React from "react"
 import ReactApexChart from "react-apexcharts"
-import styled from "styled-components"
+import styled, { useTheme } from "styled-components"
 
 const ChartContainer = styled.div`
   max-width: 854px;
   min-height: 444px;
   margin: auto;
   padding: 20px;
-  background-color: #2b2b2b;
+  background-color: ${(props) => props.theme.primaryGray};
   border-radius: 12px;
-  /* box-shadow: 0 4px 8px hsla(0, 0%, 0%, 0.1); */
   display: flex;
   justify-content: center;
   align-items: center;
 `
 
 const ColumnChart: React.FC = () => {
+  const theme = useTheme()
   const chartOptions: ApexCharts.ApexOptions = {
     chart: {
       type: "bar",
       height: 350,
-      
+
       toolbar: {
         show: false,
       },
-      background: "#2b2b2b",
+      background: theme.primaryGray,
     },
     plotOptions: {
       bar: {
         horizontal: false,
         columnWidth: "55%",
         borderRadius: 12,
-        borderRadiusApplication: "end"
+        borderRadiusApplication: "end",
         // endingShape: "rounded",
       },
     },
@@ -47,8 +47,7 @@ const ColumnChart: React.FC = () => {
       categories: ["Mar 1-7", "Mar 8-14", "Mar 15-21", "Mar 22-28", "Final"],
       labels: {
         style: {
-          colors: "#fff",
-          
+          colors: theme.text,
         },
       },
     },
@@ -56,18 +55,18 @@ const ColumnChart: React.FC = () => {
       title: {
         text: "Em R$",
         style: {
-          color: "#fff",
+          color: theme.text,
         },
       },
       labels: {
         style: {
-          colors: "#fff",
+          colors: theme.text,
         },
       },
     },
     fill: {
       opacity: 1,
-      colors: ["#6A5ACD", "#000"],
+      colors: [theme.primary, theme.secundary],
     },
     tooltip: {
       y: {
@@ -78,14 +77,13 @@ const ColumnChart: React.FC = () => {
       theme: "dark",
     },
     grid: {
-      borderColor: "#ffffff", // linhas atras
-      
+      borderColor: theme.text, // linhas atras
     },
   }
 
   const series = [
     {
-      name: "Revenue",
+      name: "Saldo neste periodo",
       data: [300, 400, 350, 600, 150],
     },
   ]
