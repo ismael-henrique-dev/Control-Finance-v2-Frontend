@@ -9,7 +9,8 @@ export const CardStatusContainer = styled.div`
   gap: 2rem;
   background-color: ${(props) => props.theme.primaryGray};
   border-radius: 12px;
-  min-width: 304px;
+  min-width: 20rem;
+  /* margin-top: 2rem; */
 
   p {
     color: ${(props) => props.theme.text};

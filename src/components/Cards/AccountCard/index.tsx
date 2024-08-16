@@ -6,6 +6,7 @@ import {
   ButtonAdd,
   SummaryType,
 } from "./styles"
+import { ModalBase } from "../../ModalBase"
 
 interface AccountCardProps {
   isPageAccounts: boolean
@@ -47,6 +48,7 @@ export function AccountCard({ isPageAccounts }: AccountCardProps) {
           <span>R$ 100,00</span>
         </SummaryType>
       </AccountSummary>
+      <ModalBase open={false} />
     </AccountCardConatiner>
   )
 }
