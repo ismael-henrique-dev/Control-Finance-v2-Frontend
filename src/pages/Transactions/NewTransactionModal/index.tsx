@@ -12,7 +12,7 @@ interface NewTransactionModal {
 export function NewTransactionModal({ open, handleClose }: NewTransactionModal) {
   return (
     <ModalBase open={open} handleClose={handleClose} submitButtonTitle="Adicionar nova transação">
-      <TextFiled variant="standard" formControlWidth="27rem">
+      <TextFiled variant="standard" formControlWidth="90%">
         <InputLabel htmlFor="standard-adornment-password">
           Nome da transação
         </InputLabel>

@@ -61,6 +61,10 @@ export const ModalContainer = styled.section`
   height: auto;
   background-color: ${(props) => props.theme.primaryGray};
   border-radius: 12px;
+
+  @media (max-width: 768px) {
+    width: 20rem;
+  }
 `
 
 export const MainContainer = styled.main`
@@ -73,6 +77,10 @@ export const MainContainer = styled.main`
 
   @media (max-width: 768px) {
     width: 20rem;
+
+    button {
+      width: 17rem;
+    }
   }
 `
 

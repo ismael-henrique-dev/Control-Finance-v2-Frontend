@@ -1,11 +1,12 @@
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
-import { styled } from "styled-components";
+import Select from "@mui/material/Select"
+import FormControl from "@mui/material/FormControl"
+import { styled } from "styled-components"
 
 export const FormControlContainer = styled(FormControl)`
-  width: 27rem;
+  width: 26rem;
 
   & .MuiInputLabel-root {
+    width: 90%;
     color: ${(props) => props.theme.primary}; // Cor do label padrão
   }
 
@@ -40,18 +41,20 @@ export const FormControlContainer = styled(FormControl)`
       props.theme.secundary}; // Cor da borda quando o mouse passa sobre o campo
   }
 
-  select {
-    color: ${(props) => props.theme.primary};
-    width: 20rem;
-  }
-
   svg {
     margin-bottom: 0.25rem;
     color: ${(props) => props.theme.primary};
     width: 1.5rem;
     height: 1.5rem;
   }
+
+  @media (max-width: 768px) {
+    & {
+      width: 17rem;
+    }
+  }
 `
 
 export const SelectCustom = styled(Select)`
-  color: ${props => props.theme.text}`
+  color: ${(props) => props.theme.text};
+`

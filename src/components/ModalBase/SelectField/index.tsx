@@ -28,7 +28,7 @@ export default function SelectVariants({title}:SelectProps) {
           onChange={handleChange}
           label="Age"
           IconComponent={ChevronDown}
-          sx={{ color: "#4C3299" }}
+          sx={{ color: "#4C3299" , width: "100%"}}
         >
           <MenuItem value={title}>
             <em>{title}</em>

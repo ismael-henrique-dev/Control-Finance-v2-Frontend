@@ -30,7 +30,7 @@ export function ModalBase({
             <span>Voltar</span>
           </button>
           <div>
-            <label htmlFor="">Valor : </label>
+            <label htmlFor="">Valor: </label>
             <input type="text" value="R$ 0,00" />
           </div>
         </ModalHeader>
