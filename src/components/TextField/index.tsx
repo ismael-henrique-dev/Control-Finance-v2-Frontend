@@ -4,10 +4,11 @@ import { FormControlContainer } from "./styles"
 interface TextFieldProps {
   variant?: "standard"
   children: ReactNode
+  formControlWidth?: string
 }
 
-export function TextFiled({ variant, children }: TextFieldProps) {
+export function TextFiled({ variant, children, formControlWidth }: TextFieldProps) {
   return (
-    <FormControlContainer variant={variant}>{children}</FormControlContainer>
+    <FormControlContainer sx={{width: formControlWidth}} variant={variant}>{children}</FormControlContainer>
   )
 }

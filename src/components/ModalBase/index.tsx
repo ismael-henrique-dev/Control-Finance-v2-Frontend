@@ -1,28 +1,43 @@
-import { ArrowLeft } from "lucide-react";
-import { ModalContainer, ModalGlobal, ModalHeader } from "./styles";
+import { ArrowLeft } from "lucide-react"
+import {
+  MainContainer,
+  ModalContainer,
+  ModalGlobal,
+  ModalHeader,
+  SubmitButton,
+} from "./styles"
+import { ReactNode } from "react"
 
 interface ModalBaseProps {
+  submitButtonTitle: string
+  children: ReactNode
   open: boolean
-  handleClose?: () => void
+  handleClose: () => void
 }
 
-export function ModalBase({open, handleClose}:ModalBaseProps) {
+export function ModalBase({
+  open,
+  submitButtonTitle,
+  children,
+  handleClose,
+}: ModalBaseProps) {
   return (
     <ModalGlobal open={open} onClose={handleClose}>
       <ModalContainer>
         <ModalHeader>
-          <button>
+          <button onClick={handleClose}>
             <ArrowLeft size={20} />
             <span>Voltar</span>
           </button>
           <div>
-            <label htmlFor="">Valor inicial: </label>
-            <input type="text" value="R$ 0,00"/>
+            <label htmlFor="">Valor : </label>
+            <input type="text" value="R$ 0,00" />
           </div>
         </ModalHeader>
-        <section>
-          
-        </section>
+        <MainContainer>
+          {children}
+          <SubmitButton>{submitButtonTitle}</SubmitButton>
+        </MainContainer>
       </ModalContainer>
     </ModalGlobal>
   )

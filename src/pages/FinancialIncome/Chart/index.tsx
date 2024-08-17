@@ -3,7 +3,7 @@ import ReactApexChart from "react-apexcharts"
 import styled, { useTheme } from "styled-components"
 
 const ChartContainer = styled.div`
-  max-width: 854px;
+  max-width: 854px; 
   min-height: 444px;
   margin: auto;
   padding: 20px;
@@ -12,6 +12,11 @@ const ChartContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    max-width: 20rem;
+    overflow-x: auto  ;
+  }
 `
 
 const ColumnChart: React.FC = () => {
@@ -20,7 +25,6 @@ const ColumnChart: React.FC = () => {
     chart: {
       type: "bar",
       height: 350,
-
       toolbar: {
         show: false,
       },
@@ -32,7 +36,6 @@ const ColumnChart: React.FC = () => {
         columnWidth: "55%",
         borderRadius: 12,
         borderRadiusApplication: "end",
-        // endingShape: "rounded",
       },
     },
     dataLabels: {
@@ -77,13 +80,14 @@ const ColumnChart: React.FC = () => {
       theme: "dark",
     },
     grid: {
-      borderColor: theme.text, // linhas atras
+      borderColor: theme.text,
     },
+  
   }
 
   const series = [
     {
-      name: "Saldo neste periodo",
+      name: "Saldo neste período",
       data: [300, 400, 350, 600, 150],
     },
   ]
@@ -95,7 +99,7 @@ const ColumnChart: React.FC = () => {
         series={series}
         type="bar"
         height={394}
-        width={824}
+        width="834px" // Fixando a largura no desktop
       />
     </ChartContainer>
   )

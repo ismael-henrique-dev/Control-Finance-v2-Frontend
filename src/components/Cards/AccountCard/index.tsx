@@ -48,7 +48,7 @@ export function AccountCard({ isPageAccounts }: AccountCardProps) {
           <span>R$ 100,00</span>
         </SummaryType>
       </AccountSummary>
-      <ModalBase open={false} />
+     
     </AccountCardConatiner>
   )
 }

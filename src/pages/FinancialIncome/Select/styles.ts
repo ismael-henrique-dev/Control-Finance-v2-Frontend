@@ -1,6 +1,7 @@
 import { Select, MenuItem } from "@mui/material"
-import { styled } from "styled-components"
+import { styled, useTheme } from "styled-components"
 import { styled as muiStyled } from "@mui/system"
+
 
 export const StyledSelect = styled(Select)`
   .MuiSelect-select {
@@ -30,6 +31,7 @@ export const StyledSelect = styled(Select)`
 `
 
 export const StyledMenuItem = muiStyled(MenuItem)`
+  
   color: #6a5acd;
   background-color: transparent;
 
@@ -46,18 +48,19 @@ export const StyledMenuItem = muiStyled(MenuItem)`
     color: #fff;
   }
 `
+export const StyledMenuProps = () => {
+  const theme = useTheme()
 
-export const StyledMenuProps = {
-  PaperProps: {
-    style: {
-      backgroundColor: "#fff",
-     // Definir o fundo do menu como preto
+  return {
+    PaperProps: {
+      style: {
+        backgroundColor: theme.primaryGray, // Fundo do menu do tema
+      },
     },
-  },
-  MenuListProps: {
-    style: {
-      backgroundColor: "#fff",
-   // Definir o fundo da lista como preto
+    MenuListProps: {
+      style: {
+        backgroundColor: theme.primary, // Fundo da lista do tema
+      },
     },
-  },
+  }
 }

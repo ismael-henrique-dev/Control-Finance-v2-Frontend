@@ -5,6 +5,8 @@ export const ModalGlobal = styled(Modal)`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  
 `
 
 export const ModalHeader = styled.header`
@@ -18,6 +20,10 @@ export const ModalHeader = styled.header`
   gap: 1.5rem;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+
+  @media (max-width: 768px) {
+    width: 20rem;
+  }
 
   button {
     display: flex;
@@ -52,7 +58,32 @@ export const ModalHeader = styled.header`
 
 export const ModalContainer = styled.section`
   width: 30rem;
-  min-height: 23.75rem;
-  background-color: ${(props) => props.theme.green};
+  height: auto;
+  background-color: ${(props) => props.theme.primaryGray};
   border-radius: 12px;
+`
+
+export const MainContainer = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 1.25rem;
+
+  @media (max-width: 768px) {
+    width: 20rem;
+  }
+`
+
+export const SubmitButton = styled.button`
+  width: 27rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 12px;
+  background-color: ${(props) => props.theme.primary};
+  color: ${props => props.theme.white};
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 `
