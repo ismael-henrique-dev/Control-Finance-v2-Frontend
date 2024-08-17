@@ -1,20 +1,20 @@
-import * as React from "react"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { ChevronDown } from "lucide-react"
 import { FormControlContainer } from "./styles"
+import { useState } from "react"
 
 interface SelectProps {
   title: string
-
+  data: string[]
 }
 
-export default function SelectVariants({title}:SelectProps) {
-  const [age, setAge] = React.useState("")
+export default function SelectVariants({ title, data = [] }: SelectProps) {
+  const [selectData, setSelectData] = useState<string>("")
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value)
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setSelectData(event.target.value)
   }
 
   return (
@@ -24,18 +24,20 @@ export default function SelectVariants({title}:SelectProps) {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={age}
+          value={selectData}
           onChange={handleChange}
-          label="Age"
+          label={title}
           IconComponent={ChevronDown}
-          sx={{ color: "#4C3299" , width: "100%"}}
+          sx={{ color: "#4C3299", width: "100%" }}
         >
-          <MenuItem value={title}>
+          <MenuItem value="">
             <em>{title}</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {data.map((item, index) => (
+            <MenuItem key={index} value={item}>
+              {item}
+            </MenuItem>
+          ))}
         </Select>
       </FormControlContainer>
     </div>

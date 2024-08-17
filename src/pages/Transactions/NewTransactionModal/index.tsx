@@ -9,6 +9,10 @@ interface NewTransactionModal {
   handleClose: () => void
 }
 
+// example
+
+const categories = ['maca', 'banana', 'uva', 'pera']
+
 export function NewTransactionModal({ open, handleClose }: NewTransactionModal) {
   return (
     <ModalBase open={open} handleClose={handleClose} submitButtonTitle="Adicionar nova transação">
@@ -18,7 +22,7 @@ export function NewTransactionModal({ open, handleClose }: NewTransactionModal) 
         </InputLabel>
         <Input type="email" error={false} />
       </TextFiled>
-      <SelectVariants title="Categoria" />
+      <SelectVariants title="Categoria" data={categories}/>
       <SelectVariants title="Data" />
       <SelectVariants title="Conta" />
       <SelectVariants title="Tipo de transação" />
