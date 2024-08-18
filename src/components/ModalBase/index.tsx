@@ -5,6 +5,7 @@ import {
   ModalGlobal,
   ModalHeader,
   SubmitButton,
+  useStyledMenuProps,
 } from "./styles"
 import { ReactNode } from "react"
 
@@ -26,6 +27,7 @@ export function ModalBase({
   children,
   handleClose,
 }: ModalBaseProps) {
+  
   return (
     <ModalGlobal open={open} onClose={handleClose}>
       <ModalContainer>

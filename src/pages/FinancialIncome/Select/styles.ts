@@ -2,7 +2,6 @@ import { Select, MenuItem } from "@mui/material"
 import { styled, useTheme } from "styled-components"
 import { styled as muiStyled } from "@mui/system"
 
-
 export const StyledSelect = styled(Select)`
   .MuiSelect-select {
     color: #6a5acd;
@@ -13,8 +12,6 @@ export const StyledSelect = styled(Select)`
     justify-content: center;
     gap: 80px;
     padding-bottom: 0;
-    /* margin-top: -12px; */
-    /* margin-bottom: 1rem; */
   }
 
   .MuiOutlinedInput-notchedOutline {
@@ -31,7 +28,6 @@ export const StyledSelect = styled(Select)`
 `
 
 export const StyledMenuItem = muiStyled(MenuItem)`
-  
   color: #6a5acd;
   background-color: transparent;
 
@@ -48,18 +44,19 @@ export const StyledMenuItem = muiStyled(MenuItem)`
     color: #fff;
   }
 `
-export const StyledMenuProps = () => {
+
+export const useStyledMenuProps = () => {
   const theme = useTheme()
 
   return {
     PaperProps: {
       style: {
-        backgroundColor: theme.green, // Fundo do menu do tema
+        backgroundColor: theme.secundaryGray, // Fundo do menu usando a cor do tema
       },
     },
     MenuListProps: {
       style: {
-        backgroundColor: theme.green, // Fundo da lista do tema
+        backgroundColor: theme.primaryGray, // Fundo da lista usando a cor do tema
       },
     },
   }

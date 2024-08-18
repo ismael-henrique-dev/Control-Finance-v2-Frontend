@@ -1,5 +1,5 @@
-import { FormControl } from "@mui/material"
-import styled from "styled-components"
+import { FormControl, MenuItem } from "@mui/material"
+import styled, { useTheme } from "styled-components"
 
 export const ContainerFilterSelect = styled.div`
   width: 10rem;
@@ -74,3 +74,38 @@ export const FormControlContainer = styled(FormControl)`
     }
   }
 `
+
+export const StyledMenuItem = styled(MenuItem)`
+  color: #6a5acd;
+  background-color: transparent;
+
+  &:focus {
+    background-color: #6a5acd;
+  }
+
+  &:hover {
+    background-color: #5549a7;
+  }
+
+  &.Mui-selected {
+    background-color: #6a5acd;
+    color: #fff;
+  }
+`
+
+export const useStyledMenuProps = () => {
+  const theme = useTheme()
+
+  return {
+    PaperProps: {
+      style: {
+        backgroundColor: theme.secundaryGray, // Fundo do menu usando a cor do tema
+      },
+    },
+    MenuListProps: {
+      style: {
+        backgroundColor: theme.primaryGray, // Fundo da lista usando a cor do tema
+      },
+    },
+  }
+}

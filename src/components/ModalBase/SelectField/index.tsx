@@ -1,8 +1,7 @@
 import InputLabel from "@mui/material/InputLabel"
-import MenuItem from "@mui/material/MenuItem"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { ChevronDown } from "lucide-react"
-import { FormControlContainer } from "./styles"
+import { FormControlContainer, StyledMenuItem, useStyledMenuProps } from "./styles"
 import { useState } from "react"
 
 interface SelectProps {
@@ -17,6 +16,8 @@ export default function SelectVariants({ title, data = [] }: SelectProps) {
     setSelectData(event.target.value)
   }
 
+  const menuProps = useStyledMenuProps()
+
   return (
     <div>
       <FormControlContainer variant="standard">
@@ -29,14 +30,15 @@ export default function SelectVariants({ title, data = [] }: SelectProps) {
           label={title}
           IconComponent={ChevronDown}
           sx={{ color: "#4C3299", width: "100%" }}
+          MenuProps={menuProps}
         >
-          <MenuItem value="">
+          <StyledMenuItem value="">
             <em>{title}</em>
-          </MenuItem>
+          </StyledMenuItem>
           {data.map((item, index) => (
-            <MenuItem key={index} value={item}>
+            <StyledMenuItem key={index} value={item}>
               {item}
-            </MenuItem>
+            </StyledMenuItem>
           ))}
         </Select>
       </FormControlContainer>
