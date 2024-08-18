@@ -6,13 +6,18 @@ import {
   ButtonAdd,
   SummaryType,
 } from "./styles"
-import { ModalBase } from "../../ModalBase"
+import { NewTransactionModal } from "../../NewTransactionModal"
+import { useState } from "react"
 
 interface AccountCardProps {
   isPageAccounts: boolean
 }
 
 export function AccountCard({ isPageAccounts }: AccountCardProps) {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+  
   return (
     <AccountCardConatiner>
       <header>
@@ -26,7 +31,7 @@ export function AccountCard({ isPageAccounts }: AccountCardProps) {
               <Settings2 />
             </ButtonAdd>
           )}
-          <ButtonAdd>
+          <ButtonAdd onClick={handleOpen}>
             <Plus />
           </ButtonAdd>
         </ActionsArea>
@@ -48,7 +53,7 @@ export function AccountCard({ isPageAccounts }: AccountCardProps) {
           <span>R$ 100,00</span>
         </SummaryType>
       </AccountSummary>
-     
+      <NewTransactionModal open={open} handleClose={handleClose}/>
     </AccountCardConatiner>
   )
 }

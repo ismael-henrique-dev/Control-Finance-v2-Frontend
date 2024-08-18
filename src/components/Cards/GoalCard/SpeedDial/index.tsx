@@ -10,10 +10,16 @@ import {
 } from "lucide-react"
 import { Actions, Container } from "./styles"
 import { GoalCardProps } from ".."
+import { NewDepositOfGoal } from "../../../../pages/Goals/NewDepositOfGoal"
+import { useState } from "react"
 
 export function ClickPopover({ isGoalsPage }: GoalCardProps) {
   const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
   const [open, setOpen] = React.useState(false)
+
+  const [openModal, setOpenModal] = useState(false)
+  const handleOpenModal = () => setOpenModal(true)
+  const handleCloseModal = () => setOpenModal(false)
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     setAnchorEl(event.currentTarget)
@@ -23,6 +29,11 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
   const handlePopoverClose = () => {
     setOpen(false)
     setAnchorEl(null)
+  }
+
+  const handleClickAddNewDepositButton = () => {
+    handleOpenModal()
+    handlePopoverClose()
   }
 
   return (
@@ -65,11 +76,12 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
           <button onClick={handlePopoverClose}>
             <CircleCheckBig />
           </button>
-          <button onClick={handlePopoverClose}>
+          <button onClick={handleClickAddNewDepositButton}>
             <CirclePlus />
           </button>
         </Actions>
       </Popover>
+      <NewDepositOfGoal open={openModal} handleClose={handleCloseModal} />
     </Container>
   )
 }

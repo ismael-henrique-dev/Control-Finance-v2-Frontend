@@ -8,8 +8,8 @@ import {
   MainContainer,
   TransactionsContainer,
 } from "./styles"
-import { NewTransactionModal } from "./NewTransactionModal"
 import { useState } from "react"
+import { NewTransactionModal } from "../../components/NewTransactionModal"
 
 export function Transactions() {
   const [open, setOpen] = useState(false)

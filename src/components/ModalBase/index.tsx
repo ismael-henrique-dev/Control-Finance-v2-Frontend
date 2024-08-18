@@ -15,6 +15,11 @@ interface ModalBaseProps {
   handleClose: () => void
 }
 
+export interface ModalBasePropsDefault {
+  open: boolean
+  handleClose: () => void
+}
+
 export function ModalBase({
   open,
   submitButtonTitle,

@@ -1,8 +1,9 @@
 import InputLabel from "@mui/material/InputLabel"
-import { ModalBase } from "../../../components/ModalBase"
-import { TextFiled } from "../../../components/TextField"
 import Input from "@mui/material/Input"
-import SelectVariants from "../../../components/ModalBase/SelectField"
+import { ModalBase, ModalBasePropsDefault } from "../ModalBase"
+import { TextFiled } from "../TextField"
+import SelectVariants from "../ModalBase/SelectField"
+
 
 interface NewTransactionModal {
   open: boolean
@@ -13,7 +14,7 @@ interface NewTransactionModal {
 
 const categories = ['maca', 'banana', 'uva', 'pera']
 
-export function NewTransactionModal({ open, handleClose }: NewTransactionModal) {
+export function NewTransactionModal({ open, handleClose }: ModalBasePropsDefault) {
   return (
     <ModalBase open={open} handleClose={handleClose} submitButtonTitle="Adicionar nova transação">
       <TextFiled variant="standard" formControlWidth="90%">
