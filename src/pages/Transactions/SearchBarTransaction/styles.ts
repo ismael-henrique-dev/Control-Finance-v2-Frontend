@@ -12,6 +12,8 @@ export const ContainerSearchBarTransaction = styled.div`
   max-width: 15rem;
   height: 5.5rem;
 
+  
+
   div {
     display: flex;
     align-items: center;
