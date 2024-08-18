@@ -10,7 +10,7 @@ export const FinancialIncomeContainer = styled.main`
   padding: 0;
   margin: 2rem auto;
   gap: 2rem;
-  min-height: 80vh;
+  /* min-height: 80vh; */
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -28,4 +28,10 @@ export const FinancialIncomeContainer = styled.main`
     align-items: start;
     gap: 2rem;
   }
+`
+
+export const ResponsiveContainerPage = styled.div`
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
 `

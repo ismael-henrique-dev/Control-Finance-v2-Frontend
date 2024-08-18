@@ -1,5 +1,11 @@
 import styled from "styled-components"
 
+export const ResponsiveContainerPage = styled.div`
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+`
+
 export const ProfileContainer = styled.div`
   max-width: 50.75rem;
   background-color: ${(props) => props.theme.primaryGray};
@@ -10,7 +16,7 @@ export const ProfileContainer = styled.div`
   padding: 2.5rem;
   margin: 2rem auto;
   flex-wrap: wrap;
-  border-radius: 12px;
+  border-radius: 12px;  
 `
 
 export const ContainerForm = styled.div`

@@ -54,12 +54,12 @@ export const StyledMenuProps = () => {
   return {
     PaperProps: {
       style: {
-        backgroundColor: theme.primaryGray, // Fundo do menu do tema
+        backgroundColor: theme.green, // Fundo do menu do tema
       },
     },
     MenuListProps: {
       style: {
-        backgroundColor: theme.primary, // Fundo da lista do tema
+        backgroundColor: theme.green, // Fundo da lista do tema
       },
     },
   }

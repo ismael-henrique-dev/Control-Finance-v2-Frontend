@@ -1,8 +1,10 @@
 import Chart from "react-apexcharts"
 import { ApexOptions } from "apexcharts"
 import { ChartContainer, Legend, LegendItem } from "./styles"
+import { useTheme } from "styled-components"
 
 export function DonutChart() {
+  const theme = useTheme()
   const options: ApexOptions = {
     chart: {
       type: "donut",
@@ -21,13 +23,13 @@ export function DonutChart() {
             total: {
               show: true,
               label: "Total",
-              color: "#8a9197", // Cor do texto "Total"
+              color: theme.text, // Cor do texto "Total"
               fontSize: "0.875rem", // Tamanho da fonte do texto "Total"
               fontWeight: "600", // Peso da fonte do texto "T
               // Adicionando estilo diretamente ao valor total
             },
             value: {
-              color: "#8a9197",
+              color: theme.text,
             },
           },
         },
@@ -42,7 +44,7 @@ export function DonutChart() {
       theme: "dark",
     },
     stroke: {
-      show: false, 
+      show: false,
     },
   }
 
