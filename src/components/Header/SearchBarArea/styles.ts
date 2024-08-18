@@ -27,7 +27,7 @@ export const ContainerModal = styled.div`
       background-color: transparent;
       border: 0;
       font-size: 1rem;
-      color: ${(props) => props.theme.primary};
+      color: ${(props) => props.theme.red};
       cursor: pointer;
     }
   }
@@ -41,7 +41,14 @@ export const ContainerModal = styled.div`
   @media (max-width: 768px) {
     & {
       height: 100vh;
+      width: 100%;
       border-radius: 0;
+
+      header {
+        button {
+          width: 50px;
+        }
+      }
     }
   }
 `
@@ -79,9 +86,7 @@ export const InputAreaFunctional = styled.div`
   }
 
   @media (max-width: 768px) {
-    & {
-      /* display: none; */
-    }
+   
   }
 `
 

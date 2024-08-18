@@ -1,4 +1,4 @@
-import { ChevronRight, Search, SearchCheck } from "lucide-react"
+import { ChevronRight, Search, SearchCheck, X } from "lucide-react"
 import {
   ContainerModal,
   InputAreaFunctional,
@@ -29,6 +29,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
             <Search />
             <input type="search" placeholder="Pesquisar" />
           </InputAreaFunctional>
+          
           <button onClick={handleClose}>cancelar</button>
         </header>
         <main>
