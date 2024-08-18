@@ -1,11 +1,20 @@
-import { ContainerSponsor } from "./styles";
+import { ContainerSponsor } from "./styles"
 import logoWhite from "../../../assets/logo-white.svg"
+import logoDark from "../../../assets/logo-dark.svg"
 import sponsor from "../../../assets/sponsor.svg"
+import { ThemeContext } from "../../../contexts/styledThemeContext"
+import { useContext } from "react"
 
 export function Sponsor() {
+  const themeContext = useContext(ThemeContext)
+  const { theme } = themeContext
+
   return (
     <ContainerSponsor>
-      <img src={logoWhite} alt="logo control finance v2" />
+      <img
+        src={theme === "light" ? logoWhite : logoDark}
+        alt="logo control finance v2"
+      />
       <span>Domine suas finanças com o Control Finance.</span>
       <img src={sponsor} />
       <span>

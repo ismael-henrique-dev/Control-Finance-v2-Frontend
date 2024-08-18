@@ -6,11 +6,6 @@ import logoDark from "../../assets/logo-dark.svg"
 
 export function Footer() {
   const themeContext = useContext(ThemeContext)
-
-  if (!themeContext) {
-    throw new Error("Default value underfined")
-  }
-
   const { theme } = themeContext
 
   return (

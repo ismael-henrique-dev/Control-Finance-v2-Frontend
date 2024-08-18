@@ -15,11 +15,6 @@ import { ThemeContext } from "../../contexts/styledThemeContext"
 
 export function Header() {
   const themeContext = useContext(ThemeContext)
-
-  if (!themeContext) {
-    throw new Error("Default value underfined")
-  }
-
   const { theme, toggleTheme } = themeContext
 
   const [open, setOpen] = useState(false)
