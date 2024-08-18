@@ -4,7 +4,7 @@ import { TextFiled } from "../../../components/TextField";
 import Input from "@mui/material/Input";
 import SelectVariants from "../../../components/ModalBase/SelectField";
 
-export function NewGoalModal({open, handleClose}:ModalBasePropsDefault) {
+export function GoalModal({open, handleClose}:ModalBasePropsDefault) {
   return (
     <ModalBase
       open={open}

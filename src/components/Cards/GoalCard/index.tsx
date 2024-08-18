@@ -2,7 +2,6 @@ import { CircleDollarSign } from "lucide-react"
 import { useState } from "react"
 import { BarLinearProgress, ContainerCard } from "./styles"
 import { ClickPopover } from "./SpeedDial"
-import { NewDepositOfGoal } from "../../../pages/Goals/NewDepositOfGoal"
 
 export interface GoalCardProps {
   isGoalsPage: boolean

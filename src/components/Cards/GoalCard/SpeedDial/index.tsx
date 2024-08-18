@@ -6,12 +6,12 @@ import {
   EllipsisVertical,
   Pencil,
   Trash2,
-  X,
 } from "lucide-react"
 import { Actions, Container } from "./styles"
 import { GoalCardProps } from ".."
 import { NewDepositOfGoal } from "../../../../pages/Goals/NewDepositOfGoal"
 import { useState } from "react"
+import { GoalModal } from "../../../../pages/Goals/NewGoalModal"
 
 export function ClickPopover({ isGoalsPage }: GoalCardProps) {
   const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
@@ -20,6 +20,10 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
   const [openModal, setOpenModal] = useState(false)
   const handleOpenModal = () => setOpenModal(true)
   const handleCloseModal = () => setOpenModal(false)
+
+  const [openModalEdit, setOpenModalEdit] = useState(false)
+  const handleOpenModalEdit = () => setOpenModalEdit(true)
+  const handleCloseModaEdit = () => setOpenModalEdit(false)
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     setAnchorEl(event.currentTarget)
@@ -32,8 +36,13 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
   }
 
   const handleClickAddNewDepositButton = () => {
-    handleOpenModal()
     handlePopoverClose()
+    handleOpenModal()
+  }
+
+  const handleClickEditGoal = () => {
+    handlePopoverClose()
+    handleOpenModalEdit()
   }
 
   return (
@@ -64,7 +73,7 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
       >
         <Actions>
           {isGoalsPage && (
-            <button onClick={handlePopoverClose}>
+            <button onClick={handleClickEditGoal}>
               <Pencil />
             </button>
           )}
@@ -82,6 +91,7 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
         </Actions>
       </Popover>
       <NewDepositOfGoal open={openModal} handleClose={handleCloseModal} />
+      <GoalModal open={openModalEdit} handleClose={handleCloseModaEdit} />
     </Container>
   )
 }

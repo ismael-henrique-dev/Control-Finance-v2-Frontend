@@ -9,7 +9,7 @@ import {
   MainContainer,
   Section,
 } from "./styles"
-import { NewGoalModal } from "./NewGoalModal"
+import { GoalModal } from "./NewGoalModal"
 import { useState } from "react"
 
 export function Goals() {
@@ -33,7 +33,7 @@ export function Goals() {
         <GoalCard isGoalsPage={true} />
         <GoalCard isGoalsPage={true} />
       </MainContainer>
-      <NewGoalModal open={open} handleClose={handleClose} />
+      <GoalModal open={open} handleClose={handleClose} />
     </GoalsContainer>
   )
 }
