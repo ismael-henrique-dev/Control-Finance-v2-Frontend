@@ -1,11 +1,12 @@
+import React from "react"
+import { useState } from "react"
+import { ButtonAdd } from "../styles"
+import { Pencil, Settings2, Trash } from "lucide-react"
 import Popover from "@mui/material/Popover"
-import { Actions, Container } from "./styles"
-import { MoreHorizontal, Pencil, Trash } from "lucide-react"
-import React, { useState } from "react"
-import { Button } from "../styles"
-import { NewTransactionModal } from "../../../../components/NewTransactionModal"
+import { Actions, Container } from "../../GoalCard/SpeedDial/styles"
+import { NewTransactionModal } from "../../../NewTransactionModal"
 
-export function MenuOptionsTable() {
+export function PopeoverOptionsAccount() {
   const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
   const [open, setOpen] = React.useState(false)
 
@@ -30,9 +31,9 @@ export function MenuOptionsTable() {
 
   return (
     <Container>
-      <Button variant="more" onClick={handleClick}>
-        <MoreHorizontal />
-      </Button>
+      <ButtonAdd onClick={handleClick}>
+        <Settings2 color="#fff"/>
+      </ButtonAdd>
       <Popover
         id="click-popover"
         sx={{
@@ -56,16 +57,19 @@ export function MenuOptionsTable() {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Actions>
+        <Actions style={{marginLeft: "0.3rem", marginTop: "3rem"}}>
           <button onClick={handleClickEditTransaction}>
             <Pencil />
           </button>
           <button onClick={handlePopoverClose}>
-            <Trash color="#DC2626" />
+            <Trash />
           </button>
         </Actions>
       </Popover>
-      <NewTransactionModal open={openModalEdit} handleClose={handleCloseModaEdit} />
+      <NewTransactionModal
+        open={openModalEdit}
+        handleClose={handleCloseModaEdit}
+      />
     </Container>
   )
 }

@@ -8,6 +8,7 @@ import {
 } from "./styles"
 import { NewTransactionModal } from "../../NewTransactionModal"
 import { useState } from "react"
+import { PopeoverOptionsAccount } from "./PoperOptionsAccount"
 
 interface AccountCardProps {
   isPageAccounts: boolean
@@ -27,9 +28,7 @@ export function AccountCard({ isPageAccounts }: AccountCardProps) {
         </div>
         <ActionsArea>
           {isPageAccounts && (
-            <ButtonAdd>
-              <Settings2 />
-            </ButtonAdd>
+            <PopeoverOptionsAccount />
           )}
           <ButtonAdd onClick={handleOpen}>
             <Plus />
