@@ -4,7 +4,6 @@ import { ModalBase, ModalBasePropsDefault } from "../ModalBase"
 import { TextFiled } from "../TextField"
 import SelectVariants from "../ModalBase/SelectField"
 
-
 interface NewTransactionModal {
   open: boolean
   handleClose: () => void
@@ -12,7 +11,9 @@ interface NewTransactionModal {
 
 // example
 
-const categories = ['maca', 'banana', 'uva', 'pera']
+const categories = {
+  names: ["maca", "banana", "uva", "pera"],
+}
 
 export function NewTransactionModal({ open, handleClose }: ModalBasePropsDefault) {
   return (
@@ -23,7 +24,7 @@ export function NewTransactionModal({ open, handleClose }: ModalBasePropsDefault
         </InputLabel>
         <Input type="email" error={false} />
       </TextFiled>
-      <SelectVariants title="Categoria" data={categories}/>
+      <SelectVariants title="Categoria" data={categories.names}/>
       <SelectVariants title="Data" />
       <SelectVariants title="Conta" />
       <SelectVariants title="Tipo de transação" />

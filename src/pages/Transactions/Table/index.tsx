@@ -13,6 +13,7 @@ import {
   NavContainer,
   TransactionsTable,
 } from "./styles"
+import { MenuOptionsTable } from "./MenuOptionsTable"
 
 export function Table() {
   return (
@@ -67,9 +68,7 @@ export function Table() {
               </div>
             </td>
             <td>
-              <Button variant="more">
-                <MoreHorizontal />
-              </Button>
+              <MenuOptionsTable />
             </td>
           </tr>
           <tr>

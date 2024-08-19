@@ -16,12 +16,14 @@ export function Goals() {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const selectOptions = ['Todos', 'Em andamento', 'Concluído']
   
   return (
     <GoalsContainer>
       <ContainerBarSummary>
         <Summary />
-        <SelectFilter />
+        <SelectFilter data={selectOptions} />
         <Button handleClick={handleOpen}/>
       </ContainerBarSummary>
       <Section>

@@ -4,7 +4,11 @@ import { ChevronDown } from "lucide-react"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import InputLabel from "@mui/material/InputLabel"
 
-export function SelectFilter() {
+interface SelectFilterProps {
+  data?: string[]
+}
+
+export function SelectFilter({data = []}:SelectFilterProps) {
   const [selectData, setSelectData] = useState<string>("")
 
   const handleChange = (event: SelectChangeEvent<string>) => {
@@ -30,6 +34,11 @@ export function SelectFilter() {
           <StyledMenuItem value="">
             <em>Filter</em>
           </StyledMenuItem>
+          {data.map((item, index) => (
+            <StyledMenuItem key={index} value={item}>
+              {item}
+            </StyledMenuItem>
+          ))}
         </Select>
       </FormControlContainer>
     </ContainerFilterSelect>

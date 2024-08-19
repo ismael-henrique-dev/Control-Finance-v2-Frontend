@@ -1,5 +1,7 @@
 import { FormControl, MenuItem } from "@mui/material"
 import styled, { useTheme } from "styled-components"
+import { styled as muiStyled } from "@mui/system"
+
 
 export const ContainerFilterSelect = styled.div`
   width: 10rem;
@@ -75,7 +77,7 @@ export const FormControlContainer = styled(FormControl)`
   }
 `
 
-export const StyledMenuItem = styled(MenuItem)`
+export const StyledMenuItem = muiStyled(MenuItem)`
   color: #6a5acd;
   background-color: transparent;
 
