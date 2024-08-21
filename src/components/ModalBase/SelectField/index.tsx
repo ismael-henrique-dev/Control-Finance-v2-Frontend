@@ -1,7 +1,11 @@
 import InputLabel from "@mui/material/InputLabel"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
-import { ChevronDown } from "lucide-react"
-import { FormControlContainer, StyledMenuItem, useStyledMenuProps } from "./styles"
+import { ChevronDown, PiggyBank } from "lucide-react"
+import {
+  FormControlContainer,
+  StyledMenuItem,
+  useStyledMenuProps,
+} from "./styles"
 import { useState } from "react"
 
 interface SelectProps {
@@ -21,7 +25,12 @@ export default function SelectVariants({ title, data = [] }: SelectProps) {
   return (
     <div>
       <FormControlContainer variant="standard">
-        <InputLabel id="demo-simple-select-standard-label">{title}</InputLabel>
+        <InputLabel
+          sx={{ display: "flex", alignItems: "center" }}
+          id="demo-simple-select-standard-label"
+        >
+          {title}
+        </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
@@ -29,14 +38,28 @@ export default function SelectVariants({ title, data = [] }: SelectProps) {
           onChange={handleChange}
           label={title}
           IconComponent={ChevronDown}
-          sx={{ color: "#4C3299", width: "100%" }}
+          sx={{
+            width: "100%",
+
+            "& .MuiSelect-select": {
+              width: "100%",
+              gap: "0.5rem",
+              display: "flex",
+              alignItems: "center",
+               // Adjust padding if needed
+              color: "#4C3299",
+            },
+            "& svg": {
+             marginBottom: "-0.3rem" // Adjust space between icon and text
+            },
+          }}
           MenuProps={menuProps}
         >
-          <StyledMenuItem value="">
-            <em>{title}</em>
-          </StyledMenuItem>
           {data.map((item, index) => (
             <StyledMenuItem key={index} value={item}>
+              <div>
+                <PiggyBank size={16} />
+              </div>
               {item}
             </StyledMenuItem>
           ))}
