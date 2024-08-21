@@ -1,4 +1,4 @@
-import { ChevronRight, Search, SearchCheck, X } from "lucide-react"
+import { ChevronRight, Search, SearchCheck } from "lucide-react"
 import {
   ContainerModal,
   InputAreaFunctional,

@@ -12,10 +12,10 @@ export function NewAccountModaL({open, handleClose}:ModalBasePropsDefault) {
       submitButtonTitle="Criar nova conta"
     >
       <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="standard-adornment-password">
+        <InputLabel htmlFor="accountName">
           Nome da conta
         </InputLabel>
-        <Input type="email" error={false} />
+        <Input type="email" id="accountName" error={false} />
       </TextFiled>
       <SelectVariants title="Tipo de conta" />
       <TextFiled formControlWidth="90%" variant="standard">

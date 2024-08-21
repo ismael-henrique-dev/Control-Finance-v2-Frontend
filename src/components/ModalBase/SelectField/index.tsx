@@ -10,7 +10,7 @@ import { useState } from "react"
 
 interface SelectProps {
   title: string
-  data: string[]
+  data?: string[] // alterar para obrigatorio
 }
 
 export default function SelectVariants({ title, data = [] }: SelectProps) {

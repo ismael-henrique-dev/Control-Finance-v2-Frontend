@@ -1,4 +1,4 @@
-import { Plus, Settings2, TrendingDown, TrendingUp, Wallet } from "lucide-react"
+import { Plus, TrendingDown, TrendingUp, Wallet } from "lucide-react"
 import {
   AccountCardConatiner,
   AccountSummary,

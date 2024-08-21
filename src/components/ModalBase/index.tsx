@@ -5,7 +5,6 @@ import {
   ModalGlobal,
   ModalHeader,
   SubmitButton,
-  useStyledMenuProps,
 } from "./styles"
 import { ReactNode } from "react"
 

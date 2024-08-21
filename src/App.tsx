@@ -8,12 +8,9 @@ import { darkTheme } from "./styles/themes/dark"
 import { BrowserRouter } from "react-router-dom"
 import { Router } from "./Router"
 
+// eslint-disable-next-line react-refresh/only-export-components
 function App() {
   const themeContext = useContext(ThemeContext)
-
-  if (!themeContext) {
-    throw new Error("Default value underfined")
-  }
 
   const { theme } = themeContext
 
@@ -30,6 +27,7 @@ function App() {
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export default () => (
   <ThemeProvider>
     <App />
