@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Form = styled.form`
+export const AuthContainer = styled.div`
   width: 20rem;
   text-align: start;
   background-color: transparent;
@@ -9,6 +9,16 @@ export const Form = styled.form`
   justify-content: start;
   flex-direction: column;
   gap: 1.125rem; /* 18px */
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+
+    button[type="submit"] {
+      margin-top: 1.125rem;
+    }
+  }
 
   a {
     text-decoration: none;
