@@ -4,7 +4,9 @@ import { TextFiled } from "../../TextField"
 import { NavLink } from "react-router-dom"
 import { Lock, LockOpen, PersonStanding } from "lucide-react"
 import iconGoogle from "../../../assets/icon-google.svg"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { UserContext } from "../../../contexts/userContext"
+import { useForm } from "react-hook-form"
 
 interface AuthLoginProps {
   isLogin: boolean
@@ -12,6 +14,7 @@ interface AuthLoginProps {
   authType: string
   navLinkText: string
   routeAuth: "/login" | "/singUp"
+  authFunction: () => void
 }
 
 export function AuthForm({
@@ -20,6 +23,7 @@ export function AuthForm({
   authType,
   routeAuth,
   navLinkText,
+  authFunction
 }: AuthLoginProps) {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -27,8 +31,12 @@ export function AuthForm({
     setShowPassword(!showPassword)
   }
 
+  const { userRegister } = useContext(UserContext)
+
+  const { handleSubmit } = useForm()
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(authFunction)}>
       {!isLogin && (
         <TextFiled variant="standard">
           <InputLabel htmlFor="standard-adornment-password">Nome</InputLabel>
@@ -60,7 +68,7 @@ export function AuthForm({
       {isLogin && <NavLink to="/">esqueceu a senha?</NavLink>}
       <Divisory>ou</Divisory>
       <section>
-        <Button type="submit" variant="goToWithGoogle">
+        <Button variant="goToWithGoogle">
           <img src={iconGoogle} />
           {authType} com o google
         </Button>
