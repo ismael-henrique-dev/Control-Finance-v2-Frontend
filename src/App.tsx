@@ -11,28 +11,26 @@ import { UseProvider } from "./contexts/userContext"
 
 // eslint-disable-next-line react-refresh/only-export-components
 function App() {
-  const themeContext = useContext(ThemeContext)
-
-  const { theme } = themeContext
-
-  // colocar o current theme para que ele não deixe como string
+  const { theme } = useContext(ThemeContext)
   const currentTheme = theme === "light" ? lightTheme : darkTheme
 
   return (
     <StyledThemeProvider theme={currentTheme}>
       <GlobalStyle />
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+      <Router />
     </StyledThemeProvider>
   )
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-export default () => (
-  <ThemeProvider>
-    <UseProvider>
-      <App />
-    </UseProvider>
-  </ThemeProvider>
-)
+// Export default with Providers
+export default function MainApp() {
+  return (
+    <ThemeProvider>
+      <BrowserRouter>
+        <UseProvider>
+          <App />
+        </UseProvider>
+      </BrowserRouter>
+    </ThemeProvider>
+  )
+}

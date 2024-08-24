@@ -8,7 +8,15 @@ import InputAdornment from "@mui/material/InputAdornment"
 import IconButton from "@mui/material/IconButton"
 import { Button } from "../../components/Auth/AuthForm/styles"
 import { LockOpen, Lock } from "lucide-react"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { UserContext } from "../../contexts/userContext"
+import { useForm } from "react-hook-form"
+
+interface UserLoginFormData {
+  Email: string
+  Senha: string
+  // UsernName: string
+}
 
 export function Login() {
   const [showPassword, setShowPassword] = useState(false)
@@ -16,6 +24,18 @@ export function Login() {
   function handleClickShowPassword() {
     setShowPassword(!showPassword)
   }
+
+  const { userLogin } = useContext(UserContext)
+
+  const { register, handleSubmit } = useForm<UserLoginFormData>()
+
+  async function handleUserLogin(data: UserLoginFormData) {
+    const { Email, Senha } = data
+    console.log(data)
+
+    await userLogin({ Email, Senha })
+  }
+
   return (
     <AuthResposiveContainer>
       <Sponsor />
@@ -26,16 +46,22 @@ export function Login() {
         navLinkText="Cadraste-se"
         authType="Entrar"
       >
-        <form action="">
+        <form onSubmit={handleSubmit(handleUserLogin)}>
           <TextFiled variant="standard">
-            <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
-            <Input type="email" error={false} />
+            <InputLabel htmlFor="user-email">Email</InputLabel>
+            <Input
+              type="email"
+              id="user-email"
+              error={false}
+              {...register("Email")}
+            />
           </TextFiled>
           <TextFiled variant="standard">
-            <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
+            <InputLabel htmlFor="user-password">Senha</InputLabel>
             <Input
-              id="standard-adornment-password"
+              id="user-password"
               type={showPassword ? "text" : "password"}
+              {...register("Senha")}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
