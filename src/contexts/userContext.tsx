@@ -6,9 +6,9 @@ interface UserContextProps {
 }
 
 interface UserRegisterFormData {
-  email: string
-  password: string
-  userName: string
+  Email: string
+  Senha: string
+  UsernName: string
 }
 
 interface UserProviderType {

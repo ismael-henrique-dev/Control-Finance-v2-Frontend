@@ -13,9 +13,9 @@ import { useForm } from "react-hook-form"
 import { UserContext } from "../../contexts/userContext"
 
 interface UserRegisterFormData {
-  email: string
-  password: string
-  userName: string
+  Email: string
+  Senha: string
+  UsernName: string
 }
 
 export function SingUp() {
@@ -30,14 +30,14 @@ export function SingUp() {
   const { register, handleSubmit } = useForm<UserRegisterFormData>()
 
   async function handleUserRegister(data: UserRegisterFormData) {
-    const { email, password, userName } = data
+    const { Email, Senha, UsernName } = data
 
     console.log(data)
 
     await userRegister({
-      email,
-      password,
-      userName,
+      Email,
+      Senha,
+      UsernName,
     })
   }
 
@@ -58,7 +58,7 @@ export function SingUp() {
               type="text"
               id="user-name"
               error={false}
-              {...register("userName")}
+              {...register("UsernName")}
             />
           </TextFiled>
           <TextFiled variant="standard">
@@ -67,14 +67,14 @@ export function SingUp() {
               type="email"
               id="user-email"
               error={false}
-              {...register("email")}
+              {...register("Email")}
             />
           </TextFiled>
           <TextFiled variant="standard">
             <InputLabel htmlFor="user-password">Senha</InputLabel>
             <Input
               id="user-password"
-              {...register("password")}
+              {...register("Senha")}
               type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
