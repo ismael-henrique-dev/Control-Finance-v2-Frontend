@@ -11,6 +11,8 @@ import { LockOpen, Lock } from "lucide-react"
 import { Button } from "../../components/Auth/AuthForm/styles"
 import { useForm } from "react-hook-form"
 import { UserContext } from "../../contexts/userContext"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { registerUserFormSchema } from "./registerFormSchema"
 
 interface UserRegisterFormData {
   Email: string
@@ -27,7 +29,14 @@ export function SingUp() {
     setShowPassword(!showPassword)
   }
 
-  const { register, handleSubmit } = useForm<UserRegisterFormData>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<UserRegisterFormData>({
+    resolver: zodResolver(registerUserFormSchema),
+    mode: "onChange",
+  })
 
   async function handleUserRegister(data: UserRegisterFormData) {
     const { Email, Senha, UsernName } = data
@@ -53,28 +62,37 @@ export function SingUp() {
       >
         <form onSubmit={handleSubmit(handleUserRegister)}>
           <TextFiled variant="standard">
-            <InputLabel htmlFor="user-name">Nome</InputLabel>
+            <InputLabel htmlFor="user-name" error={!!errors.UsernName}>
+              Nome
+            </InputLabel>
             <Input
               type="text"
               id="user-name"
-              error={false}
+              error={!!errors.UsernName}
               {...register("UsernName")}
             />
+            {errors.UsernName && <p>{errors.UsernName.message}</p>}
           </TextFiled>
           <TextFiled variant="standard">
-            <InputLabel htmlFor="user-email">Email</InputLabel>
+            <InputLabel htmlFor="user-email" error={!!errors.Email}>
+              Email
+            </InputLabel>
             <Input
               type="email"
               id="user-email"
-              error={false}
+              error={!!errors.Email}
               {...register("Email")}
             />
+            {errors.Email && <p>{errors.Email.message}</p>}
           </TextFiled>
           <TextFiled variant="standard">
-            <InputLabel htmlFor="user-password">Senha</InputLabel>
+            <InputLabel htmlFor="user-password" error={!!errors.Senha}>
+              Senha
+            </InputLabel>
             <Input
               id="user-password"
               {...register("Senha")}
+              error={!!errors.Senha}
               type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
@@ -87,8 +105,11 @@ export function SingUp() {
                 </InputAdornment>
               }
             />
-            <Button type="submit">Cadrastar</Button>
+            {errors.Senha && <p>{errors.Senha.message}</p>}
           </TextFiled>
+          <Button type="submit" disabled={!isValid}>
+            Cadrastar
+          </Button>
         </form>
       </AuthForm>
     </AuthResposiveContainer>

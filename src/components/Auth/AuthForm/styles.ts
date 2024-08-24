@@ -15,8 +15,11 @@ export const AuthContainer = styled.div`
     flex-direction: column;
     gap: 1.125rem;
 
-    button[type="submit"] {
-      margin-top: 1.125rem;
+    p {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: ${(props) => props.theme.red};
+      font-weight: 400;
     }
   }
 
@@ -50,6 +53,10 @@ export const Button = styled.button<ButtonProps>`
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+  }
 
   color: ${(props) => {
     switch (props.variant) {

@@ -73,8 +73,8 @@ export function Login() {
                 </InputAdornment>
               }
             />
-            <Button type="submit">Entrar</Button>
           </TextFiled>
+          <Button type="submit">Entrar</Button>
         </form>
       </AuthForm>
     </AuthResposiveContainer>

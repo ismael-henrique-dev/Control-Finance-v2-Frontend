@@ -39,6 +39,24 @@ export const FormControlContainer = styled(FormControl)`
       props.theme.secundary}; // Cor da borda quando o mouse passa sobre o campo
   }
 
+  & .MuiFormHelperText-root {
+    color: ${(props) => props.theme.red}; // Cor do texto de ajuda padrão
+  }
+
+  & .MuiFormControl-error .MuiInput-underline:before {
+    border-bottom-color: ${(props) =>
+      props.theme.red}; // Cor da borda quando há erro
+  }
+
+  & .MuiFormControl-error .MuiInput-underline:after {
+    border-bottom-color: ${(props) =>
+      props.theme.red}; // Cor da borda quando há erro
+  }
+
+  & .MuiFormHelperText-root.Mui-error {
+    color: ${(props) => props.theme.red}; // Cor do texto de erro
+  }
+
   input {
     color: ${(props) => props.theme.primary};
   }
