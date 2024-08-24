@@ -1,40 +1,38 @@
-import { createContext, ReactNode, useState } from "react"
+import { createContext, ReactNode } from "react"
 import { api } from "../services/api"
-import { useNavigate } from "react-router-dom"
 
 interface UserContextProps {
   children: ReactNode
 }
 
 interface UserRegisterFormData {
-
+  email: string
+  password: string
+  userName: string
 }
 
 interface UserProviderType {
-  userRegister: () => void
+  userRegister: (data: UserRegisterFormData) => Promise<void>
 }
 
 export const UserContext = createContext({} as UserProviderType)
 
-export function UseProvider({children}:UserContextProps) {
+export function UseProvider({ children }: UserContextProps) {
   // const [user, setUser] = useState(null)
 
   // const navigate = useNavigate()
 
-  const userRegister = async (formData:UserRegisterFormData) => {
+  async function userRegister(data: UserRegisterFormData) {
     try {
-      api.post("/users/register", formData)
+      await api.post("/users/register", data)
       // navigate('/login')
-    } catch(error) {
+    } catch (error) {
       console.log(error)
     }
   }
 
-  
-  
-  
   return (
-    <UserContext.Provider value={{userRegister, }}>
+    <UserContext.Provider value={{ userRegister }}>
       {children}
     </UserContext.Provider>
   )

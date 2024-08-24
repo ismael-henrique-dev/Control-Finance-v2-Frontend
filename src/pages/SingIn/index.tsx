@@ -6,18 +6,41 @@ import InputLabel from "@mui/material/InputLabel"
 import Input from "@mui/material/Input"
 import InputAdornment from "@mui/material/InputAdornment"
 import IconButton from "@mui/material/IconButton"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { LockOpen, Lock } from "lucide-react"
 import { Button } from "../../components/Auth/AuthForm/styles"
+import { useForm } from "react-hook-form"
+import { UserContext } from "../../contexts/userContext"
+
+interface UserRegisterFormData {
+  email: string
+  password: string
+  userName: string
+}
 
 export function SingUp() {
+  const [showPassword, setShowPassword] = useState(false)
 
-   const [showPassword, setShowPassword] = useState(false)
+  const { userRegister } = useContext(UserContext)
 
-   function handleClickShowPassword() {
-     setShowPassword(!showPassword)
-   }
-   
+  function handleClickShowPassword() {
+    setShowPassword(!showPassword)
+  }
+
+  const { register, handleSubmit } = useForm<UserRegisterFormData>()
+
+  async function handleUserRegister(data: UserRegisterFormData) {
+    const { email, password, userName } = data
+
+    console.log(data)
+
+    await userRegister({
+      email,
+      password,
+      userName,
+    })
+  }
+
   return (
     <AuthResposiveContainer>
       <Sponsor />
@@ -28,19 +51,30 @@ export function SingUp() {
         routeAuth="/login"
         navLinkText="Entrar"
       >
-        <form action="">
+        <form onSubmit={handleSubmit(handleUserRegister)}>
           <TextFiled variant="standard">
-            <InputLabel htmlFor="standard-adornment-password">Nome</InputLabel>
-            <Input type="text" error={false} />
-          </TextFiled>
-          <TextFiled variant="standard">
-            <InputLabel htmlFor="standard-adornment-password">Email</InputLabel>
-            <Input type="email" error={false} />
-          </TextFiled>
-          <TextFiled variant="standard">
-            <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
+            <InputLabel htmlFor="user-name">Nome</InputLabel>
             <Input
-              id="standard-adornment-password"
+              type="text"
+              id="user-name"
+              error={false}
+              {...register("userName")}
+            />
+          </TextFiled>
+          <TextFiled variant="standard">
+            <InputLabel htmlFor="user-email">Email</InputLabel>
+            <Input
+              type="email"
+              id="user-email"
+              error={false}
+              {...register("email")}
+            />
+          </TextFiled>
+          <TextFiled variant="standard">
+            <InputLabel htmlFor="user-password">Senha</InputLabel>
+            <Input
+              id="user-password"
+              {...register("password")}
               type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
