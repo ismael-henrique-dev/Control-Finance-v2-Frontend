@@ -21,7 +21,7 @@ interface UserLoginFormData {
 interface UserProviderType {
   userRegister: (data: UserRegisterFormData) => Promise<void>
   userLogin: (data: UserLoginFormData) => Promise<void>
-  // userData: 
+  // userData:
 }
 
 export const UserContext = createContext({} as UserProviderType)
@@ -34,7 +34,7 @@ export function UseProvider({ children }: UserContextProps) {
   async function userRegister(data: UserRegisterFormData) {
     try {
       await api.post("/users/register", data)
-      navigate('/')
+      navigate("/")
     } catch (error) {
       console.log(error)
     }
@@ -45,7 +45,7 @@ export function UseProvider({ children }: UserContextProps) {
       const { data } = await api.patch("/auth/login", userData)
       localStorage.setItem("@token", data.Token)
     } catch (error) {
-      console.log(error)
+      console.error("Informações incorretas")
     }
   }
 
@@ -57,8 +57,8 @@ export function UseProvider({ children }: UserContextProps) {
         try {
           const { data } = await api.get(`/auth/profile`, {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           })
           console.log(data.Profile)
           setUserData(data)

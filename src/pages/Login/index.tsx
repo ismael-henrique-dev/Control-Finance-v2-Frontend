@@ -11,6 +11,8 @@ import { LockOpen, Lock } from "lucide-react"
 import { useContext, useState } from "react"
 import { UserContext } from "../../contexts/userContext"
 import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { loginFormSchema } from "./loginFormSchema"
 
 interface UserLoginFormData {
   Email: string
@@ -27,7 +29,14 @@ export function Login() {
 
   const { userLogin } = useContext(UserContext)
 
-  const { register, handleSubmit } = useForm<UserLoginFormData>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserLoginFormData>({
+    resolver: zodResolver(loginFormSchema),
+    mode: "onChange"
+  })
 
   async function handleUserLogin(data: UserLoginFormData) {
     const { Email, Senha } = data
@@ -48,13 +57,16 @@ export function Login() {
       >
         <form onSubmit={handleSubmit(handleUserLogin)}>
           <TextFiled variant="standard">
-            <InputLabel htmlFor="user-email">Email</InputLabel>
+            <InputLabel htmlFor="user-email" error={!!errors.Email}>
+              Email
+            </InputLabel>
             <Input
               type="email"
               id="user-email"
-              error={false}
+              error={!!errors.Email}
               {...register("Email")}
             />
+            {errors.Email && <p>{errors.Email.message}</p>}
           </TextFiled>
           <TextFiled variant="standard">
             <InputLabel htmlFor="user-password">Senha</InputLabel>
