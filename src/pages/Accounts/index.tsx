@@ -16,12 +16,12 @@ export function Accounts() {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const { accountsList } = useContext(AccountsContext)
+  const { accountsList, statics } = useContext(AccountsContext)
 
   return (
     <AccountsContainer>
       <ContainerBarSummary>
-        <Summary />
+        <Summary total={statics?.sum ?? 0} income={statics?.totalDeposit ?? 0} outcome={statics?.totalWithdraw ?? 0}/>
         <Button handleClick={handleOpen} />
       </ContainerBarSummary>
       <Section>

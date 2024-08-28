@@ -20,7 +20,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
     "Carteira",
     "ContaBancaria",
     "Poupanca",
-    "CorretoraDeinvestimentos",
+    "CorretoraDeInvestimentos",
   ]
 
   const { register, handleSubmit, control } = useForm<NewAccountProps>({

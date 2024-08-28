@@ -14,6 +14,7 @@ interface NewAccountProps {
 
 interface AccountsContextType {
   // fetchAccounts: () => Promise<void>
+  statics: Statics | null
   accountsList: AccountStatic[]
   createAccount: (data: NewAccountProps) => Promise<void>
 }
@@ -26,6 +27,8 @@ export interface Root {
 
 export interface Statics {
   sum: number
+  totalWithdraw: number
+  totalDeposit: number
 }
 
 export interface AccountStatic {
@@ -47,6 +50,7 @@ export const AccountsContext = createContext({} as AccountsContextType)
 
 export function AccountsProvider({ children }: AccountsProviderProps) {
   const [accountsList, setAccountsList] = useState<AccountStatic[]>([])
+  const [statics, setStatics] = useState<Statics | null>(null)
 
   async function fetchAccounts() {
     const token = localStorage.getItem("@token")
@@ -58,6 +62,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
       })
 
       setAccountsList(data.AccountStatics)
+      setStatics(data.Statics)
       console.log(`Buscando contas: ${data}`)
     } catch (err) {
       console.error("Error fetching accounts:", err)
@@ -76,14 +81,14 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
           Authorization: `Bearer ${token}`,
         },
       })
-      setAccountsList(data.AccountStatics)
+      setAccountsList([...accountsList, data.AccountStatics])
     } catch (err) {
       console.error("Error creating account:", err)
     }
   }
 
   return (
-    <AccountsContext.Provider value={{ accountsList, createAccount }}>
+    <AccountsContext.Provider value={{ accountsList, createAccount,  statics}}>
       {children}
     </AccountsContext.Provider>
   )
