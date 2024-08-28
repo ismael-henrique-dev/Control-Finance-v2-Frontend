@@ -34,7 +34,7 @@ export function UseProvider({ children }: UserContextProps) {
   async function userRegister(data: UserRegisterFormData) {
     try {
       await api.post("/users/register", data)
-      navigate("/")
+      // navigate("/") 
     } catch (error) {
       console.log(error)
     }
@@ -46,6 +46,7 @@ export function UseProvider({ children }: UserContextProps) {
       localStorage.setItem("@token", data.Token)
     } catch (error) {
       console.error("Informações incorretas")
+      
     }
   }
 
@@ -62,7 +63,7 @@ export function UseProvider({ children }: UserContextProps) {
           })
           console.log(data.Profile)
           setUserData(data)
-          navigate("/")
+          // navigate("/")
         } catch (error) {
           console.log(error)
         }

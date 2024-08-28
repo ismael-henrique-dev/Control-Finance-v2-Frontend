@@ -10,21 +10,32 @@ import { useState } from "react"
 
 interface SelectProps {
   title: string
-  data?: string[] // alterar para obrigatorio
+  data: string[]
+  selectedValue?: string
+  onChange?: (value: string) => void
+  disabled?: boolean
 }
 
-export default function SelectVariants({ title, data = [] }: SelectProps) {
-  const [selectData, setSelectData] = useState<string>("")
+export default function SelectVariants({
+  title,
+  data = [],
+  selectedValue = "",
+  onChange,
+  disabled = false,
+}: SelectProps) {
+  const [selectData, setSelectData] = useState<string>(selectedValue)
 
   const handleChange = (event: SelectChangeEvent<string>) => {
-    setSelectData(event.target.value)
+    const value = event.target.value
+    setSelectData(value)
+    if (onChange) onChange(value)
   }
 
   const menuProps = useStyledMenuProps()
 
   return (
     <div>
-      <FormControlContainer variant="standard">
+      <FormControlContainer variant="standard" disabled={disabled}>
         <InputLabel
           sx={{ display: "flex", alignItems: "center" }}
           id="demo-simple-select-standard-label"
@@ -40,17 +51,15 @@ export default function SelectVariants({ title, data = [] }: SelectProps) {
           IconComponent={ChevronDown}
           sx={{
             width: "100%",
-
             "& .MuiSelect-select": {
               width: "100%",
               gap: "0.5rem",
               display: "flex",
               alignItems: "center",
-               // Adjust padding if needed
               color: "#4C3299",
             },
             "& svg": {
-             marginBottom: "-0.3rem" // Adjust space between icon and text
+              marginBottom: "-0.3rem",
             },
           }}
           MenuProps={menuProps}

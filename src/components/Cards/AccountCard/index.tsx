@@ -12,9 +12,14 @@ import { PopeoverOptionsAccount } from "./PoperOptionsAccount"
 
 interface AccountCardProps {
   isPageAccounts: boolean
+  accountTitle: string
+  accountType?: "Carteira"
+  income: number
+  outcome: number
+  total: number
 }
 
-export function AccountCard({ isPageAccounts }: AccountCardProps) {
+export function AccountCard({ isPageAccounts, accountTitle, total, income, outcome}: AccountCardProps) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -24,7 +29,7 @@ export function AccountCard({ isPageAccounts }: AccountCardProps) {
       <header>
         <div>
           <Wallet size={32} />
-          <strong>Carteira</strong>
+          <strong>{accountTitle}</strong>
         </div>
         <ActionsArea>
           {isPageAccounts && (
@@ -35,21 +40,21 @@ export function AccountCard({ isPageAccounts }: AccountCardProps) {
           </ButtonAdd>
         </ActionsArea>
       </header>
-      <strong>R$ 100,00</strong>
+      <strong>R$ {total}</strong>
       <AccountSummary>
         <SummaryType variant="income">
           <div>
             <TrendingUp />
             Depositos
           </div>
-          <span>R$ 200,00</span>
+          <span>R$ {income}</span>
         </SummaryType>
         <SummaryType variant="outcome">
           <div>
             <TrendingDown />
             Saídas
           </div>
-          <span>R$ 100,00</span>
+          <span>R$ {outcome}</span>
         </SummaryType>
       </AccountSummary>
       <NewTransactionModal open={open} handleClose={handleClose}/>

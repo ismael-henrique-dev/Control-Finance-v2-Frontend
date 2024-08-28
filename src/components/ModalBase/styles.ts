@@ -56,7 +56,7 @@ export const ModalHeader = styled.header`
   }
 `
 
-export const ModalContainer = styled.section`
+export const ModalContainer = styled.form`
   width: 30rem;
   height: auto;
   background-color: ${(props) => props.theme.primaryGray};

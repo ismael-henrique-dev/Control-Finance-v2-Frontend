@@ -8,6 +8,7 @@ import { darkTheme } from "./styles/themes/dark"
 import { BrowserRouter } from "react-router-dom"
 import { Router } from "./Router"
 import { UseProvider } from "./contexts/userContext"
+import { AccountsProvider } from "./contexts/accountsContext"
 
 // eslint-disable-next-line react-refresh/only-export-components
 function App() {
@@ -28,7 +29,9 @@ export default function MainApp() {
     <ThemeProvider>
       <BrowserRouter>
         <UseProvider>
-          <App />
+          <AccountsProvider>
+            <App />
+          </AccountsProvider>
         </UseProvider>
       </BrowserRouter>
     </ThemeProvider>

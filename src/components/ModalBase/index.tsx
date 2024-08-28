@@ -13,6 +13,8 @@ interface ModalBaseProps {
   children: ReactNode
   open: boolean
   handleClose: () => void
+  inputValue: ReactNode
+  submit: () => Promise<void>
 }
 
 export interface ModalBasePropsDefault {
@@ -25,11 +27,13 @@ export function ModalBase({
   submitButtonTitle,
   children,
   handleClose,
+  inputValue,
+  submit
 }: ModalBaseProps) {
   
   return (
     <ModalGlobal open={open} onClose={handleClose}>
-      <ModalContainer>
+      <ModalContainer onSubmit={submit}>
         <ModalHeader>
           <button onClick={handleClose}>
             <ArrowLeft size={20} />
@@ -37,12 +41,12 @@ export function ModalBase({
           </button>
           <div>
             <label htmlFor="">Valor: </label>
-            <input type="text" value="R$ 0,00" />
+            {inputValue}
           </div>
         </ModalHeader>
         <MainContainer>
           {children}
-          <SubmitButton>{submitButtonTitle}</SubmitButton>
+          <SubmitButton type="submit">{submitButtonTitle}</SubmitButton>
         </MainContainer>
       </ModalContainer>
     </ModalGlobal>
