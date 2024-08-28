@@ -12,15 +12,6 @@ import {
 } from "./styles"
 import { AccountsContext } from "../../contexts/accountsContext"
 
-interface Account {
-  isPageAccounts: boolean
-  accountTitle: string
-  accountType?: "Carteira"
-  income: number
-  outcome: number
-  total: number
-}
-
 export function Accounts() {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -38,13 +29,14 @@ export function Accounts() {
         <PaginationMenu />
       </Section>
       <MainContainer>
-        {accountsList.map((account) => {
+        {accountsList.map((account, index: number) => {
           return (
             <AccountCard
+              key={index}
               isPageAccounts
               accountTitle={account.accountTitle}
-              income={account.income}
-              outcome={account.outcome}
+              income={account.DepositValue}
+              outcome={account.WithdrawValue}
               total={account.sum}
             />
           )

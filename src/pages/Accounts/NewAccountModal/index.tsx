@@ -2,14 +2,15 @@ import InputLabel from "@mui/material/InputLabel"
 import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
 import { TextFiled } from "../../../components/TextField"
 import Input from "@mui/material/Input"
-import { useForm } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { useContext } from "react"
 import { AccountsContext } from "../../../contexts/accountsContext"
+import SelectVariants from "../../../components/ModalBase/SelectField"
 
 interface NewAccountProps {
   Name: string
   Value: number
-  Type: "Carteira"
+  Type: string // Ajuste para string para permitir outros tipos além de "Carteira"
   Description: string
 }
 
@@ -17,12 +18,12 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
   const { createAccount } = useContext(AccountsContext)
   const data = [
     "Carteira",
-    "Conta Bancária",
-    "Poupança",
-    "Corretora de investimentos",
+    "ContaBancaria",
+    "Poupanca",
+    "CorretoraDeinvestimentos",
   ]
 
-  const { register, handleSubmit } = useForm<NewAccountProps>({
+  const { register, handleSubmit, control } = useForm<NewAccountProps>({
     mode: "onSubmit",
   })
 
@@ -59,18 +60,19 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
         />
       </TextFiled>
 
-      <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-type">Tipo de conta</InputLabel>
-        <Input
-          type="text"
-          id="account-type"
-          {...register("Type")}
-          error={false}
-        />
-      </TextFiled>
-
-      {/* Use este Select ao invés do Input acima para o Type */}
-      {/* <SelectVariants title="Tipo de conta" {...register("Type")} data={data} /> */}
+      {/* Componente Select configurado com Controller para capturar o valor corretamente */}
+      <Controller
+        name="Type"
+        control={control}
+        render={({ field }) => (
+          <SelectVariants
+            title="Tipo de conta"
+            data={data}
+            value={field.value}
+            onChange={field.onChange}
+          />
+        )}
+      />
 
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="account-description">Descrição</InputLabel>

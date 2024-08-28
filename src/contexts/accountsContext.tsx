@@ -5,13 +5,6 @@ interface AccountsProviderProps {
   children: ReactNode
 }
 
-interface Account {
-  sum: number
-  outcome: number
-  income: number
-  accountTitle: string
-}
-
 interface NewAccountProps {
   Name: string
   Value: number
@@ -20,19 +13,40 @@ interface NewAccountProps {
 }
 
 interface AccountsContextType {
-  fetchAccounts?: () => Promise<void>
-  accountsList: Account[]
+  // fetchAccounts: () => Promise<void>
+  accountsList: AccountStatic[]
   createAccount: (data: NewAccountProps) => Promise<void>
 }
 
-interface Data {
-  AccountStatics: Account[]
+export interface Root {
+  Statics: Statics
+  AccountStatics: AccountStatic[]
+  AccountList: AccountList[]
+}
+
+export interface Statics {
+  sum: number
+}
+
+export interface AccountStatic {
+  sum: number
+  WithdrawValue: number
+  DepositValue: number
+  accountTitle: string
+}
+
+export interface AccountList {
+  Id: string
+  Name: string
+  Value: number
+  userId: string
+  Type: string
 }
 
 export const AccountsContext = createContext({} as AccountsContextType)
 
 export function AccountsProvider({ children }: AccountsProviderProps) {
-  const [accountsList, setAccountsList] = useState<Account[]>([])
+  const [accountsList, setAccountsList] = useState<AccountStatic[]>([])
 
   async function fetchAccounts() {
     const token = localStorage.getItem("@token")
@@ -43,16 +57,15 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         },
       })
 
-      setAccountsList(data)
-      console.log(accountsList)
+      setAccountsList(data.AccountStatics)
       console.log(`Buscando contas: ${data}`)
     } catch (err) {
-      console.log(err)
+      console.error("Error fetching accounts:", err)
     }
   }
 
   useEffect(() => {
-    // fetchAccounts()
+    fetchAccounts()
   }, [])
 
   async function createAccount(AccountData: NewAccountProps) {
@@ -64,10 +77,8 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         },
       })
       setAccountsList(data.AccountStatics)
-      console.log(data.AccountStatics)
-      // console.log(accountsList)
     } catch (err) {
-      console.log(err)
+      console.error("Error creating account:", err)
     }
   }
 
