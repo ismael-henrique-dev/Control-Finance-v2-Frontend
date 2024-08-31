@@ -17,9 +17,10 @@ interface AccountCardProps {
   income: number
   outcome: number
   total: number
+  accountId: string
 }
 
-export function AccountCard({ isPageAccounts, accountTitle, total, income, outcome}: AccountCardProps) {
+export function AccountCard({ isPageAccounts, accountTitle, total, income, outcome, accountId}: AccountCardProps) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -33,7 +34,7 @@ export function AccountCard({ isPageAccounts, accountTitle, total, income, outco
         </div>
         <ActionsArea>
           {isPageAccounts && (
-            <PopeoverOptionsAccount />
+            <PopeoverOptionsAccount accountId={accountId}/>
           )}
           <ButtonAdd onClick={handleOpen}>
             <Plus />

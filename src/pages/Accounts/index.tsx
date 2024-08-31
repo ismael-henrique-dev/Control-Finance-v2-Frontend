@@ -21,7 +21,11 @@ export function Accounts() {
   return (
     <AccountsContainer>
       <ContainerBarSummary>
-        <Summary total={statics?.sum ?? 0} income={statics?.totalDeposit ?? 0} outcome={statics?.totalWithdraw ?? 0}/>
+        <Summary
+          total={statics?.sum ?? 0}
+          income={statics?.totalDeposit ?? 0}
+          outcome={statics?.totalWithdraw ?? 0}
+        />
         <Button handleClick={handleOpen} />
       </ContainerBarSummary>
       <Section>
@@ -29,18 +33,17 @@ export function Accounts() {
         <PaginationMenu />
       </Section>
       <MainContainer>
-        {accountsList.map((account, index: number) => {
-          return (
-            <AccountCard
-              key={index}
-              isPageAccounts
-              accountTitle={account.accountTitle}
-              income={account.DepositValue}
-              outcome={account.WithdrawValue}
-              total={account.sum}
-            />
-          )
-        })}
+        {accountsList?.AccountStatics.map((account) => (
+          <AccountCard
+            key={account.accountId}
+            isPageAccounts
+            accountTitle={account.accountTitle}
+            income={account.DepositValue}
+            outcome={account.WithdrawValue}
+            total={account.sum}
+            accountId={account.accountId} // Agora usando o accountId
+          />
+        ))}
       </MainContainer>
       <NewAccountModaL open={open} handleClose={handleClose} />
     </AccountsContainer>

@@ -1,12 +1,21 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useState } from "react"
 import { ButtonAdd } from "../styles"
 import { Pencil, Settings2, Trash } from "lucide-react"
 import Popover from "@mui/material/Popover"
 import { Actions, Container } from "../../GoalCard/SpeedDial/styles"
 import { NewTransactionModal } from "../../../NewTransactionModal"
+import { AccountsContext } from "../../../../contexts/accountsContext"
 
-export function PopeoverOptionsAccount() {
+interface PopeoverOptionsAccountProps {
+  accountId: string
+}
+
+export function PopeoverOptionsAccount({
+  accountId,
+}: PopeoverOptionsAccountProps) {
+  const { deleteAccount } = useContext(AccountsContext)
+
   const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
   const [open, setOpen] = React.useState(false)
 
@@ -29,10 +38,20 @@ export function PopeoverOptionsAccount() {
     handleOpenModalEdit()
   }
 
+  async function handleDeleteAccount() {
+    console.log(accountId)
+    await deleteAccount(accountId)
+  }
+
+  const handleClickDeleteTransaction = () => {
+    handlePopoverClose()
+    handleDeleteAccount()
+  }
+
   return (
     <Container>
       <ButtonAdd onClick={handleClick}>
-        <Settings2 color="#fff"/>
+        <Settings2 color="#fff" />
       </ButtonAdd>
       <Popover
         id="click-popover"
@@ -57,11 +76,11 @@ export function PopeoverOptionsAccount() {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Actions style={{marginLeft: "0.3rem", marginTop: "3rem"}}>
+        <Actions style={{ marginLeft: "0.3rem", marginTop: "3rem" }}>
           <button onClick={handleClickEditTransaction}>
             <Pencil />
           </button>
-          <button onClick={handlePopoverClose}>
+          <button onClick={handleClickDeleteTransaction}>
             <Trash />
           </button>
         </Actions>
