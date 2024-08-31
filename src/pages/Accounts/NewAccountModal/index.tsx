@@ -14,14 +14,16 @@ interface NewAccountProps {
   Description: string
 }
 
+export const accoutTypes = [
+  "Carteira",
+  "ContaBancaria",
+  "Poupanca",
+  "CorretoraDeInvestimentos",
+]
+
 export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
   const { createAccount } = useContext(AccountsContext)
-  const data = [
-    "Carteira",
-    "ContaBancaria",
-    "Poupanca",
-    "CorretoraDeInvestimentos",
-  ]
+  
 
   const { register, handleSubmit, control } = useForm<NewAccountProps>({
     mode: "onSubmit",
@@ -67,7 +69,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
         render={({ field }) => (
           <SelectVariants
             title="Tipo de conta"
-            data={data}
+            data={accoutTypes}
             value={field.value}
             onChange={field.onChange}
           />

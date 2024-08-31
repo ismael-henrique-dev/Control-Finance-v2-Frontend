@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom"
 import { Router } from "./Router"
 import { UseProvider } from "./contexts/userContext"
 import { AccountsProvider } from "./contexts/accountsContext"
+import { TransactionsProvider } from "./contexts/transactionsContext"
 
 // eslint-disable-next-line react-refresh/only-export-components
 function App() {
@@ -30,7 +31,9 @@ export default function MainApp() {
       <BrowserRouter>
         <UseProvider>
           <AccountsProvider>
-            <App />
+            <TransactionsProvider>
+              <App />
+            </TransactionsProvider>
           </AccountsProvider>
         </UseProvider>
       </BrowserRouter>
