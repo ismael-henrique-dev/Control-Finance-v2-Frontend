@@ -11,6 +11,7 @@ import {
   Section,
 } from "./styles"
 import { AccountsContext } from "../../contexts/accountsContext"
+import LinearProgress  from "@mui/material/LinearProgress"
 
 export function Accounts() {
   const [open, setOpen] = useState(false)
@@ -33,17 +34,22 @@ export function Accounts() {
         <PaginationMenu />
       </Section>
       <MainContainer>
-        {accountsList.map((account) => (
-          <AccountCard
-            key={account.AcId}
-            isPageAccounts
-            accountTitle={account.accountTitle}
-            income={account.DepositValue}
-            outcome={account.WithdrawValue}
-            total={account.sum}
-            accountId={account.AcId} // Agora usando o accountId
-          />
-        ))}
+        {accountsList.length === 0 ? (
+          // <CircularProgress style={{margin: "auto"}} />
+          <LinearProgress color="secondary" style={{width: "100%"}}/>
+        ) : (
+          accountsList.map((account) => (
+            <AccountCard
+              key={account.AcId}
+              isPageAccounts
+              accountTitle={account.accountTitle}
+              income={account.DepositValue}
+              outcome={account.WithdrawValue}
+              total={account.sum}
+              accountId={account.AcId} // Agora usando o accountId
+            />
+          ))
+        )}
       </MainContainer>
       <NewAccountModaL open={open} handleClose={handleClose} />
     </AccountsContainer>

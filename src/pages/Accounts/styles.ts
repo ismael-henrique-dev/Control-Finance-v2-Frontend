@@ -9,6 +9,7 @@ export const AccountsContainer = styled.div`
   padding: 0;
   margin: 2rem auto;
   gap: 2rem;
+  min-height: 100vh;
 `
 
 export const ContainerBarSummary = styled.div`
@@ -50,6 +51,8 @@ export const MainContainer = styled.main`
   justify-content: start;
   flex-wrap: wrap;
   gap: 2rem;
+  min-width: 64rem;
+  /* min-height: 100vh; */
 
   @media (max-width: 768px) {
     & {

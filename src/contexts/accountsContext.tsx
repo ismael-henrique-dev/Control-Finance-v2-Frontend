@@ -70,6 +70,8 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         },
       })
       console.log(data)
+      
+      setAccountsList([...accountsList, data])
     } catch (err) {
       console.error("Error creating account:", err)
     }
@@ -83,6 +85,9 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
           Authorization: `Bearer ${token}`,
         },
       })
+
+      const newAccountsList = accountsList.filter(((account: Account) => account.AcId !== accountId))
+      setAccountsList(newAccountsList)
 
       console.log("Conta deletada!!")
     } catch (err) {
