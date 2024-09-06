@@ -33,15 +33,15 @@ export function Accounts() {
         <PaginationMenu />
       </Section>
       <MainContainer>
-        {accountsList?.AccountStatics.map((account) => (
+        {accountsList.map((account) => (
           <AccountCard
-            key={account.accountId}
+            key={account.AcId}
             isPageAccounts
             accountTitle={account.accountTitle}
             income={account.DepositValue}
             outcome={account.WithdrawValue}
             total={account.sum}
-            accountId={account.accountId} // Agora usando o accountId
+            accountId={account.AcId} // Agora usando o accountId
           />
         ))}
       </MainContainer>

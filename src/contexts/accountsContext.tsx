@@ -14,15 +14,9 @@ interface NewAccountProps {
 
 interface AccountsContextType {
   statics: Statics | null
-  accountsList: Root | null
+  accountsList: Account[]
   createAccount: (data: NewAccountProps) => Promise<void>
   deleteAccount: (id: string) => Promise<void>
-}
-
-export interface Root {
-  Statics: Statics
-  AccountStatics: AccountStatic[]
-  AccountList: AccountList[]
 }
 
 export interface Statics {
@@ -31,26 +25,19 @@ export interface Statics {
   totalDeposit: number
 }
 
-export interface AccountStatic {
+export interface Account {
   sum: number
   WithdrawValue: number
   DepositValue: number
   accountTitle: string
-  accountId: string
-}
-
-export interface AccountList {
-  Id: string
-  Name: string
-  Value: number
-  userId: string
+  AcId: string
   Type: string
 }
 
 export const AccountsContext = createContext({} as AccountsContextType)
 
 export function AccountsProvider({ children }: AccountsProviderProps) {
-  const [accountsList, setAccountsList] = useState<Root | null>(null)
+  const [accountsList, setAccountsList] = useState<Account[]>([])
   const [statics, setStatics] = useState<Statics | null>(null)
 
   async function fetchAccounts() {
@@ -61,26 +48,10 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
           Authorization: `Bearer ${token}`,
         },
       })
-
-      const accountStaticsWithIds = data.AccountStatics.map(
-        (account: AccountStatic) => {
-          const matchingAccount = data.AccountList.find(
-            (acc: AccountList) => acc.Name === account.accountTitle
-          )
-
-          return {
-            ...account,
-            accountId: matchingAccount?.Id,
-          }
-        }
-      )
-
-      setAccountsList({
-        ...data,
-        AccountStatics: accountStaticsWithIds,
-      })
+      console.log(data)
       setStatics(data.Statics)
-      console.log(`Buscando contas: ${data}`)
+      setAccountsList(data.AccountStatics)
+      // console.log(`Buscando contas: ${data}`)
     } catch (err) {
       console.error("Error fetching accounts:", err)
     }
@@ -93,55 +64,12 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   async function createAccount(AccountData: NewAccountProps) {
     const token = localStorage.getItem("@token")
     try {
-      const { data: newAccount } = await api.post(
-        "/account/register",
-        AccountData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-
-      if (accountsList) {
-        setAccountsList({
-          ...accountsList,
-          AccountStatics: [
-            ...accountsList.AccountStatics,
-            {
-              sum: newAccount.Value,
-              WithdrawValue:
-                newAccount.Type === "withdraw" ? newAccount.Value : 0,
-              DepositValue:
-                newAccount.Type === "deposit" ? newAccount.Value : 0,
-              accountTitle: newAccount.Name,
-              accountId: newAccount.Id,
-            },
-          ],
-          AccountList: [...accountsList.AccountList, newAccount],
-        })
-      } else {
-        setAccountsList({
-          Statics: {
-            sum: newAccount.Value,
-            totalWithdraw:
-              newAccount.Type === "withdraw" ? newAccount.Value : 0,
-            totalDeposit: newAccount.Type === "deposit" ? newAccount.Value : 0,
-          },
-          AccountStatics: [
-            {
-              sum: newAccount.Value,
-              WithdrawValue:
-                newAccount.Type === "withdraw" ? newAccount.Value : 0,
-              DepositValue:
-                newAccount.Type === "deposit" ? newAccount.Value : 0,
-              accountTitle: newAccount.Name,
-              accountId: newAccount.Id,
-            },
-          ],
-          AccountList: [newAccount],
-        })
-      }
+      const { data } = await api.post("/account/register", AccountData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      console.log(data)
     } catch (err) {
       console.error("Error creating account:", err)
     }
@@ -156,22 +84,6 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         },
       })
 
-      // Atualiza o estado para remover o item deletado
-      if (accountsList) {
-        const updatedAccountStatics = accountsList.AccountStatics.filter(
-          (account) => account.accountId !== accountId
-        )
-        const updatedAccountList = accountsList.AccountList.filter(
-          (account) => account.Id !== accountId
-        )
-
-        setAccountsList({
-          ...accountsList,
-          AccountStatics: updatedAccountStatics,
-          AccountList: updatedAccountList,
-        })
-      }
-
       console.log("Conta deletada!!")
     } catch (err) {
       console.error("Error deleting account:", err)
@@ -180,7 +92,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
 
   return (
     <AccountsContext.Provider
-      value={{ accountsList, createAccount, deleteAccount, statics }}
+      value={{ accountsList, createAccount, statics, deleteAccount }}
     >
       {children}
     </AccountsContext.Provider>

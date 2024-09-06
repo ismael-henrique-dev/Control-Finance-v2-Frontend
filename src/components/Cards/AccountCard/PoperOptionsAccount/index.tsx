@@ -16,17 +16,18 @@ export function PopeoverOptionsAccount({
 }: PopeoverOptionsAccountProps) {
   const { deleteAccount } = useContext(AccountsContext)
 
-  const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [open, setOpen] = React.useState(false)
 
   const [openModalEdit, setOpenModalEdit] = useState(false)
   const handleOpenModalEdit = () => setOpenModalEdit(true)
   const handleCloseModaEdit = () => setOpenModalEdit(false)
 
-  const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
     setOpen((prevOpen) => !prevOpen)
   }
+
 
   const handlePopoverClose = () => {
     setOpen(false)
