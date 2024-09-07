@@ -70,8 +70,17 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         },
       })
       console.log(data)
-      
-      setAccountsList([...accountsList, data])
+
+      const newAccount = {
+        sum: data.CreateAccount.createdObject.Value,
+        WithdrawValue: 0, 
+        DepositValue: 0, 
+        accountTitle: data.CreateAccount.createdObject.Name,
+        AcId: data.CreateAccount.createdObject.Id,
+        Type: AccountData.Type, 
+      }
+
+      setAccountsList((prevState) => [...prevState, newAccount])
     } catch (err) {
       console.error("Error creating account:", err)
     }
@@ -86,7 +95,9 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         },
       })
 
-      const newAccountsList = accountsList.filter(((account: Account) => account.AcId !== accountId))
+      const newAccountsList = accountsList.filter(
+        (account: Account) => account.AcId !== accountId
+      )
       setAccountsList(newAccountsList)
 
       console.log("Conta deletada!!")

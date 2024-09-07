@@ -64,7 +64,7 @@ export default function SelectVariants({
           }}
           MenuProps={menuProps}
         >
-          {data.map((item, index) => (
+          {data.map((item, index) => ( // arrumar esses selects
             <StyledMenuItem key={index} value={item}>
               <div>
                 <PiggyBank size={16} />

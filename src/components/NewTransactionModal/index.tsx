@@ -13,6 +13,7 @@ import {
   TransactionsContext,
 } from "../../contexts/transactionsContext"
 import { accoutTypes } from "../../pages/Accounts/NewAccountModal"
+import { AccountsContext } from "../../contexts/accountsContext"
 
 const StyledInput = styled(Input)`
   input[type="date"] {
@@ -41,6 +42,7 @@ export function NewTransactionModal({
 }: ModalBasePropsDefault) {
   const [categories, setCategories] = useState<string[]>([])
   const { createTransaction } = useContext(TransactionsContext)
+  const { accountsList } = useContext(AccountsContext)
   const { register, handleSubmit, setValue, watch } = useForm<Transaction>()
 
   const type = watch("Type", "income") // Watching Type to update categories based on the selected type
@@ -136,10 +138,10 @@ export function NewTransactionModal({
         />
       </TextFiled> */}
 
-      {/* Select for Account */}
-      <SelectVariants
+      {/* Select for Account -> Arrumar para que ele receba o nome da conta e passe o id */}
+      <SelectVariants 
         title="Conta"
-        data={accoutTypes}
+        data={accountsList}
         selectedValue={watch("AccountType")}
         onChange={(value) => setValue("AccountType", value)}
       />

@@ -30,11 +30,12 @@ export function UseProvider({ children }: UserContextProps) {
   const [userData, setUserData] = useState(null)
 
   const navigate = useNavigate()
+  const pathname = window.location.pathname
 
   async function userRegister(data: UserRegisterFormData) {
     try {
       await api.post("/users/register", data)
-      // navigate("/") 
+      navigate("/")
     } catch (error) {
       console.log(error)
     }
@@ -44,9 +45,9 @@ export function UseProvider({ children }: UserContextProps) {
     try {
       const { data } = await api.patch("/auth/login", userData)
       localStorage.setItem("@token", data.Token)
+      navigate("/")
     } catch (error) {
       console.error("Informações incorretas")
-      
     }
   }
 
@@ -63,14 +64,14 @@ export function UseProvider({ children }: UserContextProps) {
           })
           console.log(data.Profile)
           setUserData(data)
-          // navigate("/")
+          navigate(pathname)
         } catch (error) {
           console.log(error)
         }
       }
     }
     loadUser()
-  }, [])
+  }, [pathname, navigate])
 
   return (
     <UserContext.Provider value={{ userRegister, userLogin }}>

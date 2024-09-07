@@ -47,6 +47,7 @@ export function Accounts() {
               outcome={account.WithdrawValue}
               total={account.sum}
               accountId={account.AcId} // Agora usando o accountId
+              accountType={account.Type}
             />
           ))
         )}
