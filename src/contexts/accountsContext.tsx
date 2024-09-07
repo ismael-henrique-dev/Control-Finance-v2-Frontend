@@ -5,7 +5,7 @@ interface AccountsProviderProps {
   children: ReactNode
 }
 
-interface NewAccountProps {
+export interface NewAccountProps {
   Name: string
   Value: number
   Type: string
@@ -17,6 +17,10 @@ interface AccountsContextType {
   accountsList: Account[]
   createAccount: (data: NewAccountProps) => Promise<void>
   deleteAccount: (id: string) => Promise<void>
+  updateAccount: (
+    accountId: string,
+    updatedData: NewAccountProps
+  ) => Promise<void>
 }
 
 export interface Statics {
@@ -73,16 +77,39 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
 
       const newAccount = {
         sum: data.CreateAccount.createdObject.Value,
-        WithdrawValue: 0, 
-        DepositValue: 0, 
+        WithdrawValue: 0,
+        DepositValue: 0,
         accountTitle: data.CreateAccount.createdObject.Name,
         AcId: data.CreateAccount.createdObject.Id,
-        Type: AccountData.Type, 
+        Type: AccountData.Type,
       }
 
       setAccountsList((prevState) => [...prevState, newAccount])
     } catch (err) {
       console.error("Error creating account:", err)
+    }
+  }
+
+  async function updateAccount(
+    accountId: string,
+    updatedData: NewAccountProps
+  ) {
+    const token = localStorage.getItem("@token")
+    try {
+      await api.put(`/account/update/${accountId}`, updatedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      setAccountsList((prevState) =>
+        prevState.map((account) =>
+          account.AcId === accountId ? { ...account, ...updatedData } : account
+        )
+      )
+      console.log("Conta atualizada!!")
+    } catch (err) {
+      console.error("Error updating account:", err)
     }
   }
 
@@ -108,7 +135,13 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
 
   return (
     <AccountsContext.Provider
-      value={{ accountsList, createAccount, statics, deleteAccount }}
+      value={{
+        accountsList,
+        createAccount,
+        statics,
+        deleteAccount,
+        updateAccount,
+      }}
     >
       {children}
     </AccountsContext.Provider>
