@@ -19,7 +19,7 @@ interface AccountsContextType {
   deleteAccount: (id: string) => Promise<void>
   updateAccount: (
     accountId: string,
-    updatedData: NewAccountProps
+    updatedData: UpdatedData
   ) => Promise<void>
 }
 
@@ -35,6 +35,13 @@ export interface Account {
   DepositValue: number
   accountTitle: string
   AcId: string
+  Type: string
+}
+
+export interface UpdatedData {
+  Name: string
+  Value: number
+  Description: string
   Type: string
 }
 
@@ -92,7 +99,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
 
   async function updateAccount(
     accountId: string,
-    updatedData: NewAccountProps
+    updatedData: UpdatedData
   ) {
     const token = localStorage.getItem("@token")
     try {

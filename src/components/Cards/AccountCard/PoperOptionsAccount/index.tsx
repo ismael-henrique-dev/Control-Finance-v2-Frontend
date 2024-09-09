@@ -6,6 +6,7 @@ import Popover from "@mui/material/Popover"
 import { Actions, Container } from "../../GoalCard/SpeedDial/styles"
 import { NewTransactionModal } from "../../../NewTransactionModal"
 import { AccountsContext } from "../../../../contexts/accountsContext"
+import { EditAccountModaL } from "../../../../pages/Accounts/EditAccountModal.tsx"
 
 interface PopeoverOptionsAccountProps {
   accountId: string
@@ -14,7 +15,7 @@ interface PopeoverOptionsAccountProps {
 export function PopeoverOptionsAccount({
   accountId,
 }: PopeoverOptionsAccountProps) {
-  const { deleteAccount } = useContext(AccountsContext)
+  const { deleteAccount, } = useContext(AccountsContext)
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const [open, setOpen] = React.useState(false)
@@ -47,6 +48,10 @@ export function PopeoverOptionsAccount({
   const handleClickDeleteTransaction = () => {
     handlePopoverClose()
     handleDeleteAccount()
+  }
+
+  async function handleUpdateAccount() {
+    
   }
 
   return (
@@ -86,9 +91,10 @@ export function PopeoverOptionsAccount({
           </button>
         </Actions>
       </Popover>
-      <NewTransactionModal
+      <EditAccountModaL
         open={openModalEdit}
         handleClose={handleCloseModaEdit}
+        id={accountId}
       />
     </Container>
   )
