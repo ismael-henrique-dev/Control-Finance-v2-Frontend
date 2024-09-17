@@ -7,13 +7,9 @@ import { useContext } from "react"
 
 import SelectVariants from "../../../components/ModalBase/SelectField"
 import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
-
-interface NewAccountProps {
-  Name: string
-  Value: number
-  Type: string // Ajuste para string para permitir outros tipos além de "Carteira"
-  Description: string
-}
+import CurrencyInput from "react-currency-input-field"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
@@ -26,6 +22,15 @@ export const accoutTypes = [
   "CorretoraDeInvestimentos",
 ]
 
+const updatedAccountFormSchema = z.object({
+  Name: z.string().min(3, "O nome deve conter no mínimo 03 caracteres."),
+  Value: z.number().min(0.1, "No mínimo R$ 1,00."),
+  Description: z.string(),
+  Type: z.string(),
+})
+
+type UpdatedAccountFormSchema = z.infer<typeof updatedAccountFormSchema>
+
 export function EditAccountModaL({
   open,
   handleClose,
@@ -33,16 +38,23 @@ export function EditAccountModaL({
 }: EditModalProps) {
   const { updateAccount } = useContext(AccountsContext)
 
-  const { register, handleSubmit, control } = useForm<UpdatedData>({
-    mode: "onSubmit",
-  })
+  const { register, handleSubmit, control } = useForm<UpdatedAccountFormSchema>(
+    { resolver: zodResolver(updatedAccountFormSchema) }
+  )
 
   async function handleUpdatedAccount(accountData: UpdatedData) {
     console.log("Dados atualizados")
     console.log(accountData) // Debug: Verificar os dados
+
     const { Name, Value, Description, Type } = accountData
 
-    await updateAccount(AccountId, { Name, Value, Description, Type })
+    // Passando os dados atualizados para o contexto e realizando a atualização
+    await updateAccount(AccountId, {
+      Name,
+      Value,
+      Description,
+      Type,
+    })
   }
 
   return (
@@ -52,12 +64,25 @@ export function EditAccountModaL({
       submitButtonTitle="Editar nova conta"
       submit={handleSubmit(handleUpdatedAccount)}
       inputValue={
-        <input
-          type="text"
-          id="account-initial-value"
-          placeholder="R$: 0,00"
-          min={1}
-          {...register("Value", { valueAsNumber: true })}
+        <Controller
+          name="Value"
+          control={control}
+          render={({ field }) => (
+            <CurrencyInput
+              defaultValue={0}
+              id="account-initial-value"
+              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+              decimalSeparator=","
+              groupSeparator="."
+              value={field.value}
+              onValueChange={(value) => {
+                const numericValue = value
+                  ? parseFloat(value.replace(/[^\d.-]/g, ""))
+                  : 0
+                field.onChange(numericValue)
+              }}
+            />
+          )}
         />
       }
     >

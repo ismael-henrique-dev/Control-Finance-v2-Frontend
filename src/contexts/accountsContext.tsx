@@ -17,10 +17,7 @@ interface AccountsContextType {
   accountsList: Account[]
   createAccount: (data: NewAccountProps) => Promise<void>
   deleteAccount: (id: string) => Promise<void>
-  updateAccount: (
-    accountId: string,
-    updatedData: UpdatedData
-  ) => Promise<void>
+  updateAccount: (accountId: string, updatedData: UpdatedData) => Promise<void>
 }
 
 export interface Statics {
@@ -97,28 +94,28 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
     }
   }
 
-  async function updateAccount(
-    accountId: string,
-    updatedData: UpdatedData
-  ) {
-    const token = localStorage.getItem("@token")
-    try {
-      await api.put(`/account/update/${accountId}`, updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+ async function updateAccount(accountId: string, updatedData: UpdatedData) {
+   const token = localStorage.getItem("@token")
+   try {
+     // Passar o objeto `updatedData` diretamente para a API
+     await api.put(`/account/update/${accountId}`, updatedData, {
+       headers: {
+         Authorization: `Bearer ${token}`,
+       },
+     })
 
-      setAccountsList((prevState) =>
-        prevState.map((account) =>
-          account.AcId === accountId ? { ...account, ...updatedData } : account
-        )
-      )
-      console.log("Conta atualizada!!")
-    } catch (err) {
-      console.error("Error updating account:", err)
-    }
-  }
+     // Atualizar o estado da lista de contas
+     setAccountsList((prevState) =>
+       prevState.map((account) =>
+         account.AcId === accountId ? { ...account, ...updatedData } : account
+       )
+     )
+     console.log("Conta atualizada!!")
+   } catch (err) {
+     console.error("Error updating account:", err)
+   }
+ }
+
 
   async function deleteAccount(accountId: string) {
     const token = localStorage.getItem("@token")
