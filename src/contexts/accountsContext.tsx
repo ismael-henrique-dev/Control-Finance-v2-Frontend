@@ -37,7 +37,6 @@ export interface Account {
 
 export interface UpdatedData {
   Name: string
-  Value: number
   Description: string
   Type: string
 }
@@ -97,7 +96,6 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
  async function updateAccount(accountId: string, updatedData: UpdatedData) {
    const token = localStorage.getItem("@token")
    try {
-     // Passar o objeto `updatedData` diretamente para a API
      await api.put(`/account/update/${accountId}`, updatedData, {
        headers: {
          Authorization: `Bearer ${token}`,

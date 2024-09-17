@@ -24,7 +24,6 @@ export const accoutTypes = [
 
 const updatedAccountFormSchema = z.object({
   Name: z.string().min(3, "O nome deve conter no mínimo 03 caracteres."),
-  Value: z.number().min(0.1, "No mínimo R$ 1,00."),
   Description: z.string(),
   Type: z.string(),
 })
@@ -46,12 +45,11 @@ export function EditAccountModaL({
     console.log("Dados atualizados")
     console.log(accountData) // Debug: Verificar os dados
 
-    const { Name, Value, Description, Type } = accountData
+    const { Name, Description, Type } = accountData
 
     // Passando os dados atualizados para o contexto e realizando a atualização
     await updateAccount(AccountId, {
       Name,
-      Value,
       Description,
       Type,
     })
@@ -63,28 +61,7 @@ export function EditAccountModaL({
       handleClose={handleClose}
       submitButtonTitle="Editar nova conta"
       submit={handleSubmit(handleUpdatedAccount)}
-      inputValue={
-        <Controller
-          name="Value"
-          control={control}
-          render={({ field }) => (
-            <CurrencyInput
-              defaultValue={0}
-              id="account-initial-value"
-              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-              decimalSeparator=","
-              groupSeparator="."
-              value={field.value}
-              onValueChange={(value) => {
-                const numericValue = value
-                  ? parseFloat(value.replace(/[^\d.-]/g, ""))
-                  : 0
-                field.onChange(numericValue)
-              }}
-            />
-          )}
-        />
-      }
+      
     >
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="account-name">Nome da conta</InputLabel>

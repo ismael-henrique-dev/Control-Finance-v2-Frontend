@@ -13,7 +13,7 @@ interface ModalBaseProps {
   children: ReactNode
   open: boolean
   handleClose: () => void
-  inputValue: ReactNode
+  inputValue?: ReactNode
   submit: () => Promise<void>
 }
 
