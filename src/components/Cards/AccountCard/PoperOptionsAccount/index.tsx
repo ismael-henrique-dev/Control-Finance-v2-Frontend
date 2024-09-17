@@ -94,7 +94,7 @@ export function PopeoverOptionsAccount({
       <EditAccountModaL
         open={openModalEdit}
         handleClose={handleCloseModaEdit}
-        id={accountId}
+        AccountId={accountId}
       />
     </Container>
   )
