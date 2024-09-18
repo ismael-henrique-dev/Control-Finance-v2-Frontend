@@ -93,26 +93,40 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
     }
   }
 
- async function updateAccount(accountId: string, updatedData: UpdatedData) {
-   const token = localStorage.getItem("@token")
-   try {
-     await api.put(`/account/update/${accountId}`, updatedData, {
-       headers: {
-         Authorization: `Bearer ${token}`,
-       },
-     })
+  async function updateAccount(accountId: string, updatedData: UpdatedData) {
+    const token = localStorage.getItem("@token")
+    try {
+      const { data } = await api.put(
+        `/account/update/${accountId}`,
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
 
-     setAccountsList((prevState) =>
-       prevState.map((account) =>
-         account.AcId === accountId ? { ...account, ...updatedData } : account
-       )
-     )
-     console.log("Conta atualizada!!")
-   } catch (err) {
-     console.error("Error updating account:", err)
-   }
- }
+      console.log("Atualizando conta:", data)
 
+      const { Name, Type } = updatedData
+
+      setAccountsList((prevState) =>
+        prevState.map((account) =>
+          account.AcId === accountId
+            ? {
+                ...account,
+                accountTitle: Name,
+                Type: Type,
+              }
+            : account
+        )
+      )
+
+      console.log("Conta atualizada com sucesso!")
+    } catch (err) {
+      console.error("Erro ao atualizar a conta:", err)
+    }
+  }
 
   async function deleteAccount(accountId: string) {
     const token = localStorage.getItem("@token")

@@ -22,7 +22,11 @@ import { formatCurrency } from "../../Summary"
 interface AccountCardProps {
   isPageAccounts: boolean
   accountTitle: string
-  accountType: string // "Carteira" | "ContaBancaria" | "CorretoraDeInvestimentos" | "Poupanca"
+  accountType:
+    | "Carteira"
+    | "ContaBancaria"
+    | "CorretoraDeInvestimentos"
+    | "Poupanca"
   income: number
   outcome: number
   total: number
@@ -51,7 +55,7 @@ export function AccountCard({
           {accountType === "CorretoraDeInvestimentos" && (
             <Handshake size={32} />
           )}
-          {accountType === 'Poupanca' && <Coins size={32} />}
+          {accountType === "Poupanca" && <Coins size={32} />}
           <strong>{accountTitle}</strong>
         </div>
         <ActionsArea>
