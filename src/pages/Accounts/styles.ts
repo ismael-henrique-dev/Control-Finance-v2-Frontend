@@ -51,11 +51,12 @@ export const MainContainer = styled.main`
   justify-content: start;
   flex-wrap: wrap;
   gap: 2rem;
-  min-width: 64rem;
+  max-width: 64rem;
   /* min-height: 100vh; */
 
   @media (max-width: 768px) {
     & {
+      min-width: 320px;
       justify-content: center;
     }
   }

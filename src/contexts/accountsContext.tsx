@@ -75,6 +75,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   async function createAccount(AccountData: NewAccountProps) {
     const token = localStorage.getItem("@token")
     try {
+      setIsloading(true)
       const { data } = await api.post("/account/register", AccountData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -94,12 +95,15 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
       setAccountsList((prevState) => [...prevState, newAccount])
     } catch (err) {
       console.error("Error creating account:", err)
+    } finally {
+      setIsloading(false)
     }
   }
 
   async function updateAccount(accountId: string, updatedData: UpdatedData) {
     const token = localStorage.getItem("@token")
     try {
+      setIsloading(true)
       const { data } = await api.put(
         `/account/update/${accountId}`,
         updatedData,
@@ -129,12 +133,15 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
       console.log("Conta atualizada com sucesso!")
     } catch (err) {
       console.error("Erro ao atualizar a conta:", err)
+    } finally {
+      setIsloading(false)
     }
   }
 
   async function deleteAccount(accountId: string) {
     const token = localStorage.getItem("@token")
     try {
+      setIsloading(true)
       await api.delete(`/account/delete/${accountId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -149,6 +156,8 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
       console.log("Conta deletada!!")
     } catch (err) {
       console.error("Error deleting account:", err)
+    } finally {
+      setIsloading(false)
     }
   }
 
