@@ -13,6 +13,7 @@ export interface NewAccountProps {
 }
 
 interface AccountsContextType {
+  isLoading: boolean
   statics: Statics | null
   accountsList: Account[]
   createAccount: (data: NewAccountProps) => Promise<void>
@@ -46,8 +47,10 @@ export const AccountsContext = createContext({} as AccountsContextType)
 export function AccountsProvider({ children }: AccountsProviderProps) {
   const [accountsList, setAccountsList] = useState<Account[]>([])
   const [statics, setStatics] = useState<Statics | null>(null)
+  const [isLoading, setIsloading] = useState(false)
 
   async function fetchAccounts() {
+    setIsloading(true)
     const token = localStorage.getItem("@token")
     try {
       const { data } = await api.get("/users/account", {
@@ -58,9 +61,10 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
       console.log(data)
       setStatics(data.Statics)
       setAccountsList(data.AccountStatics)
-      // console.log(`Buscando contas: ${data}`)
     } catch (err) {
       console.error("Error fetching accounts:", err)
+    } finally {
+      setIsloading(false)
     }
   }
 
@@ -151,6 +155,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   return (
     <AccountsContext.Provider
       value={{
+        isLoading,
         accountsList,
         createAccount,
         statics,

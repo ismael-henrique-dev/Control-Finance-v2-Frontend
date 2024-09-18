@@ -17,7 +17,7 @@ export function Accounts() {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const { accountsList, statics } = useContext(AccountsContext)
+  const { accountsList, statics, isLoading } = useContext(AccountsContext)
 
   return (
     <AccountsContainer>
@@ -34,8 +34,7 @@ export function Accounts() {
         <PaginationMenu />
       </Section>
       <MainContainer>
-        {accountsList.length === 0 ? (
-          // <CircularProgress style={{margin: "auto"}} />
+        {isLoading === true ? (
           <LinearProgress color="secondary" style={{width: "100%"}}/>
         ) : (
           accountsList.map((account) => (
