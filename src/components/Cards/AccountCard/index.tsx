@@ -9,6 +9,7 @@ import {
 import { NewTransactionModal } from "../../NewTransactionModal"
 import { useState } from "react"
 import { PopeoverOptionsAccount } from "./PoperOptionsAccount"
+import { formatCurrency } from "../../Summary"
 
 interface AccountCardProps {
   isPageAccounts: boolean
@@ -42,9 +43,7 @@ export function AccountCard({
           {accountType === "CorretoraDeInvestimentos" && (
             <Handshake size={32} />
           )}
-          {accountType === "Poupanca" && (
-            <Coins size={32} />
-          )}
+          {accountType === "Poupanca" && <Coins size={32} />}
           <strong>{accountTitle}</strong>
         </div>
         <ActionsArea>
@@ -54,21 +53,21 @@ export function AccountCard({
           </ButtonAdd>
         </ActionsArea>
       </header>
-      <strong>R$ {total}</strong>
+      <strong>{formatCurrency(total)}</strong>
       <AccountSummary>
         <SummaryType variant="income">
           <div>
             <TrendingUp />
             Depositos
           </div>
-          <span>R$ {income}</span>
+          <span>{formatCurrency(income)}</span>
         </SummaryType>
         <SummaryType variant="outcome">
           <div>
             <TrendingDown />
             Saídas
           </div>
-          <span>R$ {outcome}</span>
+          <span>{formatCurrency(outcome )}</span>
         </SummaryType>
       </AccountSummary>
       <NewTransactionModal open={open} handleClose={handleClose} />

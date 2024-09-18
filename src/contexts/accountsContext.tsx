@@ -102,7 +102,6 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
        },
      })
 
-     // Atualizar o estado da lista de contas
      setAccountsList((prevState) =>
        prevState.map((account) =>
          account.AcId === accountId ? { ...account, ...updatedData } : account

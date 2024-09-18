@@ -4,10 +4,8 @@ import { TextFiled } from "../../../components/TextField"
 import Input from "@mui/material/Input"
 import { useForm, Controller } from "react-hook-form"
 import { useContext } from "react"
-
 import SelectVariants from "../../../components/ModalBase/SelectField"
 import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
-import CurrencyInput from "react-currency-input-field"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -47,7 +45,6 @@ export function EditAccountModaL({
 
     const { Name, Description, Type } = accountData
 
-    // Passando os dados atualizados para o contexto e realizando a atualização
     await updateAccount(AccountId, {
       Name,
       Description,
@@ -73,7 +70,6 @@ export function EditAccountModaL({
         />
       </TextFiled>
 
-      {/* Componente Select configurado com Controller para capturar o valor corretamente */}
       <Controller
         name="Type"
         control={control}

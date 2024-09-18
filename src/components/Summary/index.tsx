@@ -7,26 +7,34 @@ interface SummaryProps {
   outcome: number
 }
 
-export function Summary({total, income, outcome}:SummaryProps) {
+// transformar em um hook
+export function formatCurrency(value: number) {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  }).format(value)
+}
+
+export function Summary({ total, income, outcome }: SummaryProps) {
   return (
     <ContainerSummary>
       <TransactionType variant="total">
         <div>
           <DollarSign />
         </div>
-        <span>R$ {total}</span>
+        <span>{formatCurrency(total)}</span>
       </TransactionType>
-      <TransactionType variant="income"> 
+      <TransactionType variant="income">
         <div>
           <ArrowUp />
         </div>
-        <span>R$ {income}</span>
+        <span>{formatCurrency(income)}</span>
       </TransactionType>
       <TransactionType variant="outcome">
         <div>
           <ArrowDown />
         </div>
-        <span>R$ {outcome}</span>
+        <span>{formatCurrency(outcome)}</span>
       </TransactionType>
     </ContainerSummary>
   )

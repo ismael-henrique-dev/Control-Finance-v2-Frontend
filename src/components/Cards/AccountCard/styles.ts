@@ -15,6 +15,10 @@ export const AccountCardConatiner = styled.div`
     font-weight: 600;
     font-size: 1.25rem;
     color: ${(props) => props.theme.secundary};
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   header {
