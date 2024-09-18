@@ -1,4 +1,12 @@
-import { Coins, Handshake, Landmark, Plus, TrendingDown, TrendingUp, Wallet } from "lucide-react"
+import {
+  Coins,
+  Handshake,
+  Landmark,
+  Plus,
+  TrendingDown,
+  TrendingUp,
+  Wallet,
+} from "lucide-react"
 import {
   AccountCardConatiner,
   AccountSummary,
@@ -14,7 +22,7 @@ import { formatCurrency } from "../../Summary"
 interface AccountCardProps {
   isPageAccounts: boolean
   accountTitle: string
-  accountType: string// "Carteira" | "ContaBancaria" | "CorretoraDeInvestimentos" | "Poupanca"
+  accountType: string // "Carteira" | "ContaBancaria" | "CorretoraDeInvestimentos" | "Poupanca"
   income: number
   outcome: number
   total: number
@@ -28,7 +36,7 @@ export function AccountCard({
   income,
   outcome,
   accountId,
-  accountType
+  accountType,
 }: AccountCardProps) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -43,7 +51,7 @@ export function AccountCard({
           {accountType === "CorretoraDeInvestimentos" && (
             <Handshake size={32} />
           )}
-          {accountType === "Poupanca" && <Coins size={32} />}
+          {accountType === 'Poupanca' && <Coins size={32} />}
           <strong>{accountTitle}</strong>
         </div>
         <ActionsArea>
@@ -67,7 +75,7 @@ export function AccountCard({
             <TrendingDown />
             Saídas
           </div>
-          <span>{formatCurrency(outcome )}</span>
+          <span>{formatCurrency(outcome)}</span>
         </SummaryType>
       </AccountSummary>
       <NewTransactionModal open={open} handleClose={handleClose} />
