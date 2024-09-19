@@ -76,12 +76,13 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
     const token = localStorage.getItem("@token")
     try {
       setIsloading(true)
+      console.log("Dados da conta sendo enviados:", AccountData) // Verifique aqui
       const { data } = await api.post("/account/register", AccountData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(data)
+      console.log("Resposta da criação:", data)
 
       const newAccount = {
         sum: data.CreateAccount.createdObject.Value,
@@ -89,7 +90,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         DepositValue: 0,
         accountTitle: data.CreateAccount.createdObject.Name,
         AcId: data.CreateAccount.createdObject.Id,
-        Type: AccountData.Type,
+        Type: AccountData.Type, // Certifique-se de que o tipo correto está sendo adicionado
       }
 
       setAccountsList((prevState) => [...prevState, newAccount])

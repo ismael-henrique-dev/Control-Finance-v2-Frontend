@@ -22,11 +22,7 @@ import { formatCurrency } from "../../Summary"
 interface AccountCardProps {
   isPageAccounts: boolean
   accountTitle: string
-  accountType:
-    | "Carteira"
-    | "ContaBancaria"
-    | "CorretoraDeInvestimentos"
-    | "Poupanca"
+  accountType: string
   income: number
   outcome: number
   total: number
@@ -46,16 +42,19 @@ export function AccountCard({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  const iconMap = {
+    Carteira: <Wallet size={32} />,
+    ContaBancaria: <Landmark size={32} />,
+    CorretoraDeInvestimentos: <Handshake size={32} />,
+    Poupanca: <Coins size={32} />,
+  }
+
+  console.log(accountType)
   return (
     <AccountCardConatiner>
       <header>
         <div>
-          {accountType === "Carteira" && <Wallet size={32} />}
-          {accountType === "ContaBancaria" && <Landmark size={32} />}
-          {accountType === "CorretoraDeInvestimentos" && (
-            <Handshake size={32} />
-          )}
-          {accountType === "Poupanca" && <Coins size={32} />}
+          {iconMap[accountType] || <Wallet size={32} />}
           <strong>{accountTitle}</strong>
         </div>
         <ActionsArea>

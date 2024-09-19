@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from "styled-components"
+import LinearProgress from "@mui/material/LinearProgress"
 
 export const AccountsContainer = styled.div`
   max-width: 64rem;
@@ -26,7 +27,7 @@ export const ContainerBarSummary = styled.div`
       flex-direction: column-reverse;
     }
   }
-`;
+`
 
 export const Section = styled.section`
   width: 100%;
@@ -44,7 +45,7 @@ export const Section = styled.section`
     width: 20rem;
     margin: auto;
   }
-`;
+`
 
 export const MainContainer = styled.main`
   display: flex;
@@ -52,6 +53,7 @@ export const MainContainer = styled.main`
   flex-wrap: wrap;
   gap: 2rem;
   max-width: 64rem;
+  /* max-width: 64rem; */
   /* min-height: 100vh; */
 
   @media (max-width: 768px) {
@@ -60,4 +62,21 @@ export const MainContainer = styled.main`
       justify-content: center;
     }
   }
-`;
+`
+
+export const LinearProgressCustom = styled(LinearProgress)`
+  width: 64rem;
+  flex: 1;
+  background-color: #fff;
+
+  .MuiLinearProgress-bar {
+    background-color: ${props => props.theme.secundary};
+  }
+
+  @media (max-width: 768px) {
+    & {
+      width: 20rem;
+      margin: auto;
+    }
+  }
+`
