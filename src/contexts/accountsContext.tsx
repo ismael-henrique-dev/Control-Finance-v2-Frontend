@@ -13,6 +13,7 @@ export interface NewAccountProps {
 }
 
 interface AccountsContextType {
+  isLoading: boolean
   statics: Statics | null
   accountsList: Account[]
   createAccount: (data: NewAccountProps) => Promise<void>
@@ -46,8 +47,10 @@ export const AccountsContext = createContext({} as AccountsContextType)
 export function AccountsProvider({ children }: AccountsProviderProps) {
   const [accountsList, setAccountsList] = useState<Account[]>([])
   const [statics, setStatics] = useState<Statics | null>(null)
+  const [isLoading, setIsloading] = useState(false)
 
   async function fetchAccounts() {
+    setIsloading(true)
     const token = localStorage.getItem("@token")
     try {
       const { data } = await api.get("/users/account", {
@@ -55,12 +58,13 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(data)
+
       setStatics(data.Statics)
       setAccountsList(data.AccountStatics)
-      // console.log(`Buscando contas: ${data}`)
     } catch (err) {
       console.error("Error fetching accounts:", err)
+    } finally {
+      setIsloading(false)
     }
   }
 
@@ -71,12 +75,12 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   async function createAccount(AccountData: NewAccountProps) {
     const token = localStorage.getItem("@token")
     try {
+      setIsloading(true)
       const { data } = await api.post("/account/register", AccountData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(data)
 
       const newAccount = {
         sum: data.CreateAccount.createdObject.Value,
@@ -84,39 +88,51 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         DepositValue: 0,
         accountTitle: data.CreateAccount.createdObject.Name,
         AcId: data.CreateAccount.createdObject.Id,
-        Type: AccountData.Type,
+        Type: AccountData.Type, // Fazer vf
       }
 
       setAccountsList((prevState) => [...prevState, newAccount])
     } catch (err) {
       console.error("Error creating account:", err)
+    } finally {
+      setIsloading(false)
     }
   }
 
- async function updateAccount(accountId: string, updatedData: UpdatedData) {
-   const token = localStorage.getItem("@token")
-   try {
-     await api.put(`/account/update/${accountId}`, updatedData, {
-       headers: {
-         Authorization: `Bearer ${token}`,
-       },
-     })
+  async function updateAccount(accountId: string, updatedData: UpdatedData) {
+    const token = localStorage.getItem("@token")
+    try {
+      setIsloading(true)
+      await api.put(`/account/update/${accountId}`, updatedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
 
-     setAccountsList((prevState) =>
-       prevState.map((account) =>
-         account.AcId === accountId ? { ...account, ...updatedData } : account
-       )
-     )
-     console.log("Conta atualizada!!")
-   } catch (err) {
-     console.error("Error updating account:", err)
-   }
- }
+      const { Name, Type } = updatedData
 
+      setAccountsList((prevState) =>
+        prevState.map((account) =>
+          account.AcId === accountId
+            ? {
+                ...account,
+                accountTitle: Name,
+                Type: Type,
+              }
+            : account
+        )
+      )
+    } catch (err) {
+      console.error("Erro ao atualizar a conta:", err)
+    } finally {
+      setIsloading(false)
+    }
+  }
 
   async function deleteAccount(accountId: string) {
     const token = localStorage.getItem("@token")
     try {
+      setIsloading(true)
       await api.delete(`/account/delete/${accountId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -127,16 +143,17 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         (account: Account) => account.AcId !== accountId
       )
       setAccountsList(newAccountsList)
-
-      console.log("Conta deletada!!")
     } catch (err) {
       console.error("Error deleting account:", err)
+    } finally {
+      setIsloading(false)
     }
   }
 
   return (
     <AccountsContext.Provider
       value={{
+        isLoading,
         accountsList,
         createAccount,
         statics,

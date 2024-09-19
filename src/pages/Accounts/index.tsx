@@ -4,20 +4,23 @@ import { AccountCard } from "../../components/Cards/AccountCard"
 import { PaginationMenu } from "../../components/PaginationMenu"
 import { Summary } from "../../components/Summary"
 import { NewAccountModaL } from "./NewAccountModal"
+import { AccountsContext } from "../../contexts/accountsContext"
 import {
   AccountsContainer,
   ContainerBarSummary,
+  LinearProgressCustom,
   MainContainer,
   Section,
 } from "./styles"
-import { AccountsContext } from "../../contexts/accountsContext"
-import LinearProgress  from "@mui/material/LinearProgress"
 
 export function Accounts() {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const { accountsList, statics } = useContext(AccountsContext)
+  const { accountsList, statics, isLoading } = useContext(AccountsContext)
+
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const totalPages = Math.ceil(accountsList.length / 6)
 
   return (
     <AccountsContainer>
@@ -31,25 +34,30 @@ export function Accounts() {
       </ContainerBarSummary>
       <Section>
         <strong>Contas</strong>
-        <PaginationMenu />
+        <PaginationMenu
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </Section>
       <MainContainer>
-        {accountsList.length === 0 ? (
-          // <CircularProgress style={{margin: "auto"}} />
-          <LinearProgress color="secondary" style={{width: "100%"}}/>
+        {isLoading === true ? (
+          <LinearProgressCustom />
         ) : (
-          accountsList.map((account) => (
-            <AccountCard
-              key={account.AcId}
-              isPageAccounts
-              accountTitle={account.accountTitle}
-              income={account.DepositValue}
-              outcome={account.WithdrawValue}
-              total={account.sum}
-              accountId={account.AcId} // Agora usando o accountId
-              accountType={account.Type}
-            />
-          ))
+          accountsList
+            .slice((currentPage - 1) * 6, currentPage * 6)
+            .map((account) => (
+              <AccountCard
+                key={account.AcId}
+                isPageAccounts
+                accountTitle={account.accountTitle}
+                income={account.DepositValue}
+                outcome={account.WithdrawValue}
+                total={account.sum}
+                accountId={account.AcId}
+                accountType={account.Type}
+              />
+            ))
         )}
       </MainContainer>
       <NewAccountModaL open={open} handleClose={handleClose} />

@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowUp, DollarSign } from "lucide-react"
 import { ContainerSummary, TransactionType } from "./styles"
+import { useFormatterCoin } from "../../hooks/useFormatterCoin"
 
 interface SummaryProps {
   total: number
@@ -7,15 +8,9 @@ interface SummaryProps {
   outcome: number
 }
 
-// transformar em um hook
-export function formatCurrency(value: number) {
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(value)
-}
-
 export function Summary({ total, income, outcome }: SummaryProps) {
+  const formatCurrency = useFormatterCoin
+
   return (
     <ContainerSummary>
       <TransactionType variant="total">

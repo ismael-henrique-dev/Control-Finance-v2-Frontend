@@ -1,11 +1,10 @@
-import React, { useContext } from "react"
-import { useState } from "react"
-import { ButtonAdd } from "../styles"
+import { useContext, useState } from "react"
 import { Pencil, Settings2, Trash } from "lucide-react"
-import Popover from "@mui/material/Popover"
 import { Actions, Container } from "../../GoalCard/SpeedDial/styles"
 import { AccountsContext } from "../../../../contexts/accountsContext"
 import { EditAccountModaL } from "../../../../pages/Accounts/EditAccountModal.tsx"
+import { ButtonAdd } from "../styles"
+import Popover from "@mui/material/Popover"
 
 interface PopeoverOptionsAccountProps {
   accountId: string
@@ -16,8 +15,8 @@ export function PopeoverOptionsAccount({
 }: PopeoverOptionsAccountProps) {
   const { deleteAccount } = useContext(AccountsContext)
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
-  const [open, setOpen] = React.useState(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const [open, setOpen] = useState(false)
 
   const [openModalEdit, setOpenModalEdit] = useState(false)
   const handleOpenModalEdit = () => setOpenModalEdit(true)
@@ -27,7 +26,6 @@ export function PopeoverOptionsAccount({
     setAnchorEl(event.currentTarget)
     setOpen((prevOpen) => !prevOpen)
   }
-
 
   const handlePopoverClose = () => {
     setOpen(false)

@@ -37,4 +37,10 @@ export const PaginationButton = styled.button<Horiantacion>`
 
   transform: ${(props) =>
     props.variant === "Rotate" ? "rotate(180deg)" : "none"};
+
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
