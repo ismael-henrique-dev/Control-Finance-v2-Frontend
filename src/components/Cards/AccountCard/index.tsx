@@ -1,3 +1,7 @@
+import { useState } from "react"
+import { NewTransactionModal } from "../../NewTransactionModal"
+import { PopeoverOptionsAccount } from "./PoperOptionsAccount"
+import { formatCurrency } from "../../Summary"
 import {
   Coins,
   Handshake,
@@ -14,10 +18,6 @@ import {
   ButtonAdd,
   SummaryType,
 } from "./styles"
-import { NewTransactionModal } from "../../NewTransactionModal"
-import { useState } from "react"
-import { PopeoverOptionsAccount } from "./PoperOptionsAccount"
-import { formatCurrency } from "../../Summary"
 
 interface AccountCardProps {
   isPageAccounts: boolean
@@ -42,14 +42,13 @@ export function AccountCard({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const iconMap = {
+  const iconMap: Record<string, JSX.Element> = {
     Carteira: <Wallet size={32} />,
     ContaBancaria: <Landmark size={32} />,
     CorretoraDeInvestimentos: <Handshake size={32} />,
     Poupanca: <Coins size={32} />,
   }
 
-  console.log(accountType)
   return (
     <AccountCardConatiner>
       <header>

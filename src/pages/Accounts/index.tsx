@@ -4,6 +4,7 @@ import { AccountCard } from "../../components/Cards/AccountCard"
 import { PaginationMenu } from "../../components/PaginationMenu"
 import { Summary } from "../../components/Summary"
 import { NewAccountModaL } from "./NewAccountModal"
+import { AccountsContext } from "../../contexts/accountsContext"
 import {
   AccountsContainer,
   ContainerBarSummary,
@@ -11,7 +12,6 @@ import {
   MainContainer,
   Section,
 } from "./styles"
-import { AccountsContext } from "../../contexts/accountsContext"
 
 export function Accounts() {
   const [open, setOpen] = useState(false)
@@ -42,7 +42,6 @@ export function Accounts() {
       </Section>
       <MainContainer>
         {isLoading === true ? (
-          // <LinearProgress color="secondary"  />
           <LinearProgressCustom />
         ) : (
           accountsList
@@ -55,12 +54,11 @@ export function Accounts() {
                 income={account.DepositValue}
                 outcome={account.WithdrawValue}
                 total={account.sum}
-                accountId={account.AcId} // Agora usando o accountId
+                accountId={account.AcId}
                 accountType={account.Type}
               />
             ))
         )}
-        {/* <LinearProgress color="secondary" style={{ width: "100%" }} /> */}
       </MainContainer>
       <NewAccountModaL open={open} handleClose={handleClose} />
     </AccountsContainer>

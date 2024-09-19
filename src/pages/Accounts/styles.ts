@@ -53,13 +53,12 @@ export const MainContainer = styled.main`
   flex-wrap: wrap;
   gap: 2rem;
   max-width: 64rem;
-  /* max-width: 64rem; */
-  /* min-height: 100vh; */
 
   @media (max-width: 768px) {
     & {
       min-width: 320px;
       justify-content: center;
+      margin: auto;
     }
   }
 `
@@ -75,8 +74,10 @@ export const LinearProgressCustom = styled(LinearProgress)`
 
   @media (max-width: 768px) {
     & {
+      align-items: start;
       width: 20rem;
       margin: auto;
+      min-height: 100vh;
     }
   }
 `

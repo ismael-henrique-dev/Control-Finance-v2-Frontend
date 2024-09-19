@@ -1,5 +1,5 @@
-import { ChevronLeft } from "lucide-react";
-import { ContainerPagination, PaginationButton } from "./styles";
+import { ChevronLeft } from "lucide-react"
+import { ContainerPagination, PaginationButton } from "./styles"
 
 interface PaginationMenuProps {
   currentPage: number
@@ -7,8 +7,11 @@ interface PaginationMenuProps {
   onPageChange: (newPage: number) => void
 }
 
-export function PaginationMenu({currentPage, totalPages, onPageChange}:PaginationMenuProps) {
-
+export function PaginationMenu({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: PaginationMenuProps) {
   function handleNextPage() {
     if (currentPage < totalPages) {
       onPageChange(currentPage + 1)
