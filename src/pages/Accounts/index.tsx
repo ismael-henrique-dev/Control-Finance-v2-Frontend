@@ -19,6 +19,9 @@ export function Accounts() {
   const handleClose = () => setOpen(false)
   const { accountsList, statics, isLoading } = useContext(AccountsContext)
 
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const totalPages = Math.ceil(accountsList.length / 6)
+
   return (
     <AccountsContainer>
       <ContainerBarSummary>
@@ -31,25 +34,31 @@ export function Accounts() {
       </ContainerBarSummary>
       <Section>
         <strong>Contas</strong>
-        <PaginationMenu />
+        <PaginationMenu
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </Section>
       <MainContainer>
         {isLoading === true ? (
           // <LinearProgress color="secondary"  />
           <LinearProgressCustom />
         ) : (
-          accountsList.map((account) => (
-            <AccountCard
-              key={account.AcId}
-              isPageAccounts
-              accountTitle={account.accountTitle}
-              income={account.DepositValue}
-              outcome={account.WithdrawValue}
-              total={account.sum}
-              accountId={account.AcId} // Agora usando o accountId
-              accountType={account.Type}
-            />
-          ))
+          accountsList
+            .slice((currentPage - 1) * 6, currentPage * 6)
+            .map((account) => (
+              <AccountCard
+                key={account.AcId}
+                isPageAccounts
+                accountTitle={account.accountTitle}
+                income={account.DepositValue}
+                outcome={account.WithdrawValue}
+                total={account.sum}
+                accountId={account.AcId} // Agora usando o accountId
+                accountType={account.Type}
+              />
+            ))
         )}
         {/* <LinearProgress color="secondary" style={{ width: "100%" }} /> */}
       </MainContainer>

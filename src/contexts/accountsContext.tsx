@@ -58,7 +58,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(data)
+
       setStatics(data.Statics)
       setAccountsList(data.AccountStatics)
     } catch (err) {
@@ -76,13 +76,11 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
     const token = localStorage.getItem("@token")
     try {
       setIsloading(true)
-      console.log("Dados da conta sendo enviados:", AccountData) // Verifique aqui
       const { data } = await api.post("/account/register", AccountData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log("Resposta da criação:", data)
 
       const newAccount = {
         sum: data.CreateAccount.createdObject.Value,
@@ -90,7 +88,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         DepositValue: 0,
         accountTitle: data.CreateAccount.createdObject.Name,
         AcId: data.CreateAccount.createdObject.Id,
-        Type: AccountData.Type, // Certifique-se de que o tipo correto está sendo adicionado
+        Type: AccountData.Type, // Fazer vf
       }
 
       setAccountsList((prevState) => [...prevState, newAccount])
@@ -105,17 +103,11 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
     const token = localStorage.getItem("@token")
     try {
       setIsloading(true)
-      const { data } = await api.put(
-        `/account/update/${accountId}`,
-        updatedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-
-      console.log("Atualizando conta:", data)
+      await api.put(`/account/update/${accountId}`, updatedData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
 
       const { Name, Type } = updatedData
 
@@ -130,8 +122,6 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
             : account
         )
       )
-
-      console.log("Conta atualizada com sucesso!")
     } catch (err) {
       console.error("Erro ao atualizar a conta:", err)
     } finally {
@@ -153,8 +143,6 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         (account: Account) => account.AcId !== accountId
       )
       setAccountsList(newAccountsList)
-
-      console.log("Conta deletada!!")
     } catch (err) {
       console.error("Error deleting account:", err)
     } finally {
