@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { NewTransactionModal } from "../../NewTransactionModal"
 import { PopeoverOptionsAccount } from "./PoperOptionsAccount"
-import { formatCurrency } from "../../Summary"
+
 import {
   Coins,
   Handshake,
@@ -18,6 +18,7 @@ import {
   ButtonAdd,
   SummaryType,
 } from "./styles"
+import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
 
 interface AccountCardProps {
   isPageAccounts: boolean
@@ -41,6 +42,8 @@ export function AccountCard({
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const formatCurrency = useFormatterCoin
 
   const iconMap: Record<string, JSX.Element> = {
     Carteira: <Wallet size={32} />,
