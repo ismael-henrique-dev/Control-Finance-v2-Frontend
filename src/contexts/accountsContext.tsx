@@ -92,6 +92,19 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
       }
 
       setAccountsList((prevState) => [...prevState, newAccount])
+      setStatics((prevState) => {
+        if (!prevState) {
+          return {
+            sum: newAccount.sum,
+            totalWithdraw: 0,
+            totalDeposit: 0,
+          }
+        }
+        return {
+          ...prevState,
+          sum: prevState.sum + newAccount.sum,
+        }
+      })
     } catch (err) {
       console.error("Error creating account:", err)
     } finally {
@@ -139,10 +152,28 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         },
       })
 
-      const newAccountsList = accountsList.filter(
-        (account: Account) => account.AcId !== accountId
+      const accountToRemove = accountsList.find(
+        (account: Account) => account.AcId === accountId
       )
-      setAccountsList(newAccountsList)
+
+      if (accountToRemove) {
+        const newAccountsList = accountsList.filter(
+          (account: Account) => account.AcId !== accountId
+        )
+        setAccountsList(newAccountsList)
+
+        setStatics((prevState) => {
+          if (!prevState) return prevState
+
+          return {
+            ...prevState,
+            sum: prevState.sum - accountToRemove.sum,
+            totalWithdraw:
+              prevState.totalWithdraw - accountToRemove.WithdrawValue,
+            totalDeposit: prevState.totalDeposit - accountToRemove.DepositValue,
+          }
+        })
+      }
     } catch (err) {
       console.error("Error deleting account:", err)
     } finally {

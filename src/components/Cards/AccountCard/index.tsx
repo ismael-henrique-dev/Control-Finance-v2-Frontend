@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { NewTransactionModal } from "../../NewTransactionModal"
 import { PopeoverOptionsAccount } from "./PoperOptionsAccount"
-
+import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
 import {
   Coins,
   Handshake,
@@ -18,7 +18,6 @@ import {
   ButtonAdd,
   SummaryType,
 } from "./styles"
-import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
 
 interface AccountCardProps {
   isPageAccounts: boolean
