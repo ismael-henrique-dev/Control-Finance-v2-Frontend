@@ -23,7 +23,7 @@ const createAccountFormSchema = z.object({
     .string()
     .min(3, "O nome deve conter no mínimo 03 caracteres.")
     .max(50, "O nome deve conter no máximo 50 caracteres."),
-  Value: z.number(),
+  Value: z.number().min(0),
   Type: z.enum([
     "Carteira",
     "ContaBancaria",
@@ -42,7 +42,7 @@ type CreateAccountFormSchema = z.infer<typeof createAccountFormSchema>
 export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
   const { createAccount } = useContext(AccountsContext)
 
-  const { register, handleSubmit, control, formState } = useForm<CreateAccountFormSchema>({
+  const { register, handleSubmit, reset, control, formState } = useForm<CreateAccountFormSchema>({
     mode: "onChange",
     resolver: zodResolver(createAccountFormSchema),
   })
@@ -51,6 +51,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
     const { Name, Value, Type, Description } = accountData
 
     await createAccount({ Name, Value, Type, Description })
+    reset()
     handleClose()
   }
 
