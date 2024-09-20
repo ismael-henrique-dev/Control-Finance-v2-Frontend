@@ -61,10 +61,24 @@ export const FormControlContainer = styled(FormControl)`
     color: ${(props) => props.theme.primary};
   }
 
+  p {
+    font-size: 0.75rem;
+    color: ${(props) => props.theme.red};
+    margin-top: 0.25rem;
+  }
+
   button svg {
     margin-bottom: 0.25rem;
     color: ${(props) => props.theme.primary};
     width: 1.5rem;
     height: 1.5rem;
+  }
+`
+
+export const ValidateSelectArea = styled.div`
+  p {
+    font-size: 0.75rem;
+    color: ${(props) => props.theme.red};
+    margin-top: 0.25rem;
   }
 `

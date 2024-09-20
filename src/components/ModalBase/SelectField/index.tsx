@@ -14,6 +14,8 @@ interface SelectProps {
   selectedValue?: string
   onChange?: (value: string) => void
   disabled?: boolean
+  erros: any
+  value?: any
 }
 
 export default function SelectVariants({
@@ -22,6 +24,7 @@ export default function SelectVariants({
   selectedValue = "",
   onChange,
   disabled = false,
+  erros,
 }: SelectProps) {
   const [selectData, setSelectData] = useState<string>(selectedValue)
 
@@ -35,10 +38,15 @@ export default function SelectVariants({
 
   return (
     <div>
-      <FormControlContainer variant="standard" disabled={disabled}>
+      <FormControlContainer
+        variant="standard"
+        disabled={disabled}
+        error={erros}
+      >
         <InputLabel
           sx={{ display: "flex", alignItems: "center" }}
           id="demo-simple-select-standard-label"
+          error={erros}
         >
           {title}
         </InputLabel>
@@ -60,18 +68,24 @@ export default function SelectVariants({
             },
             "& svg": {
               marginBottom: "-0.3rem",
+              color: erros ? "#DC2626" : "#4C3299",
             },
           }}
           MenuProps={menuProps}
         >
-          {data.map((item, index) => ( // arrumar esses selects
-            <StyledMenuItem key={index} value={item}>
-              <div>
-                <PiggyBank size={16} />
-              </div>
-              {item}
-            </StyledMenuItem>
-          ))}
+          {data.map(
+            (
+              item,
+              index
+            ) => (
+              <StyledMenuItem key={index} value={item}>
+                <div>
+                  <PiggyBank size={16} />
+                </div>
+                {item}
+              </StyledMenuItem>
+            )
+          )}
         </Select>
       </FormControlContainer>
     </div>

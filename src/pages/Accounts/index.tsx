@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { Button } from "../../components/Button"
 import { AccountCard } from "../../components/Cards/AccountCard"
 import { PaginationMenu } from "../../components/PaginationMenu"
-import { Summary } from "../../components/Summary"
+import { Summary } from "../../components/Summary/"
 import { NewAccountModaL } from "./NewAccountModal"
 import { AccountsContext } from "../../contexts/accountsContext"
 import {

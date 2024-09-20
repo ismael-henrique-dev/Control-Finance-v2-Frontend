@@ -77,7 +77,7 @@ export const LinearProgressCustom = styled(LinearProgress)`
       align-items: start;
       width: 20rem;
       margin: auto;
-      min-height: 100vh;
+      /* min-height: 100vh; */
     }
   }
 `

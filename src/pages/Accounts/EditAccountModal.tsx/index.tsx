@@ -8,6 +8,7 @@ import SelectVariants from "../../../components/ModalBase/SelectField"
 import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { ValidateSelectArea } from "../../../components/TextField/styles"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
@@ -21,9 +22,19 @@ export const accoutTypes = [
 ]
 
 const updatedAccountFormSchema = z.object({
-  Name: z.string().min(3, "O nome deve conter no mínimo 03 caracteres."),
-  Description: z.string(),
-  Type: z.string(),
+  Name: z
+    .string()
+    .min(3, "O nome deve conter no mínimo 03 caracteres.")
+    .max(50, "O nome deve conter no máximo 50 caracteres."),
+  Description: z
+    .string()
+    .min(10, "A descrição deve conter no mínimo 10 caracteres."),
+  Type: z.enum(
+    ["Carteira", "ContaBancaria", "Poupanca", "CorretoraDeInvestimentos"],
+    {
+      errorMap: () => ({ message: "Selecione um tipo de conta válido." }),
+    }
+  ),
 })
 
 type UpdatedAccountFormSchema = z.infer<typeof updatedAccountFormSchema>
@@ -35,14 +46,13 @@ export function EditAccountModaL({
 }: EditModalProps) {
   const { updateAccount } = useContext(AccountsContext)
 
-  const { register, handleSubmit, control } = useForm<UpdatedAccountFormSchema>(
-    { resolver: zodResolver(updatedAccountFormSchema) }
-  )
+  const { register, handleSubmit, control, formState } =
+    useForm<UpdatedAccountFormSchema>({
+      mode: "onChange",
+      resolver: zodResolver(updatedAccountFormSchema),
+    })
 
   async function handleUpdatedAccount(accountData: UpdatedData) {
-    console.log("Dados atualizados")
-    console.log(accountData) // Debug: Verificar os dados
-
     const { Name, Description, Type } = accountData
 
     await updateAccount(AccountId, {
@@ -58,7 +68,8 @@ export function EditAccountModaL({
       handleClose={handleClose}
       submitButtonTitle="Editar nova conta"
       submit={handleSubmit(handleUpdatedAccount)}
-      
+      type="updatedAccount"
+      erros={!formState.isValid}
     >
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="account-name">Nome da conta</InputLabel>
@@ -68,18 +79,23 @@ export function EditAccountModaL({
           {...register("Name")}
           error={false}
         />
+        {formState.errors.Name && <p>{formState.errors.Name.message}</p>}
       </TextFiled>
 
       <Controller
         name="Type"
         control={control}
         render={({ field }) => (
-          <SelectVariants
-            title="Tipo de conta"
-            data={accoutTypes}
-            value={field.value}
-            onChange={field.onChange}
-          />
+          <ValidateSelectArea>
+            <SelectVariants
+              title="Tipo de conta"
+              data={accoutTypes}
+              value={field.value}
+              onChange={field.onChange}
+              erros={!!formState.errors.Type}
+            />
+            {formState.errors.Type && <p>{formState.errors.Type.message}</p>}
+          </ValidateSelectArea>
         )}
       />
 
@@ -91,6 +107,9 @@ export function EditAccountModaL({
           {...register("Description")}
           error={false}
         />
+        {formState.errors.Description && (
+          <p>{formState.errors.Description.message}</p>
+        )}
       </TextFiled>
     </ModalBase>
   )
