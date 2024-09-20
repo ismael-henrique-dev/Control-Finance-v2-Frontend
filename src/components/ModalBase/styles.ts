@@ -94,4 +94,10 @@ export const SubmitButton = styled.button`
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 `

@@ -9,6 +9,7 @@ import SelectVariants from "../../../components/ModalBase/SelectField"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import CurrencyInput from "react-currency-input-field"
+import { ValidateSelectArea } from "../../../components/TextField/styles"
 
 export const accoutTypes = [
   "Carteira",
@@ -18,10 +19,22 @@ export const accoutTypes = [
 ]
 
 const createAccountFormSchema = z.object({
-  Name: z.string().min(3, "O nome deve conter no mínimo 03 caracteres."),
-  Value: z.number().min(0.1, "No mínimo R$ 1,00."),
-  Type: z.string(),
-  Description: z.string(),
+  Name: z
+    .string()
+    .min(3, "O nome deve conter no mínimo 03 caracteres.")
+    .max(50, "O nome deve conter no máximo 50 caracteres."),
+  Value: z.number(),
+  Type: z.enum([
+    "Carteira",
+    "ContaBancaria",
+    "Poupanca",
+    "CorretoraDeInvestimentos",
+  ], {
+    errorMap: () => ({ message: "Selecione um tipo de conta válido." })
+  }),
+  Description: z
+    .string()
+    .min(10, "A descrição deve conter no mínimo 10 caracteres."),
 })
 
 type CreateAccountFormSchema = z.infer<typeof createAccountFormSchema>
@@ -30,12 +43,11 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
   const { createAccount } = useContext(AccountsContext)
 
   const { register, handleSubmit, control, formState } = useForm<CreateAccountFormSchema>({
-    mode: "onSubmit",
+    mode: "onChange",
     resolver: zodResolver(createAccountFormSchema),
   })
 
   async function handleCreateAccount(accountData: CreateAccountFormSchema) {
-    console.log(accountData) // Debug: Verificar os dados
     const { Name, Value, Type, Description } = accountData
 
     await createAccount({ Name, Value, Type, Description })
@@ -48,6 +60,8 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
       handleClose={handleClose}
       submitButtonTitle="Criar nova conta"
       submit={handleSubmit(handleCreateAccount)}
+      erros={!formState.isValid}
+      type="createAccount"
       inputValue={
         <Controller
           name="Value"
@@ -88,23 +102,35 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
         name="Type"
         control={control}
         render={({ field }) => (
-          <SelectVariants
-            title="Tipo de conta"
-            data={accoutTypes}
-            onChange={field.onChange}
-            value={field.value}
-          />
+          <ValidateSelectArea>
+            <SelectVariants
+              title="Tipo de conta"
+              data={accoutTypes}
+              onChange={field.onChange}
+              value={field.value}
+              erros={!!formState.errors.Type}
+            />
+            {formState.errors.Type && <p>{formState.errors.Type.message}</p>}
+          </ValidateSelectArea>
         )}
       />
 
       <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-description">Descrição</InputLabel>
+        <InputLabel
+          htmlFor="account-description"
+          error={!!formState.errors.Description}
+        >
+          Descrição
+        </InputLabel>
         <Input
           type="text"
           id="account-description"
           {...register("Description")}
-          error={false}
+          error={!!formState.errors.Description}
         />
+        {formState.errors.Description && (
+          <p>{formState.errors.Description.message}</p>
+        )}
       </TextFiled>
     </ModalBase>
   )

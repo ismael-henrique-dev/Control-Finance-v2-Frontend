@@ -15,6 +15,8 @@ interface ModalBaseProps {
   handleClose: () => void
   inputValue?: ReactNode
   submit: () => Promise<void>
+  erros: any
+  type?: "createAccount" | 'updatedAccount'
 }
 
 export interface ModalBasePropsDefault {
@@ -28,7 +30,9 @@ export function ModalBase({
   children,
   handleClose,
   inputValue,
-  submit
+  submit,
+  erros,
+  type
 }: ModalBaseProps) {
   
   return (
@@ -39,14 +43,18 @@ export function ModalBase({
             <ArrowLeft size={20} />
             <span>Voltar</span>
           </button>
-          <div>
-            <label htmlFor="">Valor: </label>
-            {inputValue}
-          </div>
+          {type === "createAccount" && (
+            <div>
+              <label htmlFor="">Valor: </label>
+              {inputValue}
+            </div>
+          )}
         </ModalHeader>
         <MainContainer>
           {children}
-          <SubmitButton type="submit">{submitButtonTitle}</SubmitButton>
+          <SubmitButton type="submit" disabled={erros}>
+            {submitButtonTitle}
+          </SubmitButton>
         </MainContainer>
       </ModalContainer>
     </ModalGlobal>
