@@ -18,16 +18,23 @@ interface UserLoginFormData {
   // UsernName: string
 }
 
+interface User {
+  Email: string
+  Id: string
+  Senha: string
+  UsernName: string
+}
+
 interface UserProviderType {
   userRegister: (data: UserRegisterFormData) => Promise<void>
   userLogin: (data: UserLoginFormData) => Promise<void>
-  // userData:
+  userData: User | null
 }
 
 export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: UserContextProps) {
-  const [userData, setUserData] = useState(null)
+  const [userData, setUserData] = useState<User | null>(null)
 
   const navigate = useNavigate()
   const pathname = window.location.pathname
@@ -63,7 +70,7 @@ export function UseProvider({ children }: UserContextProps) {
             },
           })
           console.log(data.Profile)
-          setUserData(data)
+          setUserData(data.Profile)
           navigate(pathname)
         } catch (error) {
           console.log(error)
@@ -74,7 +81,7 @@ export function UseProvider({ children }: UserContextProps) {
   }, [pathname, navigate])
 
   return (
-    <UserContext.Provider value={{ userRegister, userLogin }}>
+    <UserContext.Provider value={{ userRegister, userLogin, userData }}>
       {children}
     </UserContext.Provider>
   )

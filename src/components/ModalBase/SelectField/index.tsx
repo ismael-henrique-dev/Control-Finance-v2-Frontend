@@ -1,12 +1,13 @@
+import { ReactNode } from "react"
+import { ChevronDown } from "lucide-react"
 import InputLabel from "@mui/material/InputLabel"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
-import { ChevronDown } from "lucide-react"
 import {
   FormControlContainer,
+  SelectFieldStyle,
   StyledMenuItem,
   useStyledMenuProps,
 } from "./styles"
-import { ReactNode } from "react"
 
 interface SelecetDataProps {
   name: string
@@ -59,20 +60,7 @@ export default function SelectVariants({
           onChange={handleChange}
           label={title}
           IconComponent={ChevronDown}
-          sx={{
-            width: "100%",
-            "& .MuiSelect-select": {
-              width: "100%",
-              gap: "0.5rem",
-              display: "flex",
-              alignItems: "center",
-              color: "#4C3299",
-            },
-            "& svg": {
-              marginBottom: "-0.3rem",
-              color: erros ? "#DC2626" : "#4C3299",
-            },
-          }}
+          sx={SelectFieldStyle}
           MenuProps={menuProps}
         >
           {data.map((item, index) => (

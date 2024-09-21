@@ -1,5 +1,5 @@
-import Drawer from "@mui/material/Drawer"
-import ListItem from "@mui/material/ListItem"
+import { useContext, useState } from "react"
+import { NavLink } from "react-router-dom"
 import {
   ArrowRightLeft,
   BarChart,
@@ -9,15 +9,16 @@ import {
   PieChart,
   PiggyBank,
 } from "lucide-react"
-import { useState } from "react"
 import { ContainerDrawer, ListContainer, PresentationSection } from "./styles"
-
-import testImage from "../../../assets/test-image.svg"
+import { UserContext } from "../../../contexts/userContext"
+import Drawer from "@mui/material/Drawer"
+import ListItem from "@mui/material/ListItem"
 import Box from "@mui/material/Box"
-import { NavLink } from "react-router-dom"
+import testImage from "../../../assets/test-image.svg"
 
 export function DrawerBasic() {
   const [open, setOpen] = useState(false)
+  const { userData } = useContext(UserContext)
 
   const toggleDrawer =
     (inOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -44,7 +45,7 @@ export function DrawerBasic() {
           <PresentationSection>
             <img src={testImage} />
             <span>Bem-vindo(a) novamente!</span>
-            <strong>Ismael Henrique</strong>
+            <strong>{userData?.UsernName}</strong>
           </PresentationSection>
           <ListContainer>
             <ListItem>

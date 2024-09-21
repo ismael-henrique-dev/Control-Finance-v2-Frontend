@@ -1,25 +1,18 @@
-import InputLabel from "@mui/material/InputLabel"
-import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
-import { TextFiled } from "../../../components/TextField"
-import Input from "@mui/material/Input"
-import { useForm, Controller } from "react-hook-form"
 import { useContext } from "react"
 import { AccountsContext } from "../../../contexts/accountsContext"
-import SelectVariants from "../../../components/ModalBase/SelectField"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import CurrencyInput from "react-currency-input-field"
+import { useForm, Controller } from "react-hook-form"
+import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
+import { TextFiled } from "../../../components/TextField"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
 import { Coins, Handshake, Landmark, Wallet } from "lucide-react"
+import CurrencyInput from "react-currency-input-field"
+import Input from "@mui/material/Input"
+import InputLabel from "@mui/material/InputLabel"
+import SelectVariants from "../../../components/ModalBase/SelectField"
 
-// export const accoutTypes = [
-//   "Carteira",
-//   "ContaBancaria",
-//   "Poupanca",
-//   "CorretoraDeInvestimentos",
-// ]
-
-export const selectData = [
+export const selectAccountTypeData = [
   {
     name: "Carteira",
     type: "Carteira",
@@ -48,14 +41,12 @@ const createAccountFormSchema = z.object({
     .min(3, "O nome deve conter no mínimo 03 caracteres.")
     .max(50, "O nome deve conter no máximo 50 caracteres."),
   Value: z.number(),
-  Type: z.enum([
-    "Carteira",
-    "ContaBancaria",
-    "Poupanca",
-    "CorretoraDeInvestimentos",
-  ], {
-    errorMap: () => ({ message: "Selecione um tipo de conta válido." })
-  }),
+  Type: z.enum(
+    ["Carteira", "ContaBancaria", "Poupanca", "CorretoraDeInvestimentos"],
+    {
+      errorMap: () => ({ message: "Selecione um tipo de conta válido." }),
+    }
+  ),
   Description: z
     .string()
     .min(10, "A descrição deve conter no mínimo 10 caracteres."),
@@ -66,10 +57,11 @@ type CreateAccountFormSchema = z.infer<typeof createAccountFormSchema>
 export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
   const { createAccount } = useContext(AccountsContext)
 
-  const { register, handleSubmit, reset, control, formState } = useForm<CreateAccountFormSchema>({
-    mode: "onChange",
-    resolver: zodResolver(createAccountFormSchema),
-  })
+  const { register, handleSubmit, reset, control, formState } =
+    useForm<CreateAccountFormSchema>({
+      mode: "onChange",
+      resolver: zodResolver(createAccountFormSchema),
+    })
 
   async function handleCreateAccount(accountData: CreateAccountFormSchema) {
     const { Name, Value, Type, Description } = accountData
@@ -130,7 +122,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
           <ValidateSelectArea>
             <SelectVariants
               title="Tipo de conta"
-              data={selectData}
+              data={selectAccountTypeData}
               onChange={field.onChange}
               value={field.value}
               erros={!!formState.errors.Type}

@@ -94,8 +94,8 @@ export const ActionsContainer = styled.div`
     justify-content: center;
     border-radius: 50%;
     border: 0;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 40px;
+    height: 40px;
   }
 
   a {

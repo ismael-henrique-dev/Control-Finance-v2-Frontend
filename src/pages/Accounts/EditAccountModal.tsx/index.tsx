@@ -9,7 +9,7 @@ import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
-import { selectData } from "../NewAccountModal"
+import { selectAccountTypeData } from "../NewAccountModal"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
@@ -39,10 +39,9 @@ export function EditAccountModal({
   AccountId,
 }: EditModalProps) {
   const { updateAccount, getAccountById } = useContext(AccountsContext)
-  const [defaultValues, setDefaultValues] =
+  const [, setDefaultValues] =
     useState<UpdatedAccountFormSchema | null>(null)
 
-  // Referências para focar nos campos automaticamente
   const nameInputRef = useRef<HTMLInputElement | null>(null)
   const descriptionInputRef = useRef<HTMLInputElement | null>(null)
 
@@ -72,7 +71,6 @@ export function EditAccountModal({
       loadAccountData()
     }
 
-    // Focar no primeiro campo automaticamente quando o modal for aberto
     if (open && nameInputRef.current) {
       nameInputRef.current.focus()
     }
@@ -110,7 +108,7 @@ export function EditAccountModal({
           <ValidateSelectArea>
             <SelectVariants
               title="Tipo de conta"
-              data={selectData}
+              data={selectAccountTypeData}
               value={field.value}
               onChange={field.onChange}
               erros={!!formState.errors.Type}
