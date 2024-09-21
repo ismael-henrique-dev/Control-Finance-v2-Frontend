@@ -107,8 +107,8 @@ export const StyledMenuItem = muiStyled(MenuItem)`
 
   div {
     display: flex;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     align-items: center;
     justify-content: center;
     background-color: #6a5acd;
@@ -116,6 +116,7 @@ export const StyledMenuItem = muiStyled(MenuItem)`
 
     svg {
       color: #fff;
+      font-size: 16px;
     }
   }
 `

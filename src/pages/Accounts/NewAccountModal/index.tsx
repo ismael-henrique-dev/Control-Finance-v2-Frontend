@@ -10,12 +10,36 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import CurrencyInput from "react-currency-input-field"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
+import { Coins, Handshake, Landmark, Wallet } from "lucide-react"
 
-export const accoutTypes = [
-  "Carteira",
-  "ContaBancaria",
-  "Poupanca",
-  "CorretoraDeInvestimentos",
+// export const accoutTypes = [
+//   "Carteira",
+//   "ContaBancaria",
+//   "Poupanca",
+//   "CorretoraDeInvestimentos",
+// ]
+
+export const selectData = [
+  {
+    name: "Carteira",
+    type: "Carteira",
+    icon: <Wallet />,
+  },
+  {
+    name: "Conta Bancária",
+    type: "ContaBancaria",
+    icon: <Landmark />,
+  },
+  {
+    name: "Poupança",
+    type: "Poupanca",
+    icon: <Coins />,
+  },
+  {
+    name: "Corretora de investimentos",
+    type: "CorretoraDeInvestimentos",
+    icon: <Handshake />,
+  },
 ]
 
 const createAccountFormSchema = z.object({
@@ -23,7 +47,7 @@ const createAccountFormSchema = z.object({
     .string()
     .min(3, "O nome deve conter no mínimo 03 caracteres.")
     .max(50, "O nome deve conter no máximo 50 caracteres."),
-  Value: z.number().min(0),
+  Value: z.number(),
   Type: z.enum([
     "Carteira",
     "ContaBancaria",
@@ -106,7 +130,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
           <ValidateSelectArea>
             <SelectVariants
               title="Tipo de conta"
-              data={accoutTypes}
+              data={selectData}
               onChange={field.onChange}
               value={field.value}
               erros={!!formState.errors.Type}

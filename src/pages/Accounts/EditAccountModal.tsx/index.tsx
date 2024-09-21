@@ -9,17 +9,11 @@ import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
+import { selectData } from "../NewAccountModal"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
 }
-
-export const accoutTypes = [
-  "Carteira",
-  "ContaBancaria",
-  "Poupanca",
-  "CorretoraDeInvestimentos",
-]
 
 const updatedAccountFormSchema = z.object({
   Name: z
@@ -89,7 +83,7 @@ export function EditAccountModaL({
           <ValidateSelectArea>
             <SelectVariants
               title="Tipo de conta"
-              data={accoutTypes}
+              data={selectData}
               value={field.value}
               onChange={field.onChange}
               erros={!!formState.errors.Type}

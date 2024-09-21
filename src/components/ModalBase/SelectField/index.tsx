@@ -1,16 +1,22 @@
 import InputLabel from "@mui/material/InputLabel"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
-import { ChevronDown, PiggyBank } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import {
   FormControlContainer,
   StyledMenuItem,
   useStyledMenuProps,
 } from "./styles"
-import { useState } from "react"
+import { ReactNode, useState } from "react"
+
+interface SelecetDataProps {
+  name: string,
+  type: string,
+  icon: ReactNode,
+}
 
 interface SelectProps {
   title: string
-  data: string[]
+  data: SelecetDataProps[]
   selectedValue?: string
   onChange?: (value: string) => void
   disabled?: boolean
@@ -78,11 +84,12 @@ export default function SelectVariants({
               item,
               index
             ) => (
-              <StyledMenuItem key={index} value={item}>
+              <StyledMenuItem key={index} value={item.type}>
                 <div>
-                  <PiggyBank size={16} />
+                  {/* <PiggyBank size={16} /> */}
+                  {item.icon}
                 </div>
-                {item}
+                {item.name}
               </StyledMenuItem>
             )
           )}
