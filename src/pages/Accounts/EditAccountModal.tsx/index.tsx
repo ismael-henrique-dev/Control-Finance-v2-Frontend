@@ -3,7 +3,7 @@ import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
 import { TextFiled } from "../../../components/TextField"
 import Input from "@mui/material/Input"
 import { useForm, Controller } from "react-hook-form"
-import { useContext } from "react"
+import { useContext, useEffect, useState, useRef } from "react"
 import SelectVariants from "../../../components/ModalBase/SelectField"
 import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
 import { z } from "zod"
@@ -31,36 +31,62 @@ const updatedAccountFormSchema = z.object({
   ),
 })
 
-type UpdatedAccountFormSchema = z.infer<typeof updatedAccountFormSchema>
+export type UpdatedAccountFormSchema = z.infer<typeof updatedAccountFormSchema>
 
-export function EditAccountModaL({
+export function EditAccountModal({
   open,
   handleClose,
   AccountId,
 }: EditModalProps) {
-  const { updateAccount } = useContext(AccountsContext)
+  const { updateAccount, getAccountById } = useContext(AccountsContext)
+  const [defaultValues, setDefaultValues] =
+    useState<UpdatedAccountFormSchema | null>(null)
 
-  const { register, handleSubmit, control, formState } =
+  // Referências para focar nos campos automaticamente
+  const nameInputRef = useRef<HTMLInputElement | null>(null)
+  const descriptionInputRef = useRef<HTMLInputElement | null>(null)
+
+  const { register, handleSubmit, reset, control, formState } =
     useForm<UpdatedAccountFormSchema>({
       mode: "onChange",
       resolver: zodResolver(updatedAccountFormSchema),
     })
 
-  async function handleUpdatedAccount(accountData: UpdatedData) {
-    const { Name, Description, Type } = accountData
+  useEffect(() => {
+    if (open && AccountId) {
+      const loadAccountData = async () => {
+        const accountData = await getAccountById(AccountId)
+        if (accountData) {
+          setDefaultValues({
+            Name: accountData.Name,
+            Description: accountData.Description,
+            Type: accountData.Type,
+          })
+          reset({
+            Name: accountData.Name,
+            Description: accountData.Description,
+            Type: accountData.Type,
+          })
+        }
+      }
+      loadAccountData()
+    }
 
-    await updateAccount(AccountId, {
-      Name,
-      Description,
-      Type,
-    })
+    // Focar no primeiro campo automaticamente quando o modal for aberto
+    if (open && nameInputRef.current) {
+      nameInputRef.current.focus()
+    }
+  }, [open, AccountId, reset, getAccountById])
+
+  async function handleUpdatedAccount(accountData: UpdatedData) {
+    await updateAccount(AccountId, accountData)
   }
 
   return (
     <ModalBase
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Editar nova conta"
+      submitButtonTitle="Editar conta"
       submit={handleSubmit(handleUpdatedAccount)}
       type="updatedAccount"
       erros={!formState.isValid}
@@ -70,8 +96,9 @@ export function EditAccountModaL({
         <Input
           type="text"
           id="account-name"
+          inputRef={nameInputRef}
           {...register("Name")}
-          error={false}
+          error={!!formState.errors.Name}
         />
         {formState.errors.Name && <p>{formState.errors.Name.message}</p>}
       </TextFiled>
@@ -98,8 +125,9 @@ export function EditAccountModaL({
         <Input
           type="text"
           id="account-description"
+          inputRef={descriptionInputRef}
           {...register("Description")}
-          error={false}
+          error={!!formState.errors.Description}
         />
         {formState.errors.Description && (
           <p>{formState.errors.Description.message}</p>

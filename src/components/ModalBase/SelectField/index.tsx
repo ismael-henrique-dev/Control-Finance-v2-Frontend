@@ -6,37 +6,33 @@ import {
   StyledMenuItem,
   useStyledMenuProps,
 } from "./styles"
-import { ReactNode, useState } from "react"
+import { ReactNode } from "react"
 
 interface SelecetDataProps {
-  name: string,
-  type: string,
-  icon: ReactNode,
+  name: string
+  type: string
+  icon: ReactNode
 }
 
 interface SelectProps {
   title: string
   data: SelecetDataProps[]
-  selectedValue?: string
+  value: string // Alterado para passar diretamente o valor controlado pelo pai
   onChange?: (value: string) => void
   disabled?: boolean
   erros: any
-  value?: any
 }
 
 export default function SelectVariants({
   title,
   data = [],
-  selectedValue = "",
+  value, // Usando diretamente o valor recebido via props
   onChange,
   disabled = false,
   erros,
 }: SelectProps) {
-  const [selectData, setSelectData] = useState<string>(selectedValue)
-
   const handleChange = (event: SelectChangeEvent<string>) => {
     const value = event.target.value
-    setSelectData(value)
     if (onChange) onChange(value)
   }
 
@@ -59,7 +55,7 @@ export default function SelectVariants({
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={selectData}
+          value={value} // Agora está recebendo o valor diretamente das props
           onChange={handleChange}
           label={title}
           IconComponent={ChevronDown}
@@ -79,20 +75,12 @@ export default function SelectVariants({
           }}
           MenuProps={menuProps}
         >
-          {data.map(
-            (
-              item,
-              index
-            ) => (
-              <StyledMenuItem key={index} value={item.type}>
-                <div>
-                  {/* <PiggyBank size={16} /> */}
-                  {item.icon}
-                </div>
-                {item.name}
-              </StyledMenuItem>
-            )
-          )}
+          {data.map((item, index) => (
+            <StyledMenuItem key={index} value={item.type}>
+              <div>{item.icon}</div>
+              {item.name}
+            </StyledMenuItem>
+          ))}
         </Select>
       </FormControlContainer>
     </div>

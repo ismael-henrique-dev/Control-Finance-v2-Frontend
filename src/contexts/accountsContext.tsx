@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
+import { UpdatedAccountFormSchema } from "../pages/Accounts/EditAccountModal.tsx"
 
 interface AccountsProviderProps {
   children: ReactNode
@@ -19,6 +20,7 @@ interface AccountsContextType {
   createAccount: (data: NewAccountProps) => Promise<void>
   deleteAccount: (id: string) => Promise<void>
   updateAccount: (accountId: string, updatedData: UpdatedData) => Promise<void>
+  getAccountById: (accountId: string) => Promise<UpdatedAccountFormSchema>
 }
 
 export interface Statics {
@@ -181,6 +183,22 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
     }
   }
 
+  async function getAccountById(accountId: string) {
+    const token = localStorage.getItem("@token")
+
+    try {
+      const { data } = await api.get(`/account/view/${accountId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      console.log(data.Account)
+      return data.Account
+    } catch (errr) {
+      console.error(errr)
+    }
+  }
+
   return (
     <AccountsContext.Provider
       value={{
@@ -190,6 +208,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         statics,
         deleteAccount,
         updateAccount,
+        getAccountById,
       }}
     >
       {children}
