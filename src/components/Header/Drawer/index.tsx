@@ -18,7 +18,7 @@ import testImage from "../../../assets/test-image.svg"
 
 export function DrawerBasic() {
   const [open, setOpen] = useState(false)
-  const { userData } = useContext(UserContext)
+  const { userData, userLogout } = useContext(UserContext)
 
   const toggleDrawer =
     (inOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -70,7 +70,7 @@ export function DrawerBasic() {
             </ListItem>
             <ListItem>
               <LogOut />
-              <NavLink to="/login">Log-out</NavLink>
+              <NavLink onClick={userLogout} to="/login">Log-out</NavLink>
             </ListItem>
           </ListContainer>
         </ContainerDrawer>

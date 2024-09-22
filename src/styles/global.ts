@@ -6,9 +6,6 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
-    
-
-
   }
 
   html {
@@ -43,5 +40,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${(props) => props.theme.secundaryGray};
     -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
   }
 `

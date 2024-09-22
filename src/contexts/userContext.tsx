@@ -1,21 +1,18 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
-import { api } from "../services/api"
 import { useNavigate } from "react-router-dom"
+import { api } from "../services/api"
 
 interface UserContextProps {
   children: ReactNode
 }
 
-interface UserRegisterFormData {
-  Email: string
-  Senha: string
-  UsernName: string
-}
-
 interface UserLoginFormData {
   Email: string
   Senha: string
-  // UsernName: string
+}
+
+interface UserRegisterFormData extends UserLoginFormData {
+  UsernName: string
 }
 
 interface User {
@@ -28,6 +25,7 @@ interface User {
 interface UserProviderType {
   userRegister: (data: UserRegisterFormData) => Promise<void>
   userLogin: (data: UserLoginFormData) => Promise<void>
+  userLogout: () => void
   userData: User | null
 }
 
@@ -78,10 +76,18 @@ export function UseProvider({ children }: UserContextProps) {
       }
     }
     loadUser()
-  }, [pathname, navigate])
+  }, [])
+
+  function userLogout() {
+    localStorage.removeItem("@token")
+    setUserData(null)
+    navigate("/login")
+  }
 
   return (
-    <UserContext.Provider value={{ userRegister, userLogin, userData }}>
+    <UserContext.Provider
+      value={{ userRegister, userLogin, userLogout, userData }}
+    >
       {children}
     </UserContext.Provider>
   )
