@@ -12,6 +12,7 @@ import {
   MainContainer,
   Section,
 } from "./styles"
+import { EmptyAccounts } from "../../components/EmptyComponent"
 
 export function Accounts() {
   const [open, setOpen] = useState(false)
@@ -41,6 +42,7 @@ export function Accounts() {
         />
       </Section>
       <MainContainer>
+        {accountsList.length === 0 && <EmptyAccounts mensageType="conta"/>}
         {isLoading === true ? (
           <LinearProgressCustom />
         ) : (

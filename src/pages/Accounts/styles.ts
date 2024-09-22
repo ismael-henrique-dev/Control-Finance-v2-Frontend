@@ -10,7 +10,7 @@ export const AccountsContainer = styled.div`
   padding: 0;
   margin: 2rem auto;
   gap: 2rem;
-  min-height: 100vh;
+  height: 100vh;
 `
 
 export const ContainerBarSummary = styled.div`
@@ -50,15 +50,16 @@ export const Section = styled.section`
 export const MainContainer = styled.main`
   display: flex;
   justify-content: start;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   gap: 2rem;
   max-width: 64rem;
 
   @media (max-width: 768px) {
     & {
       min-width: 320px;
-      justify-content: center;
+      justify-content: safe;
       margin: auto;
+      align-items: start;
     }
   }
 `
@@ -77,7 +78,6 @@ export const LinearProgressCustom = styled(LinearProgress)`
       align-items: start;
       width: 20rem;
       margin: auto;
-      /* min-height: 100vh; */
     }
   }
 `
