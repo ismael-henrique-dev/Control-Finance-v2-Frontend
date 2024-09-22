@@ -1,9 +1,9 @@
+import { useContext } from "react"
+import { ThemeContext } from "../../../contexts/styledThemeContext"
 import { ContainerSponsor } from "./styles"
 import logoWhite from "../../../assets/logo-white.svg"
 import logoDark from "../../../assets/logo-dark.svg"
 import sponsor from "../../../assets/sponsor.svg"
-import { ThemeContext } from "../../../contexts/styledThemeContext"
-import { useContext } from "react"
 
 export function Sponsor() {
   const themeContext = useContext(ThemeContext)

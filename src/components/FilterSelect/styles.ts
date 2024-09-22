@@ -2,7 +2,6 @@ import { FormControl, MenuItem } from "@mui/material"
 import styled, { useTheme } from "styled-components"
 import { styled as muiStyled } from "@mui/system"
 
-
 export const ContainerFilterSelect = styled.div`
   width: 10rem;
   height: 5.5rem;

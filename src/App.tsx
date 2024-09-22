@@ -6,10 +6,10 @@ import { GlobalStyle } from "./styles/global"
 import { lightTheme } from "./styles/themes/light"
 import { darkTheme } from "./styles/themes/dark"
 import { BrowserRouter } from "react-router-dom"
-import { Router } from "./Router"
 import { UseProvider } from "./contexts/userContext"
 import { AccountsProvider } from "./contexts/accountsContext"
 import { TransactionsProvider } from "./contexts/transactionsContext"
+import { Router } from "./routes/Router"
 
 // eslint-disable-next-line react-refresh/only-export-components
 function App() {
