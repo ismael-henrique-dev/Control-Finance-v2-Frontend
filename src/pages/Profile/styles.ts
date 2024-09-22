@@ -19,7 +19,7 @@ export const ProfileContainer = styled.div`
   border-radius: 12px;  
 `
 
-export const ContainerForm = styled.div`
+export const ContainerForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,7 +74,7 @@ interface ButtonVariants {
   variant?: "purple" | "red"
 }
 
-export const Button = styled.div<ButtonVariants>`
+export const Button = styled.button<ButtonVariants>`
   height: 32px;
   display: flex;
   justify-content: center;
@@ -85,6 +85,7 @@ export const Button = styled.div<ButtonVariants>`
   color: ${(props) => props.theme.white};
   border-radius: 8px;
   cursor: pointer;
+  border: 0;
 
   background-color: ${(props) => {
     switch (props.variant) {

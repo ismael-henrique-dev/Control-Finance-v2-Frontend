@@ -21,6 +21,7 @@ interface AccountsContextType {
   deleteAccount: (id: string) => Promise<void>
   updateAccount: (accountId: string, updatedData: UpdatedData) => Promise<void>
   getAccountById: (accountId: string) => Promise<UpdatedAccountFormSchema>
+  resetAccounts: () => void
 }
 
 export interface Statics {
@@ -50,6 +51,11 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   const [accountsList, setAccountsList] = useState<Account[]>([])
   const [statics, setStatics] = useState<Statics | null>(null)
   const [isLoading, setIsloading] = useState(false)
+
+  function resetAccounts() {
+    setAccountsList([])
+    setStatics(null)
+  }
 
   async function fetchAccounts() {
     setIsloading(true)
@@ -209,6 +215,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         deleteAccount,
         updateAccount,
         getAccountById,
+        resetAccounts,
       }}
     >
       {children}

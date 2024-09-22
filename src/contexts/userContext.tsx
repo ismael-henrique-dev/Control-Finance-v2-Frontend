@@ -26,6 +26,8 @@ interface UserProviderType {
   userRegister: (data: UserRegisterFormData) => Promise<void>
   userLogin: (data: UserLoginFormData) => Promise<void>
   userLogout: () => void
+  userResetAccount: () => void
+  userDeleteAccount: () => void
   userData: User | null
 }
 
@@ -84,9 +86,49 @@ export function UseProvider({ children }: UserContextProps) {
     navigate("/login")
   }
 
+  async function userResetAccount() {
+    const token = localStorage.getItem("@token")
+
+    try {
+      await api.delete(`/users/reset`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      console.log(`Conta resetada com sucesso!`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function userDeleteAccount() {
+    const token = localStorage.getItem("@token")
+
+    try {
+      await api.delete(`/users/reset`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      console.log(`Conta deletada com sucesso!`)
+      navigate("/singUp")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <UserContext.Provider
-      value={{ userRegister, userLogin, userLogout, userData }}
+      value={{
+        userRegister,
+        userLogin,
+        userLogout,
+        userResetAccount,
+        userDeleteAccount,
+        userData,
+      }}
     >
       {children}
     </UserContext.Provider>
