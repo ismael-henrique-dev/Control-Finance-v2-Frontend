@@ -1,5 +1,9 @@
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { ContainerPagination, PaginationButtonLeft, PaginationButtonRight } from "./styles"
+import {
+  ContainerPagination,
+  PaginationButtonLeft,
+  PaginationButtonRight,
+} from "./styles"
 
 interface PaginationMenuProps {
   currentPage: number
@@ -24,11 +28,14 @@ export function PaginationMenu({
     }
   }
 
+  const disableButtonLeft = currentPage === 1
+  const disableButtonRight = currentPage === totalPages || totalPages === 0
+
   return (
     <ContainerPagination>
       <PaginationButtonLeft
         onClick={handlePrevPage}
-        disabled={currentPage === 1}
+        disabled={disableButtonLeft}
       >
         <ChevronLeft />
       </PaginationButtonLeft>
@@ -37,7 +44,7 @@ export function PaginationMenu({
       </section>
       <PaginationButtonRight
         onClick={handleNextPage}
-        disabled={currentPage === totalPages}
+        disabled={disableButtonRight}
       >
         <ChevronRight />
       </PaginationButtonRight>

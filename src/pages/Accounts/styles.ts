@@ -5,12 +5,11 @@ export const AccountsContainer = styled.div`
   max-width: 64rem;
   display: flex;
   flex-direction: column;
-  justify-content: start;
   align-items: start;
   padding: 0;
   margin: 2rem auto;
   gap: 2rem;
-  height: 100vh;
+  min-height: 100vh;
 `
 
 export const ContainerBarSummary = styled.div`
@@ -49,18 +48,16 @@ export const Section = styled.section`
 
 export const MainContainer = styled.main`
   display: flex;
-  justify-content: start;
-  flex-wrap: wrap-reverse;
-  gap: 2rem;
+  flex-wrap: wrap;
+  gap: 2rem; 
+  justify-content: safe;
   max-width: 64rem;
 
   @media (max-width: 768px) {
-    & {
-      min-width: 320px;
-      justify-content: safe;
-      margin: auto;
-      align-items: start;
-    }
+    min-height: 100vh;
+    justify-content: center;
+    padding: 0;
+    margin: auto;
   }
 `
 
@@ -70,7 +67,7 @@ export const LinearProgressCustom = styled(LinearProgress)`
   background-color: #fff;
 
   .MuiLinearProgress-bar {
-    background-color: ${props => props.theme.secundary};
+    background-color: ${(props) => props.theme.secundary};
   }
 
   @media (max-width: 768px) {

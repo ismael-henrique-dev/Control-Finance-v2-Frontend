@@ -42,7 +42,7 @@ export function Accounts() {
         />
       </Section>
       <MainContainer>
-        {accountsList.length === 0 && <EmptyAccounts mensageType="conta"/>}
+        {accountsList.length === 0 && <EmptyAccounts mensageType="conta" />}
         {isLoading === true ? (
           <LinearProgressCustom />
         ) : (
