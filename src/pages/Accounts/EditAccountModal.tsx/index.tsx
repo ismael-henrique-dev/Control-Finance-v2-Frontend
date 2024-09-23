@@ -3,7 +3,7 @@ import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
 import { TextFiled } from "../../../components/TextField"
 import Input from "@mui/material/Input"
 import { useForm, Controller } from "react-hook-form"
-import { useContext, useEffect, useState, useRef } from "react"
+  import { useContext, useEffect, useState } from "react"
 import SelectVariants from "../../../components/ModalBase/SelectField"
 import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
 import { z } from "zod"
@@ -39,15 +39,12 @@ export function EditAccountModal({
   AccountId,
 }: EditModalProps) {
   const { updateAccount, getAccountById } = useContext(AccountsContext)
-  const [, setDefaultValues] =
-    useState<UpdatedAccountFormSchema | null>(null)
-
-  const nameInputRef = useRef<HTMLInputElement | null>(null)
-  const descriptionInputRef = useRef<HTMLInputElement | null>(null)
+  const [defaultValue, setDefaultValues] = useState<UpdatedAccountFormSchema | null>(null)
+  
 
   const { register, handleSubmit, reset, control, formState } =
     useForm<UpdatedAccountFormSchema>({
-      mode: "onChange",
+      mode: "all",
       resolver: zodResolver(updatedAccountFormSchema),
     })
 
@@ -70,16 +67,13 @@ export function EditAccountModal({
       }
       loadAccountData()
     }
-
-    if (open && nameInputRef.current) {
-      nameInputRef.current.focus()
-    }
   }, [open, AccountId, reset, getAccountById])
 
   async function handleUpdatedAccount(accountData: UpdatedData) {
     await updateAccount(AccountId, accountData)
   }
 
+  console.log(defaultValue)
   return (
     <ModalBase
       open={open}
@@ -90,13 +84,15 @@ export function EditAccountModal({
       erros={!formState.isValid}
     >
       <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-name">Nome da conta</InputLabel>
+        <InputLabel htmlFor="account-name">
+          Nome da conta
+        </InputLabel>
         <Input
           type="text"
           id="account-name"
-          inputRef={nameInputRef}
           {...register("Name")}
           error={!!formState.errors.Name}
+
         />
         {formState.errors.Name && <p>{formState.errors.Name.message}</p>}
       </TextFiled>
@@ -119,13 +115,14 @@ export function EditAccountModal({
       />
 
       <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-description">Descrição</InputLabel>
+        <InputLabel htmlFor="account-description">
+          Descrição
+        </InputLabel>
         <Input
           type="text"
           id="account-description"
-          inputRef={descriptionInputRef}
           {...register("Description")}
-          error={!!formState.errors.Description}
+          error={!!formState.errors.Description}       
         />
         {formState.errors.Description && (
           <p>{formState.errors.Description.message}</p>
