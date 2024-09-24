@@ -11,6 +11,7 @@ import CurrencyInput from "react-currency-input-field"
 import Input from "@mui/material/Input"
 import InputLabel from "@mui/material/InputLabel"
 import SelectVariants from "../../../components/ModalBase/SelectField"
+import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
 
 export const selectAccountTypeData = [
   {
@@ -122,11 +123,17 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
           <ValidateSelectArea>
             <SelectVariants
               title="Tipo de conta"
-              data={selectAccountTypeData}
               onChange={field.onChange}
               value={field.value}
               erros={!!formState.errors.Type}
-            />
+            >
+              {selectAccountTypeData.map((item, index) => (
+                <StyledMenuItem key={index} value={item.type}>
+                  <div>{item.icon}</div>
+                  {item.name}
+                </StyledMenuItem>
+              ))}
+            </SelectVariants>
             {formState.errors.Type && <p>{formState.errors.Type.message}</p>}
           </ValidateSelectArea>
         )}

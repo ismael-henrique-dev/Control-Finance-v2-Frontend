@@ -10,6 +10,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
 import { selectAccountTypeData } from "../NewAccountModal"
+import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
@@ -84,15 +85,12 @@ export function EditAccountModal({
       erros={!formState.isValid}
     >
       <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-name">
-          Nome da conta
-        </InputLabel>
+        <InputLabel htmlFor="account-name">Nome da conta</InputLabel>
         <Input
           type="text"
           id="account-name"
           {...register("Name")}
           error={!!formState.errors.Name}
-
         />
         {formState.errors.Name && <p>{formState.errors.Name.message}</p>}
       </TextFiled>
@@ -104,25 +102,29 @@ export function EditAccountModal({
           <ValidateSelectArea>
             <SelectVariants
               title="Tipo de conta"
-              data={selectAccountTypeData}
               value={field.value}
               onChange={field.onChange}
               erros={!!formState.errors.Type}
-            />
+            >
+              {selectAccountTypeData.map((item, index) => (
+                <StyledMenuItem key={index} value={item.type}>
+                  <div>{item.icon}</div>
+                  {item.name}
+                </StyledMenuItem>
+              ))}
+            </SelectVariants>
             {formState.errors.Type && <p>{formState.errors.Type.message}</p>}
           </ValidateSelectArea>
         )}
       />
 
       <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-description">
-          Descrição
-        </InputLabel>
+        <InputLabel htmlFor="account-description">Descrição</InputLabel>
         <Input
           type="text"
           id="account-description"
           {...register("Description")}
-          error={!!formState.errors.Description}       
+          error={!!formState.errors.Description}
         />
         {formState.errors.Description && (
           <p>{formState.errors.Description.message}</p>

@@ -2,18 +2,16 @@ import { ModalBase, ModalBasePropsDefault } from "../ModalBase"
 import { TextFiled } from "../TextField"
 import SelectVariants from "../ModalBase/SelectField"
 import { styled } from "styled-components"
-import InputAdornment from "@mui/material/InputAdornment"
-import { Calendar } from "lucide-react"
 import { useContext, useEffect, useState } from "react"
 import Input from "@mui/material/Input"
 import InputLabel from "@mui/material/InputLabel"
-import { useForm } from "react-hook-form"
+import { Controller, useForm } from "react-hook-form"
 import {
   Transaction,
   TransactionsContext,
 } from "../../contexts/transactionsContext"
-import { accoutTypes } from "../../pages/Accounts/NewAccountModal"
 import { AccountsContext } from "../../contexts/accountsContext"
+import CurrencyInput from "react-currency-input-field"
 
 const StyledInput = styled(Input)`
   input[type="date"] {
@@ -44,6 +42,8 @@ export function NewTransactionModal({
   const { createTransaction } = useContext(TransactionsContext)
   const { accountsList } = useContext(AccountsContext)
   const { register, handleSubmit, setValue, watch } = useForm<Transaction>()
+
+  const { control, formState } = useForm()
 
   const type = watch("Type", "income") // Watching Type to update categories based on the selected type
 
@@ -82,17 +82,32 @@ export function NewTransactionModal({
 
   return (
     <ModalBase
+      type="createAccount"
       open={open}
       handleClose={handleClose}
       submitButtonTitle="Adicionar nova transação"
       submit={handleSubmit(handleCreateTransaction)}
+      erros={!formState.isValid}
       inputValue={
-        <input
-          type="text"
-          id="account-initial-value"
-          placeholder="R$: 0,00"
-          min={1}
-          {...register("Value", { valueAsNumber: true })}
+        <Controller
+          name="Value"
+          control={control}
+          render={({ field }) => (
+            <CurrencyInput
+              defaultValue={0}
+              id="account-initial-value"
+              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+              decimalSeparator=","
+              groupSeparator="."
+              value={field.value}
+              onValueChange={(value) => {
+                const numericValue = value
+                  ? parseFloat(value.replace(/[^\d.-]/g, ""))
+                  : 0
+                field.onChange(numericValue)
+              }}
+            />
+          )}
         />
       }
     >
@@ -139,7 +154,7 @@ export function NewTransactionModal({
       </TextFiled> */}
 
       {/* Select for Account -> Arrumar para que ele receba o nome da conta e passe o id */}
-      <SelectVariants 
+      <SelectVariants
         title="Conta"
         data={accountsList}
         selectedValue={watch("AccountType")}

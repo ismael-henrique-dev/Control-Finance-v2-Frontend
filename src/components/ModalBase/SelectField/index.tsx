@@ -5,32 +5,23 @@ import Select, { SelectChangeEvent } from "@mui/material/Select"
 import {
   FormControlContainer,
   SelectFieldStyle,
-  StyledMenuItem,
   useStyledMenuProps,
 } from "./styles"
 
-interface SelecetDataProps {
-  name: string
-  type: string
-  icon: ReactNode
-}
-
 interface SelectProps {
   title: string
-  data: SelecetDataProps[]
-  value: string // Alterado para passar diretamente o valor controlado pelo pai
-  onChange?: (value: string) => void
-  disabled?: boolean
+  value: string
+  onChange: (value: string) => void
   erros: any
+  children?: ReactNode
 }
 
 export default function SelectVariants({
   title,
-  data = [],
-  value, // Usando diretamente o valor recebido via props
+  value,
   onChange,
-  disabled = false,
   erros,
+  children,
 }: SelectProps) {
   const handleChange = (event: SelectChangeEvent<string>) => {
     const value = event.target.value
@@ -41,11 +32,7 @@ export default function SelectVariants({
 
   return (
     <div>
-      <FormControlContainer
-        variant="standard"
-        disabled={disabled}
-        error={erros}
-      >
+      <FormControlContainer variant="standard" error={erros}>
         <InputLabel
           sx={{ display: "flex", alignItems: "center" }}
           id="demo-simple-select-standard-label"
@@ -56,19 +43,14 @@ export default function SelectVariants({
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={value} // Agora está recebendo o valor diretamente das props
+          value={value}
           onChange={handleChange}
           label={title}
           IconComponent={ChevronDown}
           sx={SelectFieldStyle}
           MenuProps={menuProps}
         >
-          {data.map((item, index) => (
-            <StyledMenuItem key={index} value={item.type}>
-              <div>{item.icon}</div>
-              {item.name}
-            </StyledMenuItem>
-          ))}
+          {children}
         </Select>
       </FormControlContainer>
     </div>
