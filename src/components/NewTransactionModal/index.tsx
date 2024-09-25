@@ -1,7 +1,6 @@
 import { ModalBase, ModalBasePropsDefault } from "../ModalBase"
 import { TextFiled } from "../TextField"
 import SelectVariants from "../ModalBase/SelectField"
-import { styled } from "styled-components"
 import { useContext, useEffect, useState } from "react"
 import Input from "@mui/material/Input"
 import InputLabel from "@mui/material/InputLabel"
@@ -17,21 +16,21 @@ import {
 } from "./transactionFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-const StyledInput = styled(Input)`
-  input[type="date"] {
-    &::-webkit-calendar-picker-indicator {
-      opacity: 0;
-      display: none;
-    }
-    &::-webkit-inner-spin-button,
-    &::-webkit-clear-button {
-      display: none;
-    }
-    &::-moz-clear {
-      display: none;
-    }
-  }
-`
+// const StyledInput = styled(Input)`
+//   input[type="date"] {
+//     &::-webkit-calendar-picker-indicator {
+//       opacity: 0;
+//       display: none;
+//     }
+//     &::-webkit-inner-spin-button,
+//     &::-webkit-clear-button {
+//       display: none;
+//     }
+//     &::-moz-clear {
+//       display: none;
+//     }
+//   }
+// `
 
 interface NewTransactionModal {
   open: boolean
