@@ -1,5 +1,8 @@
-import * as React from "react"
 import Popover from "@mui/material/Popover"
+import { useState } from "react"
+import { GoalCardProps } from ".."
+import { NewDepositOfGoal } from "../../../../pages/Goals/NewDepositOfGoal"
+import { GoalModal } from "../../../../pages/Goals/NewGoalModal"
 import {
   CircleCheckBig,
   CirclePlus,
@@ -7,19 +10,18 @@ import {
   Pencil,
   Trash2,
 } from "lucide-react"
-import { Actions, Container } from "./styles"
-import { GoalCardProps } from ".."
-import { NewDepositOfGoal } from "../../../../pages/Goals/NewDepositOfGoal"
-import { useState } from "react"
-import { GoalModal } from "../../../../pages/Goals/NewGoalModal"
+import { Actions, Container, PopoverStyle } from "./styles"
 
 export function ClickPopover({ isGoalsPage }: GoalCardProps) {
-  const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
-  const [open, setOpen] = React.useState(false)
+  const [anchorEl, setAnchorEl] = useState<SVGSVGElement | null>(null)
+  const [openPopover, setOpenPopover] = useState(false)
 
-  const [openModal, setOpenModal] = useState(false)
-  const handleOpenModal = () => setOpenModal(true)
-  const handleCloseModal = () => setOpenModal(false)
+  const [openNewDepositOfGoalModal, setOpenNewDepositOfGoalModal] =
+    useState(false)
+  const handleOpenNewDepositOfGoalModal = () =>
+    setOpenNewDepositOfGoalModal(true)
+  const handleCloseNewDepositOfGoalModal = () =>
+    setOpenNewDepositOfGoalModal(false)
 
   const [openModalEdit, setOpenModalEdit] = useState(false)
   const handleOpenModalEdit = () => setOpenModalEdit(true)
@@ -27,17 +29,17 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
 
   const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
     setAnchorEl(event.currentTarget)
-    setOpen((prevOpen) => !prevOpen)
+    setOpenPopover((prevOpen) => !prevOpen)
   }
 
   const handlePopoverClose = () => {
-    setOpen(false)
+    setOpenPopover(false)
     setAnchorEl(null)
   }
 
-  const handleClickAddNewDepositButton = () => {
+  const handleClickNewDepositOfGoal = () => {
     handlePopoverClose()
-    handleOpenModal()
+    handleOpenNewDepositOfGoalModal()
   }
 
   const handleClickEditGoal = () => {
@@ -50,15 +52,8 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
       <EllipsisVertical onClick={handleClick} />
       <Popover
         id="click-popover"
-        sx={{
-          pointerEvents: "auto",
-          ".MuiPopover-paper": {
-            backgroundColor: "transparent",
-            boxShadow: "none",
-            border: "none",
-          },
-        }}
-        open={open}
+        sx={PopoverStyle}
+        open={openPopover}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: "top",
@@ -85,12 +80,15 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
           <button onClick={handlePopoverClose}>
             <CircleCheckBig />
           </button>
-          <button onClick={handleClickAddNewDepositButton}>
+          <button onClick={handleClickNewDepositOfGoal}>
             <CirclePlus />
           </button>
         </Actions>
       </Popover>
-      <NewDepositOfGoal open={openModal} handleClose={handleCloseModal} />
+      <NewDepositOfGoal
+        open={openNewDepositOfGoalModal}
+        handleClose={handleCloseNewDepositOfGoalModal}
+      />
       <GoalModal open={openModalEdit} handleClose={handleCloseModaEdit} />
     </Container>
   )

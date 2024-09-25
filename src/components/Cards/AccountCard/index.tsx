@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { NewTransactionModal } from "../../NewTransactionModal"
-import { PopeoverOptionsAccount } from "./PoperOptionsAccount"
 import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
+import { NewTransactionModal } from "../../NewTransactionModal"
+import { PopeoverOptionsAccount } from "./PopoverOptionsAccount"
 import {
   Coins,
   Handshake,

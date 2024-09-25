@@ -1,7 +1,7 @@
 import { Pencil } from "lucide-react"
-import React, { useState, ChangeEvent } from "react"
+import { ChangeEvent } from "react"
 import styled from "styled-components"
-import initialImage from "../../../assets/initial-picture-profile.svg"
+
 
 const Container = styled.div`
   display: flex;
@@ -9,12 +9,12 @@ const Container = styled.div`
   align-items: center;
 `
 
-const ProfilePic = styled.div<{ imageUrl: string }>`
+const ProfilePic = styled.div`
   width: 7.5rem;
   height: 7.5rem;
   border-radius: 50%;
   background-color: #ccc;
-  background-image: url(${(props) => props.imageUrl});
+  /* background-image: url(${(props) => props.imageUrl}); */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -45,14 +45,14 @@ const Label = styled.label`
 `
 
 export function InputFileUpload() {
-  const [imageUrl, setImageUrl] = useState<string>(initialImage)
+  // const [imageUrl, setImageUrl] = useState<string>(initialImage)
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader()
       reader.onload = (e) => {
         if (e.target && typeof e.target.result === "string") {
-          setImageUrl(e.target.result)
+          // setImageUrl(e.target.result)
         }
       }
       reader.readAsDataURL(event.target.files[0])
@@ -61,7 +61,7 @@ export function InputFileUpload() {
 
   return (
     <Container>
-      <ProfilePic imageUrl={imageUrl}>
+      <ProfilePic>
         <Input
           type="file"
           id="file"

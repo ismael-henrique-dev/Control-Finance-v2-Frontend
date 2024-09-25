@@ -1,33 +1,40 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
-import { api } from "../services/api"
 import { useNavigate } from "react-router-dom"
+import { api } from "../services/api"
 
 interface UserContextProps {
   children: ReactNode
 }
 
-interface UserRegisterFormData {
-  Email: string
-  Senha: string
-  UsernName: string
-}
-
 interface UserLoginFormData {
   Email: string
   Senha: string
-  // UsernName: string
+}
+
+interface UserRegisterFormData extends UserLoginFormData {
+  UsernName: string
+}
+
+interface User {
+  Email: string
+  Id: string
+  Senha: string
+  UsernName: string
 }
 
 interface UserProviderType {
   userRegister: (data: UserRegisterFormData) => Promise<void>
   userLogin: (data: UserLoginFormData) => Promise<void>
-  // userData:
+  userLogout: () => void
+  userResetAccount: () => void
+  userDeleteAccount: () => void
+  userData: User | null
 }
 
 export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: UserContextProps) {
-  const [userData, setUserData] = useState(null)
+  const [userData, setUserData] = useState<User | null>(null)
 
   const navigate = useNavigate()
   const pathname = window.location.pathname
@@ -63,7 +70,7 @@ export function UseProvider({ children }: UserContextProps) {
             },
           })
           console.log(data.Profile)
-          setUserData(data)
+          setUserData(data.Profile)
           navigate(pathname)
         } catch (error) {
           console.log(error)
@@ -71,10 +78,58 @@ export function UseProvider({ children }: UserContextProps) {
       }
     }
     loadUser()
-  }, [pathname, navigate])
+  }, [])
+
+  function userLogout() {
+    localStorage.removeItem("@token")
+    setUserData(null)
+    navigate("/login")
+  }
+
+  async function userResetAccount() {
+    const token = localStorage.getItem("@token")
+
+    try {
+      await api.delete(`/users/reset`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      console.log(`Conta resetada com sucesso!`)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function userDeleteAccount() {
+    const token = localStorage.getItem("@token")
+
+    try {
+      await api.delete(`/users/reset`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      console.log(`Conta deletada com sucesso!`)
+      navigate("/singUp")
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
-    <UserContext.Provider value={{ userRegister, userLogin }}>
+    <UserContext.Provider
+      value={{
+        userRegister,
+        userLogin,
+        userLogout,
+        userResetAccount,
+        userDeleteAccount,
+        userData,
+      }}
+    >
       {children}
     </UserContext.Provider>
   )

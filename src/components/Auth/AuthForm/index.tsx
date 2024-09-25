@@ -1,12 +1,8 @@
-import { IconButton, Input, InputAdornment, InputLabel } from "@mui/material"
-import { AuthContainer, Button, Divisory, Form } from "./styles"
-import { TextFiled } from "../../TextField"
+import { AuthContainer, Button, Divisory } from "./styles"
 import { NavLink } from "react-router-dom"
-import { Lock, LockOpen, PersonStanding } from "lucide-react"
+import { PersonStanding } from "lucide-react"
 import iconGoogle from "../../../assets/icon-google.svg"
-import { ReactNode, useContext, useState } from "react"
-import { UserContext } from "../../../contexts/userContext"
-import { useForm } from "react-hook-form"
+import { ReactNode } from "react"
 
 interface AuthLoginProps {
   children?: ReactNode

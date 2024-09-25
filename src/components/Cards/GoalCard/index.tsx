@@ -1,7 +1,7 @@
-import { CircleDollarSign } from "lucide-react"
 import { useState } from "react"
-import { BarLinearProgress, ContainerCard } from "./styles"
+import { CircleDollarSign } from "lucide-react"
 import { ClickPopover } from "./SpeedDial"
+import { BarLinearProgress, ContainerCard } from "./styles"
 
 export interface GoalCardProps {
   isGoalsPage: boolean
@@ -26,7 +26,6 @@ export function GoalCard({ isGoalsPage }: GoalCardProps) {
         <strong>R$ 400,00 de R$ 1000</strong>
         <BarLinearProgress variant="determinate" value={progress} />
       </section>
-      
     </ContainerCard>
   )
 }

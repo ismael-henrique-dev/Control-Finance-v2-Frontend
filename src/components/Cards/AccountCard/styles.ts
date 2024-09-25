@@ -9,6 +9,7 @@ export const AccountCardConatiner = styled.div`
   padding: 1.5rem;
   border-radius: 12px;
   width: 20rem;
+  height: 13rem;
   gap: 1.25rem;
 
   strong {

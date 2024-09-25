@@ -3,23 +3,18 @@ import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
 import { TextFiled } from "../../../components/TextField"
 import Input from "@mui/material/Input"
 import { useForm, Controller } from "react-hook-form"
-import { useContext } from "react"
+  import { useContext, useEffect, useState } from "react"
 import SelectVariants from "../../../components/ModalBase/SelectField"
 import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
+import { selectAccountTypeData } from "../NewAccountModal"
+import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
 }
-
-export const accoutTypes = [
-  "Carteira",
-  "ContaBancaria",
-  "Poupanca",
-  "CorretoraDeInvestimentos",
-]
 
 const updatedAccountFormSchema = z.object({
   Name: z
@@ -37,36 +32,54 @@ const updatedAccountFormSchema = z.object({
   ),
 })
 
-type UpdatedAccountFormSchema = z.infer<typeof updatedAccountFormSchema>
+export type UpdatedAccountFormSchema = z.infer<typeof updatedAccountFormSchema>
 
-export function EditAccountModaL({
+export function EditAccountModal({
   open,
   handleClose,
   AccountId,
 }: EditModalProps) {
-  const { updateAccount } = useContext(AccountsContext)
+  const { updateAccount, getAccountById } = useContext(AccountsContext)
+  const [defaultValue, setDefaultValues] = useState<UpdatedAccountFormSchema | null>(null)
+  
 
-  const { register, handleSubmit, control, formState } =
+  const { register, handleSubmit, reset, control, formState } =
     useForm<UpdatedAccountFormSchema>({
-      mode: "onChange",
+      mode: "all",
       resolver: zodResolver(updatedAccountFormSchema),
     })
 
-  async function handleUpdatedAccount(accountData: UpdatedData) {
-    const { Name, Description, Type } = accountData
+  useEffect(() => {
+    if (open && AccountId) {
+      const loadAccountData = async () => {
+        const accountData = await getAccountById(AccountId)
+        if (accountData) {
+          setDefaultValues({
+            Name: accountData.Name,
+            Description: accountData.Description,
+            Type: accountData.Type,
+          })
+          reset({
+            Name: accountData.Name,
+            Description: accountData.Description,
+            Type: accountData.Type,
+          })
+        }
+      }
+      loadAccountData()
+    }
+  }, [open, AccountId, reset, getAccountById])
 
-    await updateAccount(AccountId, {
-      Name,
-      Description,
-      Type,
-    })
+  async function handleUpdatedAccount(accountData: UpdatedData) {
+    await updateAccount(AccountId, accountData)
   }
 
+  console.log(defaultValue)
   return (
     <ModalBase
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Editar nova conta"
+      submitButtonTitle="Editar conta"
       submit={handleSubmit(handleUpdatedAccount)}
       type="updatedAccount"
       erros={!formState.isValid}
@@ -77,7 +90,7 @@ export function EditAccountModaL({
           type="text"
           id="account-name"
           {...register("Name")}
-          error={false}
+          error={!!formState.errors.Name}
         />
         {formState.errors.Name && <p>{formState.errors.Name.message}</p>}
       </TextFiled>
@@ -89,11 +102,17 @@ export function EditAccountModaL({
           <ValidateSelectArea>
             <SelectVariants
               title="Tipo de conta"
-              data={accoutTypes}
               value={field.value}
               onChange={field.onChange}
               erros={!!formState.errors.Type}
-            />
+            >
+              {selectAccountTypeData.map((item, index) => (
+                <StyledMenuItem key={index} value={item.type}>
+                  <div>{item.icon}</div>
+                  {item.name}
+                </StyledMenuItem>
+              ))}
+            </SelectVariants>
             {formState.errors.Type && <p>{formState.errors.Type.message}</p>}
           </ValidateSelectArea>
         )}
@@ -105,7 +124,7 @@ export function EditAccountModaL({
           type="text"
           id="account-description"
           {...register("Description")}
-          error={false}
+          error={!!formState.errors.Description}
         />
         {formState.errors.Description && (
           <p>{formState.errors.Description.message}</p>

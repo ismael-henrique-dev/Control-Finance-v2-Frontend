@@ -1,17 +1,17 @@
 import { CircleUserRound, Moon, Search, Sun } from "lucide-react"
+import { NavLink } from "react-router-dom"
+import { DrawerBasic } from "./Drawer"
+import { SearchBarArea } from "./SearchBarArea"
+import { useContext, useState } from "react"
+import { ThemeContext } from "../../contexts/styledThemeContext"
+import logoWhite from "../../assets/logo-white.svg"
+import logoDark from "../../assets/logo-dark.svg"
 import {
   ActionsContainer,
   HeaderContainer,
   InputArea,
   LeftContainer,
 } from "./styles"
-import logoWhite from "../../assets/logo-white.svg"
-import logoDark from "../../assets/logo-dark.svg"
-import { NavLink } from "react-router-dom"
-import { DrawerBasic } from "./Drawer"
-import { SearchBarArea } from "./SearchBarArea"
-import { useContext, useState } from "react"
-import { ThemeContext } from "../../contexts/styledThemeContext"
 
 export function Header() {
   const themeContext = useContext(ThemeContext)
@@ -38,7 +38,7 @@ export function Header() {
           <Search />
         </button>
         <button onClick={toggleTheme}>
-          {theme === "light" ? <Sun /> : <Moon />}
+          {theme === "light" ? <Sun size={24} /> : <Moon size={24} />}
         </button>
         <NavLink to="/profile">
           <CircleUserRound />

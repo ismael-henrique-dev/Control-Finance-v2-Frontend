@@ -1,9 +1,10 @@
 import { useContext, useState } from "react"
 import { Pencil, Settings2, Trash } from "lucide-react"
-import { Actions, Container } from "../../GoalCard/SpeedDial/styles"
-import { AccountsContext } from "../../../../contexts/accountsContext"
-import { EditAccountModaL } from "../../../../pages/Accounts/EditAccountModal.tsx"
-import { ButtonAdd } from "../styles"
+import { Actions, Container } from "../../GoalCard/SpeedDial/styles.ts"
+import { AccountsContext } from "../../../../contexts/accountsContext.tsx"
+import { EditAccountModal } from "../../../../pages/Accounts/EditAccountModal.tsx/index.tsx"
+import { ButtonAdd } from "../styles.ts"
+import { ActionsStyle, PopoverStyle } from "./styles.ts"
 import Popover from "@mui/material/Popover"
 
 interface PopeoverOptionsAccountProps {
@@ -38,7 +39,6 @@ export function PopeoverOptionsAccount({
   }
 
   async function handleDeleteAccount() {
-    console.log(accountId)
     await deleteAccount(accountId)
   }
 
@@ -54,14 +54,7 @@ export function PopeoverOptionsAccount({
       </ButtonAdd>
       <Popover
         id="click-popover"
-        sx={{
-          pointerEvents: "auto",
-          ".MuiPopover-paper": {
-            backgroundColor: "transparent",
-            boxShadow: "none",
-            border: "none",
-          },
-        }}
+        sx={PopoverStyle}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -75,7 +68,7 @@ export function PopeoverOptionsAccount({
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Actions style={{ marginLeft: "0.3rem", marginTop: "3rem" }}>
+        <Actions style={ActionsStyle}>
           <button onClick={handleClickEditTransaction}>
             <Pencil />
           </button>
@@ -84,7 +77,7 @@ export function PopeoverOptionsAccount({
           </button>
         </Actions>
       </Popover>
-      <EditAccountModaL
+      <EditAccountModal
         open={openModalEdit}
         handleClose={handleCloseModaEdit}
         AccountId={accountId}

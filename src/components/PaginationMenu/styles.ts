@@ -18,11 +18,7 @@ export const ContainerPagination = styled.div`
   }
 `;
 
-interface Horiantacion {
-  variant?: "Rotate" | "Normal"
-}
-
-export const PaginationButton = styled.button<Horiantacion>`
+export const PaginationButtonLeft = styled.button`
   width: 2.5rem;
   height: 2rem;
   display: flex;
@@ -35,12 +31,15 @@ export const PaginationButton = styled.button<Horiantacion>`
   border-bottom-left-radius: 12px;
   cursor: pointer;
 
-  transform: ${(props) =>
-    props.variant === "Rotate" ? "rotate(180deg)" : "none"};
-
-
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
 `;
+
+export const PaginationButtonRight = styled(PaginationButtonLeft)`
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+`

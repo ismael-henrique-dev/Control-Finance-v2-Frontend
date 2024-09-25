@@ -7,7 +7,6 @@ import MenuItem from "@mui/material/MenuItem"
 export const FormControlContainer = styled(FormControl)`
   width: 26rem;
   align-items: center;
-  
 
   & .MuiInputLabel-root {
     width: 90%;
@@ -53,7 +52,6 @@ export const FormControlContainer = styled(FormControl)`
     width: 1.5rem;
     height: 1.5rem;
   }
-
 
   @media (max-width: 768px) {
     & {
@@ -107,8 +105,8 @@ export const StyledMenuItem = muiStyled(MenuItem)`
 
   div {
     display: flex;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     align-items: center;
     justify-content: center;
     background-color: #6a5acd;
@@ -116,6 +114,22 @@ export const StyledMenuItem = muiStyled(MenuItem)`
 
     svg {
       color: #fff;
+      font-size: 16px;
     }
   }
 `
+
+export const SelectFieldStyle = {
+  width: "100%",
+  "& .MuiSelect-select": {
+    width: "100%",
+    gap: "0.5rem",
+    display: "flex",
+    alignItems: "center",
+    color: "#4C3299",
+  },
+  "& svg": {
+    marginBottom: "-0.3rem",
+    color: "#4C3299",
+  },
+}

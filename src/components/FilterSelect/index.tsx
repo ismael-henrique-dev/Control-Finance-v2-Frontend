@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { ContainerFilterSelect, FormControlContainer, StyledMenuItem, useStyledMenuProps } from "./styles"
 import { ChevronDown } from "lucide-react"
+import { ContainerFilterSelect, FormControlContainer, StyledMenuItem, useStyledMenuProps } from "./styles"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import InputLabel from "@mui/material/InputLabel"
 
