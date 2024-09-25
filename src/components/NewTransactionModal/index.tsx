@@ -6,10 +6,7 @@ import { useContext, useEffect, useState } from "react"
 import Input from "@mui/material/Input"
 import InputLabel from "@mui/material/InputLabel"
 import { Controller, useForm } from "react-hook-form"
-import {
-  Transaction,
-  TransactionsContext,
-} from "../../contexts/transactionsContext"
+import { TransactionsContext } from "../../contexts/transactionsContext"
 import { AccountsContext } from "../../contexts/accountsContext"
 import CurrencyInput from "react-currency-input-field"
 import { StyledMenuItem } from "../ModalBase/SelectField/styles"
@@ -60,7 +57,7 @@ export function NewTransactionModal({
       defaultValues: {
         Type: "DEP",
         Categories: "",
-        AccountId: "",
+        accountId: "",
       },
     })
 
@@ -84,9 +81,9 @@ export function NewTransactionModal({
   }, [selectedType])
 
   async function handleCreateTransaction(data: CreateTransactionFormSchema) {
-    const { Title, Value, Type, Categories, AccountId } = data
+    const { Title, Value, Type, Categories, accountId } = data
     console.log(data)
-    await createTransaction({ Title, Value, Type, AccountId, Categories })
+    await createTransaction({ Title, Value, Type, accountId, Categories })
   }
 
   return (
@@ -171,12 +168,12 @@ export function NewTransactionModal({
       />
 
       <Controller
-        name="AccountId"
+        name="accountId"
         control={control}
         render={({ field }) => (
           <SelectVariants
             title="Conta"
-            erros={!!formState.errors.AccountId}
+            erros={!!formState.errors.accountId}
             onChange={field.onChange}
             value={field.value}
           >

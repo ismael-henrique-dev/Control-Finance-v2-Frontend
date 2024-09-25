@@ -5,7 +5,7 @@ export const createTransactionFormSchema = z.object({
   Value: z.number(),
   // CreatedAt: z.date().optional(),
   Type: z.enum(["DEP", "SAL"]),
-  AccountId: z.string(),
+  accountId: z.string(),
   Categories: z.string()
 })
 

@@ -24,9 +24,16 @@ export const TransactionsContext = createContext({} as TransactionsContextType)
 export function TransactionsProvider({ children }: TransactionsContextProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  async function createTransaction(transactionsData: CreateTransactionFormSchema) {
+  async function createTransaction(
+    transactionsData: CreateTransactionFormSchema
+  ) {
     try {
-      await api.post("/transaction/create", transactionsData)
+      const token = localStorage.getItem("@token")
+      await api.post("/transaction/create", transactionsData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
     } catch (err) {
       console.log(err)
     }
