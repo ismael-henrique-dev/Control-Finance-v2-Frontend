@@ -1,15 +1,17 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
+import { CreateTransactionFormSchema } from "../components/NewTransactionModal/transactionFormSchema"
 
 export interface Transaction {
   Title: string
   Value: number
-  Type: string
-  categories: string
+  Type: "DEP" | "SAL"
+  AccountId: string
+  Categories: string
 }
 
 interface TransactionsContextType {
-  createTransaction: (transaction: Transaction) => Promise<void>
+  createTransaction: (transaction: CreateTransactionFormSchema) => Promise<void>
   transactions: Transaction[]
 }
 
@@ -17,16 +19,14 @@ interface TransactionsContextProps {
   children: ReactNode
 }
 
-
-
 export const TransactionsContext = createContext({} as TransactionsContextType)
 
 export function TransactionsProvider({ children }: TransactionsContextProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
-  async function createTransaction(transactionsData: Transaction) {
+  async function createTransaction(transactionsData: CreateTransactionFormSchema) {
     try {
-      await api.post("/transactions/create", transactionsData)
+      await api.post("/transaction/create", transactionsData)
     } catch (err) {
       console.log(err)
     }

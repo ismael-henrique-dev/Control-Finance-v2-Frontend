@@ -10,8 +10,8 @@ import {
 
 interface SelectProps {
   title: string
-  value: string
-  onChange: (value: string) => void
+  value?: string
+  onChange?: (value: string) => void
   erros: any
   children?: ReactNode
 }
