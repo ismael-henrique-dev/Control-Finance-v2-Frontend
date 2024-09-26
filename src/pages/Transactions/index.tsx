@@ -1,15 +1,15 @@
+import { useState } from "react"
 import { SelectFilter } from "../../components/FilterSelect"
 import { Summary } from "../../components/Summary"
 import { Button } from "../../components/Button"
 import { Table } from "./Table"
 import { SearchBarTransaction } from "./SearchBarTransaction"
+import { NewTransactionModal } from "../../components/NewTransactionModal"
 import {
   ContainerBarSummary,
   MainContainer,
   TransactionsContainer,
 } from "./styles"
-import { useState } from "react"
-import { NewTransactionModal } from "../../components/NewTransactionModal"
 
 export function Transactions() {
   const [open, setOpen] = useState(false)
@@ -20,7 +20,7 @@ export function Transactions() {
 
   return (
     <TransactionsContainer>
-      <ContainerBarSummary> {/* Analisar para ver se deve ser dividirei em um componente */}
+      <ContainerBarSummary>
         <Summary />
         <SearchBarTransaction onSearch={setSearch} />
         <SelectFilter />
@@ -30,7 +30,7 @@ export function Transactions() {
         <strong>Histórico de transações</strong>
         <Table searchInput={search} />
       </MainContainer>
-      <NewTransactionModal open={open} handleClose={handleClose}/>
+      <NewTransactionModal open={open} handleClose={handleClose} />
     </TransactionsContainer>
   )
 }

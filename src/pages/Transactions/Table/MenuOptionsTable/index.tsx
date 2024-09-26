@@ -1,24 +1,24 @@
-import Popover from "@mui/material/Popover"
-import { Actions, Container } from "./styles"
-import { MoreHorizontal, Pencil, Trash } from "lucide-react"
-import React, { useContext, useState } from "react"
-import { Button } from "../styles"
-import { NewTransactionModal } from "../../../../components/NewTransactionModal"
+import { useContext, useState } from "react"
 import { TransactionsContext } from "../../../../contexts/transactionsContext"
+import { MoreHorizontal, Pencil, Trash } from "lucide-react"
+import { EditTransactionModal } from "../EditTransactionModal"
+import Popover from "@mui/material/Popover"
+import { Actions, Container, PopoverStyle } from "./styles"
+import { Button } from "../styles"
 
 type TransactionId = { transactionId: string }
 
 export function MenuOptionsTable({ transactionId }: TransactionId) {
-  const {deleteTransaction} = useContext(TransactionsContext)
+  const { deleteTransaction } = useContext(TransactionsContext)
 
-  const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
-  const [open, setOpen] = React.useState(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const [open, setOpen] = useState(false)
 
   const [openModalEdit, setOpenModalEdit] = useState(false)
   const handleOpenModalEdit = () => setOpenModalEdit(true)
   const handleCloseModaEdit = () => setOpenModalEdit(false)
 
-  const handleClick = (event: React.MouseEvent<SVGSVGElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
     setOpen((prevOpen) => !prevOpen)
   }
@@ -49,14 +49,7 @@ export function MenuOptionsTable({ transactionId }: TransactionId) {
       </Button>
       <Popover
         id="click-popover"
-        sx={{
-          pointerEvents: "auto",
-          ".MuiPopover-paper": {
-            backgroundColor: "transparent",
-            boxShadow: "none",
-            border: "none",
-          },
-        }}
+        sx={PopoverStyle}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -79,9 +72,10 @@ export function MenuOptionsTable({ transactionId }: TransactionId) {
           </button>
         </Actions>
       </Popover>
-      <NewTransactionModal
+      <EditTransactionModal
         open={openModalEdit}
         handleClose={handleCloseModaEdit}
+        transactionId={transactionId}
       />
     </Container>
   )

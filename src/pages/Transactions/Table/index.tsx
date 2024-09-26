@@ -29,6 +29,8 @@ export function Table({ searchInput }: TableProps) {
     transaction.Title.toLowerCase().includes(searchInput.toLowerCase())
   )
 
+  const transactionsTotal = transactions.length
+
   return (
     <ContainerTable>
       <TransactionsTable>
@@ -53,12 +55,12 @@ export function Table({ searchInput }: TableProps) {
                 <td>{transaction.Type}</td>
                 <td>
                   <div className="icon-text">
-                    <Wallet /> Carteira
+                    <Wallet /> 
                   </div>
                 </td>
                 <td>
                   <div className="icon-text">
-                    <Banknote /> Salário
+                    <Banknote /> {transaction.Categories}
                   </div>
                 </td>
                 <td>
@@ -71,7 +73,7 @@ export function Table({ searchInput }: TableProps) {
         <tfoot>
           <tr>
             <td colSpan={4}>
-              <span>Mostrando 10 de 68 transações</span>
+              <span>Mostrando 10 de {transactionsTotal} transações</span>
             </td>
             <td colSpan={3}>
               <section>

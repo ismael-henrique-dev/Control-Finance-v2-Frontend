@@ -6,16 +6,14 @@ import CurrencyInput from "react-currency-input-field"
 import { Controller, useForm } from "react-hook-form"
 
 import { selectCategoryData } from "./dataCategories"
-import {
-  createTransactionFormSchema,
-  CreateTransactionFormSchema,
-} from "./transactionFormSchema"
+
 import { ModalBase, ModalBasePropsDefault } from "../../../../components/ModalBase"
 import { TransactionsContext } from "../../../../contexts/transactionsContext"
-import { AccountsContext } from "../../../../contexts/accountsContext"
+
 import { StyledMenuItem } from "../../../FinancialIncome/Select/styles"
 import SelectVariants from "../../../../components/ModalBase/SelectField"
 import { TextFiled } from "../../../../components/TextField"
+import { EditTransactionFormSchema, editTransactionFormSchema } from "./transactionFormSchema"
 
 // const StyledInput = styled(Input)`
 //   input[type="date"] {
@@ -43,28 +41,31 @@ interface CategoriesType {
   type: string
 }
 
+interface EditTransactionModalProps  extends ModalBasePropsDefault{
+  transactionId: string
+}
+
 export function EditTransactionModal({
   open,
   handleClose,
-}: ModalBasePropsDefault) {
+  transactionId
+}: EditTransactionModalProps) {
   const [categories, setCategories] = useState<CategoriesType[]>([])
-  const { createTransaction } = useContext(TransactionsContext)
-  const { accountsList } = useContext(AccountsContext)
+  const { updateTransaction } = useContext(TransactionsContext)
+  // const { accountsList } = useContext(AccountsContext)
 
   const { control, register, handleSubmit, watch, formState } =
-    useForm<CreateTransactionFormSchema>({
-      resolver: zodResolver(createTransactionFormSchema),
+    useForm<EditTransactionFormSchema>({
+      resolver: zodResolver(editTransactionFormSchema),
       defaultValues: {
         Type: "DEP",
         Categories: "",
-        accountId: "",
       },
     })
 
   const selectedType = watch("Type")
 
   useEffect(() => {
-    // console.log(`Tipo de transação selecionado: ${selectedType}`)
 
     const selectedCategoryData = selectCategoryData.find(
       (item) => item.Type.typeValue === selectedType
@@ -80,10 +81,10 @@ export function EditTransactionModal({
     }
   }, [selectedType])
 
-  async function handleCreateTransaction(data: CreateTransactionFormSchema) {
-    const { Title, Value, Type, Categories, accountId } = data
+  async function handleUpdateTransaction(data: EditTransactionFormSchema) {
+    const { Title, Value, Type, Categories } = data
     console.log(data)
-    await createTransaction({ Title, Value, Type, accountId, Categories })
+    await updateTransaction(transactionId ,{ Title, Value, Type, Categories })
   }
 
   return (
@@ -92,7 +93,7 @@ export function EditTransactionModal({
       open={open}
       handleClose={handleClose}
       submitButtonTitle="Adicionar nova transação"
-      submit={handleSubmit(handleCreateTransaction)}
+      submit={handleSubmit(handleUpdateTransaction)}
       erros={!formState.isValid}
       inputValue={
         <Controller
@@ -167,7 +168,7 @@ export function EditTransactionModal({
         )}
       />
 
-      <Controller
+      {/* <Controller
         name="accountId"
         control={control}
         render={({ field }) => (
@@ -184,7 +185,7 @@ export function EditTransactionModal({
             ))}
           </SelectVariants>
         )}
-      />
+      /> */}
     </ModalBase>
   )
 }
