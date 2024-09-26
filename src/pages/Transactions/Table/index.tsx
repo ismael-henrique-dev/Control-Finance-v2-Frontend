@@ -4,7 +4,6 @@ import {
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-  MoreHorizontal,
   Wallet,
 } from "lucide-react"
 import {
@@ -14,8 +13,14 @@ import {
   TransactionsTable,
 } from "./styles"
 import { MenuOptionsTable } from "./MenuOptionsTable"
+import { useContext } from "react"
+import { TransactionsContext } from "../../../contexts/transactionsContext"
+import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
 
 export function Table() {
+  const { transactions } = useContext(TransactionsContext)
+  const formatCurrency = useFormatterCoin
+
   return (
     <ContainerTable>
       <TransactionsTable>
@@ -31,67 +36,29 @@ export function Table() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Pagamento Mensal</td>
-            <td>R$ 1200,00</td>
-            <td>Há 2 meses</td>
-            <td>Depósito</td>
-            <td>
-              <div className="icon-text">
-                <Wallet /> Carteira
-              </div>
-            </td>
-            <td>
-              <div className="icon-text">
-                <Banknote /> Salário
-              </div>
-            </td>
-            <td>
-              <Button variant="more">
-                <MoreHorizontal />
-              </Button>
-            </td>
-          </tr>
-          <tr>
-            <td>Pagamento Mensal</td>
-            <td>R$ 1200,00</td>
-            <td>Há 2 meses</td>
-            <td>Depósito</td>
-            <td>
-              <div className="icon-text">
-                <Wallet /> Carteira
-              </div>
-            </td>
-            <td>
-              <div className="icon-text">
-                <Banknote /> Salário
-              </div>
-            </td>
-            <td>
-              <MenuOptionsTable />
-            </td>
-          </tr>
-          <tr>
-            <td>Pagamento Mensal</td>
-            <td>R$ 1200,00</td>
-            <td>Há 2 meses</td>
-            <td>Depósito</td>
-            <td>
-              <div className="icon-text">
-                <Wallet /> Carteira
-              </div>
-            </td>
-            <td>
-              <div className="icon-text">
-                <Banknote /> Salário
-              </div>
-            </td>
-            <td>
-              <Button variant="more">
-                <MoreHorizontal />
-              </Button>
-            </td>
-          </tr>
+          {transactions.map((transaction) => {
+            return (
+              <tr key={transaction.Id}>
+                <td>{transaction.Title}</td>
+                <td>{formatCurrency(transaction.Value)}</td>
+                <td>{transaction.CreatedAt}</td>
+                <td>{transaction.Type}</td>
+                <td>
+                  <div className="icon-text">
+                    <Wallet /> Carteira
+                  </div>
+                </td>
+                <td>
+                  <div className="icon-text">
+                    <Banknote /> Salário
+                  </div>
+                </td>
+                <td>
+                  <MenuOptionsTable transactionId={transaction.Id} />
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
         <tfoot>
           <tr>

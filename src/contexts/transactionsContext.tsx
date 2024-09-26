@@ -3,16 +3,19 @@ import { api } from "../services/api"
 import { CreateTransactionFormSchema } from "../components/NewTransactionModal/transactionFormSchema"
 
 export interface Transaction {
+  Id: string
   Title: string
   Value: number
   Type: "DEP" | "SAL"
   AccountId: string
+  CreatedAt: string
   Categories: string
 }
 
 interface TransactionsContextType {
   createTransaction: (transaction: CreateTransactionFormSchema) => Promise<void>
   transactions: Transaction[]
+  deleteTransaction: (transactionId: string) => Promise<void>
 }
 
 interface TransactionsContextProps {
@@ -58,8 +61,24 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
     fetchTransactions()
   }, [])
 
+  async function deleteTransaction(transactionId: string) {
+    try {
+      const token = localStorage.getItem("@token")
+
+      await api.delete(`/transaction/delete/${transactionId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      console.log(`A transação com Id: ${transactionId} foi deletada com sucesso! `)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
-    <TransactionsContext.Provider value={{ createTransaction, transactions }}>
+    <TransactionsContext.Provider value={{ createTransaction, transactions, deleteTransaction }}>
       {children}
     </TransactionsContext.Provider>
   )

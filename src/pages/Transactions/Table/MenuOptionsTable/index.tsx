@@ -1,11 +1,16 @@
 import Popover from "@mui/material/Popover"
 import { Actions, Container } from "./styles"
 import { MoreHorizontal, Pencil, Trash } from "lucide-react"
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Button } from "../styles"
 import { NewTransactionModal } from "../../../../components/NewTransactionModal"
+import { TransactionsContext } from "../../../../contexts/transactionsContext"
 
-export function MenuOptionsTable() {
+type TransactionId = { transactionId: string }
+
+export function MenuOptionsTable({ transactionId }: TransactionId) {
+  const {deleteTransaction} = useContext(TransactionsContext)
+
   const [anchorEl, setAnchorEl] = React.useState<SVGSVGElement | null>(null)
   const [open, setOpen] = React.useState(false)
 
@@ -26,6 +31,15 @@ export function MenuOptionsTable() {
   const handleClickEditTransaction = () => {
     handlePopoverClose()
     handleOpenModalEdit()
+  }
+
+  async function handleDeleteTransaction() {
+    await deleteTransaction(transactionId)
+  }
+
+  const handleClickDeleteTransaction = () => {
+    handleDeleteTransaction()
+    handlePopoverClose()
   }
 
   return (
@@ -60,12 +74,15 @@ export function MenuOptionsTable() {
           <button onClick={handleClickEditTransaction}>
             <Pencil />
           </button>
-          <button onClick={handlePopoverClose}>
+          <button onClick={handleClickDeleteTransaction}>
             <Trash color="#DC2626" />
           </button>
         </Actions>
       </Popover>
-      <NewTransactionModal open={openModalEdit} handleClose={handleCloseModaEdit} />
+      <NewTransactionModal
+        open={openModalEdit}
+        handleClose={handleCloseModaEdit}
+      />
     </Container>
   )
 }
