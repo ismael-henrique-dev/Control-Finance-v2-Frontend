@@ -16,17 +16,19 @@ export function Transactions() {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  const [search, setSearch] = useState("")
+
   return (
     <TransactionsContainer>
       <ContainerBarSummary> {/* Analisar para ver se deve ser dividirei em um componente */}
         <Summary />
-        <SearchBarTransaction />
+        <SearchBarTransaction onSearch={setSearch} />
         <SelectFilter />
         <Button handleClick={handleOpen} />
       </ContainerBarSummary>
       <MainContainer>
         <strong>Histórico de transações</strong>
-        <Table />
+        <Table searchInput={search} />
       </MainContainer>
       <NewTransactionModal open={open} handleClose={handleClose}/>
     </TransactionsContainer>

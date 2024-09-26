@@ -17,9 +17,17 @@ import {
   TransactionsTable,
 } from "./styles"
 
-export function Table() {
+interface TableProps {
+  searchInput: string
+}
+
+export function Table({ searchInput }: TableProps) {
   const { transactions } = useContext(TransactionsContext)
   const formatCurrency = useFormatterCoin
+
+  const filteredTransaction = transactions.filter((transaction) =>
+    transaction.Title.toLowerCase().includes(searchInput.toLowerCase())
+  )
 
   return (
     <ContainerTable>
@@ -36,7 +44,7 @@ export function Table() {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => {
+          {filteredTransaction.map((transaction) => {
             return (
               <tr key={transaction.Id}>
                 <td>{transaction.Title}</td>
