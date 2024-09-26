@@ -77,6 +77,22 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
     }
   }
 
+  async function updateTransaction(transactionId: string) {try {
+    const token = localStorage.getItem("@token")
+
+    await api.delete(`/transaction/update/${transactionId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    console.log(
+      `A transação com Id: ${transactionId} foi deletada com sucesso! `
+    )
+  } catch (error) {
+    console.error(error)
+  }}
+
   return (
     <TransactionsContext.Provider value={{ createTransaction, transactions, deleteTransaction }}>
       {children}

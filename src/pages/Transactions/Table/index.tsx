@@ -1,3 +1,7 @@
+import { useContext } from "react"
+import { TransactionsContext } from "../../../contexts/transactionsContext"
+import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
+import { MenuOptionsTable } from "./MenuOptionsTable"
 import {
   Banknote,
   ChevronLeft,
@@ -12,10 +16,6 @@ import {
   NavContainer,
   TransactionsTable,
 } from "./styles"
-import { MenuOptionsTable } from "./MenuOptionsTable"
-import { useContext } from "react"
-import { TransactionsContext } from "../../../contexts/transactionsContext"
-import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
 
 export function Table() {
   const { transactions } = useContext(TransactionsContext)
