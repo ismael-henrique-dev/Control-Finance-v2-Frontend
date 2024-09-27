@@ -33,3 +33,12 @@ export const Actions = styled.div`
     }
   }
 `
+
+export const PopoverStyle = {
+  pointerEvents: "auto",
+  ".MuiPopover-paper": {
+    backgroundColor: "transparent",
+    boxShadow: "none",
+    border: "none",
+  },
+}

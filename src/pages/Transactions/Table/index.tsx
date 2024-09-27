@@ -1,10 +1,13 @@
+import { useContext } from "react"
+import { TransactionsContext } from "../../../contexts/transactionsContext"
+import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
+import { MenuOptionsTable } from "./MenuOptionsTable"
 import {
   Banknote,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-  MoreHorizontal,
   Wallet,
 } from "lucide-react"
 import {
@@ -13,9 +16,21 @@ import {
   NavContainer,
   TransactionsTable,
 } from "./styles"
-import { MenuOptionsTable } from "./MenuOptionsTable"
 
-export function Table() {
+interface TableProps {
+  searchInput: string
+}
+
+export function Table({ searchInput }: TableProps) {
+  const { transactions } = useContext(TransactionsContext)
+  const formatCurrency = useFormatterCoin
+
+  const filteredTransaction = transactions.filter((transaction) =>
+    transaction.Title.toLowerCase().includes(searchInput.toLowerCase())
+  )
+
+  const transactionsTotal = transactions.length
+
   return (
     <ContainerTable>
       <TransactionsTable>
@@ -31,72 +46,34 @@ export function Table() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Pagamento Mensal</td>
-            <td>R$ 1200,00</td>
-            <td>Há 2 meses</td>
-            <td>Depósito</td>
-            <td>
-              <div className="icon-text">
-                <Wallet /> Carteira
-              </div>
-            </td>
-            <td>
-              <div className="icon-text">
-                <Banknote /> Salário
-              </div>
-            </td>
-            <td>
-              <Button variant="more">
-                <MoreHorizontal />
-              </Button>
-            </td>
-          </tr>
-          <tr>
-            <td>Pagamento Mensal</td>
-            <td>R$ 1200,00</td>
-            <td>Há 2 meses</td>
-            <td>Depósito</td>
-            <td>
-              <div className="icon-text">
-                <Wallet /> Carteira
-              </div>
-            </td>
-            <td>
-              <div className="icon-text">
-                <Banknote /> Salário
-              </div>
-            </td>
-            <td>
-              <MenuOptionsTable />
-            </td>
-          </tr>
-          <tr>
-            <td>Pagamento Mensal</td>
-            <td>R$ 1200,00</td>
-            <td>Há 2 meses</td>
-            <td>Depósito</td>
-            <td>
-              <div className="icon-text">
-                <Wallet /> Carteira
-              </div>
-            </td>
-            <td>
-              <div className="icon-text">
-                <Banknote /> Salário
-              </div>
-            </td>
-            <td>
-              <Button variant="more">
-                <MoreHorizontal />
-              </Button>
-            </td>
-          </tr>
+          {filteredTransaction.map((transaction) => {
+            return (
+              <tr key={transaction.Id}>
+                <td>{transaction.Title}</td>
+                <td>{formatCurrency(transaction.Value)}</td>
+                <td>{transaction.CreatedAt}</td>
+                <td>{transaction.Type}</td>
+                <td>
+                  <div className="icon-text">
+                    <Wallet /> 
+                  </div>
+                </td>
+                <td>
+                  <div className="icon-text">
+                    <Banknote /> {transaction.Categories}
+                  </div>
+                </td>
+                <td>
+                  <MenuOptionsTable transactionId={transaction.Id} />
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan={4}>
-              <span>Mostrando 10 de 68 transações</span>
+              <span>Mostrando 10 de {transactionsTotal} transações</span>
             </td>
             <td colSpan={3}>
               <section>
