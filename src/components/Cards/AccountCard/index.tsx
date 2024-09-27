@@ -82,7 +82,12 @@ export function AccountCard({
           <span>{formatCurrency(outcome)}</span>
         </SummaryType>
       </AccountSummary>
-      <NewTransactionModal open={open} handleClose={handleClose} />
+      <NewTransactionModal
+        open={open}
+        handleClose={handleClose}
+        accountId={accountId}
+        accountTitle={accountTitle}
+      />
     </AccountCardConatiner>
   )
 }

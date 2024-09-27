@@ -32,9 +32,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 //   }
 // `
 
-interface NewTransactionModal {
-  open: boolean
-  handleClose: () => void
+interface NewTransactionModalProps extends ModalBasePropsDefault {
+  accountId?: string
+  accountTitle?: string
 }
 
 interface CategoriesType {
@@ -45,7 +45,9 @@ interface CategoriesType {
 export function NewTransactionModal({
   open,
   handleClose,
-}: ModalBasePropsDefault) {
+  accountId,
+  accountTitle
+}: NewTransactionModalProps) {
   const [categories, setCategories] = useState<CategoriesType[]>([])
   const { createTransaction } = useContext(TransactionsContext)
   const { accountsList } = useContext(AccountsContext)
@@ -63,7 +65,6 @@ export function NewTransactionModal({
   const selectedType = watch("Type")
 
   useEffect(() => {
-    // console.log(`Tipo de transação selecionado: ${selectedType}`)
 
     const selectedCategoryData = selectCategoryData.find(
       (item) => item.Type.typeValue === selectedType
@@ -71,9 +72,9 @@ export function NewTransactionModal({
 
     if (selectedCategoryData) {
       setCategories(
-        selectedCategoryData.categories.map((el) => ({
-          name: el.name,
-          type: el.type,
+        selectedCategoryData.categories.map((category) => ({
+          name: category.name,
+          type: category.type,
         }))
       )
     }
@@ -176,11 +177,15 @@ export function NewTransactionModal({
             onChange={field.onChange}
             value={field.value}
           >
-            {accountsList.map((item, index) => (
-              <StyledMenuItem key={index} value={item.AcId}>
-                {item.accountTitle}
-              </StyledMenuItem>
-            ))}
+            {accountId ? (
+              <StyledMenuItem value={accountId}>{accountTitle}</StyledMenuItem>
+            ) : (
+              accountsList.map((item, index) => (
+                <StyledMenuItem key={index} value={item.AcId}>
+                  {item.accountTitle}
+                </StyledMenuItem>
+              ))
+            )}
           </SelectVariants>
         )}
       />
