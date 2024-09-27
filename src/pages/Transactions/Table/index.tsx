@@ -3,12 +3,10 @@ import { TransactionsContext } from "../../../contexts/transactionsContext"
 import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
 import { MenuOptionsTable } from "./MenuOptionsTable"
 import {
-  Banknote,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-  Wallet,
 } from "lucide-react"
 import {
   Button,
@@ -16,6 +14,11 @@ import {
   NavContainer,
   TransactionsTable,
 } from "./styles"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
+import "dayjs/locale/pt-br"
+dayjs.extend(relativeTime)
+dayjs.locale("pt-br")
 
 interface TableProps {
   searchInput: string
@@ -51,17 +54,13 @@ export function Table({ searchInput }: TableProps) {
               <tr key={transaction.Id}>
                 <td>{transaction.Title}</td>
                 <td>{formatCurrency(transaction.Value)}</td>
-                <td>{transaction.CreatedAt}</td>
-                <td>{transaction.Type}</td>
+                <td>{dayjs(transaction.CreatedAt).fromNow()}</td>
+                <td>{transaction.Type === "DEP" ? "Depósito" : "Saída"}</td>
                 <td>
-                  <div className="icon-text">
-                    <Wallet /> 
-                  </div>
+                  <div className="icon-text">{transaction.AccountTitle}</div>
                 </td>
                 <td>
-                  <div className="icon-text">
-                    <Banknote /> {transaction.Categories}
-                  </div>
+                  <div className="icon-text">{transaction.Categories}</div>
                 </td>
                 <td>
                   <MenuOptionsTable transactionId={transaction.Id} />
