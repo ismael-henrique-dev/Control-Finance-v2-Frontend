@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useSummaryTransaction } from "../../hooks/useSummaryTransaction"
 import { SelectFilter } from "../../components/FilterSelect"
 import { Summary } from "../../components/Summary"
 import { Button } from "../../components/Button"
@@ -12,16 +13,22 @@ import {
 } from "./styles"
 
 export function Transactions() {
+  const [search, setSearch] = useState("")
+
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const [search, setSearch] = useState("")
+  const summary = useSummaryTransaction()
 
   return (
     <TransactionsContainer>
       <ContainerBarSummary>
-        <Summary />
+        <Summary
+          income={summary.income}
+          outcome={summary.outcome}
+          total={summary.total}
+        />
         <SearchBarTransaction onSearch={setSearch} />
         <SelectFilter />
         <Button handleClick={handleOpen} />

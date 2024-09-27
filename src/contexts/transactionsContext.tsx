@@ -13,13 +13,6 @@ export interface Transaction {
   Categories: string
 }
 
-// interface EditTransactionData {
-//   Title: string
-//   Value: 0
-//   Type: "DEP" | "SAL"
-//   Categories: string
-// }
-
 interface TransactionsContextType {
   createTransaction: (transaction: CreateTransactionFormSchema) => Promise<void>
   transactions: Transaction[]
@@ -44,11 +37,23 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
   ) {
     try {
       const token = localStorage.getItem("@token")
-      await api.post("/transaction/create", transactionsData, {
+      const { data } = await api.post("/transaction/create", transactionsData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
+
+      const transaction: Transaction = {
+        Id: data.Transaction.Id,
+        Title: data.Transaction.Title,
+        Value: data.Transaction.Value,
+        Type: data.Transaction.Type,
+        AccountId: data.Transaction.accountId,
+        CreatedAt: data.Transaction.CreatedAt,
+        Categories: data.Transaction.Categories,
+      }
+
+      setTransactions((prevState) => [transaction, ...prevState])
     } catch (err) {
       console.log(err)
     }
@@ -83,6 +88,12 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
         },
       })
 
+      const deleteTransactions = transactions.filter(
+        (transaction) => transaction.Id !== transactionId
+      )
+
+      setTransactions(deleteTransactions)
+
       console.log(
         `A transação com Id: ${transactionId} foi deletada com sucesso! `
       )
@@ -93,16 +104,46 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
 
   async function updateTransaction(
     transactionId: string,
-    data: EditTransactionFormSchema
+    updatedData: EditTransactionFormSchema
   ) {
     try {
       const token = localStorage.getItem("@token")
 
-      await api.put(`/transaction/update/${transactionId}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const { data } = await api.put(
+        `/transaction/update/${transactionId}`,
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      const transactionUpdated: Transaction = {
+        Id: data.New.Id,
+        Title: data.New.Title,
+        Value: data.New.Value,
+        Type: data.New.Type,
+        AccountId: data.New.accountId,
+        CreatedAt: data.New.CreatedAt,
+        Categories: data.New.Categories,
+      }
+
+      const { Title, Value, Type, Categories } = updatedData
+
+      setTransactions((prevState) =>
+        prevState.map((transaction) =>
+          transaction.Id === transactionUpdated.Id
+            ? {
+                ...transaction,
+                Title: Title,
+                Value: Value,
+                Type: Type,
+                Categories: Categories,
+              }
+            : transaction
+        )
+      )
 
       console.log(
         `A transação com Id: ${transactionId} foi alterada com sucesso! `
