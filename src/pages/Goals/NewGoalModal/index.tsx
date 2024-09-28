@@ -5,14 +5,20 @@ import { Calendar } from "lucide-react"
 import InputLabel from "@mui/material/InputLabel"
 import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
 import { TextFiled } from "../../../components/TextField"
-import SelectVariants from "../../../components/ModalBase/SelectField"
+import { Controller, useForm } from "react-hook-form"
+import CurrencyInput from "react-currency-input-field"
+import { CreateGoalFormData, createGoalFormSchema } from "../../../schemas/CreateGoalFormSchema"
+import { useContext } from "react"
+import { GoalsContext } from "../../../contexts/goalsContext"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 // Estilizar o Input para esconder o ícone padrão
 const StyledInput = styled(Input)`
   input[type="date"] {
     &::-webkit-calendar-picker-indicator {
-      opacity: 0;
-      display: none; /* Esconder o ícone padrão */
+      opacity: 1;
+      display: block;
+      color: #4c3299; /* Esconder o ícone padrão */
     }
     &::-webkit-inner-spin-button,
     &::-webkit-clear-button {
@@ -25,29 +31,66 @@ const StyledInput = styled(Input)`
 `
 
 export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
+  const {createGoal} = useContext(GoalsContext)
+  const { register, handleSubmit, control, formState } = useForm<CreateGoalFormData>({
+    resolver: zodResolver(createGoalFormSchema),
+  })
+
+  async function handleCreateGoal(data: CreateGoalFormData) {
+    console.log(data)
+    await createGoal(data)
+  }
+
   return (
     <ModalBase
+      submit={handleSubmit(handleCreateGoal)}
       open={open}
       handleClose={handleClose}
       submitButtonTitle="Criar nova meta"
+      type="createAccount"
+      erros={!formState.isValid}
+      inputValue={
+        <Controller
+          name="Value"
+          control={control}
+          render={({ field }) => (
+            <CurrencyInput
+              defaultValue={0}
+              id="account-initial-value"
+              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+              decimalSeparator=","
+              groupSeparator="."
+              value={field.value}
+              onValueChange={(value) => {
+                const numericValue = value
+                  ? parseFloat(value.replace(/[^\d.-]/g, ""))
+                  : 0
+                field.onChange(numericValue)
+              }}
+            />
+          )}
+        />
+      }
     >
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="standard-adornment-password">
           Nome da meta
         </InputLabel>
-        <Input type="email" error={false} />
+        <Input type="text" {...register("Title")} error={false} />
       </TextFiled>
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="standard-adornment-password">
           Valor final
         </InputLabel>
-        <Input type="email" error={false} />
+        <Input type="number" {...register("TargetedValue", {valueAsNumber: true})} error={false} />
       </TextFiled>
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="standard-adornment-password" />
         <StyledInput
           type="date"
           error={false}
+          {...register("EndTime")}
+          
           endAdornment={
             <InputAdornment position="end">
               <Calendar color="#4C3299" size={20} />
@@ -55,7 +98,6 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
           }
         />
       </TextFiled>
-      <SelectVariants title="Categoria" />
     </ModalBase>
   )
 }

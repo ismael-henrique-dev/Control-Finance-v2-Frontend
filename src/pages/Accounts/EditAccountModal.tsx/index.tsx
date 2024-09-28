@@ -11,9 +11,9 @@ import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
 import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
 import { TextFiled } from "../../../components/TextField"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
-import { selectAccountTypeData } from "../NewAccountModal"
 import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
 import SelectVariants from "../../../components/ModalBase/SelectField"
+import { selectAccountTypeData } from "../../../utils/dataAccountType"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string

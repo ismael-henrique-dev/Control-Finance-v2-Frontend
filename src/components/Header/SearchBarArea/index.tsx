@@ -49,7 +49,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
             </header>
             <ul>
               {suggestions.transactions.map((transaction) => (
-                <Suggestion>
+                <Suggestion key={transaction.Id}>
                   <div>
                     <span>
                       <SearchCheck />
@@ -68,7 +68,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
             </header>
             <ul>
               {suggestions.accounts.map((account) => (
-                <Suggestion>
+                <Suggestion key={account.AcId}>
                   <div>
                     <span>
                       <SearchCheck />

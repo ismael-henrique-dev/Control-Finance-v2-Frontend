@@ -1,6 +1,5 @@
 import Popover from "@mui/material/Popover"
 import { useState } from "react"
-import { GoalCardProps } from ".."
 import { NewDepositOfGoal } from "../../../../pages/Goals/NewDepositOfGoal"
 import { GoalModal } from "../../../../pages/Goals/NewGoalModal"
 import {
@@ -12,7 +11,12 @@ import {
 } from "lucide-react"
 import { Actions, Container, PopoverStyle } from "./styles"
 
-export function ClickPopover({ isGoalsPage }: GoalCardProps) {
+interface MoreGoalOptionProps {
+  isGoalsPage: boolean
+  goalId: string
+}
+
+export function MoreGoalOption({ isGoalsPage  }: MoreGoalOptionProps) {
   const [anchorEl, setAnchorEl] = useState<SVGSVGElement | null>(null)
   const [openPopover, setOpenPopover] = useState(false)
 

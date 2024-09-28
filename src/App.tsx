@@ -9,6 +9,7 @@ import { UseProvider } from "./contexts/userContext"
 import { AccountsProvider } from "./contexts/accountsContext"
 import { TransactionsProvider } from "./contexts/transactionsContext"
 import { Router } from "./routes/Router"
+import { GoalsProvider } from "./contexts/goalsContext"
 
 function App() {
   const { theme } = useContext(ThemeContext)
@@ -29,7 +30,9 @@ export default function MainApp() {
         <UseProvider>
           <AccountsProvider>
             <TransactionsProvider>
-              <App />
+              <GoalsProvider>
+                <App />
+              </GoalsProvider>
             </TransactionsProvider>
           </AccountsProvider>
         </UseProvider>
