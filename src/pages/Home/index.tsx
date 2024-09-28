@@ -1,16 +1,20 @@
+import { useContext } from "react"
 import { NavLink } from "react-router-dom"
+import { AccountsContext } from "../../contexts/accountsContext"
+import { AccountCard } from "../../components/Cards/AccountCard"
+import { GoalCard } from "../../components/Cards/GoalCard"
+import { DonutChart } from "./Chart"
+import { Summary } from "./HomeSummary"
 import {
   DefaultContainer,
   EstatisticCard,
   HomeContainer,
   TopContainer,
 } from "./styles"
-import { AccountCard } from "../../components/Cards/AccountCard"
-import { GoalCard } from "../../components/Cards/GoalCard"
-import { DonutChart } from "./Chart"
-import { Summary } from "./HomeSummary"
 
 export function Home() {
+  const { accountsList } = useContext(AccountsContext)
+
   return (
     <HomeContainer>
       <DefaultContainer content="center">
@@ -33,9 +37,18 @@ export function Home() {
       </TopContainer>
       <DefaultContainer content="start">
         <main>
-          <AccountCard isPageAccounts={false} />
-          <AccountCard isPageAccounts={false} />
-          <AccountCard isPageAccounts={false} />
+          {accountsList.map((account) => (
+            <AccountCard
+              accountTitle={account.accountTitle}
+              accountId={account.AcId}
+              accountType={account.Type}
+              income={account.DepositValue}
+              outcome={account.WithdrawValue}
+              total={account.sum}
+              isPageAccounts={false}
+              key={account.AcId}
+            />
+          ))}
         </main>
       </DefaultContainer>
       <TopContainer>

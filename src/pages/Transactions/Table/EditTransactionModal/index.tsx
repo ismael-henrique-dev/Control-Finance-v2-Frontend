@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react"
 import CurrencyInput from "react-currency-input-field"
 import { Controller, useForm } from "react-hook-form"
 
-import { selectCategoryData } from "./dataCategories"
+import { selectCategoryData } from "../../../../utils/dataCategories"
 
 import { ModalBase, ModalBasePropsDefault } from "../../../../components/ModalBase"
 import { TransactionsContext } from "../../../../contexts/transactionsContext"

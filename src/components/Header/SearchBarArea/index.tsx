@@ -6,8 +6,8 @@ import {
   Suggestion,
   SuggestionArea,
 } from "./styles"
-import { useState } from "react"
 import { NavLink } from "react-router-dom"
+import { GlobalSearch } from "../../../utils/globalSeach"
 
 interface SearchBarAreaProps {
   open: boolean
@@ -15,11 +15,12 @@ interface SearchBarAreaProps {
 }
 
 export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
-  const [suggestions, setSuggestions] = useState({
-    actions: [],
-    transactions: [],
-    accounts: [],
-  })
+  // const [suggestions, setSuggestions] = useState({
+  //   actions: [],
+  //   transactions: [],
+  //   accounts: [],
+  // })
+  const suggestions = GlobalSearch()
 
   return (
     <ModalStyled open={open} onClose={handleClose}>
@@ -29,7 +30,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
             <Search />
             <input type="search" placeholder="Pesquisar" />
           </InputAreaFunctional>
-          
+
           <button onClick={handleClose}>cancelar</button>
         </header>
         <main>
@@ -40,7 +41,18 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
               <NavLink to="/route">ver mais</NavLink>
             </header>
             <ul>
-              <Suggestion>
+              {suggestions.transactions.map((transaction) => (
+                <Suggestion>
+                  <div>
+                    <span>
+                      <SearchCheck />
+                    </span>
+                    {transaction.Title}
+                  </div>
+                  <ChevronRight />
+                </Suggestion>
+              ))}
+              {/* <Suggestion>
                 <div>
                   <span>
                     <SearchCheck />
@@ -48,16 +60,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
                   Novo carro
                 </div>
                 <ChevronRight />
-              </Suggestion>
-              <Suggestion>
-                <div>
-                  <span>
-                    <SearchCheck />
-                  </span>
-                  Novo carro
-                </div>
-                <ChevronRight />
-              </Suggestion>
+              </Suggestion> */}
             </ul>
           </SuggestionArea>
           <SuggestionArea>
