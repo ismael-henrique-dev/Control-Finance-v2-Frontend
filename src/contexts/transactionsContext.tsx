@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
-import { CreateTransactionFormSchema } from "../components/NewTransactionModal/transactionFormSchema"
-import { EditTransactionFormSchema } from "../pages/Transactions/Table/EditTransactionModal/transactionFormSchema"
+import { CreateTransactionFormSchema } from "../schemas/CreatetransactionFormSchema"
+import { EditTransactionFormSchema } from "../schemas/EditTransactionFormSchema"
 
 export interface Transaction {
   Id: string
@@ -11,6 +11,7 @@ export interface Transaction {
   AccountId: string
   CreatedAt: string
   Categories: string
+  AccountTitle?: string
 }
 
 interface TransactionsContextType {
@@ -51,6 +52,7 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
         AccountId: data.Transaction.accountId,
         CreatedAt: data.Transaction.CreatedAt,
         Categories: data.Transaction.Categories,
+        AccountTitle: data.Transaction.AccountTitle,
       }
 
       setTransactions((prevState) => [transaction, ...prevState])
@@ -68,7 +70,6 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
         },
       })
       setTransactions(data.TransactionList)
-      console.log(data)
     } catch (err) {
       console.log(err)
     }
@@ -93,10 +94,6 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
       )
 
       setTransactions(deleteTransactions)
-
-      console.log(
-        `A transação com Id: ${transactionId} foi deletada com sucesso! `
-      )
     } catch (error) {
       console.error(error)
     }
@@ -143,10 +140,6 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
               }
             : transaction
         )
-      )
-
-      console.log(
-        `A transação com Id: ${transactionId} foi alterada com sucesso! `
       )
     } catch (error) {
       console.error(error)

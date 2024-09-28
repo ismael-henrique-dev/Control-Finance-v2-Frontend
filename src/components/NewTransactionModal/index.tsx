@@ -9,11 +9,11 @@ import { TransactionsContext } from "../../contexts/transactionsContext"
 import { AccountsContext } from "../../contexts/accountsContext"
 import CurrencyInput from "react-currency-input-field"
 import { StyledMenuItem } from "../ModalBase/SelectField/styles"
-import { selectCategoryData } from "./dataCategories"
+import { selectCategoryData } from "../../utils/dataCategories"
 import {
   createTransactionFormSchema,
   CreateTransactionFormSchema,
-} from "./transactionFormSchema"
+} from "../../schemas/CreatetransactionFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 // const StyledInput = styled(Input)`
@@ -32,9 +32,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 //   }
 // `
 
-interface NewTransactionModal {
-  open: boolean
-  handleClose: () => void
+interface NewTransactionModalProps extends ModalBasePropsDefault {
+  accountId?: string
+  accountTitle?: string
 }
 
 interface CategoriesType {
@@ -45,7 +45,9 @@ interface CategoriesType {
 export function NewTransactionModal({
   open,
   handleClose,
-}: ModalBasePropsDefault) {
+  accountId,
+  accountTitle,
+}: NewTransactionModalProps) {
   const [categories, setCategories] = useState<CategoriesType[]>([])
   const { createTransaction } = useContext(TransactionsContext)
   const { accountsList } = useContext(AccountsContext)
@@ -63,17 +65,15 @@ export function NewTransactionModal({
   const selectedType = watch("Type")
 
   useEffect(() => {
-    // console.log(`Tipo de transação selecionado: ${selectedType}`)
-
     const selectedCategoryData = selectCategoryData.find(
       (item) => item.Type.typeValue === selectedType
     )
 
     if (selectedCategoryData) {
       setCategories(
-        selectedCategoryData.categories.map((el) => ({
-          name: el.name,
-          type: el.type,
+        selectedCategoryData.categories.map((category) => ({
+          name: category.name,
+          type: category.type,
         }))
       )
     }
@@ -176,11 +176,15 @@ export function NewTransactionModal({
             onChange={field.onChange}
             value={field.value}
           >
-            {accountsList.map((item, index) => (
-              <StyledMenuItem key={index} value={item.AcId}>
-                {item.accountTitle}
-              </StyledMenuItem>
-            ))}
+            {accountId ? (
+              <StyledMenuItem value={accountId}>{accountTitle}</StyledMenuItem>
+            ) : (
+              accountsList.map((item, index) => (
+                <StyledMenuItem key={index} value={item.AcId}>
+                  {item.accountTitle}
+                </StyledMenuItem>
+              ))
+            )}
           </SelectVariants>
         )}
       />

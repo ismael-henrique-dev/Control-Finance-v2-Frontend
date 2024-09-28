@@ -1,4 +1,3 @@
-
 export const selectCategoryData = [
   {
     Type: {typeName: "Saques", typeValue: "SAL"},

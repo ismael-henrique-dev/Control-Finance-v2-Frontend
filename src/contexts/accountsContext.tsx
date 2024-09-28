@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
-import { UpdatedAccountFormSchema } from "../pages/Accounts/EditAccountModal.tsx"
+import { UpdateAccountFormSchema } from "../schemas/UpdateAccountFormSchema"
 
 interface AccountsProviderProps {
   children: ReactNode
@@ -20,7 +20,7 @@ interface AccountsContextType {
   createAccount: (data: NewAccountProps) => Promise<void>
   deleteAccount: (id: string) => Promise<void>
   updateAccount: (accountId: string, updatedData: UpdatedData) => Promise<void>
-  getAccountById: (accountId: string) => Promise<UpdatedAccountFormSchema>
+  getAccountById: (accountId: string) => Promise<UpdateAccountFormSchema>
   resetAccounts: () => void
 }
 

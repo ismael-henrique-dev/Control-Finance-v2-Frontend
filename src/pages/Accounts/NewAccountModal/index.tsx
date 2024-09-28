@@ -13,7 +13,7 @@ import InputLabel from "@mui/material/InputLabel"
 import SelectVariants from "../../../components/ModalBase/SelectField"
 import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
 
-export const selectAccountTypeData = [
+export const selectAccountTypeData = [ // colocar no utils
   {
     name: "Carteira",
     type: "Carteira",

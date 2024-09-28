@@ -5,15 +5,21 @@ import { useContext, useEffect, useState } from "react"
 import CurrencyInput from "react-currency-input-field"
 import { Controller, useForm } from "react-hook-form"
 
-import { selectCategoryData } from "./dataCategories"
+import { selectCategoryData } from "../../../../utils/dataCategories"
 
-import { ModalBase, ModalBasePropsDefault } from "../../../../components/ModalBase"
+import {
+  ModalBase,
+  ModalBasePropsDefault,
+} from "../../../../components/ModalBase"
 import { TransactionsContext } from "../../../../contexts/transactionsContext"
 
 import { StyledMenuItem } from "../../../FinancialIncome/Select/styles"
 import SelectVariants from "../../../../components/ModalBase/SelectField"
 import { TextFiled } from "../../../../components/TextField"
-import { EditTransactionFormSchema, editTransactionFormSchema } from "./transactionFormSchema"
+import {
+  EditTransactionFormSchema,
+  editTransactionFormSchema,
+} from "../../../../schemas/EditTransactionFormSchema"
 
 // const StyledInput = styled(Input)`
 //   input[type="date"] {
@@ -41,14 +47,14 @@ interface CategoriesType {
   type: string
 }
 
-interface EditTransactionModalProps  extends ModalBasePropsDefault{
+interface EditTransactionModalProps extends ModalBasePropsDefault {
   transactionId: string
 }
 
 export function EditTransactionModal({
   open,
   handleClose,
-  transactionId
+  transactionId,
 }: EditTransactionModalProps) {
   const [categories, setCategories] = useState<CategoriesType[]>([])
   const { updateTransaction } = useContext(TransactionsContext)
@@ -66,7 +72,6 @@ export function EditTransactionModal({
   const selectedType = watch("Type")
 
   useEffect(() => {
-
     const selectedCategoryData = selectCategoryData.find(
       (item) => item.Type.typeValue === selectedType
     )
@@ -84,7 +89,7 @@ export function EditTransactionModal({
   async function handleUpdateTransaction(data: EditTransactionFormSchema) {
     const { Title, Value, Type, Categories } = data
     console.log(data)
-    await updateTransaction(transactionId ,{ Title, Value, Type, Categories })
+    await updateTransaction(transactionId, { Title, Value, Type, Categories })
   }
 
   return (

@@ -1,4 +1,3 @@
-// App.tsx
 import { useContext } from "react"
 import { ThemeProvider as StyledThemeProvider } from "styled-components"
 import { ThemeProvider, ThemeContext } from "./contexts/styledThemeContext"
@@ -11,7 +10,6 @@ import { AccountsProvider } from "./contexts/accountsContext"
 import { TransactionsProvider } from "./contexts/transactionsContext"
 import { Router } from "./routes/Router"
 
-// eslint-disable-next-line react-refresh/only-export-components
 function App() {
   const { theme } = useContext(ThemeContext)
   const currentTheme = theme === "light" ? lightTheme : darkTheme
@@ -24,7 +22,6 @@ function App() {
   )
 }
 
-// Export default with Providers
 export default function MainApp() {
   return (
     <ThemeProvider>
