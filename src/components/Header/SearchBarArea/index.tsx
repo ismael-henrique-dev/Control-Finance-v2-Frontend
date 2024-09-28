@@ -8,6 +8,7 @@ import {
 } from "./styles"
 import { NavLink } from "react-router-dom"
 import { GlobalSearch } from "../../../utils/globalSeach"
+import { useState } from "react"
 
 interface SearchBarAreaProps {
   open: boolean
@@ -15,12 +16,14 @@ interface SearchBarAreaProps {
 }
 
 export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
-  // const [suggestions, setSuggestions] = useState({
-  //   actions: [],
-  //   transactions: [],
-  //   accounts: [],
-  // })
-  const suggestions = GlobalSearch()
+  const [query, setQuery] = useState("")
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+    setQuery(value)
+  }
+
+  const suggestions = GlobalSearch(query)
 
   return (
     <ModalStyled open={open} onClose={handleClose}>
@@ -28,13 +31,17 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
         <header>
           <InputAreaFunctional>
             <Search />
-            <input type="search" placeholder="Pesquisar" />
+            <input
+              type="search"
+              placeholder="Pesquisar"
+              value={query}
+              onChange={handleSearch}
+            />
           </InputAreaFunctional>
 
           <button onClick={handleClose}>cancelar</button>
         </header>
         <main>
-          {/* Suggestions area */}
           <SuggestionArea>
             <header>
               <span>Transações</span>
@@ -52,15 +59,6 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
                   <ChevronRight />
                 </Suggestion>
               ))}
-              {/* <Suggestion>
-                <div>
-                  <span>
-                    <SearchCheck />
-                  </span>
-                  Novo carro
-                </div>
-                <ChevronRight />
-              </Suggestion> */}
             </ul>
           </SuggestionArea>
           <SuggestionArea>
@@ -69,24 +67,17 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
               <NavLink to="/route">ver mais</NavLink>
             </header>
             <ul>
-              <Suggestion>
-                <div>
-                  <span>
-                    <SearchCheck />
-                  </span>
-                  New cash
-                </div>
-                <ChevronRight />
-              </Suggestion>
-              <Suggestion>
-                <div>
-                  <span>
-                    <SearchCheck />
-                  </span>
-                  National X
-                </div>
-                <ChevronRight />
-              </Suggestion>
+              {suggestions.accounts.map((account) => (
+                <Suggestion>
+                  <div>
+                    <span>
+                      <SearchCheck />
+                    </span>
+                    {account.Name}
+                  </div>
+                  <ChevronRight />
+                </Suggestion>
+              ))}
             </ul>
           </SuggestionArea>
         </main>

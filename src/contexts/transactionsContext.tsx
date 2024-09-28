@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
-import { CreateTransactionFormSchema } from "../components/NewTransactionModal/transactionFormSchema"
-import { EditTransactionFormSchema } from "../pages/Transactions/Table/EditTransactionModal/transactionFormSchema"
+import { CreateTransactionFormSchema } from "../schemas/CreatetransactionFormSchema"
+import { EditTransactionFormSchema } from "../schemas/EditTransactionFormSchema"
 
 export interface Transaction {
   Id: string

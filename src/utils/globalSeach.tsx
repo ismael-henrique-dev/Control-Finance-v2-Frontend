@@ -1,41 +1,61 @@
 import { useContext, useEffect, useState } from "react"
-import { Transaction, TransactionsContext } from "../contexts/transactionsContext"
 import { Account, AccountsContext } from "../contexts/accountsContext"
+import {
+  Transaction,
+  TransactionsContext,
+} from "../contexts/transactionsContext"
+
 import { api } from "../services/api"
+
+interface AccountSeachData extends Account {
+  Name?: string
+}
 
 interface SuggestionsProps {
   actions: []
   transactions: Transaction[]
-  accounts: Account[]
+  accounts: AccountSeachData[]
 }
 
-export function GlobalSearch() {
+export function GlobalSearch(query: string) {
   const { transactions } = useContext(TransactionsContext)
   const { accountsList } = useContext(AccountsContext)
   const [suggestions, setSuggestions] = useState<SuggestionsProps>({
     actions: [],
-    transactions: transactions,
-    accounts: accountsList,
+    transactions: [],
+    accounts: [],
   })
 
   useEffect(() => {
     async function getSeachDara(query?: string) {
       try {
         const token = localStorage.getItem("@token")
-        const {data} = await api.get(`/search/${query}/1`, {
+        const { data } = await api.get(`/search/${query}/1`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
-        console.log(data)
-
+        
+        setSuggestions({
+          actions: [],
+          transactions: data.Transactions,
+          accounts: data.Accounts,
+        })
       } catch (errr) {
         console.error(errr)
       }
     }
 
-    getSeachDara()
-  }, [])
+    getSeachDara(query)
+  }, [query])
+
+  useEffect(() => {
+    setSuggestions({
+      actions: [],
+      transactions: transactions,
+      accounts: accountsList,
+    })
+  }, [transactions, accountsList])
 
   return suggestions
 }

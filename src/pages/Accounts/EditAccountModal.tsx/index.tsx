@@ -1,38 +1,23 @@
 import InputLabel from "@mui/material/InputLabel"
+import Input from "@mui/material/Input"
+import { useContext, useEffect, useState } from "react"
+import { useForm, Controller } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  updateAccountFormSchema,
+  UpdateAccountFormSchema,
+} from "../../../schemas/UpdateAccountFormSchema"
+import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
 import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
 import { TextFiled } from "../../../components/TextField"
-import Input from "@mui/material/Input"
-import { useForm, Controller } from "react-hook-form"
-  import { useContext, useEffect, useState } from "react"
-import SelectVariants from "../../../components/ModalBase/SelectField"
-import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
 import { selectAccountTypeData } from "../NewAccountModal"
 import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
+import SelectVariants from "../../../components/ModalBase/SelectField"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
 }
-
-const updatedAccountFormSchema = z.object({
-  Name: z
-    .string()
-    .min(3, "O nome deve conter no mínimo 03 caracteres.")
-    .max(50, "O nome deve conter no máximo 50 caracteres."),
-  Description: z
-    .string()
-    .min(10, "A descrição deve conter no mínimo 10 caracteres."),
-  Type: z.enum(
-    ["Carteira", "ContaBancaria", "Poupanca", "CorretoraDeInvestimentos"],
-    {
-      errorMap: () => ({ message: "Selecione um tipo de conta válido." }),
-    }
-  ),
-})
-
-export type UpdatedAccountFormSchema = z.infer<typeof updatedAccountFormSchema>
 
 export function EditAccountModal({
   open,
@@ -40,13 +25,13 @@ export function EditAccountModal({
   AccountId,
 }: EditModalProps) {
   const { updateAccount, getAccountById } = useContext(AccountsContext)
-  const [defaultValue, setDefaultValues] = useState<UpdatedAccountFormSchema | null>(null)
-  
+  const [defaultValue, setDefaultValues] =
+    useState<UpdateAccountFormSchema | null>(null)
 
   const { register, handleSubmit, reset, control, formState } =
-    useForm<UpdatedAccountFormSchema>({
+    useForm<UpdateAccountFormSchema>({
       mode: "all",
-      resolver: zodResolver(updatedAccountFormSchema),
+      resolver: zodResolver(updateAccountFormSchema),
     })
 
   useEffect(() => {

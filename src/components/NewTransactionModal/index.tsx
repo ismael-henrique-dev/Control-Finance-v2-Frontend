@@ -9,11 +9,11 @@ import { TransactionsContext } from "../../contexts/transactionsContext"
 import { AccountsContext } from "../../contexts/accountsContext"
 import CurrencyInput from "react-currency-input-field"
 import { StyledMenuItem } from "../ModalBase/SelectField/styles"
-import { selectCategoryData } from "./dataCategories"
+import { selectCategoryData } from "../../utils/dataCategories"
 import {
   createTransactionFormSchema,
   CreateTransactionFormSchema,
-} from "./transactionFormSchema"
+} from "../../schemas/CreatetransactionFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 // const StyledInput = styled(Input)`
@@ -46,7 +46,7 @@ export function NewTransactionModal({
   open,
   handleClose,
   accountId,
-  accountTitle
+  accountTitle,
 }: NewTransactionModalProps) {
   const [categories, setCategories] = useState<CategoriesType[]>([])
   const { createTransaction } = useContext(TransactionsContext)
@@ -65,7 +65,6 @@ export function NewTransactionModal({
   const selectedType = watch("Type")
 
   useEffect(() => {
-
     const selectedCategoryData = selectCategoryData.find(
       (item) => item.Type.typeValue === selectedType
     )
