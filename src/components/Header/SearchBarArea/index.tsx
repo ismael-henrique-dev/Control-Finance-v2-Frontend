@@ -73,7 +73,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
                     <span>
                       <SearchCheck />
                     </span>
-                    {account.Name}
+                    {account.Name || account.accountTitle}
                   </div>
                   <ChevronRight />
                 </Suggestion>
