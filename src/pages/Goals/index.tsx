@@ -31,7 +31,12 @@ export function Goals() {
   return (
     <GoalsContainer>
       <ContainerBarSummary>
-        <Summary type="goal" outcome={summary.outcome} income={summary.income} total={summary.total} />
+        <Summary
+          type="goal"
+          outcome={summary.outcome}
+          income={summary.income}
+          total={summary.total}
+        />
         <SelectFilter data={selectOptions} />
         <Button handleClick={handleOpen} />
       </ContainerBarSummary>
@@ -44,17 +49,19 @@ export function Goals() {
         />
       </Section>
       <MainContainer>
-        {goalsList.map((goal, index) => (
-          <GoalCard
-            key={index}
-            title={goal.Title}
-            currentValue={goal.Value}
-            targetValue={goal.TargetedValue}
-            goalDate={goal.EndTime}
-            goalId={goal.Id}
-            isGoalsPage={true}
-          />
-        ))}
+        {goalsList.slice((currentPage - 1) * 6, currentPage * 6).map(
+          (goal, index) => (
+            <GoalCard
+              key={index}
+              title={goal.Title}
+              currentValue={goal.Value}
+              targetValue={goal.TargetedValue}
+              goalDate={goal.EndTime}
+              goalId={goal.Id}
+              isGoalsPage={true}
+            />
+          )
+        )}
       </MainContainer>
       <GoalModal open={open} handleClose={handleClose} />
     </GoalsContainer>

@@ -15,10 +15,12 @@ export const ContainerCard = styled.div`
   header {
     width: 100%;
     display: flex;
+    justify-content: space-between;
 
     div {
       display: flex;
       gap: 0.75rem;
+      align-items: center;
     }
 
     button {

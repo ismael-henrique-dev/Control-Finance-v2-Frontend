@@ -11,9 +11,11 @@ import {
   HomeContainer,
   TopContainer,
 } from "./styles"
+import { GoalsContext } from "../../contexts/goalsContext"
 
 export function Home() {
   const { accountsList } = useContext(AccountsContext)
+  const { goalsList } = useContext(GoalsContext)
 
   return (
     <HomeContainer>
@@ -37,7 +39,7 @@ export function Home() {
       </TopContainer>
       <DefaultContainer content="start">
         <main>
-          {accountsList.map((account) => (
+          {accountsList.slice(0, 3).map((account) => (
             <AccountCard
               accountTitle={account.accountTitle}
               accountId={account.AcId}
@@ -57,8 +59,19 @@ export function Home() {
       </TopContainer>
       <DefaultContainer content="start">
         <main>
-          <GoalCard isGoalsPage={false} />
-          <GoalCard isGoalsPage={false} />
+          {goalsList
+            .slice(0, 3)
+            .map((goal, index) => (
+              <GoalCard
+                key={index}
+                title={goal.Title}
+                currentValue={goal.Value}
+                targetValue={goal.TargetedValue}
+                goalDate={goal.EndTime}
+                goalId={goal.Id}
+                isGoalsPage={true}
+              />
+            ))}
         </main>
       </DefaultContainer>
     </HomeContainer>

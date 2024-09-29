@@ -8,7 +8,7 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem;
-  gap: 8rem;
+  gap: 4rem;
 
   img {
     width: 11rem;
@@ -21,7 +21,7 @@ export const HeaderContainer = styled.header`
 
   @media (max-width: 768px) {
     & {
-      gap: 1rem;
+      gap: 2rem;
       padding: 0.5rem;
     }
 
