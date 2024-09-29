@@ -5,6 +5,7 @@ import { CreateGoalFormData } from "../schemas/CreateGoalFormSchema"
 interface GoalsContextType {
   fetchGoals: () => Promise<void>
   createGoal: (data: CreateGoalFormData) => Promise<void>
+  NewDepositOfGoal: (goalId: string, depositValue: number) => Promise<void>
   goalsList: Goal[]
 }
 
@@ -72,8 +73,28 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
     fetchGoals()
   }, [])
 
+  async function NewDepositOfGoal(goalId: string, depositValue: number) {
+    try {
+      const token = localStorage.getItem("@token")
+      await api.put(
+        `/goals/value/${goalId}/${depositValue}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      console.log(goalId, depositValue)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
-    <GoalsContext.Provider value={{ goalsList, fetchGoals, createGoal }}>
+    <GoalsContext.Provider
+      value={{ goalsList, fetchGoals, createGoal, NewDepositOfGoal }}
+    >
       {children}
     </GoalsContext.Provider>
   )

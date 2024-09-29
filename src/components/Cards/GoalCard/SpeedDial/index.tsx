@@ -16,7 +16,7 @@ interface MoreGoalOptionProps {
   goalId: string
 }
 
-export function MoreGoalOption({ isGoalsPage  }: MoreGoalOptionProps) {
+export function MoreGoalOption({ isGoalsPage, goalId  }: MoreGoalOptionProps) {
   const [anchorEl, setAnchorEl] = useState<SVGSVGElement | null>(null)
   const [openPopover, setOpenPopover] = useState(false)
 
@@ -92,6 +92,7 @@ export function MoreGoalOption({ isGoalsPage  }: MoreGoalOptionProps) {
       <NewDepositOfGoal
         open={openNewDepositOfGoalModal}
         handleClose={handleCloseNewDepositOfGoalModal}
+        goalId={goalId}
       />
       <GoalModal open={openModalEdit} handleClose={handleCloseModaEdit} />
     </Container>

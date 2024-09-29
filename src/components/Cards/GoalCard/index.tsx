@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { CircleDollarSign } from "lucide-react"
 import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
 import { MoreGoalOption } from "./SpeedDial"
@@ -22,8 +22,14 @@ export function GoalCard({
   goalDate,
   goalId,
 }: GoalCardProps) {
-  const [progress, setProgress] = useState(75) // na real progress virá do backend
+  const [progress, setProgress] = useState(0) 
   const formatter = useFormatterCoin
+
+  const currentPercentage = Math.round((currentValue / targetValue) * 100)
+
+  useEffect(() => {
+    setProgress(currentPercentage)
+  }, [currentPercentage])
 
   return (
     <ContainerCard>
