@@ -41,9 +41,9 @@ export function Goals() {
         />
       </Section>
       <MainContainer>
-        {goalsList.map((goal) => (
+        {goalsList.map((goal, index) => (
           <GoalCard
-            key={goal.Id}
+            key={index}
             title={goal.Title}
             currentValue={goal.Value}
             targetValue={goal.TargetedValue}

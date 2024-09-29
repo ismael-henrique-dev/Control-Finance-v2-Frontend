@@ -1,11 +1,15 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
 import { CreateGoalFormData } from "../schemas/CreateGoalFormSchema"
+import { UpdateGoalFormData } from "../schemas/UpdateGoalFormSchema"
 
 interface GoalsContextType {
   fetchGoals: () => Promise<void>
   createGoal: (data: CreateGoalFormData) => Promise<void>
   NewDepositOfGoal: (goalId: string, depositValue: number) => Promise<void>
+  completeGoal: (goalId: string) => Promise<void>
+  deleteGoal: (goalId: string) => Promise<void>
+  updateGoal: (goalId: string, data: UpdateGoalFormData) => Promise<void>
   goalsList: Goal[]
 }
 
@@ -57,8 +61,7 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
           Authorization: `Bearer ${token}`,
         },
       })
-      setGoalsList((prevGoals) => [
-        ...prevGoals,
+      setGoalsList([
         ...data.unCompletedGoals,
         ...data.ExpiredGoals,
         ...data.CompletedGoals,
@@ -91,9 +94,63 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
     }
   }
 
+  async function completeGoal(goalId: string) {
+    try {
+      const token = localStorage.getItem("@token")
+      await api.put(
+        `/goals/complete/${goalId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function updateGoal(goalId: string, data: UpdateGoalFormData) {
+    try {
+      const token = localStorage.getItem("@token")
+      await api.put(`/goals/update/${goalId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function deleteGoal(goalId: string) {
+    try {
+      const token = localStorage.getItem("@token")
+      await api.delete(`/goals/delete/${goalId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      const newGoalList = goalsList.filter((goal) => goal.Id !== goalId)
+      setGoalsList(newGoalList)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <GoalsContext.Provider
-      value={{ goalsList, fetchGoals, createGoal, NewDepositOfGoal }}
+      value={{
+        goalsList,
+        fetchGoals,
+        createGoal,
+        NewDepositOfGoal,
+        completeGoal,
+        deleteGoal,
+        updateGoal,
+      }}
     >
       {children}
     </GoalsContext.Provider>

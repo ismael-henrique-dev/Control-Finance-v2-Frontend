@@ -1,49 +1,33 @@
-import styled from "styled-components"
-import Input from "@mui/material/Input"
-import InputAdornment from "@mui/material/InputAdornment"
-import { Calendar } from "lucide-react"
-import InputLabel from "@mui/material/InputLabel"
-import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
-import { TextFiled } from "../../../components/TextField"
-import { Controller, useForm } from "react-hook-form"
-import CurrencyInput from "react-currency-input-field"
-import { CreateGoalFormData, createGoalFormSchema } from "../../../schemas/CreateGoalFormSchema"
 import { useContext } from "react"
 import { GoalsContext } from "../../../contexts/goalsContext"
+import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
+import { UpdateGoalFormData, updateGoalFormSchema } from "../../../schemas/UpdateGoalFormSchema"
+import { TextFiled } from "../../../components/TextField"
+import { Input, InputAdornment, InputLabel } from "@mui/material"
+import { Calendar } from "lucide-react"
+import { StyledInput } from "../NewGoalModal"
+import CurrencyInput from "react-currency-input-field"
 
-// Estilizar o Input para esconder o ícone padrão
-export const StyledInput = styled(Input)`
-  input[type="date"] {
-    &::-webkit-calendar-picker-indicator {
-      opacity: 1;
-      display: block;
-      color: #4c3299; /* Esconder o ícone padrão */
-    }
-    &::-webkit-inner-spin-button,
-    &::-webkit-clear-button {
-      display: none; /* Esconder os botões de spin no Chrome */
-    }
-    &::-moz-clear {
-      display: none; /* Esconder o botão clear no Firefox */
-    }
-  }
-`
+interface EditGoalProps extends ModalBasePropsDefault {
+  goalId: string
+}
 
-export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
-  const {createGoal} = useContext(GoalsContext)
-  const { register, handleSubmit, control, formState } = useForm<CreateGoalFormData>({
-    resolver: zodResolver(createGoalFormSchema),
+export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
+  const { updateGoal } = useContext(GoalsContext)
+  const { control, register,handleSubmit, formState } = useForm<UpdateGoalFormData>({
+    resolver: zodResolver(updateGoalFormSchema),
   })
 
-  async function handleCreateGoal(data: CreateGoalFormData) {
+  async function handleUpdateGoal(data: UpdateGoalFormData) {
     console.log(data)
-    await createGoal(data)
+    await updateGoal(goalId, data)
   }
 
   return (
     <ModalBase
-      submit={handleSubmit(handleCreateGoal)}
+      submit={handleSubmit(handleUpdateGoal)}
       open={open}
       handleClose={handleClose}
       submitButtonTitle="Criar nova meta"
@@ -82,7 +66,11 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
         <InputLabel htmlFor="standard-adornment-password">
           Valor final
         </InputLabel>
-        <Input type="number" {...register("TargetedValue", {valueAsNumber: true})} error={false} />
+        <Input
+          type="number"
+          {...register("TargetedValue", { valueAsNumber: true })}
+          error={false}
+        />
       </TextFiled>
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="standard-adornment-password" />
@@ -90,7 +78,6 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
           type="date"
           error={false}
           {...register("EndTime")}
-          
           endAdornment={
             <InputAdornment position="end">
               <Calendar color="#4C3299" size={20} />
