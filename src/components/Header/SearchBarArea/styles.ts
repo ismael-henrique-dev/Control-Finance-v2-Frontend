@@ -116,6 +116,12 @@ export const SuggestionArea = styled.section`
     display: inline-flex;
     flex-direction: column;
     gap: 0.75rem;
+
+    @media (min-width: 768px) {
+      max-height: 120px;
+      overflow-y: scroll;
+      padding: 0%.5rem;
+    }
   }
 `
 

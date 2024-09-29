@@ -1,59 +1,17 @@
 import { useContext } from "react"
 import { AccountsContext } from "../../../contexts/accountsContext"
-import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
 import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
 import { TextFiled } from "../../../components/TextField"
 import { ValidateSelectArea } from "../../../components/TextField/styles"
-import { Coins, Handshake, Landmark, Wallet } from "lucide-react"
+import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
+import { createAccountFormSchema, CreateAccountFormSchema } from "../../../schemas/CreateAccountFormSchema"
+import { selectAccountTypeData } from "../../../utils/dataAccountType"
 import CurrencyInput from "react-currency-input-field"
 import Input from "@mui/material/Input"
 import InputLabel from "@mui/material/InputLabel"
 import SelectVariants from "../../../components/ModalBase/SelectField"
-import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
-
-export const selectAccountTypeData = [ // colocar no utils
-  {
-    name: "Carteira",
-    type: "Carteira",
-    icon: <Wallet />,
-  },
-  {
-    name: "Conta Bancária",
-    type: "ContaBancaria",
-    icon: <Landmark />,
-  },
-  {
-    name: "Poupança",
-    type: "Poupanca",
-    icon: <Coins />,
-  },
-  {
-    name: "Corretora de investimentos",
-    type: "CorretoraDeInvestimentos",
-    icon: <Handshake />,
-  },
-]
-
-const createAccountFormSchema = z.object({
-  Name: z
-    .string()
-    .min(3, "O nome deve conter no mínimo 03 caracteres.")
-    .max(50, "O nome deve conter no máximo 50 caracteres."),
-  Value: z.number(),
-  Type: z.enum(
-    ["Carteira", "ContaBancaria", "Poupanca", "CorretoraDeInvestimentos"],
-    {
-      errorMap: () => ({ message: "Selecione um tipo de conta válido." }),
-    }
-  ),
-  Description: z
-    .string()
-    .min(10, "A descrição deve conter no mínimo 10 caracteres."),
-})
-
-type CreateAccountFormSchema = z.infer<typeof createAccountFormSchema>
 
 export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
   const { createAccount } = useContext(AccountsContext)

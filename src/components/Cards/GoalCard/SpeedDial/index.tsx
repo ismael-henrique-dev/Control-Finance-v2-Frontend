@@ -1,8 +1,4 @@
-import Popover from "@mui/material/Popover"
-import { useState } from "react"
-import { GoalCardProps } from ".."
-import { NewDepositOfGoal } from "../../../../pages/Goals/NewDepositOfGoal"
-import { GoalModal } from "../../../../pages/Goals/NewGoalModal"
+import { useContext, useState } from "react"
 import {
   CircleCheckBig,
   CirclePlus,
@@ -11,8 +7,19 @@ import {
   Trash2,
 } from "lucide-react"
 import { Actions, Container, PopoverStyle } from "./styles"
+import { NewDepositOfGoalModal } from "../../../../pages/Goals/NewDepositOfGoalModal"
+import Popover from "@mui/material/Popover"
+import { GoalsContext } from "../../../../contexts/goalsContext"
+import { EditGoalModal } from "../../../../pages/Goals/EditGoalModal"
 
-export function ClickPopover({ isGoalsPage }: GoalCardProps) {
+interface MoreGoalOptionProps {
+  isGoalsPage: boolean
+  goalId: string
+}
+
+export function MoreGoalOption({ isGoalsPage, goalId }: MoreGoalOptionProps) {
+  const { completeGoal, deleteGoal } = useContext(GoalsContext)
+
   const [anchorEl, setAnchorEl] = useState<SVGSVGElement | null>(null)
   const [openPopover, setOpenPopover] = useState(false)
 
@@ -47,6 +54,16 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
     handleOpenModalEdit()
   }
 
+  const handleCompleteGoal = async () => {
+    await completeGoal(goalId)
+    handlePopoverClose()
+  }
+
+  const handleDeleteGoal = async () => {
+    await deleteGoal(goalId)
+    handlePopoverClose()
+  }
+
   return (
     <Container>
       <EllipsisVertical onClick={handleClick} />
@@ -73,11 +90,11 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
             </button>
           )}
           {isGoalsPage && (
-            <button onClick={handlePopoverClose}>
+            <button onClick={handleDeleteGoal}>
               <Trash2 />
             </button>
           )}
-          <button onClick={handlePopoverClose}>
+          <button onClick={handleCompleteGoal}>
             <CircleCheckBig />
           </button>
           <button onClick={handleClickNewDepositOfGoal}>
@@ -85,11 +102,12 @@ export function ClickPopover({ isGoalsPage }: GoalCardProps) {
           </button>
         </Actions>
       </Popover>
-      <NewDepositOfGoal
+      <NewDepositOfGoalModal
         open={openNewDepositOfGoalModal}
         handleClose={handleCloseNewDepositOfGoalModal}
+        goalId={goalId}
       />
-      <GoalModal open={openModalEdit} handleClose={handleCloseModaEdit} />
+      <EditGoalModal open={openModalEdit} handleClose={handleCloseModaEdit} goalId={goalId} />
     </Container>
   )
 }

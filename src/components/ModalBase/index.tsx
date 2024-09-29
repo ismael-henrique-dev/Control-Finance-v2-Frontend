@@ -10,7 +10,7 @@ import { ReactNode } from "react"
 
 interface ModalBaseProps {
   submitButtonTitle: string
-  children: ReactNode
+  children?: ReactNode
   open: boolean
   handleClose: () => void
   inputValue?: ReactNode

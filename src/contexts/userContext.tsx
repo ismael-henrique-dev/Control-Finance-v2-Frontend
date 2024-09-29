@@ -119,6 +119,25 @@ export function UseProvider({ children }: UserContextProps) {
     }
   }
 
+  async function fetchUserStatic() {
+    try {
+      const token = localStorage.getItem("@token")
+      const { data } = await api.get("/users/statistic", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      
+      console.log(data)
+    } catch (errr) {
+      console.log(errr)
+    }
+  }
+
+  useEffect(() => {
+    fetchUserStatic()
+  }, [])
+
   return (
     <UserContext.Provider
       value={{
