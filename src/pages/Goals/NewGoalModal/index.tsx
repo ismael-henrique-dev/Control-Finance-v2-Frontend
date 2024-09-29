@@ -31,7 +31,7 @@ export const StyledInput = styled(Input)`
 `
 
 export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
-  const {createGoal} = useContext(GoalsContext)
+  const { createGoal } = useContext(GoalsContext)
   const { register, handleSubmit, control, formState } = useForm<CreateGoalFormData>({
     resolver: zodResolver(createGoalFormSchema),
   })

@@ -22,7 +22,14 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
 
   async function handleUpdateGoal(data: UpdateGoalFormData) {
     console.log(data)
-    await updateGoal(goalId, data)
+    console.log(goalId)
+    const {Title,Value, TargetedValue, EndTime } = data
+    await updateGoal(goalId, {
+      Title,
+      Value,
+      TargetedValue,
+      EndTime
+    })
   }
 
   return (
@@ -30,7 +37,7 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
       submit={handleSubmit(handleUpdateGoal)}
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Criar nova meta"
+      submitButtonTitle="Editar meta"
       type="createAccount"
       erros={!formState.isValid}
       inputValue={

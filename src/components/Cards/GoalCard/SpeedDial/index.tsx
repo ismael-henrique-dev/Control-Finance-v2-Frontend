@@ -1,5 +1,4 @@
 import { useContext, useState } from "react"
-import { GoalModal } from "../../../../pages/Goals/NewGoalModal"
 import {
   CircleCheckBig,
   CirclePlus,

@@ -28,11 +28,11 @@ interface Goal {
   TargetedValue: number
 }
 
-interface GoalListProps {
-  unCompletedGoals: Goal[]
-  ExpiredGoals: Goal[]
-  CompletedGoals: Goal[]
-}
+// interface GoalListProps {
+//   unCompletedGoals: Goal[]
+//   ExpiredGoals: Goal[]
+//   CompletedGoals: Goal[]
+// }
 
 export const GoalsContext = createContext({} as GoalsContextType)
 

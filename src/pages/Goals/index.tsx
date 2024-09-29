@@ -12,6 +12,7 @@ import {
   MainContainer,
   Section,
 } from "./styles"
+import { useSummaryGoals } from "../../hooks/useSummaryGoal"
 
 export function Goals() {
   const { goalsList } = useContext(GoalsContext)
@@ -25,10 +26,12 @@ export function Goals() {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const totalPages = Math.ceil(goalsList.length / 6)
 
+  const summary = useSummaryGoals()
+
   return (
     <GoalsContainer>
       <ContainerBarSummary>
-        <Summary />
+        <Summary type="goal" outcome={summary.outcome} income={summary.income} total={summary.total} />
         <SelectFilter data={selectOptions} />
         <Button handleClick={handleOpen} />
       </ContainerBarSummary>
