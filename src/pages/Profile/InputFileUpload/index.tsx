@@ -14,7 +14,6 @@ const ProfilePic = styled.div`
   height: 7.5rem;
   border-radius: 50%;
   background-color: #ccc;
-  /* background-image: url(${(props) => props.imageUrl}); */
   background-size: cover;
   background-position: center;
   position: relative;

@@ -110,12 +110,12 @@ function OTP({
     }
   }
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLInputElement, MouseEvent>,
-    currentIndex: number
-  ) => {
-    selectInput(currentIndex)
-  }
+  // const handleClick = (
+  //   // event: React.MouseEvent<HTMLInputElement, MouseEvent>,
+  //   currentIndex: number
+  // ) => {
+  //   selectInput(currentIndex)
+  // }
 
   const handlePaste = (
     event: React.ClipboardEvent<HTMLInputElement>,
@@ -168,7 +168,7 @@ function OTP({
                 },
                 onKeyDown: (event) => handleKeyDown(event, index),
                 onChange: (event) => handleChange(event, index),
-                onClick: (event) => handleClick(event, index),
+                // onClick: (event) => handleClick(event, index),
                 onPaste: (event) => handlePaste(event, index),
                 value: value[index] ?? "",
               },
