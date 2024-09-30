@@ -1,13 +1,14 @@
-import React from "react"
+import { useState } from "react"
 import { SelectChangeEvent } from "@mui/material"
 import { ChevronDown } from "lucide-react"
 import { StyledMenuItem, useStyledMenuProps, StyledSelect } from "./styles"
 
 export function CustomSelect() {
-  const [value, setValue] = React.useState<string>("mensal")
+  const [value, setValue] = useState<string>("mensal")
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setValue(event.target.value as string)
+  const handleChange = (event: SelectChangeEvent<unknown>) => {
+    const newValue = event.target.value as string
+    setValue(newValue)
   }
 
   const menuProps = useStyledMenuProps()

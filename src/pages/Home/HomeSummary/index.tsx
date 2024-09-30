@@ -1,17 +1,17 @@
 import { ArrowDown, ArrowUp } from "lucide-react"
 import { HomeSummary, MainBalance, TransactionType } from "./styles"
-import { useSummaryTransaction } from "../../../hooks/useSummaryTransaction"
-import { useContext } from "react"
-import { AccountsContext } from "../../../contexts/accountsContext"
+// import { useSummaryTransaction } from "../../../hooks/useSummaryTransaction"
+// import { useContext } from "react"
+// import { AccountsContext } from "../../../contexts/accountsContext"
 
 export function Summary() {
-  const { statics } = useContext(AccountsContext)
-  const summaryTransactions = useSummaryTransaction()
-  const summaryGoals = useSummaryTransaction()
+  // const { statics } = useContext(AccountsContext)
+  // const summaryTransactions = useSummaryTransaction()
+  // const summaryGoals = useSummaryTransaction()
 
-  const accountTotal = 0
-  const accountIncome = 0
-  const accountOutcome = 0
+  // const accountTotal = 0
+  // const accountIncome = 0
+  // const accountOutcome = 0
 
 
   return (
