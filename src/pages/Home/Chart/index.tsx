@@ -2,8 +2,12 @@ import Chart from "react-apexcharts"
 import { ApexOptions } from "apexcharts"
 import { ChartContainer, Legend, LegendItem } from "./styles"
 import { useTheme } from "styled-components"
+import { useContext, useEffect, useState } from "react"
+import { UserContext } from "../../../contexts/userContext"
 
 export function DonutChart() {
+  const { relativeCategoryStats } = useContext(UserContext)
+  const [statics, setStatics] = useState<Record<string, number>>({}) // <Record<string, number>>
   const theme = useTheme()
   const options: ApexOptions = {
     chart: {
@@ -48,7 +52,14 @@ export function DonutChart() {
     },
   }
 
-  const series = [50, 50] // Exemplo de dados
+  useEffect(() => {
+    if (relativeCategoryStats) {
+      setStatics(relativeCategoryStats.PercentageOfReturnByCategorie)
+    }
+  }, [])
+
+  const series = Object.values(statics)
+  console.log(series)
 
   return (
     <ChartContainer>
@@ -60,8 +71,14 @@ export function DonutChart() {
         height={220}
       />
       <Legend>
-        <LegendItem color="#1f4e79">Estudos</LegendItem>
+        {Object.entries(statics).slice(0, 4).map(([category]) => (
+          <LegendItem color="#1f4e79">{category}</LegendItem>
+        ))}
+        {/* <LegendItem color="#1f4e79">Estudos</LegendItem>
         <LegendItem color="#fdd835">Veiculo</LegendItem>
+        <LegendItem color="#fdd835">Veiculo</LegendItem>
+        <LegendItem color="#fdd835">Veiculo</LegendItem> */}
+        <LegendItem color="#fdd835">Outros</LegendItem>
       </Legend>
     </ChartContainer>
   )

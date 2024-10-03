@@ -30,6 +30,7 @@ interface UserProviderType {
   userDeleteAccount: () => void
   userData: User | null
   accountState: AccountState | null
+  relativeCategoryStats: RelativeCategoryStatsProps 
 }
 
 type Status = "Danger" | "Ok" | "Good"
@@ -41,11 +42,28 @@ interface AccountState {
   Investimentos: Status
 }
 
+interface Category {
+  category: number
+}
+
+interface RelativeCategoryStatsProps {
+  DEP: number
+  SAL: number
+  PercentageOfReturnByCategorie: Record<string, number>
+}
+
 export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: UserContextProps) {
   const [userData, setUserData] = useState<User | null>(null)
   const [accountState, setAccountState] = useState<AccountState | null>(null)
+  const [relativeCategoryStats, setRelativeCategoryStats] = useState<RelativeCategoryStatsProps>({
+    DEP: 0,
+    SAL: 0, 
+    PercentageOfReturnByCategorie: {
+      category: 0
+    }
+  })
 
   const navigate = useNavigate()
   const pathname = window.location.pathname
@@ -139,10 +157,8 @@ export function UseProvider({ children }: UserContextProps) {
         },
       })
       
-      console.log(data)
       setAccountState(data.AccountState)
-      console.log(data.AccountState)
-      console.log(accountState)
+      setRelativeCategoryStats(data.Relative)
     } catch (errr) {
       console.log(errr)
     }
@@ -162,6 +178,7 @@ export function UseProvider({ children }: UserContextProps) {
         userDeleteAccount,
         userData,
         accountState,
+        relativeCategoryStats
       }}
     >
       {children}
