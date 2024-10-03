@@ -20,8 +20,15 @@ export const LegendItem = styled.div<{ color: string }>`
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
-  color: ${(props) => props.theme.text};
-  margin-right: 2rem;
+
+  span {
+    color: ${(props) => props.theme.text};
+    margin-right: 2rem;
+    max-width: 4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   &:before {
     content: "";
@@ -31,5 +38,14 @@ export const LegendItem = styled.div<{ color: string }>`
     margin-right: 0.5rem;
     border-radius: 50%;
     background-color: ${(props) => props.color};
+
+    &:last-child {
+      cursor: pointer;
+      background-color: ${(props) => props.theme.terciaryGray};
+    }
+  }
+
+  &:last-child {
+    cursor: pointer;
   }
 `

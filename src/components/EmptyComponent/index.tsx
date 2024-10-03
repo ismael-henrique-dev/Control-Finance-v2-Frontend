@@ -2,7 +2,7 @@ import { EmptyComponent } from "./styles"
 import emptyIcon from "../../assets/empty-icon.svg"
 
 interface EmptyTypeMensage {
-  mensageType: "conta" | "transação"
+  mensageType: "conta" | "transação" | "meta"
 }
 
 export function EmptyAccounts({mensageType}:EmptyTypeMensage) {

@@ -14,7 +14,7 @@ export function DonutChart() {
       type: "donut",
       background: "transparent",
     },
-    labels: ["Estudos", "Veiculo"],
+    labels: ["Estudos", "Veiculo", "Teste"],
     legend: {
       show: false,
     },
@@ -52,13 +52,15 @@ export function DonutChart() {
     },
   }
 
+  const [series, setSeries] = useState<number[]>([])
+
   useEffect(() => {
     if (relativeCategoryStats) {
       setStatics(relativeCategoryStats.PercentageOfReturnByCategorie)
+      setSeries(Object.values(statics))
     }
   }, [])
 
-  const series = Object.values(statics)
   console.log(series)
 
   return (
@@ -71,14 +73,16 @@ export function DonutChart() {
         height={220}
       />
       <Legend>
-        {Object.entries(statics).slice(0, 4).map(([category]) => (
-          <LegendItem color="#1f4e79">{category}</LegendItem>
-        ))}
-        {/* <LegendItem color="#1f4e79">Estudos</LegendItem>
-        <LegendItem color="#fdd835">Veiculo</LegendItem>
-        <LegendItem color="#fdd835">Veiculo</LegendItem>
-        <LegendItem color="#fdd835">Veiculo</LegendItem> */}
-        <LegendItem color="#fdd835">Outros</LegendItem>
+        {Object.entries(statics)
+          .slice(0, 4)
+          .map(([category]) => (
+            <LegendItem color="#1f4e79">
+              <span>{category}</span>
+            </LegendItem>
+          ))}
+        <LegendItem color="#333639">
+          <span>Outros</span>
+        </LegendItem>
       </Legend>
     </ChartContainer>
   )

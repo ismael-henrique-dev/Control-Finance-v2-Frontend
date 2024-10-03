@@ -11,6 +11,7 @@ interface GoalsContextType {
   deleteGoal: (goalId: string) => Promise<void>
   updateGoal: (goalId: string, data: UpdateGoalFormData) => Promise<void>
   goalsList: Goal[]
+  isLoadingGoals: boolean
 }
 
 interface GoalsProviderProps {
@@ -38,9 +39,11 @@ export const GoalsContext = createContext({} as GoalsContextType)
 
 export function GoalsProvider({ children }: GoalsProviderProps) {
   const [goalsList, setGoalsList] = useState<Goal[]>([])
+  const [isLoadingGoals, setIsLoadingGoals] = useState(false)
 
   async function createGoal(goalData: CreateGoalFormData) {
     try {
+      setIsLoadingGoals(true)
       const token = localStorage.getItem("@token")
       const { data } = await api.post("/goals/create", goalData, {
         headers: {
@@ -50,11 +53,14 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
       console.log(data)
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsLoadingGoals(false)
     }
   }
 
   async function fetchGoals() {
     try {
+      setIsLoadingGoals(true)
       const token = localStorage.getItem("@token")
       const { data } = await api.get("/goals", {
         headers: {
@@ -69,6 +75,8 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
       console.log(goalsList)
     } catch (errr) {
       console.log(errr)
+    } finally {
+      setIsLoadingGoals(false)
     }
   }
 
@@ -143,6 +151,7 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
   return (
     <GoalsContext.Provider
       value={{
+        isLoadingGoals,
         goalsList,
         fetchGoals,
         createGoal,

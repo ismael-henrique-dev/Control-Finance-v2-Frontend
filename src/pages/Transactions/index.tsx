@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useSummaryTransaction } from "../../hooks/useSummaryTransaction"
 import { SelectFilter } from "../../components/FilterSelect"
 import { Summary } from "../../components/Summary"
@@ -11,9 +11,14 @@ import {
   MainContainer,
   TransactionsContainer,
 } from "./styles"
+import { TransactionsContext } from "../../contexts/transactionsContext"
+import { LinearProgressCustom } from "../Accounts/styles"
+import { EmptyAccounts } from "../../components/EmptyComponent"
 
 export function Transactions() {
   const [search, setSearch] = useState("")
+  const { transactions, isLoadingTransactionsList } =
+    useContext(TransactionsContext)
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -35,7 +40,13 @@ export function Transactions() {
       </ContainerBarSummary>
       <MainContainer>
         <strong>Histórico de transações</strong>
-        <Table searchInput={search} />
+        
+        {transactions.length === 0 && <EmptyAccounts mensageType="transação" />}
+        {isLoadingTransactionsList === true ? (
+          <LinearProgressCustom />
+        ) : (
+          <Table searchInput={search} />
+        )}
       </MainContainer>
       <NewTransactionModal open={open} handleClose={handleClose} />
     </TransactionsContainer>

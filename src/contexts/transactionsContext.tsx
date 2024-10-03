@@ -17,6 +17,7 @@ export interface Transaction {
 interface TransactionsContextType {
   createTransaction: (transaction: CreateTransactionFormSchema) => Promise<void>
   transactions: Transaction[]
+  isLoadingTransactionsList: boolean
   deleteTransaction: (transactionId: string) => Promise<void>
   updateTransaction: (
     transactionId: string,
@@ -32,6 +33,7 @@ export const TransactionsContext = createContext({} as TransactionsContextType)
 
 export function TransactionsProvider({ children }: TransactionsContextProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [isLoadingTransactionsList, setIsLoadingTransactionsList] = useState(false)
 
   async function createTransaction(
     transactionsData: CreateTransactionFormSchema
@@ -63,6 +65,7 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
 
   async function fetchTransactions() {
     try {
+      setIsLoadingTransactionsList(true)
       const token = localStorage.getItem("@token")
       const { data } = await api.get("/transaction", {
         headers: {
@@ -72,6 +75,8 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
       setTransactions(data.TransactionList)
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsLoadingTransactionsList(false)
     }
   }
 
@@ -151,6 +156,7 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
       value={{
         createTransaction,
         transactions,
+        isLoadingTransactionsList,
         deleteTransaction,
         updateTransaction,
       }}

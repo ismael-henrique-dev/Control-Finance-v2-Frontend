@@ -63,7 +63,6 @@ export const MainContainer = styled.main`
 
 export const LinearProgressCustom = styled(LinearProgress)`
   width: 64rem;
-  flex: 1;
   background-color: #fff;
 
   .MuiLinearProgress-bar {
