@@ -37,7 +37,7 @@ export function useSummaryMain() {
         return prevSummary
       })
     }
-  }, [summaryTransactions, summaryGoals])
+  }, [summaryTransactions, summaryGoals, statics])
 
   return summary
 }

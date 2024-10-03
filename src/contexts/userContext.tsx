@@ -29,9 +29,10 @@ interface UserProviderType {
   userResetAccount: () => void
   userDeleteAccount: () => void
   userData: User | null
+  accountState: AccountState | null
 }
 
-type Status = "Danger" | "Ok"
+type Status = "Danger" | "Ok" | "Good"
 
 interface AccountState {
   AndamentoDasMetas: Status
@@ -44,7 +45,7 @@ export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: UserContextProps) {
   const [userData, setUserData] = useState<User | null>(null)
-  const [accountState, setAccountState] = useState<AccountState>()
+  const [accountState, setAccountState] = useState<AccountState | null>(null)
 
   const navigate = useNavigate()
   const pathname = window.location.pathname
@@ -140,6 +141,7 @@ export function UseProvider({ children }: UserContextProps) {
       
       console.log(data)
       setAccountState(data.AccountState)
+      console.log(data.AccountState)
       console.log(accountState)
     } catch (errr) {
       console.log(errr)
@@ -159,6 +161,7 @@ export function UseProvider({ children }: UserContextProps) {
         userResetAccount,
         userDeleteAccount,
         userData,
+        accountState,
       }}
     >
       {children}

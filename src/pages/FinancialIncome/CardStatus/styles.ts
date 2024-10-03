@@ -34,9 +34,9 @@ export const Status = styled.div`
   flex: 1;
   gap: 1rem;
 
-  & > svg {
+  /* & > svg {
     color: ${(props) => props.theme.green};
-  }
+  } */
 
   div {
     display: flex;
