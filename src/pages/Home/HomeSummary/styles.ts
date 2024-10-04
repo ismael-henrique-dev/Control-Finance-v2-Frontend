@@ -26,9 +26,9 @@ export const MainBalance = styled.div`
   margin: auto;
 
   strong {
-    color: ${(props) => props.theme.secundary};
     font-weight: 600;
     font-size: 2rem;
+    color: ${(props) => props.theme.secundary};
   }
 
   span {

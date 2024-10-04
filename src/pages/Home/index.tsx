@@ -28,11 +28,11 @@ export function Home() {
         </EstatisticCard>
         <EstatisticCard>
           <strong>Resumo dos depósitos</strong>
-          <DonutChart />
+          <DonutChart chartType="DEP" />
         </EstatisticCard>
         <EstatisticCard>
           <strong>Resumo dos saques</strong>
-          <DonutChart />
+          <DonutChart chartType="SAL" />
         </EstatisticCard>
       </DefaultContainer>
       <TopContainer>

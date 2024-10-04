@@ -11,4 +11,9 @@ export const darkTheme: DefaultTheme = {
   invertColor: "#000",
   red: "#DC2626",
   green: "#16A34A",
+  blue1: "#0C4A6E",
+  blue2: "#0085FF",
+  coral: "#FF7F50",
+  pink: "#FF69B4",
+  yellow: "FFD600",
 }

@@ -24,13 +24,14 @@ interface User {
 
 interface UserProviderType {
   userRegister: (data: UserRegisterFormData) => Promise<void>
+  UserVisitMode: () => Promise<void>
   userLogin: (data: UserLoginFormData) => Promise<void>
   userLogout: () => void
   userResetAccount: () => void
   userDeleteAccount: () => void
   userData: User | null
   accountState: AccountState | null
-  relativeCategoryStats: RelativeCategoryStatsProps 
+  relativeCategoryStats: RelativeCategoryStatsProps
 }
 
 type Status = "Danger" | "Ok" | "Good"
@@ -42,14 +43,12 @@ interface AccountState {
   Investimentos: Status
 }
 
-interface Category {
-  category: number
-}
-
 interface RelativeCategoryStatsProps {
   DEP: number
   SAL: number
   PercentageOfReturnByCategorie: Record<string, number>
+  PercentageOfReturnByDep: Record<string, number>
+  PercentageOfReturnBySal: Record<string, number>
 }
 
 export const UserContext = createContext({} as UserProviderType)
@@ -57,13 +56,21 @@ export const UserContext = createContext({} as UserProviderType)
 export function UseProvider({ children }: UserContextProps) {
   const [userData, setUserData] = useState<User | null>(null)
   const [accountState, setAccountState] = useState<AccountState | null>(null)
-  const [relativeCategoryStats, setRelativeCategoryStats] = useState<RelativeCategoryStatsProps>({
-    DEP: 0,
-    SAL: 0, 
-    PercentageOfReturnByCategorie: {
-      category: 0
-    }
-  })
+  const [relativeCategoryStats, setRelativeCategoryStats] =
+    useState<RelativeCategoryStatsProps>({
+      DEP: 0,
+      SAL: 0,
+      PercentageOfReturnByCategorie: {
+        category: 0,
+      },
+      PercentageOfReturnByDep: {
+        category: 0,
+      },
+      PercentageOfReturnBySal: {
+        category: 0
+      }
+
+    })
 
   const navigate = useNavigate()
   const pathname = window.location.pathname
@@ -156,7 +163,7 @@ export function UseProvider({ children }: UserContextProps) {
           Authorization: `Bearer ${token}`,
         },
       })
-      
+
       setAccountState(data.AccountState)
       setRelativeCategoryStats(data.Relative)
     } catch (errr) {
@@ -168,9 +175,20 @@ export function UseProvider({ children }: UserContextProps) {
     fetchUserStatic()
   }, [])
 
+  async function UserVisitMode() {
+    try {
+      const { data } = await api.patch("/auth/login/guest", {})
+      localStorage.setItem("@token", data.Token)
+      navigate("/")
+    } catch (errr) {
+      console.log(errr)
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
+        UserVisitMode,
         userRegister,
         userLogin,
         userLogout,
@@ -178,7 +196,7 @@ export function UseProvider({ children }: UserContextProps) {
         userDeleteAccount,
         userData,
         accountState,
-        relativeCategoryStats
+        relativeCategoryStats,
       }}
     >
       {children}

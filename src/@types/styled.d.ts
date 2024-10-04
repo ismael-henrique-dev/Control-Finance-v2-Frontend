@@ -12,5 +12,10 @@ declare module "styled-components" {
     invertColor: string
     red: string
     green: string
+    blue1: string
+    blue2: string
+    coral: string
+    pink: string
+    yellow: string
   }
 }
