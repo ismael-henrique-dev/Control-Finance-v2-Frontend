@@ -1,67 +1,83 @@
-import Chart from "react-apexcharts"
-import { ApexOptions } from "apexcharts"
+import { useContext, useEffect, useState } from "react"
 import { ChartContainer, Legend, LegendItem } from "./styles"
+import { UserContext } from "../../../contexts/userContext"
+import { options } from "../../../utils/ChartConfig"
 import { useTheme } from "styled-components"
+import Chart from "react-apexcharts"
 
-export function DonutChart() {
+interface ChartProps {
+  chartType: "DEP" | "SAL"
+}
+
+export function DonutChart({ chartType }: ChartProps) {
+  const { relativeCategoryStats } = useContext(UserContext)
+  const [statics, setStatics] = useState<Record<string, number>>({})
+  const [series, setSeries] = useState<number[]>([])
+  const [labelsTitle, SetLabelsTitle] = useState<string[]>([])
+  const [colors, setColors] = useState<string[]>([])
+
   const theme = useTheme()
-  const options: ApexOptions = {
-    chart: {
-      type: "donut",
-      background: "transparent",
-    },
-    labels: ["Estudos", "Veiculo"],
-    legend: {
-      show: false,
-    },
-    plotOptions: {
-      pie: {
-        donut: {
-          size: "50%", // Aumenta o tamanho da barra do gráfico de donut
-          labels: {
-            show: true,
-            total: {
-              show: true,
-              label: "Total",
-              color: theme.text, // Cor do texto "Total"
-              fontSize: "0.875rem", // Tamanho da fonte do texto "Total"
-              fontWeight: "600", // Peso da fonte do texto "T
-              // Adicionando estilo diretamente ao valor total
-            },
-            value: {
-              color: theme.text,
-            },
-          },
-        },
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    colors: ["#1f4e79", "#fdd835"],
-    tooltip: {
-      enabled: true,
-      theme: "dark",
-    },
-    stroke: {
-      show: false,
-    },
-  }
 
-  const series = [50, 50] // Exemplo de dados
+  useEffect(() => {
+    const roundedSeriesDep = Object.values(
+      relativeCategoryStats.PercentageOfReturnByDep
+    ).map((value) => parseFloat(value.toFixed(0)))
+
+    const roundedSeriesSal = Object.values(
+      relativeCategoryStats.PercentageOfReturnBySal
+    ).map((value) => parseFloat(value.toFixed(0)))
+
+    if (relativeCategoryStats) {
+      if (chartType === "DEP") {
+        setSeries(roundedSeriesDep)
+        setStatics(relativeCategoryStats.PercentageOfReturnByDep)
+        SetLabelsTitle(
+          Object.keys(relativeCategoryStats.PercentageOfReturnByDep)
+        )
+        setColors([theme.blue1, theme.green, theme.blue2, theme.coral])
+      } else {
+        setSeries(roundedSeriesSal)
+        setStatics(relativeCategoryStats.PercentageOfReturnBySal)
+        SetLabelsTitle(
+          Object.keys(relativeCategoryStats.PercentageOfReturnBySal)
+        )
+        setColors([
+          theme.red,
+          theme.blue1,
+          theme.blue2,
+          theme.secundary,
+          theme.invertColor,
+          theme.green,
+          theme.coral,
+          theme.pink,
+          theme.yellow
+        ])
+      }
+    }
+  }, [relativeCategoryStats])
+
+  const chartOptions = options(theme, labelsTitle, colors)
 
   return (
     <ChartContainer>
       <Chart
-        options={options}
+        options={chartOptions}
         series={series}
         type="donut"
         width={220}
         height={220}
       />
       <Legend>
-        <LegendItem color="#1f4e79">Estudos</LegendItem>
-        <LegendItem color="#fdd835">Veiculo</LegendItem>
+        {Object.entries(statics)
+          .slice(0, 5)
+          .map(
+            ([category, value], index) =>
+              value > 0 && (
+                <LegendItem color={colors[index]} key={category}>
+                  <span>{category}</span>
+                </LegendItem>
+              )
+          )}
       </Legend>
     </ChartContainer>
   )

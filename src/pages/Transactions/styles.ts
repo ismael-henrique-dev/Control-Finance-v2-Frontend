@@ -34,6 +34,7 @@ export const MainContainer = styled.main`
   flex-direction: column;
   /* flex-wrap: wrap; */
   gap: 2rem;
+  max-width: 64rem;
 
   @media (max-width: 768px) {
     width: 20rem;

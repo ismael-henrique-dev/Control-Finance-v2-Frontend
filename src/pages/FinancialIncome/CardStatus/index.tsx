@@ -1,13 +1,31 @@
 import {
   Activity,
+  Ban,
   CircleCheckBig,
+  Globe,
   Goal,
   HandCoins,
   ShoppingBasket,
+  TriangleAlert,
 } from "lucide-react"
 import { CardStatusContainer, Status, StatusContainer } from "./styles"
+import { useContext } from "react"
+import { UserContext } from "../../../contexts/userContext"
+
+const iconConfig = {
+  Ok: <TriangleAlert color="#FFD600" />,
+  Danger: <Ban color="#DC2626" />,
+  Good: <CircleCheckBig color="#16A34A" />,
+  Net: <Globe color="#0C4A6E" />,
+}
 
 export function CardStatus() {
+  const { accountState } = useContext(UserContext)
+
+  if (!accountState) {
+    return 
+  }
+
   return (
     <CardStatusContainer>
       <p>
@@ -20,28 +38,28 @@ export function CardStatus() {
             <Goal />
             <span>Andamento das metas</span>
           </div>
-          <CircleCheckBig />
+          {iconConfig[accountState.AndamentoDasMetas]}
         </Status>
         <Status>
           <div>
             <ShoppingBasket />
             <span>Gastos essenciais</span>
           </div>
-          <CircleCheckBig />
+          {iconConfig[accountState.GastosEssenciais]}
         </Status>
         <Status>
           <div>
             <Activity />
             <span>Investidor</span>
           </div>
-          <CircleCheckBig />
+          {iconConfig[accountState.Investimentos]}
         </Status>
         <Status>
           <div>
             <HandCoins />
             <span>Economista</span>
           </div>
-          <CircleCheckBig />
+          {iconConfig[accountState.Economista]}
         </Status>
       </StatusContainer>
       <p>

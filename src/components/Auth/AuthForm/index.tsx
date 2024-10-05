@@ -2,7 +2,8 @@ import { AuthContainer, Button, Divisory } from "./styles"
 import { NavLink } from "react-router-dom"
 import { PersonStanding } from "lucide-react"
 import iconGoogle from "../../../assets/icon-google.svg"
-import { ReactNode } from "react"
+import { ReactNode, useContext } from "react"
+import { UserContext } from "../../../contexts/userContext"
 
 interface AuthLoginProps {
   children?: ReactNode
@@ -21,6 +22,11 @@ export function AuthForm({
   navLinkText,
   children,
 }: AuthLoginProps) {
+  const { UserVisitMode } = useContext(UserContext)
+
+  async function submitUserVisitMode() {
+    await UserVisitMode()
+  }
 
   return (
     <AuthContainer>
@@ -34,7 +40,11 @@ export function AuthForm({
           {authType} com o google
         </Button>
         {isLogin && (
-          <Button type="submit" variant="visitMode">
+          <Button
+            type="button"
+            variant="visitMode"
+            onClick={submitUserVisitMode}
+          >
             <PersonStanding />
             Entrar como visitante
           </Button>

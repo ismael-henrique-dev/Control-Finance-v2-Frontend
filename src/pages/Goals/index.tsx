@@ -13,9 +13,11 @@ import {
   Section,
 } from "./styles"
 import { useSummaryGoals } from "../../hooks/useSummaryGoal"
+import { LinearProgressCustom } from "../Accounts/styles"
+import { EmptyAccounts } from "../../components/EmptyComponent"
 
 export function Goals() {
-  const { goalsList } = useContext(GoalsContext)
+  const { goalsList, isLoadingGoals } = useContext(GoalsContext)
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -49,18 +51,23 @@ export function Goals() {
         />
       </Section>
       <MainContainer>
-        {goalsList.slice((currentPage - 1) * 6, currentPage * 6).map(
-          (goal, index) => (
-            <GoalCard
-              key={index}
-              title={goal.Title}
-              currentValue={goal.Value}
-              targetValue={goal.TargetedValue}
-              goalDate={goal.EndTime}
-              goalId={goal.Id}
-              isGoalsPage={true}
-            />
-          )
+        {goalsList.length === 0 && <EmptyAccounts mensageType="meta" />}
+        {isLoadingGoals ? (
+          <LinearProgressCustom />
+        ) : (
+          goalsList
+            .slice((currentPage - 1) * 6, currentPage * 6)
+            .map((goal, index) => (
+              <GoalCard
+                key={index}
+                title={goal.Title}
+                currentValue={goal.Value}
+                targetValue={goal.TargetedValue}
+                goalDate={goal.EndTime}
+                goalId={goal.Id}
+                isGoalsPage={true}
+              />
+            ))
         )}
       </MainContainer>
       <GoalModal open={open} handleClose={handleClose} />

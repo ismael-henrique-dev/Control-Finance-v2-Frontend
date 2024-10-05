@@ -59,6 +59,10 @@ export function EditAccountModal({
     await updateAccount(AccountId, accountData)
   }
 
+  if (!defaultValue) {
+    return null 
+  }
+
   console.log(defaultValue)
   return (
     <ModalBase
