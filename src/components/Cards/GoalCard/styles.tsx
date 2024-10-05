@@ -11,6 +11,7 @@ export const ContainerCard = styled.div`
   justify-content: center;
   padding: 1.5rem;
   gap: 1rem;
+  height: 12rem;
 
   header {
     width: 100%;

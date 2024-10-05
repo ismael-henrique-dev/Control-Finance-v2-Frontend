@@ -2,17 +2,19 @@ import styled from "styled-components"
 
 export const ContainerSearchBarTransaction = styled.div`
   border-radius: 12px;
-  color: ${(props) => props.theme.text};
   display: flex;
-  align-items: start;
-  justify-content: start;
+  align-items: center;
+  justify-content: flex-start;
   color: ${(props) => props.theme.secundary};
   background-color: ${(props) => props.theme.primaryGray};
-  padding: 1.5rem 1.25rem;
-  max-width: 15rem;
-  height: 5.5rem;
+  padding: 1rem 1rem;
+  /* height: 5.5rem; */
 
-  
+  @media (max-width: 768px) {
+    & {
+      width: 20rem;
+    }
+  }
 
   div {
     display: flex;
@@ -20,13 +22,14 @@ export const ContainerSearchBarTransaction = styled.div`
     gap: 0.75rem;
     border-bottom: 3px solid ${(props) => props.theme.secundary};
     padding: 0.5rem 0;
+    flex: 1
   }
 
   input {
-    width: 9rem;
+    flex: 1;
     background-color: transparent;
     border: 0;
-    color: ${(props) => props.theme.text};
+    color: ${(props) => props.theme.secundary};
     font-size: 1rem;
   }
 

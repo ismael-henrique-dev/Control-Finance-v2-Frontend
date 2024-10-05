@@ -79,9 +79,8 @@ export function Goals() {
         />
       </Section>
       <MainContainer>
-        {filteredGoals.length === 0 && <EmptyAccounts mensageType="meta" />}
-        {isLoadingGoals ? (
-          <LinearProgressCustom />
+        {filteredGoals.length === 0 && !isLoadingGoals? (
+          <EmptyAccounts mensageType="meta" />
         ) : (
           filteredGoals
             .slice((currentPage - 1) * 6, currentPage * 6)
@@ -97,6 +96,7 @@ export function Goals() {
               />
             ))
         )}
+        {isLoadingGoals && <LinearProgressCustom />}
       </MainContainer>
       <GoalModal open={open} handleClose={handleClose} />
     </GoalsContainer>
