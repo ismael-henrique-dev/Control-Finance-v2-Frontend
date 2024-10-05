@@ -23,13 +23,8 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
   async function handleUpdateGoal(data: UpdateGoalFormData) {
     console.log(data)
     console.log(goalId)
-    const {Title,Value, TargetedValue, EndTime } = data
-    await updateGoal(goalId, {
-      Title,
-      Value,
-      TargetedValue,
-      EndTime
-    })
+    // const {Title,Value, TargetedValue, EndTime } = data
+    await updateGoal(goalId, data)
   }
 
   return (
@@ -84,7 +79,9 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
         <StyledInput
           type="date"
           error={false}
-          {...register("EndTime")}
+          {...register("EndTime", {
+            valueAsDate: true
+          })}
           endAdornment={
             <InputAdornment position="end">
               <Calendar color="#4C3299" size={20} />

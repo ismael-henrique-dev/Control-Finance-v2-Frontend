@@ -4,7 +4,7 @@ export const updateGoalFormSchema = z.object({
   Title: z.string(),
   Value: z.number(),
   TargetedValue: z.number(),
-  EndTime: z.string().transform((value) => new Date(value)),
+  EndTime: z.date()
 })
 
 

@@ -15,20 +15,44 @@ import {
 import { useSummaryGoals } from "../../hooks/useSummaryGoal"
 import { LinearProgressCustom } from "../Accounts/styles"
 import { EmptyAccounts } from "../../components/EmptyComponent"
+import { SelectChangeEvent } from "@mui/material"
 
 export function Goals() {
   const { goalsList, isLoadingGoals } = useContext(GoalsContext)
 
   const [open, setOpen] = useState(false)
+  const [filter, setFilter] = useState<string>("Todos")
+  const [currentPage, setCurrentPage] = useState<number>(1)
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   const selectOptions = ["Todos", "Em andamento", "Concluído"]
 
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const totalPages = Math.ceil(goalsList.length / 6)
+  const getFilteredGoals = () => {
+    if (filter === "Em andamento") {
+      return goalsList.unCompletedGoals
+    } else if (filter === "Concluído") {
+      return goalsList.CompletedGoals
+    } else {
+      return [
+        ...goalsList.unCompletedGoals,
+        ...goalsList.ExpiredGoals,
+        ...goalsList.CompletedGoals,
+      ]
+    }
+  }
 
-  const summary = useSummaryGoals()
+  const filteredGoals = getFilteredGoals()
+
+  const totalPages = Math.ceil(filteredGoals.length / 6)
+
+  const summary = useSummaryGoals({ goalsList: filteredGoals })
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const value = event.target.value
+    setFilter(value)
+  }
 
   return (
     <GoalsContainer>
@@ -39,7 +63,11 @@ export function Goals() {
           income={summary.income}
           total={summary.total}
         />
-        <SelectFilter data={selectOptions} />
+        <SelectFilter
+          data={selectOptions}
+          change={handleChange}
+          value={filter}
+        />
         <Button handleClick={handleOpen} />
       </ContainerBarSummary>
       <Section>
@@ -51,11 +79,11 @@ export function Goals() {
         />
       </Section>
       <MainContainer>
-        {goalsList.length === 0 && <EmptyAccounts mensageType="meta" />}
+        {filteredGoals.length === 0 && <EmptyAccounts mensageType="meta" />}
         {isLoadingGoals ? (
           <LinearProgressCustom />
         ) : (
-          goalsList
+          filteredGoals
             .slice((currentPage - 1) * 6, currentPage * 6)
             .map((goal, index) => (
               <GoalCard

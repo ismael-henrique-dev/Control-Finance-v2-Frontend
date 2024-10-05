@@ -6,14 +6,14 @@ import { Button } from "../../components/Button"
 import { Table } from "./Table"
 import { SearchBarTransaction } from "./SearchBarTransaction"
 import { NewTransactionModal } from "../../components/NewTransactionModal"
+import { TransactionsContext } from "../../contexts/transactionsContext"
+import { LinearProgressCustom } from "../Accounts/styles"
+import { EmptyAccounts } from "../../components/EmptyComponent"
 import {
   ContainerBarSummary,
   MainContainer,
   TransactionsContainer,
 } from "./styles"
-import { TransactionsContext } from "../../contexts/transactionsContext"
-import { LinearProgressCustom } from "../Accounts/styles"
-import { EmptyAccounts } from "../../components/EmptyComponent"
 
 export function Transactions() {
   const [search, setSearch] = useState("")

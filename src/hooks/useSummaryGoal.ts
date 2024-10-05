@@ -1,14 +1,15 @@
-import { useContext } from "react"
-import { GoalsContext } from "../contexts/goalsContext"
+import { Goal } from "../contexts/goalsContext"
 
-export function useSummaryGoals() {
-  const { goalsList } = useContext(GoalsContext)
+interface UseSummaryGoalsPros {
+  goalsList: Goal[]
+}
 
+export function useSummaryGoals({ goalsList }: UseSummaryGoalsPros) {
   const summary = goalsList.reduce(
     (acc, goal) => {
       acc.total += goal.TargetedValue
       acc.income += goal.Value
-      
+
       return acc
     },
     {

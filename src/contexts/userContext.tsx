@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { api } from "../services/api"
+import { ProfileFormData } from "../pages/Profile"
 
 interface UserContextProps {
   children: ReactNode
@@ -29,6 +30,7 @@ interface UserProviderType {
   userLogout: () => void
   userResetAccount: () => void
   userDeleteAccount: () => void
+  updateUserProfile: (data: ProfileFormData) => void
   userData: User | null
   accountState: AccountState | null
   relativeCategoryStats: RelativeCategoryStatsProps
@@ -67,9 +69,8 @@ export function UseProvider({ children }: UserContextProps) {
         category: 0,
       },
       PercentageOfReturnBySal: {
-        category: 0
-      }
-
+        category: 0,
+      },
     })
 
   const navigate = useNavigate()
@@ -79,6 +80,7 @@ export function UseProvider({ children }: UserContextProps) {
     try {
       await api.post("/users/register", data)
       navigate("/")
+      // set token in local storage
     } catch (error) {
       console.log(error)
     }
@@ -91,6 +93,7 @@ export function UseProvider({ children }: UserContextProps) {
       navigate("/")
     } catch (error) {
       console.error("Informações incorretas")
+      // "Esse usuário não está cadrastado"
     }
   }
 
@@ -185,6 +188,19 @@ export function UseProvider({ children }: UserContextProps) {
     }
   }
 
+  async function updateUserProfile(data: ProfileFormData) {
+    const token = localStorage.getItem("@token")
+    try {
+      await api.put(`/users/update`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -194,6 +210,7 @@ export function UseProvider({ children }: UserContextProps) {
         userLogout,
         userResetAccount,
         userDeleteAccount,
+        updateUserProfile,
         userData,
         accountState,
         relativeCategoryStats,

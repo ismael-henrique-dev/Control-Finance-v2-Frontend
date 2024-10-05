@@ -1,20 +1,15 @@
-import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { ContainerFilterSelect, FormControlContainer, StyledMenuItem, useStyledMenuProps } from "./styles"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import InputLabel from "@mui/material/InputLabel"
 
 interface SelectFilterProps {
-  data?: string[]
+  data: string[]
+  value: string
+  change: (event: SelectChangeEvent) => void
 }
 
-export function SelectFilter({data = []}:SelectFilterProps) {
-  const [selectData, setSelectData] = useState<string>("")
-
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setSelectData(event.target.value)
-  }
-
+export function SelectFilter({data = [], change, value}:SelectFilterProps) {
   const menuProps = useStyledMenuProps()
 
   return (
@@ -24,16 +19,13 @@ export function SelectFilter({data = []}:SelectFilterProps) {
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
-          value={selectData}
-          onChange={handleChange}
+          value={value}
+          onChange={change}
           label="filtar"
           IconComponent={ChevronDown}
           sx={{ color: "#6741D9", width: "100%" }}
           MenuProps={menuProps}
         >
-          <StyledMenuItem value="">
-            <em>Filter</em>
-          </StyledMenuItem>
           {data.map((item, index) => (
             <StyledMenuItem key={index} value={item}>
               {item}
