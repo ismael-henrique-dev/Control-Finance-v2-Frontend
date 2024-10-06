@@ -29,41 +29,34 @@ export function InputFileUpload() {
     }
   }
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader()
       const file = event.target.files[0]
       const formData = new FormData()
       formData.append("avatar", file) // Nome do campo de acordo com o que o servidor espera
 
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         if (e.target && typeof e.target.result === "string") {
           setImageUrl(e.target.result) // Atualiza a URL da imagem
+          await uploadImageUpdate(formData) // Faz o upload da nova imagem
         }
       }
 
       reader.readAsDataURL(file) // Converte a imagem em base64
-
-      uploadImageUpdate(formData) // Faz o upload da nova imagem
     }
   }
 
   return (
     <FormContainer>
       <ProfilePic>
-        {imageUrl ? (
-          <ImagePreview src={imageUrl} alt="Imagem de Perfil" />
-        ) : (
-          <ImagePreview
-            src={testImage}
-            alt="Imagem padrão"
-          />
-        )}
+        <ImagePreview src={imageUrl || testImage} alt="Imagem de Perfil" />
         <Input
           type="file"
           id="file"
           accept="image/*"
           onChange={handleImageChange}
+          style={{ display: "none" }} 
         />
         <Label htmlFor="file">
           <Pencil />

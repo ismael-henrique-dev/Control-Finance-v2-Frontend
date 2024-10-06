@@ -35,6 +35,7 @@ interface UserProviderType {
   userData: User | null
   accountState: AccountState | null
   relativeCategoryStats: RelativeCategoryStatsProps
+  isLoadingStatic: boolean
 }
 
 type Status = "Danger" | "Ok" | "Good"
@@ -58,6 +59,7 @@ export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: UserContextProps) {
   const [userData, setUserData] = useState<User | null>(null)
+  const [isLoadingStatic, setIsLoadingStatic] = useState(false)
   const [accountState, setAccountState] = useState<AccountState | null>(null)
   const [relativeCategoryStats, setRelativeCategoryStats] =
     useState<RelativeCategoryStatsProps>({
@@ -161,6 +163,7 @@ export function UseProvider({ children }: UserContextProps) {
 
   async function fetchUserStatic() {
     try {
+      setIsLoadingStatic(true)
       const token = localStorage.getItem("@token")
       const { data } = await api.get("/users/statistic", {
         headers: {
@@ -172,6 +175,8 @@ export function UseProvider({ children }: UserContextProps) {
       setRelativeCategoryStats(data.Relative)
     } catch (errr) {
       console.log(errr)
+    } finally {
+      setIsLoadingStatic(false)
     }
   }
 
@@ -215,6 +220,7 @@ export function UseProvider({ children }: UserContextProps) {
         userData,
         accountState,
         relativeCategoryStats,
+        isLoadingStatic,
       }}
     >
       {children}

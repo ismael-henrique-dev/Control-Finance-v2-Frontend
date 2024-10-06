@@ -99,7 +99,7 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
   async function NewDepositOfGoal(goalId: string, depositValue: number) {
     try {
       const token = localStorage.getItem("@token")
-      await api.put(
+      const { data } = await api.put(
         `/goals/value/${goalId}/${depositValue}`,
         {},
         {
@@ -108,7 +108,14 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
           },
         }
       )
-      console.log(goalId, depositValue)
+      const goalUpdated = { ...data.updatedGoal }
+
+      setGoalsList((prevGoals) => ({
+        ...prevGoals,
+        unCompletedGoals: prevGoals.unCompletedGoals.map((goal) =>
+          goal.Id === goalUpdated.Id ? goalUpdated : goal
+        ),
+      }))
     } catch (error) {
       console.error(error)
     }
@@ -117,7 +124,7 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
   async function completeGoal(goalId: string) {
     try {
       const token = localStorage.getItem("@token")
-      await api.put(
+      const { data } = await api.put(
         `/goals/complete/${goalId}`,
         {},
         {
@@ -126,6 +133,29 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
           },
         }
       )
+
+      setGoalsList((prevGoals) => {
+        const completedGoal = prevGoals.unCompletedGoals.find(
+          (goal) => goal.Id === goalId
+        )
+
+        if (!completedGoal) return prevGoals
+
+        return {
+          ...prevGoals,
+          unCompletedGoals: prevGoals.unCompletedGoals.filter(
+            (goal) => goal.Id !== goalId
+          ),
+          CompletedGoals: [
+            ...prevGoals.CompletedGoals,
+            {
+              ...completedGoal,
+              CompletedAt: data.CompletedAt,
+              Value: completedGoal.TargetedValue,
+            } as Goal,
+          ],
+        }
+      })
     } catch (error) {
       console.error(error)
     }
