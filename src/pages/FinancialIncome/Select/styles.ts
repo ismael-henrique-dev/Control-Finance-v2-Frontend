@@ -1,8 +1,8 @@
-import { Select, MenuItem } from "@mui/material"
+import { Select, MenuItem, SelectProps } from "@mui/material"
 import { styled, useTheme } from "styled-components"
 import { styled as muiStyled } from "@mui/system"
 
-export const StyledSelect = styled(Select)`
+export const StyledSelect = styled(Select)<SelectProps<string>>`
   .MuiSelect-select {
     color: #6a5acd;
     font-weight: 600;

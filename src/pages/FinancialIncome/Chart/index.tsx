@@ -2,8 +2,12 @@ import React from "react"
 import ReactApexChart from "react-apexcharts"
 import styled, { useTheme } from "styled-components"
 
+interface Balance {
+  total: number[] // Agora, balance.total é um array de números
+}
+
 const ChartContainer = styled.div`
-  max-width: 854px; 
+  max-width: 854px;
   min-height: 444px;
   margin: auto;
   padding: 20px;
@@ -15,12 +19,13 @@ const ChartContainer = styled.div`
 
   @media (max-width: 768px) {
     max-width: 20rem;
-    overflow-x: auto  ;
+    overflow-x: auto;
   }
 `
 
-const ColumnChart: React.FC = () => {
+const ColumnChart = ({ balance, chartLabels }: { balance: Balance, chartLabels: string[] }) => {
   const theme = useTheme()
+
   const chartOptions: ApexCharts.ApexOptions = {
     chart: {
       type: "bar",
@@ -47,7 +52,7 @@ const ColumnChart: React.FC = () => {
       colors: ["transparent"],
     },
     xaxis: {
-      categories: ["Mar 1-7", "Mar 8-14", "Mar 15-21", "Mar 22-28", "Final"],
+      categories: chartLabels, // Ajuste conforme necessário
       labels: {
         style: {
           colors: theme.text,
@@ -69,7 +74,7 @@ const ColumnChart: React.FC = () => {
     },
     fill: {
       opacity: 1,
-      colors: [theme.primary, theme.secundary],
+      colors: [theme.primary, theme.secondary],
     },
     tooltip: {
       y: {
@@ -82,13 +87,13 @@ const ColumnChart: React.FC = () => {
     grid: {
       borderColor: theme.text,
     },
-  
   }
 
+  // Passando os totais para a série do gráfico
   const series = [
     {
       name: "Saldo neste período",
-      data: [300, 400, 350, 600, 150],
+      data: balance.total, // Passa o array de totais calculado
     },
   ]
 
