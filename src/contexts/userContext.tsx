@@ -21,6 +21,7 @@ interface User {
   Id: string
   Senha: string
   UsernName: string
+  ProfileUrl: string
 }
 
 interface UserProviderType {

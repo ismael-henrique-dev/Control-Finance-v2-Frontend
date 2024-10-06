@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import {
   ArrowRightLeft,
@@ -18,7 +18,16 @@ import testImage from "../../../assets/test-image.svg"
 
 export function DrawerBasic() {
   const [open, setOpen] = useState(false)
+  const [image, setImage] = useState<string | null>(null)
   const { userData, userLogout } = useContext(UserContext)
+  
+  useEffect(() => {
+    if (userData && userData.ProfileUrl) {
+      setImage(userData.ProfileUrl)
+    } else {
+       setImage(testImage)
+    }
+  }, [userData])
 
   const toggleDrawer =
     (inOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -44,7 +53,7 @@ export function DrawerBasic() {
         >
           <div>
             <PresentationSection>
-              <img src={testImage} />
+              <img src={image || testImage} />
               <span>Bem-vindo(a) novamente!</span>
               <strong>{userData?.UsernName}</strong>
             </PresentationSection>
