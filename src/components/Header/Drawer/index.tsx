@@ -55,7 +55,7 @@ export function DrawerBasic() {
             <PresentationSection>
               <img src={image || testImage} />
               <span>Bem-vindo(a) novamente!</span>
-              <strong>{userData?.UsernName}</strong>
+              <strong>{!userData?.UsernName ? "Carregando..." : userData.UsernName}</strong>
             </PresentationSection>
             <ListContainer>
               <ListItem>

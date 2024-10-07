@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 interface NewTransactionModalProps extends ModalBasePropsDefault {
   accountId?: string
-  accountTitle?: string // Torne `accountTitle` opcional
+  accountTitle?: string 
 }
 
 interface CategoriesType {
@@ -37,7 +37,7 @@ export function NewTransactionModal({
   const { accountsList } = useContext(AccountsContext)
   const [acTitle, setAcTitle] = useState(accountTitle || "")
 
-  const { control, register, handleSubmit, watch, formState } =
+  const { control, register, handleSubmit, watch, reset, formState } =
     useForm<CreateTransactionFormSchema>({
       resolver: zodResolver(createTransactionFormSchema),
       defaultValues: {
@@ -73,10 +73,13 @@ export function NewTransactionModal({
   async function handleCreateTransaction(data: CreateTransactionFormSchema) {
     const { Title, Value, Type, Categories, accountId } = data
     console.log(data)
+    
+    reset()
     await createTransaction(
       { Title, Value, Type, accountId, Categories },
       acTitle
     )
+    handleClose()
   }
 
   return (

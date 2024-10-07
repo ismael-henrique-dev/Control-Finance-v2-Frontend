@@ -29,7 +29,7 @@ export type ProfileFormData = z.infer<typeof profileFormShema>
 
 export function Profile() {
   const [showPassword, setShowPassword] = useState(false)
-  const { userResetAccount, userDeleteAccount, updateUserProfile, userData } =
+  const { userResetAccount, userDeleteAccount, updateUserProfile, userData, isLoadingResetAccount, isLoadingDeleteAccount } =
     useContext(UserContext)
   const { resetAccounts } = useContext(AccountsContext)
   const handleShowPassword = () => {
@@ -119,7 +119,7 @@ export function Profile() {
               onClick={handleUserDeleteAccount}
               variant="red"
             >
-              Excluir conta
+              {isLoadingDeleteAccount ? "Excluindo..." : "Excluir conta"}
             </Button>
           </Card>
           <Label>Resetar conta</Label>
@@ -133,7 +133,7 @@ export function Profile() {
               onClick={handleUserResetAccount}
               variant="purple"
             >
-              Resetar conta
+              {isLoadingResetAccount ? "Resetando..." : "Resetar conta"}
             </Button>
           </Card>
         </ContainerCards>

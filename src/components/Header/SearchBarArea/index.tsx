@@ -48,7 +48,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
               <NavLink to="/route">ver mais</NavLink>
             </header>
             <ul>
-              {suggestions.transactions.map((transaction) => (
+              {suggestions.transactions.slice(0,5).map((transaction) => (
                 <Suggestion key={transaction.Id}>
                   <div>
                     <span>
@@ -67,7 +67,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
               <NavLink to="/route">ver mais</NavLink>
             </header>
             <ul>
-              {suggestions.accounts.map((account) => (
+              {suggestions.accounts.slice(0,5).map((account) => (
                 <Suggestion key={account.AcId}>
                   <div>
                     <span>

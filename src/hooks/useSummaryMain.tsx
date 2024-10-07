@@ -6,13 +6,15 @@ import { GoalsContext } from "../contexts/goalsContext"
 
 export function useSummaryMain() {
   const { statics = { totalDeposit: 0, totalWithdraw: 0, sum: 0 } } =
-    useContext(AccountsContext)
+    useContext(AccountsContext) 
   const { goalsList } = useContext(GoalsContext)
+
   const goals = [
     ...goalsList.CompletedGoals,
     ...goalsList.ExpiredGoals,
     ...goalsList.unCompletedGoals,
   ]
+
   const summaryTransactions = useSummaryTransaction()
   const summaryGoals = useSummaryGoals({ goalsList: goals })
 
@@ -24,17 +26,15 @@ export function useSummaryMain() {
 
   useEffect(() => {
     if (statics) {
+      const newIncome = statics.totalDeposit + summaryGoals.income
+      const newOutcome = statics.totalWithdraw + summaryGoals.outcome
+      const newTotal = statics.sum + summaryGoals.outcome
+
       setSummary((prevSummary) => {
         const newSummary = {
-          income:
-            summaryTransactions.income +
-            summaryGoals.income +
-            statics.totalDeposit,
-          outcome:
-            summaryTransactions.outcome +
-            summaryGoals.outcome +
-            statics.totalWithdraw,
-          total: summaryTransactions.total + summaryGoals.total + statics.sum,
+          income: newIncome,
+          outcome: newOutcome,
+          total: newTotal,
         }
 
         if (JSON.stringify(prevSummary) !== JSON.stringify(newSummary)) {

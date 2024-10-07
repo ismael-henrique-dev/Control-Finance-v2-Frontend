@@ -36,6 +36,8 @@ interface UserProviderType {
   accountState: AccountState | null
   relativeCategoryStats: RelativeCategoryStatsProps
   isLoadingStatic: boolean
+  isLoadingDeleteAccount: boolean
+  isLoadingResetAccount: boolean
 }
 
 type Status = "Danger" | "Ok" | "Good"
@@ -60,20 +62,16 @@ export const UserContext = createContext({} as UserProviderType)
 export function UseProvider({ children }: UserContextProps) {
   const [userData, setUserData] = useState<User | null>(null)
   const [isLoadingStatic, setIsLoadingStatic] = useState(false)
+  const [isLoadingDeleteAccount, setIsLoadingDeleteAccount] = useState(false)
+  const [isLoadingResetAccount, setIsLoadingResetAccount] = useState(false)
   const [accountState, setAccountState] = useState<AccountState | null>(null)
   const [relativeCategoryStats, setRelativeCategoryStats] =
     useState<RelativeCategoryStatsProps>({
       DEP: 0,
       SAL: 0,
-      PercentageOfReturnByCategorie: {
-        category: 0,
-      },
-      PercentageOfReturnByDep: {
-        category: 0,
-      },
-      PercentageOfReturnBySal: {
-        category: 0,
-      },
+      PercentageOfReturnByCategorie: {},
+      PercentageOfReturnByDep: {},
+      PercentageOfReturnBySal: {},
     })
 
   const navigate = useNavigate()
@@ -83,7 +81,7 @@ export function UseProvider({ children }: UserContextProps) {
     try {
       await api.post("/users/register", data)
       navigate("/")
-      // set token in local storage
+      
     } catch (error) {
       console.log(error)
     }
@@ -96,35 +94,36 @@ export function UseProvider({ children }: UserContextProps) {
       navigate("/")
     } catch (error) {
       console.error("Informações incorretas")
-      // "Esse usuário não está cadrastado"
+    }
+  }
+
+  async function loadUser() {
+    const token = localStorage.getItem("@token")
+
+    if (token) {
+      try {
+        const { data } = await api.get(`/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        console.log(data.Profile)
+        setUserData(data.Profile)
+        navigate(pathname)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
   useEffect(() => {
-    async function loadUser() {
-      const token = localStorage.getItem("@token")
-
-      if (token) {
-        try {
-          const { data } = await api.get(`/auth/profile`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          console.log(data.Profile)
-          setUserData(data.Profile)
-          navigate(pathname)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-    }
     loadUser()
   }, [])
 
   function userLogout() {
     localStorage.removeItem("@token")
     setUserData(null)
+    loadUser()
     navigate("/login")
   }
 
@@ -132,15 +131,18 @@ export function UseProvider({ children }: UserContextProps) {
     const token = localStorage.getItem("@token")
 
     try {
+      setIsLoadingResetAccount(true)
       await api.delete(`/users/reset`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
 
-      console.log(`Conta resetada com sucesso!`)
+      loadUser()
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoadingResetAccount(false)
     }
   }
 
@@ -148,6 +150,7 @@ export function UseProvider({ children }: UserContextProps) {
     const token = localStorage.getItem("@token")
 
     try {
+      setIsLoadingDeleteAccount(true)
       await api.delete(`/users/reset`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -158,6 +161,8 @@ export function UseProvider({ children }: UserContextProps) {
       navigate("/singUp")
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoadingDeleteAccount(false)
     }
   }
 
@@ -221,6 +226,8 @@ export function UseProvider({ children }: UserContextProps) {
         accountState,
         relativeCategoryStats,
         isLoadingStatic,
+        isLoadingDeleteAccount,
+        isLoadingResetAccount,
       }}
     >
       {children}

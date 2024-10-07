@@ -57,11 +57,14 @@ export function DonutChart({ chartType }: ChartProps) {
   }, [relativeCategoryStats, chartType, theme])
 
   const chartOptions = options(theme, labelsTitle, colors)
+  const isSeriesEmpty = series.every((value) => value === null)
 
   return (
     <ChartContainer>
       {isLoadingStatic ? (
         <p>Carregando...</p>
+      ) : isSeriesEmpty ? (
+        <p>Não há resumo</p>
       ) : (
         <>
           <Chart
