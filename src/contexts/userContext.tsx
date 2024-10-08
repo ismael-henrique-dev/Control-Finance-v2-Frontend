@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { api } from "../services/api"
+import { ProfileFormData } from "../pages/Profile"
 
 interface UserContextProps {
   children: ReactNode
@@ -20,6 +21,7 @@ interface User {
   Id: string
   Senha: string
   UsernName: string
+  ProfileUrl: string
 }
 
 interface UserProviderType {
@@ -29,9 +31,14 @@ interface UserProviderType {
   userLogout: () => void
   userResetAccount: () => void
   userDeleteAccount: () => void
+  updateUserProfile: (data: ProfileFormData) => void
+  setUserData: (data: User | null) => void
   userData: User | null
   accountState: AccountState | null
   relativeCategoryStats: RelativeCategoryStatsProps
+  isLoadingStatic: boolean
+  isLoadingDeleteAccount: boolean
+  isLoadingResetAccount: boolean
 }
 
 type Status = "Danger" | "Ok" | "Good"
@@ -55,21 +62,17 @@ export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: UserContextProps) {
   const [userData, setUserData] = useState<User | null>(null)
+  const [isLoadingStatic, setIsLoadingStatic] = useState(false)
+  const [isLoadingDeleteAccount, setIsLoadingDeleteAccount] = useState(false)
+  const [isLoadingResetAccount, setIsLoadingResetAccount] = useState(false)
   const [accountState, setAccountState] = useState<AccountState | null>(null)
   const [relativeCategoryStats, setRelativeCategoryStats] =
     useState<RelativeCategoryStatsProps>({
       DEP: 0,
       SAL: 0,
-      PercentageOfReturnByCategorie: {
-        category: 0,
-      },
-      PercentageOfReturnByDep: {
-        category: 0,
-      },
-      PercentageOfReturnBySal: {
-        category: 0
-      }
-
+      PercentageOfReturnByCategorie: {},
+      PercentageOfReturnByDep: {},
+      PercentageOfReturnBySal: {},
     })
 
   const navigate = useNavigate()
@@ -79,6 +82,7 @@ export function UseProvider({ children }: UserContextProps) {
     try {
       await api.post("/users/register", data)
       navigate("/")
+      
     } catch (error) {
       console.log(error)
     }
@@ -94,31 +98,33 @@ export function UseProvider({ children }: UserContextProps) {
     }
   }
 
-  useEffect(() => {
-    async function loadUser() {
-      const token = localStorage.getItem("@token")
+  async function loadUser() {
+    const token = localStorage.getItem("@token")
 
-      if (token) {
-        try {
-          const { data } = await api.get(`/auth/profile`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          console.log(data.Profile)
-          setUserData(data.Profile)
-          navigate(pathname)
-        } catch (error) {
-          console.log(error)
-        }
+    if (token) {
+      try {
+        const { data } = await api.get(`/auth/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        console.log(data.Profile)
+        setUserData(data.Profile)
+        navigate(pathname)
+      } catch (error) {
+        console.log(error)
       }
     }
+  }
+
+  useEffect(() => {
     loadUser()
   }, [])
 
   function userLogout() {
     localStorage.removeItem("@token")
     setUserData(null)
+    loadUser()
     navigate("/login")
   }
 
@@ -126,15 +132,18 @@ export function UseProvider({ children }: UserContextProps) {
     const token = localStorage.getItem("@token")
 
     try {
+      setIsLoadingResetAccount(true)
       await api.delete(`/users/reset`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
 
-      console.log(`Conta resetada com sucesso!`)
+      loadUser()
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoadingResetAccount(false)
     }
   }
 
@@ -142,6 +151,7 @@ export function UseProvider({ children }: UserContextProps) {
     const token = localStorage.getItem("@token")
 
     try {
+      setIsLoadingDeleteAccount(true)
       await api.delete(`/users/reset`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -152,11 +162,14 @@ export function UseProvider({ children }: UserContextProps) {
       navigate("/singUp")
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoadingDeleteAccount(false)
     }
   }
 
   async function fetchUserStatic() {
     try {
+      setIsLoadingStatic(true)
       const token = localStorage.getItem("@token")
       const { data } = await api.get("/users/statistic", {
         headers: {
@@ -168,6 +181,8 @@ export function UseProvider({ children }: UserContextProps) {
       setRelativeCategoryStats(data.Relative)
     } catch (errr) {
       console.log(errr)
+    } finally {
+      setIsLoadingStatic(false)
     }
   }
 
@@ -185,6 +200,19 @@ export function UseProvider({ children }: UserContextProps) {
     }
   }
 
+  async function updateUserProfile(data: ProfileFormData) {
+    const token = localStorage.getItem("@token")
+    try {
+      await api.put(`/users/update`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -194,9 +222,14 @@ export function UseProvider({ children }: UserContextProps) {
         userLogout,
         userResetAccount,
         userDeleteAccount,
+        updateUserProfile,
+        setUserData,
         userData,
         accountState,
         relativeCategoryStats,
+        isLoadingStatic,
+        isLoadingDeleteAccount,
+        isLoadingResetAccount,
       }}
     >
       {children}

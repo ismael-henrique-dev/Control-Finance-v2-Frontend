@@ -48,14 +48,15 @@ export const Section = styled.section`
 
 export const MainContainer = styled.main`
   display: flex;
-  justify-content: start;
   flex-wrap: wrap;
   gap: 2rem;
- 
+  justify-content: safe;
+  max-width: 64rem;
 
   @media (max-width: 768px) {
-    & {
-      justify-content: center;
-    }
+    min-height: 100vh;
+    justify-content: center;
+    padding: 0;
+    margin: auto;
   }
-`;
+`

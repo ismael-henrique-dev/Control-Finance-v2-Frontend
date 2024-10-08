@@ -9,6 +9,7 @@ export const TransactionsContainer = styled.div`
   padding: 0;
   margin: 2rem auto;
   gap: 2rem;
+  min-height: 100vh;
 `
 
 export const ContainerBarSummary = styled.div`

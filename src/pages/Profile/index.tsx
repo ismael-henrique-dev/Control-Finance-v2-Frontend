@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -25,22 +25,36 @@ const profileFormShema = z.object({
   name: z.string(),
 })
 
-type ProfileFormSchema = z.infer<typeof profileFormShema>
+export type ProfileFormData = z.infer<typeof profileFormShema>
 
 export function Profile() {
   const [showPassword, setShowPassword] = useState(false)
-  const { userResetAccount, userDeleteAccount } = useContext(UserContext)
+  const { userResetAccount, userDeleteAccount, updateUserProfile, userData, isLoadingResetAccount, isLoadingDeleteAccount } =
+    useContext(UserContext)
   const { resetAccounts } = useContext(AccountsContext)
   const handleShowPassword = () => {
     setShowPassword(!showPassword)
   }
 
-  const { register, handleSubmit } = useForm<ProfileFormSchema>({
-    resolver: zodResolver(profileFormShema),
-  })
+  const { register, handleSubmit, reset, formState } = useForm<ProfileFormData>(
+    {
+      resolver: zodResolver(profileFormShema),
+    }
+  )
 
-  function handleGetDataByProfile(data: ProfileFormSchema) {
+  useEffect(() => {
+    if (userData) {
+      reset({
+        email: userData.Email,
+        name: userData.UsernName,
+        password: userData.Senha,
+      })
+    }
+  }, [userData])
+
+  async function handleUpdateUserAccount(data: ProfileFormData) {
     console.log(data)
+    await updateUserProfile(data)
   }
 
   async function handleUserResetAccount() {
@@ -55,7 +69,7 @@ export function Profile() {
   return (
     <ResponsiveContainerPage>
       <ProfileContainer>
-        <ContainerForm onSubmit={handleSubmit(handleGetDataByProfile)}>
+        <ContainerForm onSubmit={handleSubmit(handleUpdateUserAccount)}>
           <InputFileUpload />
           <ContainerInputs>
             <Label htmlFor="email-input">Email</Label>
@@ -82,8 +96,12 @@ export function Profile() {
               <input type="text" id="name-input" {...register("name")} />
             </EditableInputContainer>
             <ContainerButtonsForm>
-              <Button>Cancelar</Button>
-              <Button type="submit" variant="purple">
+              <Button disabled={!formState.isDirty}>Cancelar</Button>
+              <Button
+                type="submit"
+                variant="purple"
+                disabled={!formState.isDirty}
+              >
                 Alterar dados
               </Button>
             </ContainerButtonsForm>
@@ -102,7 +120,7 @@ export function Profile() {
               onClick={handleUserDeleteAccount}
               variant="red"
             >
-              Excluir conta
+              {isLoadingDeleteAccount ? "Excluindo..." : "Excluir conta"}
             </Button>
           </Card>
           <Label>Resetar conta</Label>
@@ -116,7 +134,7 @@ export function Profile() {
               onClick={handleUserResetAccount}
               variant="purple"
             >
-              Resetar conta
+              {isLoadingResetAccount ? "Resetando..." : "Resetar conta"}
             </Button>
           </Card>
         </ContainerCards>

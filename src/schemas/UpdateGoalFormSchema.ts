@@ -1,10 +1,10 @@
 import { z } from "zod"
 
 export const updateGoalFormSchema = z.object({
-  Title: z.string(),
-  Value: z.number(),
-  TargetedValue: z.number(),
-  EndTime: z.string().transform((value) => new Date(value)),
+  Title: z.string().optional(),
+  Value: z.number().optional(),
+  TargetedValue: z.number().optional(),
+  EndTime: z.date().optional(),
 })
 
 

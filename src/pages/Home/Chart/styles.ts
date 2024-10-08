@@ -9,6 +9,11 @@ export const ChartContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem;
+
+
+  p {
+    color: ${props => props.theme.text};
+  }
 `
 
 export const Legend = styled.div`

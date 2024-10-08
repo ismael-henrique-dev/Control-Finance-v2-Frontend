@@ -10,7 +10,7 @@ interface GoalsContextType {
   completeGoal: (goalId: string) => Promise<void>
   deleteGoal: (goalId: string) => Promise<void>
   updateGoal: (goalId: string, data: UpdateGoalFormData) => Promise<void>
-  goalsList: Goal[]
+  goalsList: GoalList
   isLoadingGoals: boolean
 }
 
@@ -18,27 +18,31 @@ interface GoalsProviderProps {
   children: ReactNode
 }
 
-interface Goal {
+export interface Goal {
   Id: string
   Title: string
   Value: number
   CreatedAt: string
-  CompletedAt: string
+  CompletedAt: string | null
   EndTime: string
   userId: string
   TargetedValue: number
 }
 
-// interface GoalListProps {
-//   unCompletedGoals: Goal[]
-//   ExpiredGoals: Goal[]
-//   CompletedGoals: Goal[]
-// }
+interface GoalList {
+  unCompletedGoals: Goal[]
+  ExpiredGoals: Goal[]
+  CompletedGoals: Goal[]
+}
 
 export const GoalsContext = createContext({} as GoalsContextType)
 
 export function GoalsProvider({ children }: GoalsProviderProps) {
-  const [goalsList, setGoalsList] = useState<Goal[]>([])
+  const [goalsList, setGoalsList] = useState<GoalList>({
+    unCompletedGoals: [],
+    ExpiredGoals: [],
+    CompletedGoals: [],
+  })
   const [isLoadingGoals, setIsLoadingGoals] = useState(false)
 
   async function createGoal(goalData: CreateGoalFormData) {
@@ -50,7 +54,15 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
           Authorization: `Bearer ${token}`,
         },
       })
-      console.log(data)
+
+      const newGoal: Goal = {
+        ...data.CreatedGoal,
+      }
+
+      setGoalsList((prevGoals) => ({
+        ...prevGoals,
+        unCompletedGoals: [...prevGoals.unCompletedGoals, newGoal],
+      }))
     } catch (err) {
       console.log(err)
     } finally {
@@ -67,11 +79,11 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
           Authorization: `Bearer ${token}`,
         },
       })
-      setGoalsList([
-        ...data.unCompletedGoals,
-        ...data.ExpiredGoals,
-        ...data.CompletedGoals,
-      ])
+      setGoalsList({
+        unCompletedGoals: data.unCompletedGoals,
+        ExpiredGoals: data.ExpiredGoals,
+        CompletedGoals: data.CompletedGoals,
+      })
       console.log(goalsList)
     } catch (errr) {
       console.log(errr)
@@ -87,7 +99,7 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
   async function NewDepositOfGoal(goalId: string, depositValue: number) {
     try {
       const token = localStorage.getItem("@token")
-      await api.put(
+      const { data } = await api.put(
         `/goals/value/${goalId}/${depositValue}`,
         {},
         {
@@ -96,7 +108,14 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
           },
         }
       )
-      console.log(goalId, depositValue)
+      const goalUpdated = { ...data.updatedGoal }
+
+      setGoalsList((prevGoals) => ({
+        ...prevGoals,
+        unCompletedGoals: prevGoals.unCompletedGoals.map((goal) =>
+          goal.Id === goalUpdated.Id ? goalUpdated : goal
+        ),
+      }))
     } catch (error) {
       console.error(error)
     }
@@ -105,7 +124,7 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
   async function completeGoal(goalId: string) {
     try {
       const token = localStorage.getItem("@token")
-      await api.put(
+      const { data } = await api.put(
         `/goals/complete/${goalId}`,
         {},
         {
@@ -114,6 +133,29 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
           },
         }
       )
+
+      setGoalsList((prevGoals) => {
+        const completedGoal = prevGoals.unCompletedGoals.find(
+          (goal) => goal.Id === goalId
+        )
+
+        if (!completedGoal) return prevGoals
+
+        return {
+          ...prevGoals,
+          unCompletedGoals: prevGoals.unCompletedGoals.filter(
+            (goal) => goal.Id !== goalId
+          ),
+          CompletedGoals: [
+            ...prevGoals.CompletedGoals,
+            {
+              ...completedGoal,
+              CompletedAt: data.CompletedAt,
+              Value: completedGoal.TargetedValue,
+            } as Goal,
+          ],
+        }
+      })
     } catch (error) {
       console.error(error)
     }
@@ -141,8 +183,18 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
         },
       })
 
-      const newGoalList = goalsList.filter((goal) => goal.Id !== goalId)
-      setGoalsList(newGoalList)
+      setGoalsList((prevGoals) => ({
+        ...prevGoals,
+        unCompletedGoals: prevGoals.unCompletedGoals.filter(
+          (goal) => goal.Id !== goalId
+        ),
+        ExpiredGoals: prevGoals.ExpiredGoals.filter(
+          (goal) => goal.Id !== goalId
+        ),
+        CompletedGoals: prevGoals.CompletedGoals.filter(
+          (goal) => goal.Id !== goalId
+        ),
+      }))
     } catch (error) {
       console.error(error)
     }

@@ -1,22 +1,19 @@
-import { useState } from "react"
 import { SelectChangeEvent } from "@mui/material"
 import { ChevronDown } from "lucide-react"
 import { StyledMenuItem, useStyledMenuProps, StyledSelect } from "./styles"
 
-export function CustomSelect() {
-  const [value, setValue] = useState<string>("mensal")
+interface CustomSelectFilterProps {
+  value: string
+  change: (event: SelectChangeEvent<string>) => void
+}
 
-  const handleChange = (event: SelectChangeEvent<unknown>) => {
-    const newValue = event.target.value as string
-    setValue(newValue)
-  }
-
+export function CustomSelect({ change, value }: CustomSelectFilterProps) {
   const menuProps = useStyledMenuProps()
 
   return (
     <StyledSelect
       value={value}
-      onChange={handleChange}
+      onChange={change}
       displayEmpty
       IconComponent={ChevronDown}
       MenuProps={menuProps}

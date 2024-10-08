@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { Pencil } from "lucide-react"
 import { ContainerInput } from "./styles"
 
 interface EditableInputProps {
@@ -15,7 +14,7 @@ export function EditableInputContainer({
         
         {children}
       </div>
-      <Pencil />
+      {/* <Pencil /> */}
     </ContainerInput>
   )
 }

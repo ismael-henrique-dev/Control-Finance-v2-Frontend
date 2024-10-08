@@ -22,15 +22,15 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
 
   async function handleUpdateGoal(data: UpdateGoalFormData) {
     console.log(data)
-    console.log(goalId)
-    const {Title,Value, TargetedValue, EndTime } = data
+    const {Title, Value, TargetedValue, EndTime} = data
     await updateGoal(goalId, {
-      Title,
+      Title, 
       Value,
       TargetedValue,
       EndTime
     })
   }
+
 
   return (
     <ModalBase
@@ -84,7 +84,15 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
         <StyledInput
           type="date"
           error={false}
-          {...register("EndTime")}
+          {...register("EndTime", {
+            valueAsDate: true, // Converte o valor para Date
+            setValueAs: (value) => {
+              // Transforma para 'YYYY-MM-DD' antes de enviar
+              return value
+                ? new Date(value).toISOString().split("T")[0]
+                : undefined
+            },
+          })}
           endAdornment={
             <InputAdornment position="end">
               <Calendar color="#4C3299" size={20} />

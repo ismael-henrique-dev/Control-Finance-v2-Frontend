@@ -16,25 +16,9 @@ import {
 } from "../../schemas/CreatetransactionFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-// const StyledInput = styled(Input)`
-//   input[type="date"] {
-//     &::-webkit-calendar-picker-indicator {
-//       opacity: 0;
-//       display: none;
-//     }
-//     &::-webkit-inner-spin-button,
-//     &::-webkit-clear-button {
-//       display: none;
-//     }
-//     &::-moz-clear {
-//       display: none;
-//     }
-//   }
-// `
-
 interface NewTransactionModalProps extends ModalBasePropsDefault {
   accountId?: string
-  accountTitle?: string
+  accountTitle?: string 
 }
 
 interface CategoriesType {
@@ -51,14 +35,15 @@ export function NewTransactionModal({
   const [categories, setCategories] = useState<CategoriesType[]>([])
   const { createTransaction } = useContext(TransactionsContext)
   const { accountsList } = useContext(AccountsContext)
+  const [acTitle, setAcTitle] = useState(accountTitle || "")
 
-  const { control, register, handleSubmit, watch, formState } =
+  const { control, register, handleSubmit, watch, reset, formState } =
     useForm<CreateTransactionFormSchema>({
       resolver: zodResolver(createTransactionFormSchema),
       defaultValues: {
         Type: "DEP",
         Categories: "",
-        accountId: "",
+        accountId: accountId || ""
       },
     })
 
@@ -79,10 +64,22 @@ export function NewTransactionModal({
     }
   }, [selectedType])
 
+  useEffect(() => {
+    if (accountId && accountTitle) {
+      setAcTitle(accountTitle) 
+    }
+  }, [accountId, accountTitle])
+
   async function handleCreateTransaction(data: CreateTransactionFormSchema) {
     const { Title, Value, Type, Categories, accountId } = data
     console.log(data)
-    await createTransaction({ Title, Value, Type, accountId, Categories })
+    
+    reset()
+    await createTransaction(
+      { Title, Value, Type, accountId, Categories },
+      acTitle
+    )
+    handleClose()
   }
 
   return (
@@ -177,10 +174,15 @@ export function NewTransactionModal({
             value={field.value}
           >
             {accountId ? (
-              <StyledMenuItem value={accountId}>{accountTitle}</StyledMenuItem>
+              <StyledMenuItem value={accountId}>{acTitle}</StyledMenuItem>
             ) : (
-              accountsList.map((item, index) => (
-                <StyledMenuItem key={index} value={item.AcId}>
+             
+              accountsList.map((item) => (
+                <StyledMenuItem
+                  key={item.AcId}
+                  value={item.AcId}
+                  onClick={() => setAcTitle(item.accountTitle)} 
+                >
                   {item.accountTitle}
                 </StyledMenuItem>
               ))

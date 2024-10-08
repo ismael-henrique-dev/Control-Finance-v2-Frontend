@@ -9,7 +9,8 @@ export const ModalStyled = styled(Modal)`
 
 export const ContainerModal = styled.div`
   background-color: ${(props) => props.theme.primaryGray};
-  width: 33.75rem;
+  width: 50%;
+  height: 80%;
   min-height: 20rem;
   padding: 1.25rem;
   border-radius: 12px;
@@ -36,6 +37,8 @@ export const ContainerModal = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    overflow-y: scroll;
+    padding: 0 1rem;
   }
 
   @media (max-width: 768px) {
@@ -117,11 +120,11 @@ export const SuggestionArea = styled.section`
     flex-direction: column;
     gap: 0.75rem;
 
-    @media (min-width: 768px) {
+    /* @media (min-width: 768px) {
       max-height: 120px;
       overflow-y: scroll;
       padding: 0%.5rem;
-    }
+    } */
   }
 `
 

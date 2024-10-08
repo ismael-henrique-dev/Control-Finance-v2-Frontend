@@ -14,7 +14,7 @@ export const ContainerInput = styled.div`
     height: 1.25rem;
     color: ${(props) => props.theme.secundary};
   }
-
+  
   div {
     display: flex;
     align-items: center;

@@ -11,11 +11,11 @@ export interface Transaction {
   AccountId: string
   CreatedAt: string
   Categories: string
-  AccountTitle?: string
+  AccountTitle: string
 }
 
 interface TransactionsContextType {
-  createTransaction: (transaction: CreateTransactionFormSchema) => Promise<void>
+  createTransaction: (transaction: CreateTransactionFormSchema, accountTitle: string) => Promise<void>
   transactions: Transaction[]
   isLoadingTransactionsList: boolean
   deleteTransaction: (transactionId: string) => Promise<void>
@@ -36,7 +36,8 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
   const [isLoadingTransactionsList, setIsLoadingTransactionsList] = useState(false)
 
   async function createTransaction(
-    transactionsData: CreateTransactionFormSchema
+    transactionsData: CreateTransactionFormSchema,
+    accountTitle: string
   ) {
     try {
       const token = localStorage.getItem("@token")
@@ -54,7 +55,7 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
         AccountId: data.Transaction.accountId,
         CreatedAt: data.Transaction.CreatedAt,
         Categories: data.Transaction.Categories,
-        AccountTitle: data.Transaction.AccountTitle,
+        AccountTitle: accountTitle,
       }
 
       setTransactions((prevState) => [transaction, ...prevState])
@@ -121,7 +122,7 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
         }
       )
 
-      const transactionUpdated: Transaction = {
+      const transactionUpdated = {
         Id: data.New.Id,
         Title: data.New.Title,
         Value: data.New.Value,

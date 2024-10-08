@@ -87,6 +87,11 @@ export const Button = styled.button<ButtonVariants>`
   cursor: pointer;
   border: 0;
 
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
   background-color: ${(props) => {
     switch (props.variant) {
       case "purple":
