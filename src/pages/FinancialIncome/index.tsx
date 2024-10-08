@@ -113,7 +113,6 @@ export function FinancialIncome() {
         <section>
           <CustomSelect change={handleChange} value={filter} />
           <ColumnChart balance={{ total: series }} chartLabels={labels} />{" "}
-          {/* Passa o array de totais */}
         </section>
         <section>
           <strong>Status</strong>

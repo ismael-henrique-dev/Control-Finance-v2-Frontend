@@ -1,13 +1,13 @@
 import { Pencil } from "lucide-react"
 import { ChangeEvent, useContext, useEffect, useState } from "react"
-import { FormContainer, Input, Label, ProfilePic, ImagePreview } from "./styles"
+import { Container, Input, Label, ProfilePic, ImagePreview } from "./styles"
 import { api } from "../../../services/api"
 import { UserContext } from "../../../contexts/userContext"
 import testImage from "../../../assets/test-image.svg"
 
 export function InputFileUpload() {
   const [imageUrl, setImageUrl] = useState<string | null>(null)
-  const { userData } = useContext(UserContext)
+  const { userData, setUserData } = useContext(UserContext)
 
   useEffect(() => {
     if (userData && userData.ProfileUrl) {
@@ -44,11 +44,20 @@ export function InputFileUpload() {
       }
 
       reader.readAsDataURL(file) // Converte a imagem em base64
+      
+      setUserData({
+        ...userData,
+        ProfileUrl: imageUrl || "",
+        Email: userData?.Email ?? "", // Garante que o valor de Email não seja undefined
+        Id: userData?.Id ?? "",
+        Senha: userData?.Senha ?? "",
+        UsernName: userData?.UsernName ?? "",
+      })
     }
   }
 
   return (
-    <FormContainer>
+    <Container>
       <ProfilePic>
         <ImagePreview src={imageUrl || testImage} alt="Imagem de Perfil" />
         <Input
@@ -62,6 +71,6 @@ export function InputFileUpload() {
           <Pencil />
         </Label>
       </ProfilePic>
-    </FormContainer>
+    </Container>
   )
 }

@@ -22,10 +22,15 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
 
   async function handleUpdateGoal(data: UpdateGoalFormData) {
     console.log(data)
-    console.log(goalId)
-    // const {Title,Value, TargetedValue, EndTime } = data
-    await updateGoal(goalId, data)
+    const {Title, Value, TargetedValue, EndTime} = data
+    await updateGoal(goalId, {
+      Title, 
+      Value,
+      TargetedValue,
+      EndTime
+    })
   }
+
 
   return (
     <ModalBase
@@ -80,7 +85,13 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
           type="date"
           error={false}
           {...register("EndTime", {
-            valueAsDate: true
+            valueAsDate: true, // Converte o valor para Date
+            setValueAs: (value) => {
+              // Transforma para 'YYYY-MM-DD' antes de enviar
+              return value
+                ? new Date(value).toISOString().split("T")[0]
+                : undefined
+            },
           })}
           endAdornment={
             <InputAdornment position="end">

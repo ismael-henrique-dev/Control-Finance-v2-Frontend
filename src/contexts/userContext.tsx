@@ -32,6 +32,7 @@ interface UserProviderType {
   userResetAccount: () => void
   userDeleteAccount: () => void
   updateUserProfile: (data: ProfileFormData) => void
+  setUserData: (data: User | null) => void
   userData: User | null
   accountState: AccountState | null
   relativeCategoryStats: RelativeCategoryStatsProps
@@ -222,6 +223,7 @@ export function UseProvider({ children }: UserContextProps) {
         userResetAccount,
         userDeleteAccount,
         updateUserProfile,
+        setUserData,
         userData,
         accountState,
         relativeCategoryStats,

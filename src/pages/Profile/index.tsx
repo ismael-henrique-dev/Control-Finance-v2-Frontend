@@ -53,6 +53,7 @@ export function Profile() {
   }, [userData])
 
   async function handleUpdateUserAccount(data: ProfileFormData) {
+    console.log(data)
     await updateUserProfile(data)
   }
 
