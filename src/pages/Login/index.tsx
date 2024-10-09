@@ -27,7 +27,7 @@ export function Login() {
     setShowPassword(!showPassword)
   }
 
-  const { userLogin } = useContext(UserContext)
+  const { userLogin, isLoadingDataUser } = useContext(UserContext)
 
   const {
     register,
@@ -86,7 +86,7 @@ export function Login() {
               }
             />
           </TextFiled>
-          <Button type="submit">Entrar</Button>
+          <Button type="submit">{isLoadingDataUser ? "Entrando...": "Entrar"}</Button>
         </form>
       </AuthForm>
     </AuthResposiveContainer>

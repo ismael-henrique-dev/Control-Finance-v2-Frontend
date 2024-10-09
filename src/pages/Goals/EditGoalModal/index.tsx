@@ -29,6 +29,7 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
       TargetedValue,
       EndTime
     })
+    handleClose()
   }
 
 

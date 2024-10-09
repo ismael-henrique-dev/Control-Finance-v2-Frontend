@@ -71,24 +71,28 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
   }
 
   async function fetchGoals() {
-    try {
-      setIsLoadingGoals(true)
-      const token = localStorage.getItem("@token")
-      const { data } = await api.get("/goals", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      setGoalsList({
-        unCompletedGoals: data.unCompletedGoals,
-        ExpiredGoals: data.ExpiredGoals,
-        CompletedGoals: data.CompletedGoals,
-      })
-      console.log(goalsList)
-    } catch (errr) {
-      console.log(errr)
-    } finally {
-      setIsLoadingGoals(false)
+    const token = localStorage.getItem("@token")
+
+    if (token) {
+      try {
+        setIsLoadingGoals(true)
+
+        const { data } = await api.get("/goals", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        setGoalsList({
+          unCompletedGoals: data.unCompletedGoals,
+          ExpiredGoals: data.ExpiredGoals,
+          CompletedGoals: data.CompletedGoals,
+        })
+        console.log(goalsList)
+      } catch (errr) {
+        console.log(errr)
+      } finally {
+        setIsLoadingGoals(false)
+      }
     }
   }
 

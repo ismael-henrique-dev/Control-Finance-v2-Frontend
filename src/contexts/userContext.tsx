@@ -1,7 +1,16 @@
-import { createContext, ReactNode, useEffect, useState } from "react"
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 import { useNavigate } from "react-router-dom"
 import { api } from "../services/api"
 import { ProfileFormData } from "../pages/Profile"
+import { TransactionsContext } from "./transactionsContext"
+import { GoalsContext } from "./goalsContext"
+import { AccountsContext } from "./accountsContext"
 
 interface UserContextProps {
   children: ReactNode
@@ -39,6 +48,7 @@ interface UserProviderType {
   isLoadingStatic: boolean
   isLoadingDeleteAccount: boolean
   isLoadingResetAccount: boolean
+  isLoadingDataUser: boolean
 }
 
 type Status = "Danger" | "Ok" | "Good"
@@ -61,10 +71,14 @@ interface RelativeCategoryStatsProps {
 export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: UserContextProps) {
+  const { fetchTransactions, transactions } = useContext(TransactionsContext)
+  const { fetchGoals } = useContext(GoalsContext)
+  const { fetchAccounts } = useContext(AccountsContext)
   const [userData, setUserData] = useState<User | null>(null)
   const [isLoadingStatic, setIsLoadingStatic] = useState(false)
   const [isLoadingDeleteAccount, setIsLoadingDeleteAccount] = useState(false)
   const [isLoadingResetAccount, setIsLoadingResetAccount] = useState(false)
+  const [isLoadingDataUser, setIsLoadingDataUser] = useState(false)
   const [accountState, setAccountState] = useState<AccountState | null>(null)
   const [relativeCategoryStats, setRelativeCategoryStats] =
     useState<RelativeCategoryStatsProps>({
@@ -82,7 +96,6 @@ export function UseProvider({ children }: UserContextProps) {
     try {
       await api.post("/users/register", data)
       navigate("/")
-      
     } catch (error) {
       console.log(error)
     }
@@ -90,11 +103,22 @@ export function UseProvider({ children }: UserContextProps) {
 
   async function userLogin(userData: UserLoginFormData) {
     try {
+      setIsLoadingDataUser(true)
       const { data } = await api.patch("/auth/login", userData)
       localStorage.setItem("@token", data.Token)
-      navigate("/")
+
+      await loadUser()
+      await fetchUserStatic()
+
+      console.log("lista de transações", transactions)
     } catch (error) {
       console.error("Informações incorretas")
+    } finally {
+      setIsLoadingDataUser(false)
+      navigate("/")
+      await fetchTransactions()
+      await fetchGoals()
+      await fetchAccounts()
     }
   }
 
@@ -168,21 +192,25 @@ export function UseProvider({ children }: UserContextProps) {
   }
 
   async function fetchUserStatic() {
-    try {
-      setIsLoadingStatic(true)
-      const token = localStorage.getItem("@token")
-      const { data } = await api.get("/users/statistic", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    const token = localStorage.getItem("@token")
 
-      setAccountState(data.AccountState)
-      setRelativeCategoryStats(data.Relative)
-    } catch (errr) {
-      console.log(errr)
-    } finally {
-      setIsLoadingStatic(false)
+    if (token) {
+      try {
+        setIsLoadingStatic(true)
+
+        const { data } = await api.get("/users/statistic", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        setAccountState(data.AccountState)
+        setRelativeCategoryStats(data.Relative)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoadingStatic(false)
+      }
     }
   }
 
@@ -195,8 +223,8 @@ export function UseProvider({ children }: UserContextProps) {
       const { data } = await api.patch("/auth/login/guest", {})
       localStorage.setItem("@token", data.Token)
       navigate("/")
-    } catch (errr) {
-      console.log(errr)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -230,6 +258,7 @@ export function UseProvider({ children }: UserContextProps) {
         isLoadingStatic,
         isLoadingDeleteAccount,
         isLoadingResetAccount,
+        isLoadingDataUser,
       }}
     >
       {children}

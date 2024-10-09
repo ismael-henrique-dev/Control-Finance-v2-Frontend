@@ -22,6 +22,7 @@ interface AccountsContextType {
   updateAccount: (accountId: string, updatedData: UpdatedData) => Promise<void>
   getAccountById: (accountId: string) => Promise<UpdateAccountFormSchema>
   resetAccounts: () => void
+  fetchAccounts: () => Promise<void>
 }
 
 export interface Statics {
@@ -60,19 +61,22 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   async function fetchAccounts() {
     setIsloading(true)
     const token = localStorage.getItem("@token")
-    try {
-      const { data } = await api.get("/users/account", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
 
-      setStatics(data.Statics)
-      setAccountsList(data.AccountStatics)
-    } catch (err) {
-      console.error("Error fetching accounts:", err)
-    } finally {
-      setIsloading(false)
+    if (token) {
+      try {
+        const { data } = await api.get("/users/account", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        setStatics(data.Statics)
+        setAccountsList(data.AccountStatics)
+      } catch (err) {
+        console.error("Error fetching accounts:", err)
+      } finally {
+        setIsloading(false)
+      }
     }
   }
 
@@ -216,6 +220,7 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
         updateAccount,
         getAccountById,
         resetAccounts,
+        fetchAccounts,
       }}
     >
       {children}

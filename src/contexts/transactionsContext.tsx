@@ -15,10 +15,14 @@ export interface Transaction {
 }
 
 interface TransactionsContextType {
-  createTransaction: (transaction: CreateTransactionFormSchema, accountTitle: string) => Promise<void>
+  createTransaction: (
+    transaction: CreateTransactionFormSchema,
+    accountTitle: string
+  ) => Promise<void>
   transactions: Transaction[]
   isLoadingTransactionsList: boolean
   deleteTransaction: (transactionId: string) => Promise<void>
+  fetchTransactions: () => Promise<void>
   updateTransaction: (
     transactionId: string,
     data: EditTransactionFormSchema
@@ -33,7 +37,8 @@ export const TransactionsContext = createContext({} as TransactionsContextType)
 
 export function TransactionsProvider({ children }: TransactionsContextProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [isLoadingTransactionsList, setIsLoadingTransactionsList] = useState(false)
+  const [isLoadingTransactionsList, setIsLoadingTransactionsList] =
+    useState(false)
 
   async function createTransaction(
     transactionsData: CreateTransactionFormSchema,
@@ -65,19 +70,22 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
   }
 
   async function fetchTransactions() {
-    try {
-      setIsLoadingTransactionsList(true)
-      const token = localStorage.getItem("@token")
-      const { data } = await api.get("/transaction", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      setTransactions(data.TransactionList)
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setIsLoadingTransactionsList(false)
+    const token = localStorage.getItem("@token")
+    if (token) {
+      try {
+        setIsLoadingTransactionsList(true)
+
+        const { data } = await api.get("/transaction", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        setTransactions(data.TransactionList)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setIsLoadingTransactionsList(false)
+      }
     }
   }
 
@@ -160,6 +168,7 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
         isLoadingTransactionsList,
         deleteTransaction,
         updateTransaction,
+        fetchTransactions,
       }}
     >
       {children}

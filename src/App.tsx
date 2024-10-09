@@ -27,15 +27,15 @@ export default function MainApp() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <UseProvider>
-          <AccountsProvider>
-            <TransactionsProvider>
-              <GoalsProvider>
+        <AccountsProvider>
+          <TransactionsProvider>
+            <GoalsProvider>
+              <UseProvider>
                 <App />
-              </GoalsProvider>
-            </TransactionsProvider>
-          </AccountsProvider>
-        </UseProvider>
+              </UseProvider>
+            </GoalsProvider>
+          </TransactionsProvider>
+        </AccountsProvider>
       </BrowserRouter>
     </ThemeProvider>
   )

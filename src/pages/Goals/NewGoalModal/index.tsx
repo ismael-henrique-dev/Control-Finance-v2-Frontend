@@ -39,6 +39,7 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
   async function handleCreateGoal(data: CreateGoalFormData) {
     console.log(data)
     await createGoal(data)
+    handleClose()
   }
 
   return (

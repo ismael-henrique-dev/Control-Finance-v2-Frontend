@@ -28,6 +28,7 @@ export function NewDepositOfGoalModal({
     console.log(data)
     const { DepositValue } = data
     await NewDepositOfGoal(goalId, DepositValue)
+    handleClose()
   }
 
   return (
