@@ -22,50 +22,52 @@ const iconConfig = {
 export function CardStatus() {
   const { accountState } = useContext(UserContext)
 
-  if (!accountState) {
-    return 
-  }
-
   return (
     <CardStatusContainer>
-      <p>
-        O status com base nos seus gastos, aqui você pode saber como está a
-        relação das suas finanças com metas, despesas e ganhos.
-      </p>
-      <StatusContainer>
-        <Status>
-          <div>
-            <Goal />
-            <span>Andamento das metas</span>
-          </div>
-          {iconConfig[accountState.AndamentoDasMetas]}
-        </Status>
-        <Status>
-          <div>
-            <ShoppingBasket />
-            <span>Gastos essenciais</span>
-          </div>
-          {iconConfig[accountState.GastosEssenciais]}
-        </Status>
-        <Status>
-          <div>
-            <Activity />
-            <span>Investidor</span>
-          </div>
-          {iconConfig[accountState.Investimentos]}
-        </Status>
-        <Status>
-          <div>
-            <HandCoins />
-            <span>Economista</span>
-          </div>
-          {iconConfig[accountState.Economista]}
-        </Status>
-      </StatusContainer>
-      <p>
-        Recomendamos que você invista para preservar o valor do seu dinheiro e
-        considere reduzir um pouco dos seus gastos.
-      </p>
+      {accountState ? (
+        <>
+          <p>
+            O status com base nos seus gastos, aqui você pode saber como está a
+            relação das suas finanças com metas, despesas e ganhos.
+          </p>
+          <StatusContainer>
+            <Status>
+              <div>
+                <Goal />
+                <span>Andamento das metas</span>
+              </div>
+              {iconConfig[accountState.AndamentoDasMetas]}
+            </Status>
+            <Status>
+              <div>
+                <ShoppingBasket />
+                <span>Gastos essenciais</span>
+              </div>
+              {iconConfig[accountState.GastosEssenciais]}
+            </Status>
+            <Status>
+              <div>
+                <Activity />
+                <span>Investidor</span>
+              </div>
+              {iconConfig[accountState.Investimentos]}
+            </Status>
+            <Status>
+              <div>
+                <HandCoins />
+                <span>Economista</span>
+              </div>
+              {iconConfig[accountState.Economista]}
+            </Status>
+          </StatusContainer>
+          <p>
+            Recomendamos que você invista para preservar o valor do seu dinheiro
+            e considere reduzir um pouco dos seus gastos.
+          </p>
+        </>
+      ) : (
+        <p>Carregando...</p>
+      )}
     </CardStatusContainer>
   )
 }

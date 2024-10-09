@@ -6,6 +6,10 @@ export const MainContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-widht: 768px) {
+    display: block;
+  }
 `
 
 export const ResposiveContainer = styled.main`
@@ -31,5 +35,6 @@ export const ResposiveContainer = styled.main`
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 4rem 2rem;
+    height: 100vh;
   }
 `

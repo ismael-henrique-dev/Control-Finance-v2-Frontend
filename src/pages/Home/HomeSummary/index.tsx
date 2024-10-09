@@ -1,16 +1,17 @@
 import { ArrowDown, ArrowUp } from "lucide-react"
 import { HomeSummary, MainBalance, TransactionType } from "./styles"
-import { useSummaryMain } from "../../../hooks/useSummaryMain"
 import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
+import { useContext } from "react"
+import { AccountsContext } from "../../../contexts/accountsContext"
 
 export function Summary() {
-  const summary = useSummaryMain()
   const formatter = useFormatterCoin
+  const { statics } = useContext(AccountsContext)
 
   return (
     <HomeSummary>
       <MainBalance>
-        <strong>{formatter(summary.total)}</strong>
+        <strong>{formatter(statics?.sum || 0)}</strong>
         <span>Saldo atual</span>
       </MainBalance>
       <section>
@@ -18,13 +19,13 @@ export function Summary() {
           <div>
             <ArrowUp />
           </div>
-          <span>{formatter(summary.income)}</span>
+          <span>{formatter(statics?.totalDeposit || 0)}</span>
         </TransactionType>
         <TransactionType variant="outcome">
           <div>
             <ArrowDown />
           </div>
-          <span>{formatter(summary.outcome)}</span>
+          <span>{formatter(statics?.totalWithdraw || 0)}</span>
         </TransactionType>
       </section>
     </HomeSummary>

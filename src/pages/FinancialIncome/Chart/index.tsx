@@ -1,4 +1,3 @@
-import React from "react"
 import ReactApexChart from "react-apexcharts"
 import styled, { useTheme } from "styled-components"
 
@@ -87,9 +86,21 @@ const ColumnChart = ({ balance, chartLabels }: { balance: Balance, chartLabels: 
     grid: {
       borderColor: theme.text,
     },
+    responsive: [{
+      breakpoint: 768,
+      options: {
+          chart: {
+            width: "100%", 
+          },
+          plotOptions: {
+            bar: {
+              columnWidth: "75%", 
+            },
+          },
+      
+    }}]
   }
 
-  // Passando os totais para a série do gráfico
   const series = [
     {
       name: "Saldo neste período",

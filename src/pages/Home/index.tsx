@@ -28,20 +28,20 @@ export function Home() {
     <HomeContainer>
       <DefaultContainer content="center">
         <EstatisticCard>
-          <strong>Saldo total</strong>
+          <h1>Saldo total</h1>
           <Summary />
         </EstatisticCard>
         <EstatisticCard>
-          <strong>Resumo dos depósitos</strong>
+          <h1>Resumo dos depósitos</h1>
           <DonutChart chartType="DEP" />
         </EstatisticCard>
         <EstatisticCard>
-          <strong>Resumo dos saques</strong>
+          <h1>Resumo dos saques</h1>
           <DonutChart chartType="SAL" />
         </EstatisticCard>
       </DefaultContainer>
       <TopContainer>
-        <strong>Contas</strong>
+        <h1>Contas</h1>
         <NavLink to="/contas">ver mais</NavLink>
       </TopContainer>
       <DefaultContainer content="start">
@@ -68,7 +68,7 @@ export function Home() {
         </main>
       </DefaultContainer>
       <TopContainer>
-        <strong>Metas</strong>
+        <h1>Metas</h1>
         <NavLink to="/metas">ver mais</NavLink>
       </TopContainer>
       <DefaultContainer content="start">
