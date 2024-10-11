@@ -1,22 +1,20 @@
 import { useContext, useState } from "react"
+import { NewTransactionModal } from "../../components/form/NewTransactionModal"
 import { useSummaryTransaction } from "../../hooks/useSummaryTransaction"
 import { SelectFilter } from "../../components/form/FilterSelect"
 import { Summary } from "../../components/ui/Summary"
 import { Button } from "../../components/ui/Button"
 import { Table } from "./Table"
 import { SearchBarTransaction } from "./SearchBarTransaction"
-
 import { TransactionsContext } from "../../contexts/transactionsContext"
 import { LinearProgressCustom } from "../Accounts/styles"
 import { EmptyAccounts } from "../../components/ui/EmptyComponent"
 import { SelectChangeEvent } from "@mui/material"
-
 import {
   ContainerBarSummary,
   MainContainer,
   TransactionsContainer,
 } from "./styles"
-import { NewTransactionModal } from "../../components/form/NewTransactionModal"
 
 export function Transactions() {
   const [search, setSearch] = useState("")

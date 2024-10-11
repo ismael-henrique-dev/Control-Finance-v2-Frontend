@@ -1,6 +1,4 @@
 import { useState } from "react"
-import { useFormatterCoin } from "../../../../hooks/useFormatterCoin"
-
 import { PopeoverOptionsAccount } from "./PopoverOptionsAccount"
 import {
   Coins,
@@ -19,6 +17,7 @@ import {
   SummaryType,
 } from "./styles"
 import { NewTransactionModal } from "../../../form/NewTransactionModal"
+import { priceFormatter } from "../../../../utils/formatter"
 
 interface AccountCardProps {
   isPageAccounts: boolean
@@ -43,8 +42,6 @@ export function AccountCard({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const formatCurrency = useFormatterCoin
-
   const iconMap: Record<string, JSX.Element> = {
     Carteira: <Wallet size={32} />,
     ContaBancaria: <Landmark size={32} />,
@@ -66,21 +63,21 @@ export function AccountCard({
           </ButtonAdd>
         </ActionsArea>
       </header>
-      <strong>{formatCurrency(total)}</strong>
+      <strong>{priceFormatter(total)}</strong>
       <AccountSummary>
         <SummaryType variant="income">
           <div>
             <TrendingUp />
             Depositos
           </div>
-          <span>{formatCurrency(income)}</span>
+          <span>{priceFormatter(income)}</span>
         </SummaryType>
         <SummaryType variant="outcome">
           <div>
             <TrendingDown />
             Saídas
           </div>
-          <span>{formatCurrency(outcome)}</span>
+          <span>{priceFormatter(outcome)}</span>
         </SummaryType>
       </AccountSummary>
       <NewTransactionModal

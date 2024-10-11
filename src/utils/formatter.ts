@@ -1,4 +1,4 @@
-export function useFormatterCoin(value: number) {
+export function priceFormatter(value: number) {
   return new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",

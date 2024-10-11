@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { CircleDollarSign } from "lucide-react"
-import { useFormatterCoin } from "../../../../hooks/useFormatterCoin"
 import { MoreGoalOption } from "./SpeedDial"
 import { BarLinearProgress, ContainerCard } from "./styles"
 import dayjs from "dayjs"
+import { priceFormatter } from "../../../../utils/formatter"
 
 export interface GoalCardProps {
   isGoalsPage: boolean
@@ -22,8 +22,7 @@ export function GoalCard({
   goalDate,
   goalId,
 }: GoalCardProps) {
-  const [progress, setProgress] = useState(0) 
-  const formatter = useFormatterCoin
+  const [progress, setProgress] = useState(0)
 
   const currentPercentage = Math.round((currentValue / targetValue) * 100)
 
@@ -45,7 +44,7 @@ export function GoalCard({
       <span>Vencimento: {dayjs(goalDate).format("DD/MM/YYYY")}</span>
       <section>
         <strong>
-          {formatter(currentValue)} de {formatter(targetValue)}
+          {priceFormatter(currentValue)} de {priceFormatter(targetValue)}
         </strong>
         <BarLinearProgress variant="determinate" value={progress} />
       </section>
