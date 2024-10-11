@@ -1,6 +1,6 @@
 import { ArrowDown, ArrowUp, DollarSign } from "lucide-react"
 import { ContainerSummary, TransactionType } from "./styles"
-import { useFormatterCoin } from "../../hooks/useFormatterCoin"
+import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
 
 interface SummaryProps {
   type?: "goal"

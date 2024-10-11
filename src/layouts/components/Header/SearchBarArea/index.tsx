@@ -1,4 +1,7 @@
+import { useState } from "react"
 import { ChevronRight, Search, SearchCheck } from "lucide-react"
+import { NavLink } from "react-router-dom"
+import { GlobalSearch } from "../../../../functions"
 import {
   ContainerModal,
   InputAreaFunctional,
@@ -6,9 +9,6 @@ import {
   Suggestion,
   SuggestionArea,
 } from "./styles"
-import { NavLink } from "react-router-dom"
-import { GlobalSearch } from "../../../utils/globalSeach"
-import { useState } from "react"
 
 interface SearchBarAreaProps {
   open: boolean
@@ -48,7 +48,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
               <NavLink to="/route">ver mais</NavLink>
             </header>
             <ul>
-              {suggestions.transactions.slice(0,5).map((transaction) => (
+              {suggestions.transactions.slice(0, 5).map((transaction) => (
                 <Suggestion key={transaction.Id}>
                   <div>
                     <span>
@@ -67,7 +67,7 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
               <NavLink to="/route">ver mais</NavLink>
             </header>
             <ul>
-              {suggestions.accounts.slice(0,5).map((account) => (
+              {suggestions.accounts.slice(0, 5).map((account) => (
                 <Suggestion key={account.AcId}>
                   <div>
                     <span>

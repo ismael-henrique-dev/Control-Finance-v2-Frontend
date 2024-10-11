@@ -1,7 +1,7 @@
 import { Sponsor } from "../../components/Auth/Sponsor"
 import { AuthForm } from "../../components/Auth/AuthForm"
 import { AuthResposiveContainer } from "../../components/Auth/ResposiveContainer"
-import { TextFiled } from "../../components/TextField"
+import { TextFiled } from "../../components/form/TextField"
 import InputLabel from "@mui/material/InputLabel"
 import Input from "@mui/material/Input"
 import InputAdornment from "@mui/material/InputAdornment"

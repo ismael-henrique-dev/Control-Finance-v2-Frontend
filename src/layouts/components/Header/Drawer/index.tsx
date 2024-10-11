@@ -10,11 +10,11 @@ import {
   PiggyBank,
 } from "lucide-react"
 import { ContainerDrawer, ListContainer, PresentationSection } from "./styles"
-import { UserContext } from "../../../contexts/userContext"
+import { UserContext } from "../../../../contexts/userContext"
 import Drawer from "@mui/material/Drawer"
 import ListItem from "@mui/material/ListItem"
 import Box from "@mui/material/Box"
-import testImage from "../../../assets/test-image.svg"
+import testImage from "../../../../assets/test-image.svg"
 
 export function DrawerBasic() {
   const [open, setOpen] = useState(false)

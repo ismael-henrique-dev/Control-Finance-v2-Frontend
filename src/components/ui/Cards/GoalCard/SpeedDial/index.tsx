@@ -7,10 +7,10 @@ import {
   Trash2,
 } from "lucide-react"
 import { Actions, Container, PopoverStyle } from "./styles"
-import { NewDepositOfGoalModal } from "../../../../pages/Goals/NewDepositOfGoalModal"
+import { NewDepositOfGoalModal } from "../../../../../pages/Goals/NewDepositOfGoalModal"
 import Popover from "@mui/material/Popover"
-import { GoalsContext } from "../../../../contexts/goalsContext"
-import { EditGoalModal } from "../../../../pages/Goals/EditGoalModal"
+import { GoalsContext } from "../../../../../contexts/goalsContext"
+import { EditGoalModal } from "../../../../../pages/Goals/EditGoalModal"
 
 interface MoreGoalOptionProps {
   isGoalsPage: boolean

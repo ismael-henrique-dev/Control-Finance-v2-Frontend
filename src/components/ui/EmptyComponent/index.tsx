@@ -1,5 +1,5 @@
 import { EmptyComponent } from "./styles"
-import emptyIcon from "../../assets/empty-icon.svg"
+import emptyIcon from "../../../assets/empty-icon.svg"
 
 interface EmptyTypeMensage {
   mensageType: "conta" | "transação" | "meta"

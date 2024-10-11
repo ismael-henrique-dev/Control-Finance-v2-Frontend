@@ -1,24 +1,25 @@
-import { ModalBase, ModalBasePropsDefault } from "../ModalBase"
-import { TextFiled } from "../TextField"
-import SelectVariants from "../ModalBase/SelectField"
 import { useContext, useEffect, useState } from "react"
 import Input from "@mui/material/Input"
 import InputLabel from "@mui/material/InputLabel"
-import { Controller, useForm } from "react-hook-form"
-import { TransactionsContext } from "../../contexts/transactionsContext"
-import { AccountsContext } from "../../contexts/accountsContext"
-import CurrencyInput from "react-currency-input-field"
-import { StyledMenuItem } from "../ModalBase/SelectField/styles"
-import { selectCategoryData } from "../../utils/dataCategories"
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { ModalBase, ModalBasePropsDefault } from "./ModalBase"
+import { TextFiled } from "../TextField"
+import { TransactionsContext } from "../../../contexts/transactionsContext"
 import {
   createTransactionFormSchema,
   CreateTransactionFormSchema,
-} from "../../schemas/CreatetransactionFormSchema"
-import { zodResolver } from "@hookform/resolvers/zod"
+} from "../../../schemas/CreatetransactionFormSchema"
+import { Controller, useForm } from "react-hook-form"
+import { AccountsContext } from "../../../contexts/accountsContext"
+import SelectVariants from "./ModalBase/SelectField"
+import { selectCategoryData } from "../../../utils/data"
+import CurrencyInput from "react-currency-input-field"
+import { StyledMenuItem } from "./ModalBase/SelectField/styles"
 
 interface NewTransactionModalProps extends ModalBasePropsDefault {
   accountId?: string
-  accountTitle?: string 
+  accountTitle?: string
 }
 
 interface CategoriesType {
@@ -43,7 +44,7 @@ export function NewTransactionModal({
       defaultValues: {
         Type: "DEP",
         Categories: "",
-        accountId: accountId || ""
+        accountId: accountId || "",
       },
     })
 
@@ -66,14 +67,14 @@ export function NewTransactionModal({
 
   useEffect(() => {
     if (accountId && accountTitle) {
-      setAcTitle(accountTitle) 
+      setAcTitle(accountTitle)
     }
   }, [accountId, accountTitle])
 
   async function handleCreateTransaction(data: CreateTransactionFormSchema) {
     const { Title, Value, Type, Categories, accountId } = data
     console.log(data)
-    
+
     reset()
     await createTransaction(
       { Title, Value, Type, accountId, Categories },
@@ -176,12 +177,11 @@ export function NewTransactionModal({
             {accountId ? (
               <StyledMenuItem value={accountId}>{acTitle}</StyledMenuItem>
             ) : (
-             
               accountsList.map((item) => (
                 <StyledMenuItem
                   key={item.AcId}
                   value={item.AcId}
-                  onClick={() => setAcTitle(item.accountTitle)} 
+                  onClick={() => setAcTitle(item.accountTitle)}
                 >
                   {item.accountTitle}
                 </StyledMenuItem>

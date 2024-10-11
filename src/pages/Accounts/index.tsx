@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
-import { Button } from "../../components/Button"
-import { AccountCard } from "../../components/Cards/AccountCard"
-import { PaginationMenu } from "../../components/PaginationMenu"
-import { Summary } from "../../components/Summary/"
+import { Button } from "../../components/ui/Button"
+import { AccountCard } from "../../components/ui/Cards/AccountCard"
+import { PaginationMenu } from "../../components/form/PaginationMenu"
+import { Summary } from "../../components/ui/Summary"
 import { NewAccountModaL } from "./NewAccountModal"
 import { AccountsContext } from "../../contexts/accountsContext"
 import {
@@ -12,7 +12,7 @@ import {
   MainContainer,
   Section,
 } from "./styles"
-import { EmptyAccounts } from "../../components/EmptyComponent"
+import { EmptyAccounts } from "../../components/ui/EmptyComponent"
 
 export function Accounts() {
   const [open, setOpen] = useState(false)

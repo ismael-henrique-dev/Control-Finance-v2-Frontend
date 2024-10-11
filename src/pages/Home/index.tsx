@@ -1,12 +1,12 @@
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { AccountsContext } from "../../contexts/accountsContext"
-import { AccountCard } from "../../components/Cards/AccountCard"
-import { GoalCard } from "../../components/Cards/GoalCard"
+import { AccountCard } from "../../components/ui/Cards/AccountCard"
+import { GoalCard } from "../../components/ui/Cards/GoalCard"
 import { DonutChart } from "./Chart"
 import { Summary } from "./HomeSummary"
 import { GoalsContext } from "../../contexts/goalsContext"
-import { EmptyAccounts } from "../../components/EmptyComponent"
+import { EmptyAccounts } from "../../components/ui/EmptyComponent"
 import { LinearProgressCustom } from "../Accounts/styles"
 import {
   DefaultContainer,

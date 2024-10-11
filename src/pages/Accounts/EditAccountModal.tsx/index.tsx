@@ -8,12 +8,15 @@ import {
   UpdateAccountFormSchema,
 } from "../../../schemas/UpdateAccountFormSchema"
 import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
-import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
-import { TextFiled } from "../../../components/TextField"
-import { ValidateSelectArea } from "../../../components/TextField/styles"
-import { StyledMenuItem } from "../../../components/ModalBase/SelectField/styles"
-import SelectVariants from "../../../components/ModalBase/SelectField"
-import { selectAccountTypeData } from "../../../utils/dataAccountType"
+import {
+  ModalBase,
+  ModalBasePropsDefault,
+} from "../../../components/form/NewTransactionModal/ModalBase"
+import { TextFiled } from "../../../components/form/TextField"
+import { ValidateSelectArea } from "../../../components/form/TextField/styles"
+import { StyledMenuItem } from "../../../components/form/NewTransactionModal/ModalBase/SelectField/styles"
+import SelectVariants from "../../../components/form/NewTransactionModal/ModalBase/SelectField"
+import { selectAccountTypeData } from "../../../utils/data"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
@@ -60,7 +63,7 @@ export function EditAccountModal({
   }
 
   if (!defaultValue) {
-    return null 
+    return null
   }
 
   console.log(defaultValue)

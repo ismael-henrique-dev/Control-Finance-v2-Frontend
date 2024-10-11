@@ -5,17 +5,17 @@ import { useContext, useEffect, useState } from "react"
 import CurrencyInput from "react-currency-input-field"
 import { Controller, useForm } from "react-hook-form"
 
-import { selectCategoryData } from "../../../../utils/dataCategories"
+import { selectCategoryData } from "../../../../utils/data"
 
 import {
   ModalBase,
   ModalBasePropsDefault,
-} from "../../../../components/ModalBase"
+} from "../../../../components/form/NewTransactionModal/ModalBase"
 import { TransactionsContext } from "../../../../contexts/transactionsContext"
 
 import { StyledMenuItem } from "../../../FinancialIncome/Select/styles"
-import SelectVariants from "../../../../components/ModalBase/SelectField"
-import { TextFiled } from "../../../../components/TextField"
+import SelectVariants from "../../../../components/form/NewTransactionModal/ModalBase/SelectField"
+import { TextFiled } from "../../../../components/form/TextField"
 import {
   EditTransactionFormSchema,
   editTransactionFormSchema,

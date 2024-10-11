@@ -1,6 +1,31 @@
+import { Coins, Handshake, Landmark, Wallet } from "lucide-react"
+
+export const selectAccountTypeData = [
+  {
+    name: "Carteira",
+    type: "Carteira",
+    icon: <Wallet />,
+  },
+  {
+    name: "Conta Bancária",
+    type: "ContaBancaria",
+    icon: <Landmark />,
+  },
+  {
+    name: "Poupança",
+    type: "Poupanca",
+    icon: <Coins />,
+  },
+  {
+    name: "Corretora de investimentos",
+    type: "CorretoraDeInvestimentos",
+    icon: <Handshake />,
+  },
+]
+
 export const selectCategoryData = [
   {
-    Type: {typeName: "Saques", typeValue: "SAL"},
+    Type: { typeName: "Saques", typeValue: "SAL" },
     categories: [
       { name: "Alimentação", type: "Alimentacao" },
       { name: "Educação", type: "Educacao" },
@@ -14,7 +39,7 @@ export const selectCategoryData = [
     ],
   },
   {
-    Type: {typeName: "Depósitos", typeValue: "DEP"},
+    Type: { typeName: "Depósitos", typeValue: "DEP" },
     categories: [
       { name: "Investimento", type: "Investimento" },
       { name: "Salário", type: "Salario" },

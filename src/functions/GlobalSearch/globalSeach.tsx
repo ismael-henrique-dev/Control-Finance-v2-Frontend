@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react"
-import { api } from "../services/api"
-import { Account, AccountsContext } from "../contexts/accountsContext"
+import { api } from "../../services/api"
+import { Account, AccountsContext } from "../../contexts/accountsContext"
 import {
   Transaction,
   TransactionsContext,
-} from "../contexts/transactionsContext"
+} from "../../contexts/transactionsContext"
 
 interface AccountSeachData extends Account {
   Name?: string

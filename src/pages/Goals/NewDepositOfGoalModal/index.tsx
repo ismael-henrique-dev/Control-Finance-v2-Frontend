@@ -2,7 +2,10 @@ import { useContext } from "react"
 import { GoalsContext } from "../../../contexts/goalsContext"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
+import {
+  ModalBase,
+  ModalBasePropsDefault,
+} from "../../../components/form/NewTransactionModal/ModalBase"
 import {
   CreateNewDepositOfGoalFormData,
   createNewDepositOfGoalFormSchema,

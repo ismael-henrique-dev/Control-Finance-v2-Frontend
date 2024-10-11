@@ -2,9 +2,15 @@ import { useContext } from "react"
 import { GoalsContext } from "../../../contexts/goalsContext"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
-import { UpdateGoalFormData, updateGoalFormSchema } from "../../../schemas/UpdateGoalFormSchema"
-import { TextFiled } from "../../../components/TextField"
+import {
+  ModalBase,
+  ModalBasePropsDefault,
+} from "../../../components/form/NewTransactionModal/ModalBase"
+import {
+  UpdateGoalFormData,
+  updateGoalFormSchema,
+} from "../../../schemas/UpdateGoalFormSchema"
+import { TextFiled } from "../../../components/form/TextField"
 import { Input, InputAdornment, InputLabel } from "@mui/material"
 import { Calendar } from "lucide-react"
 import { StyledInput } from "../NewGoalModal"
@@ -16,22 +22,22 @@ interface EditGoalProps extends ModalBasePropsDefault {
 
 export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
   const { updateGoal } = useContext(GoalsContext)
-  const { control, register,handleSubmit, formState } = useForm<UpdateGoalFormData>({
-    resolver: zodResolver(updateGoalFormSchema),
-  })
+  const { control, register, handleSubmit, formState } =
+    useForm<UpdateGoalFormData>({
+      resolver: zodResolver(updateGoalFormSchema),
+    })
 
   async function handleUpdateGoal(data: UpdateGoalFormData) {
     console.log(data)
-    const {Title, Value, TargetedValue, EndTime} = data
+    const { Title, Value, TargetedValue, EndTime } = data
     await updateGoal(goalId, {
-      Title, 
+      Title,
       Value,
       TargetedValue,
-      EndTime
+      EndTime,
     })
     handleClose()
   }
-
 
   return (
     <ModalBase

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { CircleDollarSign } from "lucide-react"
-import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
+import { useFormatterCoin } from "../../../../hooks/useFormatterCoin"
 import { MoreGoalOption } from "./SpeedDial"
 import { BarLinearProgress, ContainerCard } from "./styles"
 import dayjs from "dayjs"
