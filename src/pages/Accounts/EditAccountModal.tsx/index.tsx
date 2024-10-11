@@ -7,7 +7,7 @@ import {
   updateAccountFormSchema,
   UpdateAccountFormSchema,
 } from "../../../schemas/UpdateAccountFormSchema"
-import { AccountsContext, UpdatedData } from "../../../contexts/accountsContext"
+
 import {
   ModalBase,
   ModalBasePropsDefault,
@@ -17,6 +17,8 @@ import { ValidateSelectArea } from "../../../components/form/TextField/styles"
 import { StyledMenuItem } from "../../../components/form/NewTransactionModal/ModalBase/SelectField/styles"
 import SelectVariants from "../../../components/form/NewTransactionModal/ModalBase/SelectField"
 import { selectAccountTypeData } from "../../../utils/data"
+import { AccountsContext } from "../../../contexts"
+import { UpdatedData } from "../../../contexts/Accounts/account"
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string

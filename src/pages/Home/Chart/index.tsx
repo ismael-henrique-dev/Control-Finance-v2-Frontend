@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { ChartContainer, Legend, LegendItem } from "./styles"
-import { UserContext } from "../../../contexts/userContext"
+import { UserContext } from "../../../contexts/User/userContext"
 import { options } from "../../../utils/ChartConfig"
 import { useTheme } from "styled-components"
 import Chart from "react-apexcharts"

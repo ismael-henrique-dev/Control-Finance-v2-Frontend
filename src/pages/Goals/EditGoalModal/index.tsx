@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { GoalsContext } from "../../../contexts/goalsContext"
+import { GoalsContext } from "../../../contexts/Goals/goalsContext"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {

@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 import { PersonStanding } from "lucide-react"
 import iconGoogle from "../../../assets/icon-google.svg"
 import { ReactNode, useContext } from "react"
-import { UserContext } from "../../../contexts/userContext"
+import { UserContext } from "../../../contexts/User/userContext"
 
 interface AuthLoginProps {
   children?: ReactNode

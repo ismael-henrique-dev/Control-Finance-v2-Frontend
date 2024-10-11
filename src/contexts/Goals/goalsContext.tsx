@@ -1,44 +1,16 @@
-import { createContext, ReactNode, useEffect, useState } from "react"
-import { api } from "../services/api"
-import { CreateGoalFormData } from "../schemas/CreateGoalFormSchema"
-import { UpdateGoalFormData } from "../schemas/UpdateGoalFormSchema"
-import { useLoadingStates } from "../hooks/useLoadingStates"
-
-interface GoalsContextType {
-  fetchGoals: () => Promise<void>
-  createGoal: (data: CreateGoalFormData) => Promise<void>
-  NewDepositOfGoal: (goalId: string, depositValue: number) => Promise<void>
-  completeGoal: (goalId: string) => Promise<void>
-  deleteGoal: (goalId: string) => Promise<void>
-  updateGoal: (goalId: string, data: UpdateGoalFormData) => Promise<void>
-  goalsList: GoalList
-  isLoadingGoals: boolean
-}
-
-interface GoalsProviderProps {
-  children: ReactNode
-}
-
-export interface Goal {
-  Id: string
-  Title: string
-  Value: number
-  CreatedAt: string
-  CompletedAt: string | null
-  EndTime: string
-  userId: string
-  TargetedValue: number
-}
-
-interface GoalList {
-  unCompletedGoals: Goal[]
-  ExpiredGoals: Goal[]
-  CompletedGoals: Goal[]
-}
+import { createContext, useEffect, useState } from "react"
+import { api } from "../../services/api"
+import { CreateGoalFormData } from "../../schemas/CreateGoalFormSchema"
+import { UpdateGoalFormData } from "../../schemas/UpdateGoalFormSchema"
+import { useLoadingStates } from "../../hooks/useLoadingStates"
+import { token } from "../../constants"
+import { apiWithToken } from "../../functions"
+import { ProviderProps } from "../../@types/context"
+import { Goal, GoalList, GoalsContextType } from "./goals"
 
 export const GoalsContext = createContext({} as GoalsContextType)
 
-export function GoalsProvider({ children }: GoalsProviderProps) {
+export function GoalsProvider({ children }: ProviderProps) {
   const { isLoadingGoals, setIsLoadingGoals } = useLoadingStates()
   const [goalsList, setGoalsList] = useState<GoalList>({
     unCompletedGoals: [],
@@ -49,12 +21,12 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
   async function createGoal(goalData: CreateGoalFormData) {
     try {
       setIsLoadingGoals(true)
-      const token = localStorage.getItem("@token")
-      const { data } = await api.post("/goals/create", goalData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+
+      const { data } = await api.post(
+        "/goals/create",
+        goalData,
+        apiWithToken(token)
+      )
 
       const newGoal: Goal = {
         ...data.CreatedGoal,
@@ -72,17 +44,11 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
   }
 
   async function fetchGoals() {
-    const token = localStorage.getItem("@token")
-
     if (token) {
       try {
         setIsLoadingGoals(true)
 
-        const { data } = await api.get("/goals", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const { data } = await api.get("/goals", apiWithToken(token))
         setGoalsList({
           unCompletedGoals: data.unCompletedGoals,
           ExpiredGoals: data.ExpiredGoals,
@@ -103,15 +69,10 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
 
   async function NewDepositOfGoal(goalId: string, depositValue: number) {
     try {
-      const token = localStorage.getItem("@token")
       const { data } = await api.put(
         `/goals/value/${goalId}/${depositValue}`,
         {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        apiWithToken(token)
       )
       const goalUpdated = { ...data.updatedGoal }
 
@@ -128,15 +89,10 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
 
   async function completeGoal(goalId: string) {
     try {
-      const token = localStorage.getItem("@token")
       const { data } = await api.put(
         `/goals/complete/${goalId}`,
         {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        apiWithToken(token)
       )
 
       setGoalsList((prevGoals) => {
@@ -168,12 +124,7 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
 
   async function updateGoal(goalId: string, data: UpdateGoalFormData) {
     try {
-      const token = localStorage.getItem("@token")
-      await api.put(`/goals/update/${goalId}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await api.put(`/goals/update/${goalId}`, data, apiWithToken(token))
     } catch (error) {
       console.error(error)
     }
@@ -181,12 +132,7 @@ export function GoalsProvider({ children }: GoalsProviderProps) {
 
   async function deleteGoal(goalId: string) {
     try {
-      const token = localStorage.getItem("@token")
-      await api.delete(`/goals/delete/${goalId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await api.delete(`/goals/delete/${goalId}`, apiWithToken(token))
 
       setGoalsList((prevGoals) => ({
         ...prevGoals,

@@ -4,7 +4,7 @@ import { AccountCard } from "../../components/ui/Cards/AccountCard"
 import { PaginationMenu } from "../../components/form/PaginationMenu"
 import { Summary } from "../../components/ui/Summary"
 import { NewAccountModaL } from "./NewAccountModal"
-import { AccountsContext } from "../../contexts/accountsContext"
+import { AccountsContext } from "../../contexts/Accounts/accountsContext"
 import {
   AccountsContainer,
   ContainerBarSummary,

@@ -10,7 +10,7 @@ import {
 } from "lucide-react"
 import { CardStatusContainer, Status, StatusContainer } from "./styles"
 import { useContext } from "react"
-import { UserContext } from "../../../contexts/userContext"
+import { UserContext } from "../../../contexts/User/userContext"
 
 const iconConfig = {
   Ok: <TriangleAlert color="#FFD600" />,

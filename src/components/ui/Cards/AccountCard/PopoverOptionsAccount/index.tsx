@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { Pencil, Settings2, Trash } from "lucide-react"
 import { Actions, Container } from "../../GoalCard/SpeedDial/styles.ts"
-import { AccountsContext } from "../../../../../contexts/accountsContext.tsx"
+import { AccountsContext } from "../../../../../contexts/Accounts/accountsContext.tsx"
 import { EditAccountModal } from "../../../../../pages/Accounts/EditAccountModal.tsx/index.tsx"
 import { ButtonAdd } from "../styles.ts"
 import { ActionsStyle, PopoverStyle } from "./styles.ts"

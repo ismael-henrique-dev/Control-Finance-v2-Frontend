@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Transaction } from "../../../contexts/transactionsContext"
+import { Transaction } from "../../../contexts/Transactions/transactionsContext"
 import { MenuOptionsTable } from "./MenuOptionsTable"
 import {
   ChevronLeft,

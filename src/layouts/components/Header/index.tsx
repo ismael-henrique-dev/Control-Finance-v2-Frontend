@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 import { DrawerBasic } from "./Drawer"
 import { SearchBarArea } from "./SearchBarArea"
 import { useContext, useState } from "react"
-import { ThemeContext } from "../../../contexts/styledThemeContext"
+import { ThemeContext } from "../../../contexts/Theme/styledThemeContext"
 import logoWhite from "../../../assets/logo-white.svg"
 import logoDark from "../../../assets/logo-dark.svg"
 import {

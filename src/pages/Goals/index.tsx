@@ -5,7 +5,7 @@ import { SelectFilter } from "../../components/form/FilterSelect"
 import { Summary } from "../../components/ui/Summary"
 import { GoalModal } from "./NewGoalModal"
 import { useContext, useState } from "react"
-import { GoalsContext } from "../../contexts/goalsContext"
+import { GoalsContext } from "../../contexts/Goals/goalsContext"
 import {
   ContainerBarSummary,
   GoalsContainer,

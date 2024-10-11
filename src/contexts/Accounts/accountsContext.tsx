@@ -1,55 +1,20 @@
-import { createContext, ReactNode, useEffect, useState } from "react"
-import { api } from "../services/api"
-import { UpdateAccountFormSchema } from "../schemas/UpdateAccountFormSchema"
-import { useLoadingStates } from "../hooks/useLoadingStates"
-
-interface AccountsProviderProps {
-  children: ReactNode
-}
-
-export interface NewAccountProps {
-  Name: string
-  Value: number
-  Type: string
-  Description: string
-}
-
-interface AccountsContextType {
-  isLoading: boolean
-  statics: Statics | null
-  accountsList: Account[]
-  createAccount: (data: NewAccountProps) => Promise<void>
-  deleteAccount: (id: string) => Promise<void>
-  updateAccount: (accountId: string, updatedData: UpdatedData) => Promise<void>
-  getAccountById: (accountId: string) => Promise<UpdateAccountFormSchema>
-  resetAccounts: () => void
-  fetchAccounts: () => Promise<void>
-}
-
-export interface Statics {
-  sum: number
-  totalWithdraw: number
-  totalDeposit: number
-}
-
-export interface Account {
-  sum: number
-  WithdrawValue: number
-  DepositValue: number
-  accountTitle: string
-  AcId: string
-  Type: string
-}
-
-export interface UpdatedData {
-  Name: string
-  Description: string
-  Type: string
-}
+import { createContext, useEffect, useState } from "react"
+import { api } from "../../services/api"
+import { useLoadingStates } from "../../hooks/useLoadingStates"
+import { apiWithToken } from "../../functions"
+import { token } from "../../constants"
+import { ProviderProps } from "../../@types/context"
+import {
+  Account,
+  AccountsContextType,
+  NewAccountProps,
+  Statics,
+  UpdatedData,
+} from "./account"
 
 export const AccountsContext = createContext({} as AccountsContextType)
 
-export function AccountsProvider({ children }: AccountsProviderProps) {
+export function AccountsProvider({ children }: ProviderProps) {
   const [accountsList, setAccountsList] = useState<Account[]>([])
   const [statics, setStatics] = useState<Statics | null>(null)
   const { isLoading, setIsloading } = useLoadingStates()
@@ -61,15 +26,10 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
 
   async function fetchAccounts() {
     setIsloading(true)
-    const token = localStorage.getItem("@token")
 
     if (token) {
       try {
-        const { data } = await api.get("/users/account", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const { data } = await api.get("/users/account", apiWithToken(token))
 
         setStatics(data.Statics)
         setAccountsList(data.AccountStatics)
@@ -86,14 +46,13 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   }, [])
 
   async function createAccount(AccountData: NewAccountProps) {
-    const token = localStorage.getItem("@token")
     try {
       setIsloading(true)
-      const { data } = await api.post("/account/register", AccountData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const { data } = await api.post(
+        "/account/register",
+        AccountData,
+        apiWithToken(token)
+      )
 
       const newAccount = {
         sum: data.CreateAccount.createdObject.Value,
@@ -126,14 +85,13 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   }
 
   async function updateAccount(accountId: string, updatedData: UpdatedData) {
-    const token = localStorage.getItem("@token")
     try {
       setIsloading(true)
-      await api.put(`/account/update/${accountId}`, updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await api.put(
+        `/account/update/${accountId}`,
+        updatedData,
+        apiWithToken(token)
+      )
 
       const { Name, Type } = updatedData
 
@@ -156,14 +114,9 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   }
 
   async function deleteAccount(accountId: string) {
-    const token = localStorage.getItem("@token")
     try {
       setIsloading(true)
-      await api.delete(`/account/delete/${accountId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await api.delete(`/account/delete/${accountId}`, apiWithToken(token))
 
       const accountToRemove = accountsList.find(
         (account: Account) => account.AcId === accountId
@@ -195,14 +148,11 @@ export function AccountsProvider({ children }: AccountsProviderProps) {
   }
 
   async function getAccountById(accountId: string) {
-    const token = localStorage.getItem("@token")
-
     try {
-      const { data } = await api.get(`/account/view/${accountId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const { data } = await api.get(
+        `/account/view/${accountId}`,
+        apiWithToken(token)
+      )
       console.log(data.Account)
       return data.Account
     } catch (errr) {

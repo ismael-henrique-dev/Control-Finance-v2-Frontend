@@ -1,86 +1,40 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { api } from "../services/api"
-import { ProfileFormData } from "../pages/Profile"
-import { TransactionsContext } from "./transactionsContext"
-import { GoalsContext } from "./goalsContext"
-import { AccountsContext } from "./accountsContext"
-import { useLoadingStates } from "../hooks/useLoadingStates"
-
-interface UserContextProps {
-  children: ReactNode
-}
-
-interface UserLoginFormData {
-  Email: string
-  Senha: string
-}
-
-interface UserRegisterFormData extends UserLoginFormData {
-  UsernName: string
-}
-
-interface User {
-  Email: string
-  Id: string
-  Senha: string
-  UsernName: string
-  ProfileUrl: string
-}
-
-interface UserProviderType {
-  userRegister: (data: UserRegisterFormData) => Promise<void>
-  UserVisitMode: () => Promise<void>
-  userLogin: (data: UserLoginFormData) => Promise<void>
-  userLogout: () => void
-  userResetAccount: () => void
-  userDeleteAccount: () => void
-  updateUserProfile: (data: ProfileFormData) => void
-  setUserData: (data: User | null) => void
-  userData: User | null
-  accountState: AccountState | null
-  relativeCategoryStats: RelativeCategoryStatsProps
-  isLoadingStatic: boolean
-  isLoadingDeleteAccount: boolean
-  isLoadingResetAccount: boolean
-  isLoadingDataUser: boolean
-}
-
-type Status = "Danger" | "Ok" | "Good"
-
-interface AccountState {
-  AndamentoDasMetas: Status
-  Economista: Status
-  GastosEssenciais: Status
-  Investimentos: Status
-}
-
-interface RelativeCategoryStatsProps {
-  DEP: number
-  SAL: number
-  PercentageOfReturnByCategorie: Record<string, number>
-  PercentageOfReturnByDep: Record<string, number>
-  PercentageOfReturnBySal: Record<string, number>
-}
+import { api } from "../../services/api"
+import { ProfileFormData } from "../../pages/Profile"
+import { TransactionsContext } from "../Transactions/transactionsContext"
+import { GoalsContext } from "../Goals/goalsContext"
+import { AccountsContext } from "../Accounts/accountsContext"
+import { useLoadingStates } from "../../hooks/useLoadingStates"
+import { token } from "../../constants"
+import { apiWithToken } from "../../functions"
+import { ProviderProps } from "../../@types/context"
+import {
+  AccountState,
+  RelativeCategoryStatsProps,
+  User,
+  UserLoginFormData,
+  UserProviderType,
+  UserRegisterFormData,
+} from "./user"
 
 export const UserContext = createContext({} as UserProviderType)
 
-export function UseProvider({ children }: UserContextProps) {
-  const {isLoadingDataUser, isLoadingDeleteAccount, isLoadingResetAccount, isLoadingStatic, setIsLoadingDataUser, setIsLoadingDeleteAccount, setIsLoadingResetAccount, setIsLoadingStatic} = useLoadingStates()
+export function UseProvider({ children }: ProviderProps) {
+  const {
+    isLoadingDataUser,
+    isLoadingDeleteAccount,
+    isLoadingResetAccount,
+    isLoadingStatic,
+    setIsLoadingDataUser,
+    setIsLoadingDeleteAccount,
+    setIsLoadingResetAccount,
+    setIsLoadingStatic,
+  } = useLoadingStates()
   const { fetchTransactions, transactions } = useContext(TransactionsContext)
   const { fetchGoals } = useContext(GoalsContext)
   const { fetchAccounts } = useContext(AccountsContext)
   const [userData, setUserData] = useState<User | null>(null)
-  // const [isLoadingStatic, setIsLoadingStatic] = useState(false)
-  // const [isLoadingDeleteAccount, setIsLoadingDeleteAccount] = useState(false)
-  // const [isLoadingResetAccount, setIsLoadingResetAccount] = useState(false)
-  // const [isLoadingDataUser, setIsLoadingDataUser] = useState(false)
   const [accountState, setAccountState] = useState<AccountState | null>(null)
   const [relativeCategoryStats, setRelativeCategoryStats] =
     useState<RelativeCategoryStatsProps>({
@@ -125,15 +79,9 @@ export function UseProvider({ children }: UserContextProps) {
   }
 
   async function loadUser() {
-    const token = localStorage.getItem("@token")
-
     if (token) {
       try {
-        const { data } = await api.get(`/auth/profile`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const { data } = await api.get(`/auth/profile`, apiWithToken(token))
         console.log(data.Profile)
         setUserData(data.Profile)
         navigate(pathname)
@@ -155,15 +103,9 @@ export function UseProvider({ children }: UserContextProps) {
   }
 
   async function userResetAccount() {
-    const token = localStorage.getItem("@token")
-
     try {
       setIsLoadingResetAccount(true)
-      await api.delete(`/users/reset`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await api.delete(`/users/reset`, apiWithToken(token))
 
       loadUser()
     } catch (error) {
@@ -174,15 +116,9 @@ export function UseProvider({ children }: UserContextProps) {
   }
 
   async function userDeleteAccount() {
-    const token = localStorage.getItem("@token")
-
     try {
       setIsLoadingDeleteAccount(true)
-      await api.delete(`/users/reset`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await api.delete(`/users/reset`, apiWithToken(token))
 
       console.log(`Conta deletada com sucesso!`)
       navigate("/singUp")
@@ -194,8 +130,6 @@ export function UseProvider({ children }: UserContextProps) {
   }
 
   async function fetchUserStatic() {
-    const token = localStorage.getItem("@token")
-
     if (token) {
       try {
         setIsLoadingStatic(true)
@@ -231,13 +165,8 @@ export function UseProvider({ children }: UserContextProps) {
   }
 
   async function updateUserProfile(data: ProfileFormData) {
-    const token = localStorage.getItem("@token")
     try {
-      await api.put(`/users/update`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await api.put(`/users/update`, data, apiWithToken(token))
     } catch (err) {
       console.error(err)
     }

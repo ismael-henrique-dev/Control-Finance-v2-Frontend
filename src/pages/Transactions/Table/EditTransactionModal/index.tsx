@@ -11,7 +11,7 @@ import {
   ModalBase,
   ModalBasePropsDefault,
 } from "../../../../components/form/NewTransactionModal/ModalBase"
-import { TransactionsContext } from "../../../../contexts/transactionsContext"
+import { TransactionsContext } from "../../../../contexts/Transactions/transactionsContext"
 
 import { StyledMenuItem } from "../../../FinancialIncome/Select/styles"
 import SelectVariants from "../../../../components/form/NewTransactionModal/ModalBase/SelectField"

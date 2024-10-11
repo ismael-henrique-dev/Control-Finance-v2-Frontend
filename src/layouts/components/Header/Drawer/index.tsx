@@ -10,7 +10,7 @@ import {
   PiggyBank,
 } from "lucide-react"
 import { ContainerDrawer, ListContainer, PresentationSection } from "./styles"
-import { UserContext } from "../../../../contexts/userContext"
+import { UserContext } from "../../../../contexts/User/userContext"
 import Drawer from "@mui/material/Drawer"
 import ListItem from "@mui/material/ListItem"
 import Box from "@mui/material/Box"
@@ -20,12 +20,12 @@ export function DrawerBasic() {
   const [open, setOpen] = useState(false)
   const [image, setImage] = useState<string | null>(null)
   const { userData, userLogout } = useContext(UserContext)
-  
+
   useEffect(() => {
     if (userData && userData.ProfileUrl) {
       setImage(userData.ProfileUrl)
     } else {
-       setImage(testImage)
+      setImage(testImage)
     }
   }, [userData])
 
@@ -55,7 +55,9 @@ export function DrawerBasic() {
             <PresentationSection>
               <img src={image || testImage} />
               <span>Bem-vindo(a) novamente!</span>
-              <strong>{!userData?.UsernName ? "Carregando..." : userData.UsernName}</strong>
+              <strong>
+                {!userData?.UsernName ? "Carregando..." : userData.UsernName}
+              </strong>
             </PresentationSection>
             <ListContainer>
               <ListItem>

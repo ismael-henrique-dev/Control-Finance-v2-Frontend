@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import logoWhite from "../../assets/logo-white.svg"
 import logoDark from "../../assets/logo-dark.svg"
-import { ThemeContext } from "../../contexts/styledThemeContext"
+import { ThemeContext } from "../../contexts/Theme/styledThemeContext"
 import { InputOTP } from "./InputOTP"
 import { AuthContainer } from "./styles"
 
@@ -10,7 +10,7 @@ const erro = "Erro" // SÓ PRA ESTILIZAR
 export function Auth() {
   const themeContext = useContext(ThemeContext)
   const { theme } = themeContext
-  
+
   return (
     <AuthContainer>
       <img src={theme === "light" ? logoWhite : logoDark} />

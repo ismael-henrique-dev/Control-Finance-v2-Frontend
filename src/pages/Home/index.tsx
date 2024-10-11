@@ -1,11 +1,11 @@
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
-import { AccountsContext } from "../../contexts/accountsContext"
+import { AccountsContext } from "../../contexts/Accounts/accountsContext"
 import { AccountCard } from "../../components/ui/Cards/AccountCard"
 import { GoalCard } from "../../components/ui/Cards/GoalCard"
 import { DonutChart } from "./Chart"
 import { Summary } from "./HomeSummary"
-import { GoalsContext } from "../../contexts/goalsContext"
+import { GoalsContext } from "../../contexts/Goals/goalsContext"
 import { EmptyAccounts } from "../../components/ui/EmptyComponent"
 import { LinearProgressCustom } from "../Accounts/styles"
 import {

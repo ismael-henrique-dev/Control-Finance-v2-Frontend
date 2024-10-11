@@ -1,56 +1,30 @@
-import { createContext, ReactNode, useEffect, useState } from "react"
-import { api } from "../services/api"
-import { CreateTransactionFormSchema } from "../schemas/CreatetransactionFormSchema"
-import { EditTransactionFormSchema } from "../schemas/EditTransactionFormSchema"
-import { useLoadingStates } from "../hooks/useLoadingStates"
-
-export interface Transaction {
-  Id: string
-  Title: string
-  Value: number
-  Type: "DEP" | "SAL"
-  AccountId: string
-  CreatedAt: string
-  Categories: string
-  AccountTitle: string
-}
-
-interface TransactionsContextType {
-  isLoadingTransactionsList: boolean
-  createTransaction: (
-    transaction: CreateTransactionFormSchema,
-    accountTitle: string
-  ) => Promise<void>
-  transactions: Transaction[]
-  deleteTransaction: (transactionId: string) => Promise<void>
-  fetchTransactions: () => Promise<void>
-  updateTransaction: (
-    transactionId: string,
-    data: EditTransactionFormSchema
-  ) => Promise<void>
-}
-
-interface TransactionsContextProps {
-  children: ReactNode
-}
+import { createContext, useEffect, useState } from "react"
+import { api } from "../../services/api"
+import { CreateTransactionFormSchema } from "../../schemas/CreatetransactionFormSchema"
+import { EditTransactionFormSchema } from "../../schemas/EditTransactionFormSchema"
+import { useLoadingStates } from "../../hooks/useLoadingStates"
+import { apiWithToken } from "../../functions"
+import { token } from "../../constants"
+import { ProviderProps } from "../../@types/context"
+import { Transaction, TransactionsContextType } from "./transactions"
 
 export const TransactionsContext = createContext({} as TransactionsContextType)
 
-export function TransactionsProvider({ children }: TransactionsContextProps) {
+export function TransactionsProvider({ children }: ProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
-  const { isLoadingTransactionsList, setIsLoadingTransactionsList } = useLoadingStates()
+  const { isLoadingTransactionsList, setIsLoadingTransactionsList } =
+    useLoadingStates()
 
   async function createTransaction(
     transactionsData: CreateTransactionFormSchema,
     accountTitle: string
   ) {
     try {
-      const token = localStorage.getItem("@token")
-      const { data } = await api.post("/transaction/create", transactionsData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const { data } = await api.post(
+        "/transaction/create",
+        transactionsData,
+        apiWithToken(token)
+      )
 
       const transaction: Transaction = {
         Id: data.Transaction.Id,
@@ -70,7 +44,6 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
   }
 
   async function fetchTransactions() {
-    const token = localStorage.getItem("@token")
     if (token) {
       try {
         setIsLoadingTransactionsList(true)
@@ -95,13 +68,10 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
 
   async function deleteTransaction(transactionId: string) {
     try {
-      const token = localStorage.getItem("@token")
-
-      await api.delete(`/transaction/delete/${transactionId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await api.delete(
+        `/transaction/delete/${transactionId}`,
+        apiWithToken(token)
+      )
 
       const deleteTransactions = transactions.filter(
         (transaction) => transaction.Id !== transactionId
@@ -118,8 +88,6 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
     updatedData: EditTransactionFormSchema
   ) {
     try {
-      const token = localStorage.getItem("@token")
-
       const { data } = await api.put(
         `/transaction/update/${transactionId}`,
         updatedData,

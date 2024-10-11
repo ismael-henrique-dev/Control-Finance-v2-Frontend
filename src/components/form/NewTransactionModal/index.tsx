@@ -5,13 +5,13 @@ import InputLabel from "@mui/material/InputLabel"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ModalBase, ModalBasePropsDefault } from "./ModalBase"
 import { TextFiled } from "../TextField"
-import { TransactionsContext } from "../../../contexts/transactionsContext"
+import { TransactionsContext } from "../../../contexts/Transactions/transactionsContext"
 import {
   createTransactionFormSchema,
   CreateTransactionFormSchema,
 } from "../../../schemas/CreatetransactionFormSchema"
 import { Controller, useForm } from "react-hook-form"
-import { AccountsContext } from "../../../contexts/accountsContext"
+import { AccountsContext } from "../../../contexts/Accounts/accountsContext"
 import SelectVariants from "./ModalBase/SelectField"
 import { selectCategoryData } from "../../../utils/data"
 import CurrencyInput from "react-currency-input-field"

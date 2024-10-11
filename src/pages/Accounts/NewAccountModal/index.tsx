@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { AccountsContext } from "../../../contexts/accountsContext"
+import { AccountsContext } from "../../../contexts"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
 import {

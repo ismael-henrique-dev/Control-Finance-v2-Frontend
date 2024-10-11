@@ -15,7 +15,7 @@ import {
   createGoalFormSchema,
 } from "../../../schemas/CreateGoalFormSchema"
 import { useContext } from "react"
-import { GoalsContext } from "../../../contexts/goalsContext"
+import { GoalsContext } from "../../../contexts/Goals/goalsContext"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 // Estilizar o Input para esconder o ícone padrão

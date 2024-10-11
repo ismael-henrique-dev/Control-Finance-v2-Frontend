@@ -10,7 +10,7 @@ import { useContext, useState } from "react"
 import { LockOpen, Lock } from "lucide-react"
 import { Button } from "../../components/Auth/AuthForm/styles"
 import { useForm } from "react-hook-form"
-import { UserContext } from "../../contexts/userContext"
+import { UserContext } from "../../contexts/User/userContext"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { registerUserFormSchema } from "./registerFormSchema"
 

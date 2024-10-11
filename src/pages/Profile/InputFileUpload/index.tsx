@@ -2,7 +2,7 @@ import { Pencil } from "lucide-react"
 import { ChangeEvent, useContext, useEffect, useState } from "react"
 import { Container, Input, Label, ProfilePic, ImagePreview } from "./styles"
 import { api } from "../../../services/api"
-import { UserContext } from "../../../contexts/userContext"
+import { UserContext } from "../../../contexts/User/userContext"
 import testImage from "../../../assets/test-image.svg"
 
 export function InputFileUpload() {
@@ -44,7 +44,7 @@ export function InputFileUpload() {
       }
 
       reader.readAsDataURL(file) // Converte a imagem em base64
-      
+
       setUserData({
         ...userData,
         ProfileUrl: imageUrl || "",
@@ -65,7 +65,7 @@ export function InputFileUpload() {
           id="file"
           accept="image/*"
           onChange={handleImageChange}
-          style={{ display: "none" }} 
+          style={{ display: "none" }}
         />
         <Label htmlFor="file">
           <Pencil />

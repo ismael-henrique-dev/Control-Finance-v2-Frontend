@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { TransactionsContext } from "../../../../contexts/transactionsContext"
+import { TransactionsContext } from "../../../../contexts/Transactions/transactionsContext"
 import { MoreHorizontal, Pencil, Trash } from "lucide-react"
 import { EditTransactionModal } from "../EditTransactionModal"
 import Popover from "@mui/material/Popover"

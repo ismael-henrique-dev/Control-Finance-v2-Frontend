@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Lock, Mail, Unlock, UserRound } from "lucide-react"
 import { InputFileUpload } from "./InputFileUpload"
 import { EditableInputContainer } from "./EditableInput"
-import { UserContext } from "../../contexts/userContext"
-import { AccountsContext } from "../../contexts/accountsContext"
+import { UserContext } from "../../contexts/User/userContext"
+import { AccountsContext } from "../../contexts/Accounts/accountsContext"
 
 import {
   Button,
@@ -30,8 +30,14 @@ export type ProfileFormData = z.infer<typeof profileFormShema>
 
 export function Profile() {
   const [showPassword, setShowPassword] = useState(false)
-  const { userResetAccount, userDeleteAccount, updateUserProfile, userData, isLoadingResetAccount, isLoadingDeleteAccount } =
-    useContext(UserContext)
+  const {
+    userResetAccount,
+    userDeleteAccount,
+    updateUserProfile,
+    userData,
+    isLoadingResetAccount,
+    isLoadingDeleteAccount,
+  } = useContext(UserContext)
   const { resetAccounts } = useContext(AccountsContext)
   const handleShowPassword = () => {
     setShowPassword(!showPassword)

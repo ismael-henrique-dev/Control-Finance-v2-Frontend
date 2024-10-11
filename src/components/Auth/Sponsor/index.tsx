@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { ThemeContext } from "../../../contexts/styledThemeContext"
+import { ThemeContext } from "../../../contexts/Theme/styledThemeContext"
 import { ContainerSponsor } from "./styles"
 import logoWhite from "../../../assets/logo-white.svg"
 import logoDark from "../../../assets/logo-dark.svg"

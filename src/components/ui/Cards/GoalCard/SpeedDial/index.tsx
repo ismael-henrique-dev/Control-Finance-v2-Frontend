@@ -9,7 +9,7 @@ import {
 import { Actions, Container, PopoverStyle } from "./styles"
 import { NewDepositOfGoalModal } from "../../../../../pages/Goals/NewDepositOfGoalModal"
 import Popover from "@mui/material/Popover"
-import { GoalsContext } from "../../../../../contexts/goalsContext"
+import { GoalsContext } from "../../../../../contexts/Goals/goalsContext"
 import { EditGoalModal } from "../../../../../pages/Goals/EditGoalModal"
 
 interface MoreGoalOptionProps {
@@ -107,7 +107,11 @@ export function MoreGoalOption({ isGoalsPage, goalId }: MoreGoalOptionProps) {
         handleClose={handleCloseNewDepositOfGoalModal}
         goalId={goalId}
       />
-      <EditGoalModal open={openModalEdit} handleClose={handleCloseModaEdit} goalId={goalId} />
+      <EditGoalModal
+        open={openModalEdit}
+        handleClose={handleCloseModaEdit}
+        goalId={goalId}
+      />
     </Container>
   )
 }

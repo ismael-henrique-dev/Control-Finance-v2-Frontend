@@ -1,4 +1,4 @@
-import { Goal } from "../contexts/goalsContext"
+import { Goal } from "../contexts/Goals/goalsContext"
 
 interface UseSummaryGoalsPros {
   goalsList: Goal[]

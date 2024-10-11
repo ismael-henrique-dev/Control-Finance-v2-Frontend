@@ -1,7 +1,7 @@
 import { ArrowDown, ArrowUp } from "lucide-react"
 import { HomeSummary, MainBalance, TransactionType } from "./styles"
 import { useContext } from "react"
-import { AccountsContext } from "../../../contexts/accountsContext"
+import { AccountsContext } from "../../../contexts/Accounts/accountsContext"
 import { priceFormatter } from "../../../utils/formatter"
 
 export function Summary() {
