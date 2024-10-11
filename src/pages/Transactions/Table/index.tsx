@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Transaction } from "../../../contexts/Transactions/transactionsContext"
+import { Transaction } from "../../../contexts/Transactions/transactions"
 import { MenuOptionsTable } from "./MenuOptionsTable"
 import {
   ChevronLeft,
@@ -7,16 +7,16 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
+import "dayjs/locale/pt-br"
+import { priceFormatter } from "../../../utils/formatter"
 import {
   Button,
   ContainerTable,
   NavContainer,
   TransactionsTable,
 } from "./styles"
-import dayjs from "dayjs"
-import relativeTime from "dayjs/plugin/relativeTime"
-import "dayjs/locale/pt-br"
-import { priceFormatter } from "../../../utils/formatter"
 dayjs.extend(relativeTime)
 dayjs.locale("pt-br")
 

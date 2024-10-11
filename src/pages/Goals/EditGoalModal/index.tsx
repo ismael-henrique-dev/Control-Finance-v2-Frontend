@@ -9,7 +9,7 @@ import {
 import {
   UpdateGoalFormData,
   updateGoalFormSchema,
-} from "../../../schemas/UpdateGoalFormSchema"
+} from "../../../schemas/goal/UpdateGoalFormSchema"
 import { TextFiled } from "../../../components/form/TextField"
 import { Input, InputAdornment, InputLabel } from "@mui/material"
 import { Calendar } from "lucide-react"

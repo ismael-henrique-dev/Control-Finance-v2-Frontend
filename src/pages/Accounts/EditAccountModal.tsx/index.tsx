@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import {
   updateAccountFormSchema,
   UpdateAccountFormSchema,
-} from "../../../schemas/UpdateAccountFormSchema"
+} from "../../../schemas/account/UpdateAccountFormSchema"
 
 import {
   ModalBase,

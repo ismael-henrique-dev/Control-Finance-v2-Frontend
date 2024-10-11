@@ -13,7 +13,7 @@ import CurrencyInput from "react-currency-input-field"
 import {
   CreateGoalFormData,
   createGoalFormSchema,
-} from "../../../schemas/CreateGoalFormSchema"
+} from "../../../schemas/goal/CreateGoalFormSchema"
 import { useContext } from "react"
 import { GoalsContext } from "../../../contexts/Goals/goalsContext"
 import { zodResolver } from "@hookform/resolvers/zod"

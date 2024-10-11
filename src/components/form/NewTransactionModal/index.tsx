@@ -9,7 +9,7 @@ import { TransactionsContext } from "../../../contexts/Transactions/transactions
 import {
   createTransactionFormSchema,
   CreateTransactionFormSchema,
-} from "../../../schemas/CreatetransactionFormSchema"
+} from "../../../schemas/transactions/CreateTransactionFormSchema"
 import { Controller, useForm } from "react-hook-form"
 import { AccountsContext } from "../../../contexts/Accounts/accountsContext"
 import SelectVariants from "./ModalBase/SelectField"

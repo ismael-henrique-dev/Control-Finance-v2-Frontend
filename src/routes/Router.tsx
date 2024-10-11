@@ -7,7 +7,7 @@ import { Accounts } from "../pages/Accounts"
 import { FinancialIncome } from "../pages/FinancialIncome"
 import { Goals } from "../pages/Goals"
 import { Profile } from "../pages/Profile"
-import { SingUp } from "../pages/SingIn"
+import { SingUp } from "../pages/Register"
 import { Auth } from "../pages/Auth"
 
 export function Router() {

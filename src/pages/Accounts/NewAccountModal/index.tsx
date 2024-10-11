@@ -12,7 +12,7 @@ import { StyledMenuItem } from "../../../components/form/NewTransactionModal/Mod
 import {
   createAccountFormSchema,
   CreateAccountFormSchema,
-} from "../../../schemas/CreateAccountFormSchema"
+} from "../../../schemas/account/CreateAccountFormSchema"
 import { selectAccountTypeData } from "../../../utils/data"
 import CurrencyInput from "react-currency-input-field"
 import Input from "@mui/material/Input"

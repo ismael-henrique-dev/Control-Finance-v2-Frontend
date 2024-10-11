@@ -19,7 +19,7 @@ import { TextFiled } from "../../../../components/form/TextField"
 import {
   EditTransactionFormSchema,
   editTransactionFormSchema,
-} from "../../../../schemas/EditTransactionFormSchema"
+} from "../../../../schemas/transactions/EditTransactionFormSchema"
 
 // const StyledInput = styled(Input)`
 //   input[type="date"] {

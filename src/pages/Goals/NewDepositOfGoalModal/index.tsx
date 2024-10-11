@@ -9,7 +9,7 @@ import {
 import {
   CreateNewDepositOfGoalFormData,
   createNewDepositOfGoalFormSchema,
-} from "../../../schemas/CreateNewDepositOfGoalFormSchema"
+} from "../../../schemas/goal/CreateNewDepositOfGoalFormSchema"
 import CurrencyInput from "react-currency-input-field"
 
 interface NewDepositOfGoalProps extends ModalBasePropsDefault {
