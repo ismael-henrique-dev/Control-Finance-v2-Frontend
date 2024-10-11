@@ -18,6 +18,7 @@ import {
 export function Home() {
   const { accountsList, isLoading } = useContext(AccountsContext)
   const { goalsList, isLoadingGoals } = useContext(GoalsContext)
+
   const goals = [
     ...goalsList.CompletedGoals,
     ...goalsList.ExpiredGoals,
@@ -47,7 +48,7 @@ export function Home() {
       <DefaultContainer content="start">
         <main>
           {accountsList.length === 0 && <EmptyAccounts mensageType="conta" />}
-          {isLoading === true ? (
+          {isLoading ? (
             <LinearProgressCustom />
           ) : (
             accountsList

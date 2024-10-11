@@ -5,6 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Lock, Mail, Unlock, UserRound } from "lucide-react"
 import { InputFileUpload } from "./InputFileUpload"
 import { EditableInputContainer } from "./EditableInput"
+import { UserContext } from "../../contexts/userContext"
+import { AccountsContext } from "../../contexts/accountsContext"
+
 import {
   Button,
   Card,
@@ -16,8 +19,6 @@ import {
   ProfileContainer,
   ResponsiveContainerPage,
 } from "./styles"
-import { UserContext } from "../../contexts/userContext"
-import { AccountsContext } from "../../contexts/accountsContext"
 
 const profileFormShema = z.object({
   email: z.string(),

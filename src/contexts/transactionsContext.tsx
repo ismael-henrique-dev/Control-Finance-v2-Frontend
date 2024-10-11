@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
 import { CreateTransactionFormSchema } from "../schemas/CreatetransactionFormSchema"
 import { EditTransactionFormSchema } from "../schemas/EditTransactionFormSchema"
+import { useLoadingStates } from "../hooks/useLoadingStates"
 
 export interface Transaction {
   Id: string
@@ -15,12 +16,12 @@ export interface Transaction {
 }
 
 interface TransactionsContextType {
+  isLoadingTransactionsList: boolean
   createTransaction: (
     transaction: CreateTransactionFormSchema,
     accountTitle: string
   ) => Promise<void>
   transactions: Transaction[]
-  isLoadingTransactionsList: boolean
   deleteTransaction: (transactionId: string) => Promise<void>
   fetchTransactions: () => Promise<void>
   updateTransaction: (
@@ -37,8 +38,7 @@ export const TransactionsContext = createContext({} as TransactionsContextType)
 
 export function TransactionsProvider({ children }: TransactionsContextProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [isLoadingTransactionsList, setIsLoadingTransactionsList] =
-    useState(false)
+  const { isLoadingTransactionsList, setIsLoadingTransactionsList } = useLoadingStates()
 
   async function createTransaction(
     transactionsData: CreateTransactionFormSchema,
@@ -163,9 +163,9 @@ export function TransactionsProvider({ children }: TransactionsContextProps) {
   return (
     <TransactionsContext.Provider
       value={{
-        createTransaction,
-        transactions,
         isLoadingTransactionsList,
+        transactions,
+        createTransaction,
         deleteTransaction,
         updateTransaction,
         fetchTransactions,

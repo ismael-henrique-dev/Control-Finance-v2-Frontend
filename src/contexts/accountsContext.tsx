@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
 import { UpdateAccountFormSchema } from "../schemas/UpdateAccountFormSchema"
+import { useLoadingStates } from "../hooks/useLoadingStates"
 
 interface AccountsProviderProps {
   children: ReactNode
@@ -51,7 +52,7 @@ export const AccountsContext = createContext({} as AccountsContextType)
 export function AccountsProvider({ children }: AccountsProviderProps) {
   const [accountsList, setAccountsList] = useState<Account[]>([])
   const [statics, setStatics] = useState<Statics | null>(null)
-  const [isLoading, setIsloading] = useState(false)
+  const { isLoading, setIsloading } = useLoadingStates()
 
   function resetAccounts() {
     setAccountsList([])

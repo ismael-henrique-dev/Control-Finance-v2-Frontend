@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from "react"
 import { api } from "../services/api"
 import { CreateGoalFormData } from "../schemas/CreateGoalFormSchema"
 import { UpdateGoalFormData } from "../schemas/UpdateGoalFormSchema"
+import { useLoadingStates } from "../hooks/useLoadingStates"
 
 interface GoalsContextType {
   fetchGoals: () => Promise<void>
@@ -38,12 +39,12 @@ interface GoalList {
 export const GoalsContext = createContext({} as GoalsContextType)
 
 export function GoalsProvider({ children }: GoalsProviderProps) {
+  const { isLoadingGoals, setIsLoadingGoals } = useLoadingStates()
   const [goalsList, setGoalsList] = useState<GoalList>({
     unCompletedGoals: [],
     ExpiredGoals: [],
     CompletedGoals: [],
   })
-  const [isLoadingGoals, setIsLoadingGoals] = useState(false)
 
   async function createGoal(goalData: CreateGoalFormData) {
     try {

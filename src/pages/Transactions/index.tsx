@@ -9,12 +9,13 @@ import { NewTransactionModal } from "../../components/NewTransactionModal"
 import { TransactionsContext } from "../../contexts/transactionsContext"
 import { LinearProgressCustom } from "../Accounts/styles"
 import { EmptyAccounts } from "../../components/EmptyComponent"
+import { SelectChangeEvent } from "@mui/material"
+
 import {
   ContainerBarSummary,
   MainContainer,
   TransactionsContainer,
 } from "./styles"
-import { SelectChangeEvent } from "@mui/material"
 
 export function Transactions() {
   const [search, setSearch] = useState("")
@@ -34,10 +35,14 @@ export function Transactions() {
     const originalListTransactions = [...transactions]
 
     if (filter === "Maior valor") {
-      const greaterValue = originalListTransactions.sort((a, b) => b.Value - a.Value)
+      const greaterValue = originalListTransactions.sort(
+        (a, b) => b.Value - a.Value
+      )
       return greaterValue
     } else if (filter === "Menor valor") {
-      const lowestValue = originalListTransactions.sort((a, b) => a.Value - b.Value)
+      const lowestValue = originalListTransactions.sort(
+        (a, b) => a.Value - b.Value
+      )
       return lowestValue
     } else {
       return originalListTransactions

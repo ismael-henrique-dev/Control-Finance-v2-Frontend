@@ -11,6 +11,7 @@ import { ProfileFormData } from "../pages/Profile"
 import { TransactionsContext } from "./transactionsContext"
 import { GoalsContext } from "./goalsContext"
 import { AccountsContext } from "./accountsContext"
+import { useLoadingStates } from "../hooks/useLoadingStates"
 
 interface UserContextProps {
   children: ReactNode
@@ -71,14 +72,15 @@ interface RelativeCategoryStatsProps {
 export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: UserContextProps) {
+  const {isLoadingDataUser, isLoadingDeleteAccount, isLoadingResetAccount, isLoadingStatic, setIsLoadingDataUser, setIsLoadingDeleteAccount, setIsLoadingResetAccount, setIsLoadingStatic} = useLoadingStates()
   const { fetchTransactions, transactions } = useContext(TransactionsContext)
   const { fetchGoals } = useContext(GoalsContext)
   const { fetchAccounts } = useContext(AccountsContext)
   const [userData, setUserData] = useState<User | null>(null)
-  const [isLoadingStatic, setIsLoadingStatic] = useState(false)
-  const [isLoadingDeleteAccount, setIsLoadingDeleteAccount] = useState(false)
-  const [isLoadingResetAccount, setIsLoadingResetAccount] = useState(false)
-  const [isLoadingDataUser, setIsLoadingDataUser] = useState(false)
+  // const [isLoadingStatic, setIsLoadingStatic] = useState(false)
+  // const [isLoadingDeleteAccount, setIsLoadingDeleteAccount] = useState(false)
+  // const [isLoadingResetAccount, setIsLoadingResetAccount] = useState(false)
+  // const [isLoadingDataUser, setIsLoadingDataUser] = useState(false)
   const [accountState, setAccountState] = useState<AccountState | null>(null)
   const [relativeCategoryStats, setRelativeCategoryStats] =
     useState<RelativeCategoryStatsProps>({
