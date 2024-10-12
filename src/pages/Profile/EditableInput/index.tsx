@@ -10,11 +10,9 @@ export function EditableInputContainer({
 }: EditableInputProps) {
   return (
     <ContainerInput>
-      <div>
-        
+      <div> 
         {children}
       </div>
-      {/* <Pencil /> */}
     </ContainerInput>
   )
 }

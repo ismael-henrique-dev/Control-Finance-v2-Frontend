@@ -8,15 +8,17 @@ import { apiWithToken } from "../../functions"
 import { ProviderProps } from "../../@types/context"
 import { Goal, GoalList, GoalsContextType } from "./goals"
 
+const initialValueGoalList = {
+  unCompletedGoals: [],
+  ExpiredGoals: [],
+  CompletedGoals: [],
+}
+
 export const GoalsContext = createContext({} as GoalsContextType)
 
 export function GoalsProvider({ children }: ProviderProps) {
   const { isLoadingGoals, setIsLoadingGoals } = useLoadingStates()
-  const [goalsList, setGoalsList] = useState<GoalList>({
-    unCompletedGoals: [],
-    ExpiredGoals: [],
-    CompletedGoals: [],
-  })
+  const [goalsList, setGoalsList] = useState<GoalList>(initialValueGoalList)
 
   async function createGoal(goalData: CreateGoalFormData) {
     try {
@@ -36,8 +38,8 @@ export function GoalsProvider({ children }: ProviderProps) {
         ...prevGoals,
         unCompletedGoals: [...prevGoals.unCompletedGoals, newGoal],
       }))
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
+      console.log(error)
     } finally {
       setIsLoadingGoals(false)
     }
@@ -54,9 +56,8 @@ export function GoalsProvider({ children }: ProviderProps) {
           ExpiredGoals: data.ExpiredGoals,
           CompletedGoals: data.CompletedGoals,
         })
-        console.log(goalsList)
-      } catch (errr) {
-        console.log(errr)
+      } catch (error) {
+        console.log(error)
       } finally {
         setIsLoadingGoals(false)
       }

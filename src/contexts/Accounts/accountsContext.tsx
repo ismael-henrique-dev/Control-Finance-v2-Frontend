@@ -33,8 +33,8 @@ export function AccountsProvider({ children }: ProviderProps) {
 
         setStatics(data.Statics)
         setAccountsList(data.AccountStatics)
-      } catch (err) {
-        console.error("Error fetching accounts:", err)
+      } catch (error) {
+        console.error("Error fetching accounts:", error)
       } finally {
         setIsloading(false)
       }
@@ -60,7 +60,7 @@ export function AccountsProvider({ children }: ProviderProps) {
         DepositValue: 0,
         accountTitle: data.CreateAccount.createdObject.Name,
         AcId: data.CreateAccount.createdObject.Id,
-        Type: AccountData.Type, // Fazer vf
+        Type: AccountData.Type,
       }
 
       setAccountsList((prevState) => [...prevState, newAccount])
@@ -77,8 +77,8 @@ export function AccountsProvider({ children }: ProviderProps) {
           sum: prevState.sum + newAccount.sum,
         }
       })
-    } catch (err) {
-      console.error("Error creating account:", err)
+    } catch (error) {
+      console.error("Error creating account:", error)
     } finally {
       setIsloading(false)
     }
@@ -106,8 +106,8 @@ export function AccountsProvider({ children }: ProviderProps) {
             : account
         )
       )
-    } catch (err) {
-      console.error("Erro ao atualizar a conta:", err)
+    } catch (error) {
+      console.error("Erro ao atualizar a conta:", error)
     } finally {
       setIsloading(false)
     }
@@ -140,8 +140,8 @@ export function AccountsProvider({ children }: ProviderProps) {
           }
         })
       }
-    } catch (err) {
-      console.error("Error deleting account:", err)
+    } catch (error) {
+      console.error("Error deleting account:", error)
     } finally {
       setIsloading(false)
     }
@@ -153,10 +153,10 @@ export function AccountsProvider({ children }: ProviderProps) {
         `/account/view/${accountId}`,
         apiWithToken(token)
       )
-      console.log(data.Account)
+
       return data.Account
-    } catch (errr) {
-      console.error(errr)
+    } catch (error) {
+      console.error(error)
     }
   }
 

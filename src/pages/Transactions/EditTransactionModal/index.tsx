@@ -4,43 +4,19 @@ import InputLabel from "@mui/material/InputLabel"
 import { useContext, useEffect, useState } from "react"
 import CurrencyInput from "react-currency-input-field"
 import { Controller, useForm } from "react-hook-form"
-
-import { selectCategoryData } from "../../../../utils/data"
-
+import {
+  editTransactionFormSchema,
+  EditTransactionFormSchema,
+} from "../../../schemas/transactions/EditTransactionFormSchema"
+import { TransactionsContext } from "../../../contexts"
+import { selectCategoryData } from "../../../utils/data"
 import {
   ModalBase,
   ModalBasePropsDefault,
-} from "../../../../components/form/NewTransactionModal/ModalBase"
-import { TransactionsContext } from "../../../../contexts/Transactions/transactionsContext"
-
-import { StyledMenuItem } from "../../../FinancialIncome/Select/styles"
-import SelectVariants from "../../../../components/form/NewTransactionModal/ModalBase/SelectField"
-import { TextFiled } from "../../../../components/form/TextField"
-import {
-  EditTransactionFormSchema,
-  editTransactionFormSchema,
-} from "../../../../schemas/transactions/EditTransactionFormSchema"
-
-// const StyledInput = styled(Input)`
-//   input[type="date"] {
-//     &::-webkit-calendar-picker-indicator {
-//       opacity: 0;
-//       display: none;
-//     }
-//     &::-webkit-inner-spin-button,
-//     &::-webkit-clear-button {
-//       display: none;
-//     }
-//     &::-moz-clear {
-//       display: none;
-//     }
-//   }
-// `
-
-// interface NewTransactionModal {
-//   open: boolean
-//   handleClose: () => void
-// }
+} from "../../../components/form/NewTransactionModal/ModalBase"
+import SelectVariants from "../../../components/form/NewTransactionModal/ModalBase/SelectField"
+import { StyledMenuItem } from "../../FinancialIncome/Select/styles"
+import { TextFiled } from "../../../components/form/TextField"
 
 interface CategoriesType {
   name: string
@@ -58,7 +34,6 @@ export function EditTransactionModal({
 }: EditTransactionModalProps) {
   const [categories, setCategories] = useState<CategoriesType[]>([])
   const { updateTransaction } = useContext(TransactionsContext)
-  // const { accountsList } = useContext(AccountsContext)
 
   const { control, register, handleSubmit, watch, formState } =
     useForm<EditTransactionFormSchema>({
@@ -88,7 +63,6 @@ export function EditTransactionModal({
 
   async function handleUpdateTransaction(data: EditTransactionFormSchema) {
     const { Title, Value, Type, Categories } = data
-    console.log(data)
     await updateTransaction(transactionId, { Title, Value, Type, Categories })
   }
 
@@ -172,25 +146,6 @@ export function EditTransactionModal({
           </SelectVariants>
         )}
       />
-
-      {/* <Controller
-        name="accountId"
-        control={control}
-        render={({ field }) => (
-          <SelectVariants
-            title="Conta"
-            erros={!!formState.errors.accountId}
-            onChange={field.onChange}
-            value={field.value}
-          >
-            {accountsList.map((item, index) => (
-              <StyledMenuItem key={index} value={item.AcId}>
-                {item.accountTitle}
-              </StyledMenuItem>
-            ))}
-          </SelectVariants>
-        )}
-      /> */}
     </ModalBase>
   )
 }

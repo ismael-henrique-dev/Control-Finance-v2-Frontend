@@ -27,19 +27,14 @@ export function TransactionsProvider({ children }: ProviderProps) {
       )
 
       const transaction: Transaction = {
-        Id: data.Transaction.Id,
-        Title: data.Transaction.Title,
-        Value: data.Transaction.Value,
-        Type: data.Transaction.Type,
+        ...data.Transaction,
         AccountId: data.Transaction.accountId,
-        CreatedAt: data.Transaction.CreatedAt,
-        Categories: data.Transaction.Categories,
         AccountTitle: accountTitle,
       }
 
       setTransactions((prevState) => [transaction, ...prevState])
-    } catch (err) {
-      console.log(err)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -48,14 +43,10 @@ export function TransactionsProvider({ children }: ProviderProps) {
       try {
         setIsLoadingTransactionsList(true)
 
-        const { data } = await api.get("/transaction", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const { data } = await api.get("/transaction", apiWithToken(token))
         setTransactions(data.TransactionList)
-      } catch (err) {
-        console.log(err)
+      } catch (error) {
+        console.log(error)
       } finally {
         setIsLoadingTransactionsList(false)
       }
@@ -91,21 +82,12 @@ export function TransactionsProvider({ children }: ProviderProps) {
       const { data } = await api.put(
         `/transaction/update/${transactionId}`,
         updatedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        apiWithToken(token)
       )
 
       const transactionUpdated = {
-        Id: data.New.Id,
-        Title: data.New.Title,
-        Value: data.New.Value,
-        Type: data.New.Type,
+        ...data.New,
         AccountId: data.New.accountId,
-        CreatedAt: data.New.CreatedAt,
-        Categories: data.New.Categories,
       }
 
       const { Title, Value, Type, Categories } = updatedData

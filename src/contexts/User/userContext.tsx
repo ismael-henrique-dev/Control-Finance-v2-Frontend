@@ -2,9 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { api } from "../../services/api"
 import { ProfileFormData } from "../../pages/Profile"
-import { TransactionsContext } from "../Transactions/transactionsContext"
-import { GoalsContext } from "../Goals/goalsContext"
-import { AccountsContext } from "../Accounts/accountsContext"
+import { AccountsContext, GoalsContext, TransactionsContext } from ".."
 import { useLoadingStates } from "../../hooks/useLoadingStates"
 import { token } from "../../constants"
 import { apiWithToken } from "../../functions"
@@ -18,9 +16,22 @@ import {
   UserRegisterFormData,
 } from "./user"
 
+
+const initialValueStatic = {
+  DEP: 0,
+  SAL: 0,
+  PercentageOfReturnByCategorie: {},
+  PercentageOfReturnByDep: {},
+  PercentageOfReturnBySal: {},
+}
+
 export const UserContext = createContext({} as UserProviderType)
 
 export function UseProvider({ children }: ProviderProps) {
+  const [userData, setUserData] = useState<User | null>(null)
+  const [accountState, setAccountState] = useState<AccountState | null>(null)
+  const [relativeCategoryStats, setRelativeCategoryStats] =
+    useState<RelativeCategoryStatsProps>(initialValueStatic)
   const {
     isLoadingDataUser,
     isLoadingDeleteAccount,
@@ -31,19 +42,9 @@ export function UseProvider({ children }: ProviderProps) {
     setIsLoadingResetAccount,
     setIsLoadingStatic,
   } = useLoadingStates()
-  const { fetchTransactions, transactions } = useContext(TransactionsContext)
+  const { fetchTransactions } = useContext(TransactionsContext)
   const { fetchGoals } = useContext(GoalsContext)
   const { fetchAccounts } = useContext(AccountsContext)
-  const [userData, setUserData] = useState<User | null>(null)
-  const [accountState, setAccountState] = useState<AccountState | null>(null)
-  const [relativeCategoryStats, setRelativeCategoryStats] =
-    useState<RelativeCategoryStatsProps>({
-      DEP: 0,
-      SAL: 0,
-      PercentageOfReturnByCategorie: {},
-      PercentageOfReturnByDep: {},
-      PercentageOfReturnBySal: {},
-    })
 
   const navigate = useNavigate()
   const pathname = window.location.pathname
@@ -51,7 +52,7 @@ export function UseProvider({ children }: ProviderProps) {
   async function userRegister(data: UserRegisterFormData) {
     try {
       await api.post("/users/register", data)
-      navigate("/")
+      navigate("/login")
     } catch (error) {
       console.log(error)
     }
@@ -65,8 +66,6 @@ export function UseProvider({ children }: ProviderProps) {
 
       await loadUser()
       await fetchUserStatic()
-
-      console.log("lista de transações", transactions)
     } catch (error) {
       console.error("Informações incorretas")
     } finally {
@@ -82,7 +81,6 @@ export function UseProvider({ children }: ProviderProps) {
     if (token) {
       try {
         const { data } = await api.get(`/auth/profile`, apiWithToken(token))
-        console.log(data.Profile)
         setUserData(data.Profile)
         navigate(pathname)
       } catch (error) {
@@ -120,7 +118,6 @@ export function UseProvider({ children }: ProviderProps) {
       setIsLoadingDeleteAccount(true)
       await api.delete(`/users/reset`, apiWithToken(token))
 
-      console.log(`Conta deletada com sucesso!`)
       navigate("/singUp")
     } catch (error) {
       console.log(error)
@@ -133,12 +130,7 @@ export function UseProvider({ children }: ProviderProps) {
     if (token) {
       try {
         setIsLoadingStatic(true)
-
-        const { data } = await api.get("/users/statistic", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        const { data } = await api.get("/users/statistic", apiWithToken(token))
 
         setAccountState(data.AccountState)
         setRelativeCategoryStats(data.Relative)
