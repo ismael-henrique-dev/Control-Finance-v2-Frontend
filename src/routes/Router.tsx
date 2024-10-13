@@ -21,8 +21,8 @@ export function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/transacoes/:id?" element={<Transactions />} />
         <Route path="/contas/:id?" element={<Accounts />} />
+        <Route path="/metas/:id?" element={<Goals />} />
         <Route path="/rendimento" element={<FinancialIncome />} />
-        <Route path="/metas" element={<Goals />} />
         <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>

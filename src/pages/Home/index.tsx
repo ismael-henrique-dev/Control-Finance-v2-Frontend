@@ -17,13 +17,7 @@ import {
 
 export function Home() {
   const { accountsList, isLoading } = useContext(AccountsContext)
-  const { goalsList, isLoadingGoals } = useContext(GoalsContext)
-
-  const goals = [
-    ...goalsList.CompletedGoals,
-    ...goalsList.ExpiredGoals,
-    ...goalsList.unCompletedGoals,
-  ]
+  const { goalsArrayList, isLoadingGoals } = useContext(GoalsContext)
 
   return (
     <HomeContainer>
@@ -73,12 +67,12 @@ export function Home() {
         <NavLink to="/metas">ver mais</NavLink>
       </TopContainer>
       <DefaultContainer content="start">
-        {goals.length === 0 && <EmptyAccounts mensageType="meta" />}
+        {goalsArrayList.length === 0 && <EmptyAccounts mensageType="meta" />}
         <main>
           {isLoadingGoals ? (
             <LinearProgressCustom />
           ) : (
-            goals
+            goalsArrayList
               .slice(0, 3)
               .map((goal, index) => (
                 <GoalCard

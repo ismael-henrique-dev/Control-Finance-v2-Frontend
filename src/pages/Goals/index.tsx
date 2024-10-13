@@ -1,34 +1,40 @@
 import { Button } from "../../components/ui/Button"
-
 import { PaginationMenu } from "../../components/form/PaginationMenu"
 import { SelectFilter } from "../../components/form/FilterSelect"
 import { Summary } from "../../components/ui/Summary"
 import { GoalModal } from "./NewGoalModal"
 import { useContext, useState } from "react"
+import { useParams } from "react-router-dom"
 import { GoalsContext } from "../../contexts/Goals/goalsContext"
+import { useSummaryGoals } from "../../hooks/useSummaryGoal"
+import { LinearProgressCustom } from "../Accounts/styles"
+import { EmptyAccounts } from "../../components/ui/EmptyComponent"
+import { SelectChangeEvent } from "@mui/material"
+import { GoalCard } from "../../components/ui/Cards/GoalCard"
 import {
   ContainerBarSummary,
   GoalsContainer,
   MainContainer,
   Section,
 } from "./styles"
-import { useSummaryGoals } from "../../hooks/useSummaryGoal"
-import { LinearProgressCustom } from "../Accounts/styles"
-import { EmptyAccounts } from "../../components/ui/EmptyComponent"
-import { SelectChangeEvent } from "@mui/material"
-import { GoalCard } from "../../components/ui/Cards/GoalCard"
 
 export function Goals() {
-  const { goalsList, isLoadingGoals } = useContext(GoalsContext)
+  const { goalsList, goalsArrayList, isLoadingGoals } = useContext(GoalsContext)
 
   const [open, setOpen] = useState(false)
   const [filter, setFilter] = useState<string>("Todos")
   const [currentPage, setCurrentPage] = useState<number>(1)
 
+  const { id } = useParams<{ id: string }>()
+
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   const selectOptions = ["Todos", "Em andamento", "Concluído"]
+
+  const filteredGoalsById = id
+    ? goalsArrayList.filter((goal) => goal.Id === id)
+    : goalsArrayList
 
   const getFilteredGoals = () => {
     if (filter === "Em andamento") {
@@ -36,16 +42,11 @@ export function Goals() {
     } else if (filter === "Concluído") {
       return goalsList.CompletedGoals
     } else {
-      return [
-        ...goalsList.unCompletedGoals,
-        ...goalsList.ExpiredGoals,
-        ...goalsList.CompletedGoals,
-      ]
+      return filteredGoalsById
     }
   }
 
   const filteredGoals = getFilteredGoals()
-
   const totalPages = Math.ceil(filteredGoals.length / 6)
 
   const summary = useSummaryGoals({ goalsList: filteredGoals })
@@ -80,24 +81,27 @@ export function Goals() {
         />
       </Section>
       <MainContainer>
-        {filteredGoals.length === 0 && !isLoadingGoals ? (
+        {isLoadingGoals ? (
+          <LinearProgressCustom />
+        ) : filteredGoals.length === 0 ? (
           <EmptyAccounts mensageType="meta" />
         ) : (
           filteredGoals
             .slice((currentPage - 1) * 6, currentPage * 6)
-            .map((goal, index) => (
-              <GoalCard
-                key={index}
-                title={goal.Title}
-                currentValue={goal.Value}
-                targetValue={goal.TargetedValue}
-                goalDate={goal.EndTime}
-                goalId={goal.Id}
-                isGoalsPage={true}
-              />
-            ))
+            .map((goal) => {
+              return (
+                <GoalCard
+                  key={goal.Id}
+                  title={goal.Title}
+                  currentValue={goal.Value}
+                  targetValue={goal.TargetedValue}
+                  goalDate={goal.EndTime}
+                  goalId={goal.Id}
+                  isGoalsPage={true}
+                />
+              )
+            })
         )}
-        {isLoadingGoals && <LinearProgressCustom />}
       </MainContainer>
       <GoalModal open={open} handleClose={handleClose} />
     </GoalsContainer>
