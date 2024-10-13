@@ -48,7 +48,7 @@ export const EstatisticCard = styled.div`
   flex-direction: column;
   gap: 0.75rem;
 
-  strong {
+  h1 {
     color: ${(props) => props.theme.text};
     font-size: 1.5rem;
     font-weight: 600;
@@ -61,7 +61,7 @@ export const TopContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  strong {
+  h1 {
     color: ${(props) => props.theme.text};
     font-size: 1.5rem;
     font-weight: 600;

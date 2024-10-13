@@ -1,11 +1,11 @@
-import { Button } from "../../components/Button"
-import { GoalCard } from "../../components/Cards/GoalCard"
-import { PaginationMenu } from "../../components/PaginationMenu"
-import { SelectFilter } from "../../components/FilterSelect"
-import { Summary } from "../../components/Summary"
+import { Button } from "../../components/ui/Button"
+
+import { PaginationMenu } from "../../components/form/PaginationMenu"
+import { SelectFilter } from "../../components/form/FilterSelect"
+import { Summary } from "../../components/ui/Summary"
 import { GoalModal } from "./NewGoalModal"
 import { useContext, useState } from "react"
-import { GoalsContext } from "../../contexts/goalsContext"
+import { GoalsContext } from "../../contexts/Goals/goalsContext"
 import {
   ContainerBarSummary,
   GoalsContainer,
@@ -14,8 +14,9 @@ import {
 } from "./styles"
 import { useSummaryGoals } from "../../hooks/useSummaryGoal"
 import { LinearProgressCustom } from "../Accounts/styles"
-import { EmptyAccounts } from "../../components/EmptyComponent"
+import { EmptyAccounts } from "../../components/ui/EmptyComponent"
 import { SelectChangeEvent } from "@mui/material"
+import { GoalCard } from "../../components/ui/Cards/GoalCard"
 
 export function Goals() {
   const { goalsList, isLoadingGoals } = useContext(GoalsContext)
@@ -79,7 +80,7 @@ export function Goals() {
         />
       </Section>
       <MainContainer>
-        {filteredGoals.length === 0 && !isLoadingGoals? (
+        {filteredGoals.length === 0 && !isLoadingGoals ? (
           <EmptyAccounts mensageType="meta" />
         ) : (
           filteredGoals

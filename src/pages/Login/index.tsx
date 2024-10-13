@@ -1,15 +1,15 @@
-import { Sponsor } from "../../components/Auth/Sponsor"
-import { AuthResposiveContainer } from "../../components/Auth/ResposiveContainer"
-import { AuthForm } from "../../components/Auth/AuthForm"
-import { TextFiled } from "../../components/TextField"
+import { Sponsor } from "../../components/auth/Sponsor"
+import { AuthResposiveContainer } from "../../components/auth/ResposiveContainer"
+import { AuthForm } from "../../components/auth/AuthForm"
+import { TextFiled } from "../../components/form/TextField"
 import InputLabel from "@mui/material/InputLabel"
 import Input from "@mui/material/Input"
 import InputAdornment from "@mui/material/InputAdornment"
 import IconButton from "@mui/material/IconButton"
-import { Button } from "../../components/Auth/AuthForm/styles"
+import { Button } from "../../components/auth/AuthForm/styles"
 import { LockOpen, Lock } from "lucide-react"
 import { useContext, useState } from "react"
-import { UserContext } from "../../contexts/userContext"
+import { UserContext } from "../../contexts/User/userContext"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { loginFormSchema } from "./loginFormSchema"
@@ -27,7 +27,7 @@ export function Login() {
     setShowPassword(!showPassword)
   }
 
-  const { userLogin } = useContext(UserContext)
+  const { userLogin, isLoadingDataUser } = useContext(UserContext)
 
   const {
     register,
@@ -35,7 +35,7 @@ export function Login() {
     formState: { errors },
   } = useForm<UserLoginFormData>({
     resolver: zodResolver(loginFormSchema),
-    mode: "onChange"
+    mode: "onChange",
   })
 
   async function handleUserLogin(data: UserLoginFormData) {
@@ -86,7 +86,9 @@ export function Login() {
               }
             />
           </TextFiled>
-          <Button type="submit">Entrar</Button>
+          <Button type="submit">
+            {isLoadingDataUser ? "Entrando..." : "Entrar"}
+          </Button>
         </form>
       </AuthForm>
     </AuthResposiveContainer>

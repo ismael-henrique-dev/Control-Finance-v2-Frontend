@@ -1,12 +1,12 @@
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
-import { AccountsContext } from "../../contexts/accountsContext"
-import { AccountCard } from "../../components/Cards/AccountCard"
-import { GoalCard } from "../../components/Cards/GoalCard"
+import { AccountsContext } from "../../contexts/Accounts/accountsContext"
+import { AccountCard } from "../../components/ui/Cards/AccountCard"
+import { GoalCard } from "../../components/ui/Cards/GoalCard"
 import { DonutChart } from "./Chart"
 import { Summary } from "./HomeSummary"
-import { GoalsContext } from "../../contexts/goalsContext"
-import { EmptyAccounts } from "../../components/EmptyComponent"
+import { GoalsContext } from "../../contexts/Goals/goalsContext"
+import { EmptyAccounts } from "../../components/ui/EmptyComponent"
 import { LinearProgressCustom } from "../Accounts/styles"
 import {
   DefaultContainer,
@@ -18,6 +18,7 @@ import {
 export function Home() {
   const { accountsList, isLoading } = useContext(AccountsContext)
   const { goalsList, isLoadingGoals } = useContext(GoalsContext)
+
   const goals = [
     ...goalsList.CompletedGoals,
     ...goalsList.ExpiredGoals,
@@ -28,26 +29,26 @@ export function Home() {
     <HomeContainer>
       <DefaultContainer content="center">
         <EstatisticCard>
-          <strong>Saldo total</strong>
+          <h1>Saldo total</h1>
           <Summary />
         </EstatisticCard>
         <EstatisticCard>
-          <strong>Resumo dos depósitos</strong>
+          <h1>Resumo dos depósitos</h1>
           <DonutChart chartType="DEP" />
         </EstatisticCard>
         <EstatisticCard>
-          <strong>Resumo dos saques</strong>
+          <h1>Resumo dos saques</h1>
           <DonutChart chartType="SAL" />
         </EstatisticCard>
       </DefaultContainer>
       <TopContainer>
-        <strong>Contas</strong>
+        <h1>Contas</h1>
         <NavLink to="/contas">ver mais</NavLink>
       </TopContainer>
       <DefaultContainer content="start">
         <main>
           {accountsList.length === 0 && <EmptyAccounts mensageType="conta" />}
-          {isLoading === true ? (
+          {isLoading ? (
             <LinearProgressCustom />
           ) : (
             accountsList
@@ -68,7 +69,7 @@ export function Home() {
         </main>
       </DefaultContainer>
       <TopContainer>
-        <strong>Metas</strong>
+        <h1>Metas</h1>
         <NavLink to="/metas">ver mais</NavLink>
       </TopContainer>
       <DefaultContainer content="start">

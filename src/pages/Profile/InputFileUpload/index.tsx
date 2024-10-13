@@ -2,7 +2,9 @@ import { Pencil } from "lucide-react"
 import { ChangeEvent, useContext, useEffect, useState } from "react"
 import { Container, Input, Label, ProfilePic, ImagePreview } from "./styles"
 import { api } from "../../../services/api"
-import { UserContext } from "../../../contexts/userContext"
+import { UserContext } from "../../../contexts/User/userContext"
+import { apiWithToken } from "../../../functions"
+import { token } from "../../../constants"
 import testImage from "../../../assets/test-image.svg"
 
 export function InputFileUpload() {
@@ -16,14 +18,8 @@ export function InputFileUpload() {
   }, [userData])
 
   async function uploadImageUpdate(data: FormData) {
-    const token = localStorage.getItem("@token")
     try {
-      const response = await api.post("/upload/profile", data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      console.log("Imagem enviada com sucesso:", response.data)
+      await api.post("/upload/profile", data, apiWithToken(token))
     } catch (err) {
       console.error("Erro ao enviar a imagem:", err)
     }
@@ -34,21 +30,21 @@ export function InputFileUpload() {
       const reader = new FileReader()
       const file = event.target.files[0]
       const formData = new FormData()
-      formData.append("avatar", file) // Nome do campo de acordo com o que o servidor espera
+      formData.append("avatar", file)
 
       reader.onload = async (e) => {
         if (e.target && typeof e.target.result === "string") {
-          setImageUrl(e.target.result) // Atualiza a URL da imagem
-          await uploadImageUpdate(formData) // Faz o upload da nova imagem
+          setImageUrl(e.target.result)
+          await uploadImageUpdate(formData)
         }
       }
 
-      reader.readAsDataURL(file) // Converte a imagem em base64
-      
+      reader.readAsDataURL(file)
+
       setUserData({
         ...userData,
         ProfileUrl: imageUrl || "",
-        Email: userData?.Email ?? "", // Garante que o valor de Email não seja undefined
+        Email: userData?.Email ?? "",
         Id: userData?.Id ?? "",
         Senha: userData?.Senha ?? "",
         UsernName: userData?.UsernName ?? "",
@@ -65,7 +61,7 @@ export function InputFileUpload() {
           id="file"
           accept="image/*"
           onChange={handleImageChange}
-          style={{ display: "none" }} 
+          style={{ display: "none" }}
         />
         <Label htmlFor="file">
           <Pencil />

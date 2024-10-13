@@ -15,6 +15,7 @@ export const HomeSummary = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
+    align-items: start;
   }
 `
 

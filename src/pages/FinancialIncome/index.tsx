@@ -3,7 +3,7 @@ import { CardStatus } from "./CardStatus"
 import ColumnChart from "./Chart"
 import { CustomSelect } from "./Select"
 import { FinancialIncomeContainer, ResponsiveContainerPage } from "./styles"
-import { TransactionsContext } from "../../contexts/transactionsContext"
+import { TransactionsContext } from "../../contexts/Transactions/transactionsContext"
 import dayjs from "dayjs"
 import { SelectChangeEvent } from "@mui/material"
 import isoWeek from "dayjs/plugin/isoWeek"
@@ -11,7 +11,7 @@ dayjs.extend(isoWeek)
 
 export function FinancialIncome() {
   const [filter, setFilter] = useState<string>("mensal")
-  const [series, setSeries] = useState<number[]>([]) 
+  const [series, setSeries] = useState<number[]>([])
   const [labels, setLabels] = useState<string[]>([])
   const { transactions } = useContext(TransactionsContext)
 
@@ -33,7 +33,6 @@ export function FinancialIncome() {
     )
   }
 
-  
   const calculateWeekBalance = (week: number, year: number) => {
     return transactions.reduce(
       (acc, transaction) => {
@@ -52,7 +51,6 @@ export function FinancialIncome() {
     )
   }
 
- 
   const calculateYearBalance = (year: number) => {
     return transactions.reduce(
       (acc, transaction) => {
@@ -101,7 +99,7 @@ export function FinancialIncome() {
 
     setSeries(balances)
     setLabels(labels)
-  }, [transactions, filter]) 
+  }, [transactions, filter])
 
   const handleChange = (event: SelectChangeEvent<string>) => {
     setFilter(event.target.value)

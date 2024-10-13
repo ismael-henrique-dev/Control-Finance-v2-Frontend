@@ -3,13 +3,19 @@ import Input from "@mui/material/Input"
 import InputAdornment from "@mui/material/InputAdornment"
 import { Calendar } from "lucide-react"
 import InputLabel from "@mui/material/InputLabel"
-import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
-import { TextFiled } from "../../../components/TextField"
+import {
+  ModalBase,
+  ModalBasePropsDefault,
+} from "../../../components/form/NewTransactionModal/ModalBase"
+import { TextFiled } from "../../../components/form/TextField"
 import { Controller, useForm } from "react-hook-form"
 import CurrencyInput from "react-currency-input-field"
-import { CreateGoalFormData, createGoalFormSchema } from "../../../schemas/CreateGoalFormSchema"
+import {
+  CreateGoalFormData,
+  createGoalFormSchema,
+} from "../../../schemas/goal/CreateGoalFormSchema"
 import { useContext } from "react"
-import { GoalsContext } from "../../../contexts/goalsContext"
+import { GoalsContext } from "../../../contexts/Goals/goalsContext"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 // Estilizar o Input para esconder o ícone padrão
@@ -32,13 +38,15 @@ export const StyledInput = styled(Input)`
 
 export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
   const { createGoal } = useContext(GoalsContext)
-  const { register, handleSubmit, control, formState } = useForm<CreateGoalFormData>({
-    resolver: zodResolver(createGoalFormSchema),
-  })
+  const { register, handleSubmit, control, formState } =
+    useForm<CreateGoalFormData>({
+      resolver: zodResolver(createGoalFormSchema),
+    })
 
   async function handleCreateGoal(data: CreateGoalFormData) {
     console.log(data)
     await createGoal(data)
+    handleClose()
   }
 
   return (
@@ -82,7 +90,11 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
         <InputLabel htmlFor="standard-adornment-password">
           Valor final
         </InputLabel>
-        <Input type="number" {...register("TargetedValue", {valueAsNumber: true})} error={false} />
+        <Input
+          type="number"
+          {...register("TargetedValue", { valueAsNumber: true })}
+          error={false}
+        />
       </TextFiled>
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="standard-adornment-password" />
@@ -90,7 +102,6 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
           type="date"
           error={false}
           {...register("EndTime")}
-          
           endAdornment={
             <InputAdornment position="end">
               <Calendar color="#4C3299" size={20} />

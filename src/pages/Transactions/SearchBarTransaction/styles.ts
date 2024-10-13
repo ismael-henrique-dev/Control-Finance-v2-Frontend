@@ -8,7 +8,6 @@ export const ContainerSearchBarTransaction = styled.div`
   color: ${(props) => props.theme.secundary};
   background-color: ${(props) => props.theme.primaryGray};
   padding: 1rem 1rem;
-  /* height: 5.5rem; */
 
   @media (max-width: 768px) {
     & {
@@ -22,7 +21,7 @@ export const ContainerSearchBarTransaction = styled.div`
     gap: 0.75rem;
     border-bottom: 3px solid ${(props) => props.theme.secundary};
     padding: 0.5rem 0;
-    flex: 1
+    flex: 1;
   }
 
   input {
@@ -31,6 +30,11 @@ export const ContainerSearchBarTransaction = styled.div`
     border: 0;
     color: ${(props) => props.theme.secundary};
     font-size: 1rem;
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
   }
 
   input::placeholder {

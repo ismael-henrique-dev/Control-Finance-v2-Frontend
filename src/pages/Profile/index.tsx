@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
+import { AccountsContext, UserContext } from "../../contexts"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Lock, Mail, Unlock, UserRound } from "lucide-react"
+import { Lock, Mail, UserRound } from "lucide-react"
 import { InputFileUpload } from "./InputFileUpload"
 import { EditableInputContainer } from "./EditableInput"
 import {
@@ -16,8 +17,6 @@ import {
   ProfileContainer,
   ResponsiveContainerPage,
 } from "./styles"
-import { UserContext } from "../../contexts/userContext"
-import { AccountsContext } from "../../contexts/accountsContext"
 
 const profileFormShema = z.object({
   email: z.string(),
@@ -28,13 +27,16 @@ const profileFormShema = z.object({
 export type ProfileFormData = z.infer<typeof profileFormShema>
 
 export function Profile() {
-  const [showPassword, setShowPassword] = useState(false)
-  const { userResetAccount, userDeleteAccount, updateUserProfile, userData, isLoadingResetAccount, isLoadingDeleteAccount } =
-    useContext(UserContext)
+  const {
+    userResetAccount,
+    userDeleteAccount,
+    updateUserProfile,
+    userData,
+    isLoadingResetAccount,
+    isLoadingDeleteAccount,
+  } = useContext(UserContext)
   const { resetAccounts } = useContext(AccountsContext)
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword)
-  }
+  
 
   const { register, handleSubmit, reset, formState } = useForm<ProfileFormData>(
     {
@@ -79,13 +81,9 @@ export function Profile() {
             </EditableInputContainer>
             <Label htmlFor="password-input">Senha</Label>
             <EditableInputContainer>
-              {showPassword ? (
-                <Unlock onClick={handleShowPassword} />
-              ) : (
-                <Lock onClick={handleShowPassword} />
-              )}
+              <Lock />
               <input
-                type={showPassword ? "text" : "password"}
+                type="password"
                 id="password-input"
                 {...register("password")}
               />

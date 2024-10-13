@@ -1,6 +1,10 @@
 import { ApexOptions } from "apexcharts"
 
-export const options = (theme: any, chartLabels: string[], chartColors: string[]) => {
+export const optionsHomeChart = (
+  theme: any,
+  chartLabels: string[],
+  chartColors: string[]
+) => {
   const chartOptions: ApexOptions = {
     chart: {
       type: "donut",
@@ -13,16 +17,15 @@ export const options = (theme: any, chartLabels: string[], chartColors: string[]
     plotOptions: {
       pie: {
         donut: {
-          size: "50%", // Aumenta o tamanho da barra do gráfico de donut
+          size: "50%",
           labels: {
             show: true,
             total: {
               show: true,
               label: "Total",
-              color: theme.text, // Cor do texto "Total"
-              fontSize: "0.875rem", // Tamanho da fonte do texto "Total"
-              fontWeight: "600", // Peso da fonte do texto "T
-              // Adicionando estilo diretamente ao valor total
+              color: theme.text,
+              fontSize: "0.875rem",
+              fontWeight: "600",
             },
             value: {
               color: theme.text,
@@ -42,6 +45,88 @@ export const options = (theme: any, chartLabels: string[], chartColors: string[]
     stroke: {
       show: false,
     },
+  }
+
+  return chartOptions
+}
+
+export const optionsFinancialIncomeChart = (theme: any, chartLabels: string[]) => {
+  const chartOptions: ApexCharts.ApexOptions = {
+    chart: {
+      type: "bar",
+      height: 350,
+      toolbar: {
+        show: false,
+      },
+      background: theme.primaryGray,
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "55%",
+        borderRadius: 12,
+        borderRadiusApplication: "end",
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: false,
+      width: 2,
+      colors: ["transparent"],
+    },
+    xaxis: {
+      categories: chartLabels,
+      labels: {
+        style: {
+          colors: theme.text,
+        },
+      },
+    },
+    yaxis: {
+      title: {
+        text: "Em R$",
+        style: {
+          color: theme.text,
+        },
+      },
+      labels: {
+        style: {
+          colors: theme.text,
+        },
+      },
+    },
+    fill: {
+      opacity: 1,
+      colors: [theme.primary, theme.secondary],
+    },
+    tooltip: {
+      y: {
+        formatter: function (val: number) {
+          return `R$ ${val.toFixed(2)}`
+        },
+      },
+      theme: "dark",
+    },
+    grid: {
+      borderColor: theme.text,
+    },
+    responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          chart: {
+            width: "100%",
+          },
+          plotOptions: {
+            bar: {
+              columnWidth: "75%",
+            },
+          },
+        },
+      },
+    ],
   }
 
   return chartOptions

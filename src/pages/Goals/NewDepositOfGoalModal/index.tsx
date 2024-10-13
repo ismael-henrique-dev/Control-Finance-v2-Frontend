@@ -1,12 +1,15 @@
 import { useContext } from "react"
-import { GoalsContext } from "../../../contexts/goalsContext"
+import { GoalsContext } from "../../../contexts/Goals/goalsContext"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ModalBase, ModalBasePropsDefault } from "../../../components/ModalBase"
+import {
+  ModalBase,
+  ModalBasePropsDefault,
+} from "../../../components/form/NewTransactionModal/ModalBase"
 import {
   CreateNewDepositOfGoalFormData,
   createNewDepositOfGoalFormSchema,
-} from "../../../schemas/CreateNewDepositOfGoalFormSchema"
+} from "../../../schemas/goal/CreateNewDepositOfGoalFormSchema"
 import CurrencyInput from "react-currency-input-field"
 
 interface NewDepositOfGoalProps extends ModalBasePropsDefault {
@@ -28,6 +31,7 @@ export function NewDepositOfGoalModal({
     console.log(data)
     const { DepositValue } = data
     await NewDepositOfGoal(goalId, DepositValue)
+    handleClose()
   }
 
   return (

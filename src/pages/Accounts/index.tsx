@@ -1,10 +1,12 @@
 import { useContext, useState } from "react"
-import { Button } from "../../components/Button"
-import { AccountCard } from "../../components/Cards/AccountCard"
-import { PaginationMenu } from "../../components/PaginationMenu"
-import { Summary } from "../../components/Summary/"
+import { Button } from "../../components/ui/Button"
+import { AccountCard } from "../../components/ui/Cards/AccountCard"
+import { PaginationMenu } from "../../components/form/PaginationMenu"
+import { Summary } from "../../components/ui/Summary"
 import { NewAccountModaL } from "./NewAccountModal"
-import { AccountsContext } from "../../contexts/accountsContext"
+import { AccountsContext } from "../../contexts/Accounts/accountsContext"
+import { EmptyAccounts } from "../../components/ui/EmptyComponent"
+import { useParams } from "react-router-dom"
 import {
   AccountsContainer,
   ContainerBarSummary,
@@ -12,7 +14,6 @@ import {
   MainContainer,
   Section,
 } from "./styles"
-import { EmptyAccounts } from "../../components/EmptyComponent"
 
 export function Accounts() {
   const [open, setOpen] = useState(false)
@@ -22,6 +23,12 @@ export function Accounts() {
 
   const [currentPage, setCurrentPage] = useState<number>(1)
   const totalPages = Math.ceil(accountsList.length / 6)
+
+  const { id } = useParams<{ id: string }>()
+
+  const filteredAccounts = id
+    ? accountsList.filter((account) => account.AcId === id)
+    : accountsList
 
   return (
     <AccountsContainer>
@@ -42,11 +49,11 @@ export function Accounts() {
         />
       </Section>
       <MainContainer>
-        {accountsList.length === 0 && <EmptyAccounts mensageType="conta" />}
+        {filteredAccounts.length === 0 && <EmptyAccounts mensageType="conta" />}
         {isLoading === true ? (
           <LinearProgressCustom />
         ) : (
-          accountsList
+          filteredAccounts
             .slice((currentPage - 1) * 6, currentPage * 6)
             .map((account) => (
               <AccountCard

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { ChartContainer, Legend, LegendItem } from "./styles"
-import { UserContext } from "../../../contexts/userContext"
-import { options } from "../../../utils/ChartConfig"
+import { UserContext } from "../../../contexts/User/userContext"
+import { optionsHomeChart } from "../../../utils/ChartConfig"
 import { useTheme } from "styled-components"
 import Chart from "react-apexcharts"
 
@@ -56,7 +56,7 @@ export function DonutChart({ chartType }: ChartProps) {
     }
   }, [relativeCategoryStats, chartType, theme])
 
-  const chartOptions = options(theme, labelsTitle, colors)
+  const chartOptions = optionsHomeChart(theme, labelsTitle, colors)
   const isSeriesEmpty = series.every((value) => value === null)
 
   return (

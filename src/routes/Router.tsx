@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom"
 import { Login } from "../pages/Login"
-import { DefaultLayout } from "../layouts/DefaultLayout"
+import { DefaultLayout } from "../layouts/components/DefaultLayout"
 import { Home } from "../pages/Home"
 import { Transactions } from "../pages/Transactions"
 import { Accounts } from "../pages/Accounts"
 import { FinancialIncome } from "../pages/FinancialIncome"
 import { Goals } from "../pages/Goals"
 import { Profile } from "../pages/Profile"
-import { SingUp } from "../pages/SingIn"
+import { SingUp } from "../pages/Register"
 import { Auth } from "../pages/Auth"
 
 export function Router() {
@@ -19,8 +19,8 @@ export function Router() {
 
       <Route path="" element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/transacoes" element={<Transactions />} />
-        <Route path="/contas" element={<Accounts />} />
+        <Route path="/transacoes/:id?" element={<Transactions />} />
+        <Route path="/contas/:id?" element={<Accounts />} />
         <Route path="/rendimento" element={<FinancialIncome />} />
         <Route path="/metas" element={<Goals />} />
         <Route path="/profile" element={<Profile />} />

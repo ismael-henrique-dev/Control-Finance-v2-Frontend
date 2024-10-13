@@ -1,6 +1,5 @@
 import { useState } from "react"
-import { Transaction } from "../../../contexts/transactionsContext"
-import { useFormatterCoin } from "../../../hooks/useFormatterCoin"
+import { Transaction } from "../../../contexts/Transactions/transactions"
 import { MenuOptionsTable } from "./MenuOptionsTable"
 import {
   ChevronLeft,
@@ -8,15 +7,16 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
+import "dayjs/locale/pt-br"
+import { priceFormatter } from "../../../utils/formatter"
 import {
   Button,
   ContainerTable,
   NavContainer,
   TransactionsTable,
 } from "./styles"
-import dayjs from "dayjs"
-import relativeTime from "dayjs/plugin/relativeTime"
-import "dayjs/locale/pt-br"
 dayjs.extend(relativeTime)
 dayjs.locale("pt-br")
 
@@ -26,8 +26,6 @@ interface TableProps {
 }
 
 export function Table({ searchInput, filteredTransactions }: TableProps) {
-  const formatCurrency = useFormatterCoin
-
   const searchResultTransacions = filteredTransactions.filter((transaction) =>
     transaction.Title.toLowerCase().includes(searchInput.toLowerCase())
   )
@@ -36,7 +34,10 @@ export function Table({ searchInput, filteredTransactions }: TableProps) {
 
   const totalTransactions = searchResultTransacions.length
   const totalPages = Math.ceil(totalTransactions / 10)
-  const intervalOfTransactionsPage = Math.min(currentPage * 10, totalTransactions)
+  const intervalOfTransactionsPage = Math.min(
+    currentPage * 10,
+    totalTransactions
+  )
 
   function handleNextPage() {
     if (currentPage < totalPages) {
@@ -79,7 +80,7 @@ export function Table({ searchInput, filteredTransactions }: TableProps) {
               return (
                 <tr key={transaction.Id}>
                   <td>{transaction.Title}</td>
-                  <td>{formatCurrency(transaction.Value)}</td>
+                  <td>{priceFormatter(transaction.Value)}</td>
                   <td>{dayjs(transaction.CreatedAt).fromNow()}</td>
                   <td>{transaction.Type === "DEP" ? "Depósito" : "Saída"}</td>
                   <td>
