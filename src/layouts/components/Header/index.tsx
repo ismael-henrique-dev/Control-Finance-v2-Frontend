@@ -19,7 +19,7 @@ export function Header() {
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  // const handleClose = () => setOpen(false)
 
   return (
     <HeaderContainer>
@@ -46,7 +46,7 @@ export function Header() {
         </NavLink>
       </ActionsContainer>
 
-      <SearchBarArea open={open} handleClose={handleClose} />
+      <SearchBarArea open={open} setClose={setOpen} />
     </HeaderContainer>
   )
 }

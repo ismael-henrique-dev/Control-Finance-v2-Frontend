@@ -1,32 +1,28 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { api } from "../../services/api"
-import { Account } from "../../contexts/Accounts/account"
-import { AccountsContext, TransactionsContext } from "../../contexts"
 import { Transaction } from "../../contexts/Transactions/transactions"
-import { useNavigate } from "react-router-dom"
+import { Goal } from "../../contexts/Goals/goals"
+import { useLoadingStates } from "../../hooks/useLoadingStates"
 
-interface AccountSeachData extends Account {
-  Name?: string
+interface AccountSeachData {
+  Name: string
+  Id: string
 }
 
 interface SuggestionsProps {
-  actions: []
   transactions: Transaction[]
   accounts: AccountSeachData[]
+  goals: Goal[]
 }
 
 export function GlobalSearch(query?: string) {
-  const { transactions } = useContext(TransactionsContext)
-  const { accountsList } = useContext(AccountsContext)
+  const [debouncedQuery, setDebouncedQuery] = useState(query)
+  const {isLoadingSearchResults, setIsLoadingSearchResults} = useLoadingStates()
   const [suggestions, setSuggestions] = useState<SuggestionsProps>({
-    actions: [],
     transactions: [],
     accounts: [],
+    goals: [],
   })
-
-  
-
-  const [debouncedQuery, setDebouncedQuery] = useState(query)
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -40,10 +36,10 @@ export function GlobalSearch(query?: string) {
 
   useEffect(() => {
     async function getSearchData(debouncedQuery?: string) {
-
       if (debouncedQuery)
         try {
           const token = localStorage.getItem("@token")
+          setIsLoadingSearchResults(true)
           const { data } = await api.get(`/search/${debouncedQuery}/1`, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -51,29 +47,24 @@ export function GlobalSearch(query?: string) {
           })
 
           setSuggestions({
-            actions: [],
             transactions: data.Transactions,
             accounts: data.Accounts,
+            goals: data.Goals,
           })
+
+          console.log(data)
         } catch (err) {
           console.error(err)
+        } finally {
+          setIsLoadingSearchResults(false)
         }
     }
 
     getSearchData(debouncedQuery)
   }, [debouncedQuery])
 
-  useEffect(() => {
-    if (!debouncedQuery) {
-      setSuggestions({
-        actions: [],
-        transactions: transactions,
-        accounts: accountsList,
-      })
-    }
-  }, [transactions, accountsList, debouncedQuery])
-
-  
-
-  return suggestions
+  return {
+    suggestions,
+    isLoadingSearchResults
+  }
 }

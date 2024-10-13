@@ -12,10 +12,10 @@ import {
 
 interface SearchBarAreaProps {
   open: boolean
-  handleClose: () => void
+  setClose: (isOpen: boolean) => void
 }
 
-export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
+export function SearchBarArea({ open, setClose }: SearchBarAreaProps) {
   const [query, setQuery] = useState("")
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,17 +23,28 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
     setQuery(value)
   }
 
-  const suggestions = GlobalSearch(query)
+  const { suggestions, isLoadingSearchResults } = GlobalSearch(query)
 
   const navigate = useNavigate()
 
+  const handleClose = () => {
+    setClose(false)
+    setQuery("")
+  }
+
   const handleClickAccount = (accountId: string) => {
     navigate(`/contas/${accountId}`)
+    console.log(accountId)
     handleClose()
   }
 
   const handleClickTransaction = (transactionId: string) => {
     navigate(`/transacoes/${transactionId}`)
+    handleClose()
+  }
+
+  const handleClickGoal = (goalId: string) => {
+    navigate(`/metas/${goalId}`)
     handleClose()
   }
 
@@ -53,52 +64,88 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
 
           <button onClick={handleClose}>cancelar</button>
         </header>
-        <main>
-          <SuggestionArea>
-            <header>
-              <span>Transações</span>
-              <NavLink to="/route">ver mais</NavLink>
-            </header>
-            <ul>
-              {suggestions.transactions.slice(0, 5).map((transaction) => (
-                <Suggestion
-                  key={transaction.Id}
-                  onClick={() => handleClickTransaction(transaction.Id)}
-                >
-                  <div>
-                    <span>
-                      <SearchCheck />
-                    </span>
-                    {transaction.Title}
-                  </div>
-                  <ChevronRight />
-                </Suggestion>
-              ))}
-            </ul>
-          </SuggestionArea>
-          <SuggestionArea>
-            <header>
-              <span>Contas</span>
-              <NavLink to="/route">ver mais</NavLink>
-            </header>
-            <ul>
-              {suggestions.accounts.slice(0, 5).map((account) => (
-                <Suggestion
-                  key={account.AcId}
-                  onClick={() => handleClickAccount(account.AcId)}
-                >
-                  <div>
-                    <span>
-                      <SearchCheck />
-                    </span>
-                    {account.Name || account.accountTitle}
-                  </div>
-                  <ChevronRight />
-                </Suggestion>
-              ))}
-            </ul>
-          </SuggestionArea>
-        </main>
+        {query ? (
+          <main>
+            {isLoadingSearchResults && "Carregando..."}
+            {suggestions.transactions.length > 0 && (
+              <SuggestionArea>
+                <header>
+                  <span>Transações</span>
+                  <NavLink to="/transacoes">ver todos</NavLink>
+                </header>
+                <ul>
+                  {suggestions.transactions.slice(0, 5).map((transaction) => (
+                    <Suggestion
+                      key={transaction.Id}
+                      onClick={() => handleClickTransaction(transaction.Id)}
+                    >
+                      <div>
+                        <span>
+                          <SearchCheck />
+                        </span>
+                        {transaction.Title}
+                      </div>
+                      <ChevronRight />
+                    </Suggestion>
+                  ))}
+                </ul>
+              </SuggestionArea>
+            )}
+            {suggestions.accounts.length > 0 && (
+              <SuggestionArea>
+                <header>
+                  <span>Contas</span>
+                  <NavLink to="/contas">ver todos</NavLink>
+                </header>
+                <ul>
+                  {suggestions.accounts.slice(0, 5).map((account) => (
+                    <Suggestion
+                      key={account.Id}
+                      onClick={() => handleClickAccount(account.Id)}
+
+                    >
+                      <div>
+                        <span>
+                          <SearchCheck />
+                        </span>
+                        {account.Name}
+                      </div>
+                      <ChevronRight />
+                    </Suggestion>
+                  ))}
+                </ul>
+              </SuggestionArea>
+            )}
+            {suggestions.goals.length > 0 && (
+              <SuggestionArea>
+                <header>
+                  <span>Metas</span>
+                  <NavLink to="/metas">ver todos</NavLink>
+                </header>
+                <ul>
+                  {suggestions.goals.slice(0, 5).map((goal) => (
+                    <Suggestion
+                      key={goal.Id}
+                      onClick={() => handleClickGoal(goal.Id)}
+                    >
+                      <div>
+                        <span>
+                          <SearchCheck />
+                        </span>
+                        {goal.Title}
+                      </div>
+                      <ChevronRight />
+                    </Suggestion>
+                  ))}
+                </ul>
+              </SuggestionArea>
+            )}
+          </main>
+        ) : (
+          <main>
+            <p>Busque por algo</p>
+          </main>
+        )}
       </ContainerModal>
     </ModalStyled>
   )

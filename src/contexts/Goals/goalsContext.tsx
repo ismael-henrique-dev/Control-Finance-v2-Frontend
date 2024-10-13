@@ -19,6 +19,11 @@ export const GoalsContext = createContext({} as GoalsContextType)
 export function GoalsProvider({ children }: ProviderProps) {
   const { isLoadingGoals, setIsLoadingGoals } = useLoadingStates()
   const [goalsList, setGoalsList] = useState<GoalList>(initialValueGoalList)
+  const goalsArrayList = [
+    ...goalsList.unCompletedGoals,
+    ...goalsList.ExpiredGoals,
+    ...goalsList.CompletedGoals,
+  ]
 
   async function createGoal(goalData: CreateGoalFormData) {
     try {
@@ -157,6 +162,7 @@ export function GoalsProvider({ children }: ProviderProps) {
       value={{
         isLoadingGoals,
         goalsList,
+        goalsArrayList,
         fetchGoals,
         createGoal,
         NewDepositOfGoal,

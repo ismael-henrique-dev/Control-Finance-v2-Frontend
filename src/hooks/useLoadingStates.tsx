@@ -7,7 +7,9 @@ export function useLoadingStates() {
   const [isLoadingResetAccount, setIsLoadingResetAccount] = useState(false)
   const [isLoadingDataUser, setIsLoadingDataUser] = useState(false)
   const [isLoadingGoals, setIsLoadingGoals] = useState(false)
-  const [isLoadingTransactionsList, setIsLoadingTransactionsList] = useState(false)
+  const [isLoadingTransactionsList, setIsLoadingTransactionsList] =
+    useState(false)
+  const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false)
 
   return {
     isLoadingStatic,
@@ -24,5 +26,7 @@ export function useLoadingStates() {
     setIsLoadingTransactionsList,
     isLoading,
     setIsloading,
+    isLoadingSearchResults,
+    setIsLoadingSearchResults,
   }
 }
