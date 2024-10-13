@@ -96,7 +96,6 @@ export function UseProvider({ children }: ProviderProps) {
   function userLogout() {
     localStorage.removeItem("@token")
     setUserData(null)
-    loadUser()
     navigate("/login")
   }
 

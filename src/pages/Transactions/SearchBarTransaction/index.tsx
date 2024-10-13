@@ -4,9 +4,10 @@ import { ContainerSearchBarTransaction } from "./styles"
 
 interface SearchBarProps {
   onSearch: (value: string) => void
+  disabled: boolean
 }
 
-export function SearchBarTransaction({ onSearch }: SearchBarProps) {
+export function SearchBarTransaction({ onSearch, disabled }: SearchBarProps) {
   const [value, setValue] = useState("")
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +25,7 @@ export function SearchBarTransaction({ onSearch }: SearchBarProps) {
           placeholder="Buscar transação"
           value={value}
           onChange={handleSearch}
+          disabled={disabled}
         />
       </div>
     </ContainerSearchBarTransaction>

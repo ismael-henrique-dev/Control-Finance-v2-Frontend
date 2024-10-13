@@ -137,7 +137,13 @@ export const Suggestion = styled.li`
   align-items: center;
   padding: 0.5rem;
   color: ${(props) => props.theme.text};
+  cursor: pointer;
   flex: 1;
+
+  &:hover {
+    transition: all 0.3s;
+    opacity: 0.6;
+  }
 
   svg {
     color: ${(props) => props.theme.secundary};

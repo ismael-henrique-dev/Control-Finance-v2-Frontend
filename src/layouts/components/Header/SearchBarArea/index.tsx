@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ChevronRight, Search, SearchCheck } from "lucide-react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { GlobalSearch } from "../../../../functions"
 import {
   ContainerModal,
@@ -24,6 +24,18 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
   }
 
   const suggestions = GlobalSearch(query)
+
+  const navigate = useNavigate()
+
+  const handleClickAccount = (accountId: string) => {
+    navigate(`/contas/${accountId}`)
+    handleClose()
+  }
+
+  const handleClickTransaction = (transactionId: string) => {
+    navigate(`/transacoes/${transactionId}`)
+    handleClose()
+  }
 
   return (
     <ModalStyled open={open} onClose={handleClose}>
@@ -49,7 +61,10 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
             </header>
             <ul>
               {suggestions.transactions.slice(0, 5).map((transaction) => (
-                <Suggestion key={transaction.Id}>
+                <Suggestion
+                  key={transaction.Id}
+                  onClick={() => handleClickTransaction(transaction.Id)}
+                >
                   <div>
                     <span>
                       <SearchCheck />
@@ -68,7 +83,10 @@ export function SearchBarArea({ open, handleClose }: SearchBarAreaProps) {
             </header>
             <ul>
               {suggestions.accounts.slice(0, 5).map((account) => (
-                <Suggestion key={account.AcId}>
+                <Suggestion
+                  key={account.AcId}
+                  onClick={() => handleClickAccount(account.AcId)}
+                >
                   <div>
                     <span>
                       <SearchCheck />

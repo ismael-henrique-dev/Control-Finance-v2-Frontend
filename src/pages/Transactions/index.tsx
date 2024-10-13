@@ -1,4 +1,5 @@
 import { useContext, useState } from "react"
+import { useParams } from "react-router-dom" // Adicione isso
 import { NewTransactionModal } from "../../components/form/NewTransactionModal"
 import { useSummaryTransaction } from "../../hooks/useSummaryTransaction"
 import { SelectFilter } from "../../components/form/FilterSelect"
@@ -17,6 +18,7 @@ import {
 } from "./styles"
 
 export function Transactions() {
+  const { id } = useParams<{ id: string }>() 
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState<string>("Todas")
   const { transactions, isLoadingTransactionsList } =
@@ -28,23 +30,23 @@ export function Transactions() {
 
   const summary = useSummaryTransaction()
 
-  const selectOptions = ["Todas", "Maior valor", "Menor valor"]
+  const selectOptionsTransactionsFilter = ["Todas", "Maior valor", "Menor valor"]
 
   const getFilteredTransactions = () => {
     const originalListTransactions = [...transactions]
 
+    const filteredByAccount = id
+      ? originalListTransactions.filter((t) => t.Id === id)
+      : originalListTransactions
+
     if (filter === "Maior valor") {
-      const greaterValue = originalListTransactions.sort(
-        (a, b) => b.Value - a.Value
-      )
+      const greaterValue = filteredByAccount.sort((a, b) => b.Value - a.Value)
       return greaterValue
     } else if (filter === "Menor valor") {
-      const lowestValue = originalListTransactions.sort(
-        (a, b) => a.Value - b.Value
-      )
+      const lowestValue = filteredByAccount.sort((a, b) => a.Value - b.Value)
       return lowestValue
     } else {
-      return originalListTransactions
+      return filteredByAccount
     }
   }
 
@@ -54,6 +56,8 @@ export function Transactions() {
     const value = event.target.value
     setFilter(value)
   }
+
+  const disabledSearch = filteredTransactions.length <= 1
 
   return (
     <TransactionsContainer>
@@ -65,7 +69,7 @@ export function Transactions() {
         />
 
         <SelectFilter
-          data={selectOptions}
+          data={selectOptionsTransactionsFilter}
           change={handleChange}
           value={filter}
         />
@@ -75,11 +79,11 @@ export function Transactions() {
         <strong>Histórico de transações</strong>
         {isLoadingTransactionsList ? (
           <LinearProgressCustom />
-        ) : transactions.length === 0 ? (
+        ) : filteredTransactions.length === 0 ? ( 
           <EmptyAccounts mensageType="transação" />
         ) : (
           <>
-            <SearchBarTransaction onSearch={setSearch} />
+            <SearchBarTransaction onSearch={setSearch} disabled={disabledSearch} />
             <Table
               searchInput={search}
               filteredTransactions={filteredTransactions}

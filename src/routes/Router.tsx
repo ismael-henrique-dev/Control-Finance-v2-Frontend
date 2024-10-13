@@ -19,8 +19,8 @@ export function Router() {
 
       <Route path="" element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/transacoes" element={<Transactions />} />
-        <Route path="/contas" element={<Accounts />} />
+        <Route path="/transacoes/:id?" element={<Transactions />} />
+        <Route path="/contas/:id?" element={<Accounts />} />
         <Route path="/rendimento" element={<FinancialIncome />} />
         <Route path="/metas" element={<Goals />} />
         <Route path="/profile" element={<Profile />} />
