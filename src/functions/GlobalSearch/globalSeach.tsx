@@ -3,7 +3,6 @@ import { api } from "../../services/api"
 import { Account } from "../../contexts/Accounts/account"
 import { AccountsContext, TransactionsContext } from "../../contexts"
 import { Transaction } from "../../contexts/Transactions/transactions"
-import { useNavigate } from "react-router-dom"
 
 interface AccountSeachData extends Account {
   Name?: string
