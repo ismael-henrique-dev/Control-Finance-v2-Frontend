@@ -63,7 +63,7 @@ export const InputArea = styled.div`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     & {
       display: none;
     }
@@ -111,6 +111,7 @@ export const ActionsContainer = styled.div`
     text-decoration: none;
     padding: 0.75rem 0.5rem;
     font-weight: 500;
+    flex: 1;
   }
 
   button:hover,
@@ -118,7 +119,7 @@ export const ActionsContainer = styled.div`
     cursor: pointer;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     & {
       gap: 1rem;
     }

@@ -2,13 +2,12 @@ import { styled } from "styled-components"
 
 export const MainContainer = styled.div`
   width: 100vw;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  @media (max-widht: 768px) {
-    display: block;
+  @media (min-width: 768px) {
+    height: 100vh;
   }
 `
 
@@ -35,6 +34,6 @@ export const ResposiveContainer = styled.main`
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 4rem 2rem;
-    height: 100vh;
+    width: 100%;
   }
 `

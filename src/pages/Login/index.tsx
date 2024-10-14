@@ -32,7 +32,7 @@ export function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<UserLoginFormData>({
     resolver: zodResolver(loginFormSchema),
     mode: "onChange",
@@ -86,7 +86,7 @@ export function Login() {
               }
             />
           </TextFiled>
-          <Button type="submit">
+          <Button type="submit" disabled={!isValid}>
             {isLoadingDataUser ? "Entrando..." : "Entrar"}
           </Button>
         </form>

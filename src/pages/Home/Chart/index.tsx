@@ -82,6 +82,7 @@ export function DonutChart({ chartType }: ChartProps) {
                   value > 0 && (
                     <LegendItem color={colors[index]} key={category}>
                       <span>{category}</span>
+
                     </LegendItem>
                   )
               )}
