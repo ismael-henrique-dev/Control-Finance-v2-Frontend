@@ -56,6 +56,12 @@ export const Button = styled.button<ButtonProps>`
 
   &:disabled {
     opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    transition: background 0.3s;
+    opacity: 0.7;
   }
 
   color: ${(props) => {
