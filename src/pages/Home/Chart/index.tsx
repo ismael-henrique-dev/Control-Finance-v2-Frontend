@@ -46,7 +46,7 @@ export function DonutChart({ chartType }: ChartProps) {
           theme.blue1,
           theme.blue2,
           theme.secundary,
-          theme.text,
+          theme.invertColor,
           theme.green,
           theme.coral,
           theme.pink,

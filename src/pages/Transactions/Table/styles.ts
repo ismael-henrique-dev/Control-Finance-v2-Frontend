@@ -18,7 +18,7 @@ export const TransactionsTable = styled.table`
 
   font-size: 0.875rem;
   font-weight: 600;
-  min-width: 100px; 
+  min-width: 100px;
 
   thead {
     tr {
@@ -75,17 +75,18 @@ export const TransactionsTable = styled.table`
 
   tfoot {
     background-color: ${(props) => props.theme.primaryGray};
+
     tr {
+      &:first-child {
+        border-bottom-left-radius: 12px;
+      }
+      &:last-child {
+        border-bottom-right-radius: 12px;
+      }
+
       td {
         padding: 1.25rem 2rem;
         white-space: nowrap;
-
-        &:first-child {
-          border-bottom-left-radius: 12px;
-        }
-        &:last-child {
-          border-bottom-right-radius: 12px;
-        }
 
         section {
           display: flex;

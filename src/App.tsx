@@ -13,6 +13,7 @@ import {
   GoalsProvider,
   UseProvider,
 } from "./contexts"
+import { GoogleOAuthProvider } from "@react-oauth/google"
 
 function App() {
   const { theme } = useContext(ThemeContext)
@@ -26,6 +27,8 @@ function App() {
   )
 }
 
+const clientID = "400143903483-lenkce076k19ikl97v5d1hb4isb011rd.apps.googleusercontent.com"
+
 export default function MainApp() {
   return (
     <ThemeProvider>
@@ -34,7 +37,9 @@ export default function MainApp() {
           <TransactionsProvider>
             <GoalsProvider>
               <UseProvider>
-                <App />
+                <GoogleOAuthProvider clientId={clientID}>
+                  <App />
+                </GoogleOAuthProvider>
               </UseProvider>
             </GoalsProvider>
           </TransactionsProvider>

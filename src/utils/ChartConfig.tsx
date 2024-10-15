@@ -26,6 +26,14 @@ export const optionsHomeChart = (
               color: theme.text,
               fontSize: "0.875rem",
               fontWeight: "600",
+              formatter: function (w) {
+                // Acessa o total e formata com duas casas decimais
+                const total = w.globals.seriesTotals.reduce(
+                  (a: number, b: number) => a + b,
+                  0
+                )
+                return total.toFixed(2)
+              },
             },
             value: {
               color: theme.text,
@@ -36,6 +44,7 @@ export const optionsHomeChart = (
     },
     dataLabels: {
       enabled: false,
+      
     },
     colors: chartColors,
     tooltip: {
