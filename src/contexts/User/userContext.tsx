@@ -58,6 +58,11 @@ export function UseProvider({ children }: ProviderProps) {
     try {
       await api.post("/users/register", data)
       navigate("/login")
+
+      await userLogin({
+        Email: data.Email, 
+        Senha: data.Senha,
+      })
     } catch (error) {
       console.log(error)
     }
