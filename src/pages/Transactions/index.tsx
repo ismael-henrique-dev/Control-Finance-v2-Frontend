@@ -16,21 +16,36 @@ import {
   MainContainer,
   TransactionsContainer,
 } from "./styles"
+import { AccountsContext } from "../../contexts"
 
 export function Transactions() {
-  const { id } = useParams<{ id: string }>() 
+  const { id } = useParams<{ id: string }>()
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState<string>("Todas")
   const { transactions, isLoadingTransactionsList } =
     useContext(TransactionsContext)
+  const { accountsList } = useContext(AccountsContext)
+  const desabledState = accountsList.length === 0
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  const handleClick = () => {
+    if (!desabledState) {
+      handleOpen()
+    } else {
+      window.alert("Você ainda não tem uma conta, crie uma para poder realizar transações.")
+    }
+  }
+
   const summary = useSummaryTransaction()
 
-  const selectOptionsTransactionsFilter = ["Todas", "Maior valor", "Menor valor"]
+  const selectOptionsTransactionsFilter = [
+    "Todas",
+    "Maior valor",
+    "Menor valor",
+  ]
 
   const getFilteredTransactions = () => {
     const originalListTransactions = [...transactions]
@@ -73,17 +88,20 @@ export function Transactions() {
           change={handleChange}
           value={filter}
         />
-        <Button handleClick={handleOpen} />
+        <Button handleClick={handleClick} />
       </ContainerBarSummary>
       <MainContainer>
         <strong>Histórico de transações</strong>
         {isLoadingTransactionsList ? (
           <LinearProgressCustom />
-        ) : filteredTransactions.length === 0 ? ( 
+        ) : filteredTransactions.length === 0 ? (
           <EmptyAccounts mensageType="transação" />
         ) : (
           <>
-            <SearchBarTransaction onSearch={setSearch} disabled={disabledSearch} />
+            <SearchBarTransaction
+              onSearch={setSearch}
+              disabled={disabledSearch}
+            />
             <Table
               searchInput={search}
               filteredTransactions={filteredTransactions}

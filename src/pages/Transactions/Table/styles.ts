@@ -75,18 +75,17 @@ export const TransactionsTable = styled.table`
 
   tfoot {
     background-color: ${(props) => props.theme.primaryGray};
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 12px;
+    border-radius: 50px;
 
     tr {
-      &:first-child {
-        border-bottom-left-radius: 12px;
-      }
-      &:last-child {
-        border-bottom-right-radius: 12px;
-      }
-
       td {
         padding: 1.25rem 2rem;
         white-space: nowrap;
+
+        border-bottom-left-radius: 18px;
+        border-bottom-right-radius: 12px;
 
         section {
           display: flex;

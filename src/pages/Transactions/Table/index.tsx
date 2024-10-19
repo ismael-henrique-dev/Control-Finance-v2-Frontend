@@ -34,10 +34,11 @@ export function Table({ searchInput, filteredTransactions }: TableProps) {
 
   const totalTransactions = searchResultTransacions.length
   const totalPages = Math.ceil(totalTransactions / 10)
-  const intervalOfTransactionsPage = Math.min(
-    currentPage * 10,
-    totalTransactions
-  )
+ const intervalOfTransactionsPage = Math.min(
+   searchResultTransacions.length - (currentPage - 1) * 10,
+   10
+ )
+
 
   function handleNextPage() {
     if (currentPage < totalPages) {
@@ -110,16 +111,32 @@ export function Table({ searchInput, filteredTransactions }: TableProps) {
                   Página {currentPage} de {totalPages}
                 </span>
                 <NavContainer>
-                  <Button variant="nav" onClick={handleFirstPage}>
+                  <Button
+                    variant="nav"
+                    onClick={handleFirstPage}
+                    disabled={currentPage === 1}
+                  >
                     <ChevronsLeft />
                   </Button>
-                  <Button variant="nav" onClick={handlePrevPage}>
+                  <Button
+                    variant="nav"
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                  >
                     <ChevronLeft />
                   </Button>
-                  <Button variant="nav" onClick={handleNextPage}>
+                  <Button
+                    variant="nav"
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}
+                  >
                     <ChevronRight />
                   </Button>
-                  <Button variant="nav" onClick={handleLastPage}>
+                  <Button
+                    variant="nav"
+                    onClick={handleLastPage}
+                    disabled={currentPage === totalPages}
+                  >
                     <ChevronsRight />
                   </Button>
                 </NavContainer>

@@ -2,10 +2,6 @@ import { Sponsor } from "../../components/auth/Sponsor"
 import { AuthResposiveContainer } from "../../components/auth/ResposiveContainer"
 import { AuthForm } from "../../components/auth/AuthForm"
 import { TextFiled } from "../../components/form/TextField"
-import InputLabel from "@mui/material/InputLabel"
-import Input from "@mui/material/Input"
-import InputAdornment from "@mui/material/InputAdornment"
-import IconButton from "@mui/material/IconButton"
 import { Button } from "../../components/auth/AuthForm/styles"
 import { LockOpen, Lock } from "lucide-react"
 import { useContext, useState } from "react"
@@ -13,6 +9,10 @@ import { UserContext } from "../../contexts/User/userContext"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { loginFormSchema } from "./loginFormSchema"
+import InputLabel from "@mui/material/InputLabel"
+import Input from "@mui/material/Input"
+import InputAdornment from "@mui/material/InputAdornment"
+import IconButton from "@mui/material/IconButton"
 
 interface UserLoginFormData {
   Email: string
@@ -26,29 +26,12 @@ export function Login() {
     setShowPassword(!showPassword)
   }
 
-
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [profilePic, setProfilePic] = useState()
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  const responseGoogle = (response:any) => {
-    console.log(response)
-    const {
-      profileObj: { name, email, imageUrl },
-    } = response
-    setName(name)
-    setEmail(email)
-    setProfilePic(imageUrl)
-    setIsLoggedIn(true)
-  }
-
   const { userLogin, isLoadingDataUser } = useContext(UserContext)
 
   const {
     register,
     handleSubmit,
-    setError, // Adicionando o setError aqui
+    setError, 
     formState: { errors, isValid },
   } = useForm<UserLoginFormData>({
     resolver: zodResolver(loginFormSchema),
@@ -62,7 +45,6 @@ export function Login() {
     try {
       const responseError = await userLogin({ Email, Senha })
       if (responseError) {
-        // Define o erro no campo Email ou Senha
         setError("root", {
           type: "manual",
           message: "Email ou senha incorretos.",
@@ -95,7 +77,7 @@ export function Login() {
               {...register("Email")}
             />
             {errors.Email && <p>{errors.Email.message}</p>}{" "}
-            {/* Mostra o erro */}
+          
           </TextFiled>
           <TextFiled variant="standard">
             <InputLabel htmlFor="user-password">Senha</InputLabel>

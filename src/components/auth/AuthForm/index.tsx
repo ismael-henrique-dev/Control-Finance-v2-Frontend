@@ -12,7 +12,7 @@ interface AuthLoginProps {
   text: string
   authType: string
   navLinkText: string
-  routeAuth: "/login" | "/signUp" 
+  routeAuth: "/login" | "/singUp"
 }
 
 export function AuthForm({
