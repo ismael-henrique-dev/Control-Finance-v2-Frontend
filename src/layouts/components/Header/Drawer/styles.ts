@@ -51,6 +51,7 @@ export const PresentationSection = styled.section`
   strong {
     color: ${(props) => props.theme.text};
     font-size: 1.5rem;
+    text-align: center;
   }
 `
 
