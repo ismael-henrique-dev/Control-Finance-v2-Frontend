@@ -16,7 +16,6 @@ import {
   UserRegisterFormData,
 } from "./user"
 
-
 const initialValueStatic = {
   DEP: 0,
   SAL: 0,
@@ -49,10 +48,21 @@ export function UseProvider({ children }: ProviderProps) {
   const navigate = useNavigate()
   const pathname = window.location.pathname
 
+  const isAuthenticated = async () => {
+    if (!token) {
+      navigate("/login")
+    }
+  }
+
   async function userRegister(data: UserRegisterFormData) {
     try {
       await api.post("/users/register", data)
       navigate("/login")
+
+      await userLogin({
+        Email: data.Email, 
+        Senha: data.Senha,
+      })
     } catch (error) {
       console.log(error)
     }
@@ -66,11 +76,13 @@ export function UseProvider({ children }: ProviderProps) {
 
       await loadUser()
       await fetchUserStatic()
+      navigate("/")
     } catch (error) {
-      console.error("Informações incorretas")
+      console.log("Informações incorretas")
+      const errorOfResponse = "Email ou senha incorretas."
+      return errorOfResponse
     } finally {
       setIsLoadingDataUser(false)
-      navigate("/")
       await fetchTransactions()
       await fetchGoals()
       await fetchAccounts()
@@ -88,10 +100,6 @@ export function UseProvider({ children }: ProviderProps) {
       }
     }
   }
-
-  useEffect(() => {
-    loadUser()
-  }, [])
 
   function userLogout() {
     localStorage.removeItem("@token")
@@ -143,6 +151,8 @@ export function UseProvider({ children }: ProviderProps) {
 
   useEffect(() => {
     fetchUserStatic()
+    isAuthenticated()
+    loadUser()
   }, [])
 
   async function UserVisitMode() {

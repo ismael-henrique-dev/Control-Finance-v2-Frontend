@@ -17,7 +17,6 @@ import { loginFormSchema } from "./loginFormSchema"
 interface UserLoginFormData {
   Email: string
   Senha: string
-  // UsernName: string
 }
 
 export function Login() {
@@ -32,6 +31,7 @@ export function Login() {
   const {
     register,
     handleSubmit,
+    setError, 
     formState: { errors, isValid },
   } = useForm<UserLoginFormData>({
     resolver: zodResolver(loginFormSchema),
@@ -42,7 +42,17 @@ export function Login() {
     const { Email, Senha } = data
     console.log(data)
 
-    await userLogin({ Email, Senha })
+    try {
+      const responseError = await userLogin({ Email, Senha })
+      if (responseError) {
+        setError("root", {
+          type: "manual",
+          message: "Email ou senha incorretos.",
+        })
+      }
+    } catch (error) {
+      console.log("Erro ao fazer login.", error)
+    }
   }
 
   return (
@@ -66,7 +76,8 @@ export function Login() {
               error={!!errors.Email}
               {...register("Email")}
             />
-            {errors.Email && <p>{errors.Email.message}</p>}
+            {errors.Email && <p>{errors.Email.message}</p>}{" "}
+            {/* Mostra o erro */}
           </TextFiled>
           <TextFiled variant="standard">
             <InputLabel htmlFor="user-password">Senha</InputLabel>
@@ -85,7 +96,10 @@ export function Login() {
                 </InputAdornment>
               }
             />
+            {errors.Senha && <p>{errors.Senha.message}</p>}{" "}
+             {errors.root && <p>{errors.root.message}</p>}{" "}
           </TextFiled>
+         
           <Button type="submit" disabled={!isValid}>
             {isLoadingDataUser ? "Entrando..." : "Entrar"}
           </Button>

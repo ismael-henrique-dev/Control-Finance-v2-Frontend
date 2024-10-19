@@ -18,7 +18,7 @@ export interface User {
 export interface UserProviderType {
   userRegister: (data: UserRegisterFormData) => Promise<void>
   UserVisitMode: () => Promise<void>
-  userLogin: (data: UserLoginFormData) => Promise<void>
+  userLogin: (data: UserLoginFormData) => Promise<void> | Promise<"Email ou senha incorretas." | undefined>
   userLogout: () => void
   userResetAccount: () => void
   userDeleteAccount: () => void

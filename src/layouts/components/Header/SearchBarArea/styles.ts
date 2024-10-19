@@ -22,15 +22,28 @@ export const ContainerModal = styled.div`
   header {
     width: 100%;
     display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 1.5rem;
 
     button {
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center; 
       background-color: transparent;
       border: 0;
       font-size: 1rem;
-      color: ${(props) => props.theme.red};
+      color: ${(props) => props.theme.text};
       cursor: pointer;
     }
+  }
+
+  p {
+    color: ${(props) => props.theme.text};
+    text-align: center;
+    margin-top: 0.875rem;
   }
 
   main {
@@ -43,13 +56,13 @@ export const ContainerModal = styled.div`
 
   @media (max-width: 768px) {
     & {
-      height: 100vh;
+      height: 100%;
       width: 100%;
       border-radius: 0;
-
+      flex: 1;
       header {
         button {
-          width: 50px;
+          /* width: 50px; */
         }
       }
     }
@@ -89,7 +102,6 @@ export const InputAreaFunctional = styled.div`
   }
 
   @media (max-width: 768px) {
-   
   }
 `
 

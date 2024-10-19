@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ChevronRight, Search, SearchCheck } from "lucide-react"
+import { ChevronRight, Search, SearchCheck, X } from "lucide-react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { GlobalSearch } from "../../../../functions"
 import {
@@ -34,7 +34,6 @@ export function SearchBarArea({ open, setClose }: SearchBarAreaProps) {
 
   const handleClickAccount = (accountId: string) => {
     navigate(`/contas/${accountId}`)
-    console.log(accountId)
     handleClose()
   }
 
@@ -62,11 +61,11 @@ export function SearchBarArea({ open, setClose }: SearchBarAreaProps) {
             />
           </InputAreaFunctional>
 
-          <button onClick={handleClose}>cancelar</button>
+          <button onClick={handleClose}><X size={32} /></button>
         </header>
         {query ? (
           <main>
-            {isLoadingSearchResults && "Carregando..."}
+            {isLoadingSearchResults && <p>Carregando...</p>}
             {suggestions.transactions.length > 0 && (
               <SuggestionArea>
                 <header>
@@ -102,7 +101,6 @@ export function SearchBarArea({ open, setClose }: SearchBarAreaProps) {
                     <Suggestion
                       key={account.Id}
                       onClick={() => handleClickAccount(account.Id)}
-
                     >
                       <div>
                         <span>
@@ -140,11 +138,17 @@ export function SearchBarArea({ open, setClose }: SearchBarAreaProps) {
                 </ul>
               </SuggestionArea>
             )}
+            {!isLoadingSearchResults &&
+              suggestions.transactions.length === 0 &&
+              suggestions.accounts.length === 0 &&
+              suggestions.goals.length === 0 && (
+                <p>Não há resultados para essa pesquisa.</p>
+              )}
           </main>
         ) : (
-          <main>
-            <p>Busque por algo</p>
-          </main>
+          <p style={{ marginTop: "50%" }}>
+            Busque por transações, metas ou contas.
+          </p>
         )}
       </ContainerModal>
     </ModalStyled>

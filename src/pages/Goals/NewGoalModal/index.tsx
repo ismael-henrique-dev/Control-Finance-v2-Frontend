@@ -1,7 +1,4 @@
-import styled from "styled-components"
 import Input from "@mui/material/Input"
-import InputAdornment from "@mui/material/InputAdornment"
-import { Calendar } from "lucide-react"
 import InputLabel from "@mui/material/InputLabel"
 import {
   ModalBase,
@@ -18,24 +15,6 @@ import { useContext } from "react"
 import { GoalsContext } from "../../../contexts/Goals/goalsContext"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-// Estilizar o Input para esconder o ícone padrão
-export const StyledInput = styled(Input)`
-  input[type="date"] {
-    &::-webkit-calendar-picker-indicator {
-      opacity: 1;
-      display: block;
-      color: #4c3299; /* Esconder o ícone padrão */
-    }
-    &::-webkit-inner-spin-button,
-    &::-webkit-clear-button {
-      display: none; /* Esconder os botões de spin no Chrome */
-    }
-    &::-moz-clear {
-      display: none; /* Esconder o botão clear no Firefox */
-    }
-  }
-`
-
 export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
   const { createGoal } = useContext(GoalsContext)
   const { register, handleSubmit, control, formState } =
@@ -44,7 +23,6 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
     })
 
   async function handleCreateGoal(data: CreateGoalFormData) {
-    console.log(data)
     await createGoal(data)
     handleClose()
   }
@@ -84,7 +62,12 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
         <InputLabel htmlFor="standard-adornment-password">
           Nome da meta
         </InputLabel>
-        <Input type="text" {...register("Title")} error={false} />
+        <Input
+          type="text"
+          {...register("Title")}
+          error={!!formState.errors.Title}
+        />
+        {formState.errors.Title && <p>{formState.errors.Title.message}</p>}{" "}
       </TextFiled>
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="standard-adornment-password">
@@ -98,16 +81,7 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
       </TextFiled>
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="standard-adornment-password" />
-        <StyledInput
-          type="date"
-          error={false}
-          {...register("EndTime")}
-          endAdornment={
-            <InputAdornment position="end">
-              <Calendar color="#4C3299" size={20} />
-            </InputAdornment>
-          }
-        />
+        <Input type="date" error={false} {...register("EndTime")} />
       </TextFiled>
     </ModalBase>
   )

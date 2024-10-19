@@ -13,7 +13,6 @@ import {
 import { TextFiled } from "../../../components/form/TextField"
 import { Input, InputAdornment, InputLabel } from "@mui/material"
 import { Calendar } from "lucide-react"
-import { StyledInput } from "../NewGoalModal"
 import CurrencyInput from "react-currency-input-field"
 
 interface EditGoalProps extends ModalBasePropsDefault {
@@ -88,7 +87,7 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
       </TextFiled>
       <TextFiled formControlWidth="90%" variant="standard">
         <InputLabel htmlFor="standard-adornment-password" />
-        <StyledInput
+        <Input
           type="date"
           error={false}
           {...register("EndTime", {
