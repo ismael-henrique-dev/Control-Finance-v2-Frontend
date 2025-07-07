@@ -1,12 +1,12 @@
-import { createContext, useEffect, useState } from "react"
-import { api } from "../../services/api"
-import { CreateTransactionFormSchema } from "../../schemas/transactions/CreateTransactionFormSchema"
-import { EditTransactionFormSchema } from "../../schemas/transactions/EditTransactionFormSchema"
-import { useLoadingStates } from "../../hooks/useLoadingStates"
-import { apiWithToken } from "../../functions"
-import { token } from "../../constants"
-import { ProviderProps } from "../../@types/context"
-import { Transaction, TransactionsContextType } from "./transactions"
+import { createContext, useEffect, useState } from 'react'
+import { api } from '../../services/api'
+import { CreateTransactionFormSchema } from '../../schemas/transactions/CreateTransactionFormSchema'
+import { EditTransactionFormSchema } from '../../schemas/transactions/EditTransactionFormSchema'
+import { useLoadingStates } from '../../hooks/useLoadingStates'
+import { apiWithToken } from '../../functions'
+import { token } from '../../constants'
+import { ProviderProps } from '../../types/context'
+import { Transaction, TransactionsContextType } from './transactions'
 
 export const TransactionsContext = createContext({} as TransactionsContextType)
 
@@ -21,7 +21,7 @@ export function TransactionsProvider({ children }: ProviderProps) {
   ) {
     try {
       const { data } = await api.post(
-        "/transaction/create",
+        '/transaction/create',
         transactionsData,
         apiWithToken(token)
       )
@@ -43,7 +43,7 @@ export function TransactionsProvider({ children }: ProviderProps) {
       try {
         setIsLoadingTransactionsList(true)
 
-        const { data } = await api.get("/transaction", apiWithToken(token))
+        const { data } = await api.get('/transaction', apiWithToken(token))
         setTransactions(data.TransactionList)
       } catch (error) {
         console.log(error)

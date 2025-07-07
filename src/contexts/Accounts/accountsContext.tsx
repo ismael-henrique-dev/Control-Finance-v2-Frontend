@@ -1,16 +1,16 @@
-import { createContext, useEffect, useState } from "react"
-import { api } from "../../services/api"
-import { useLoadingStates } from "../../hooks/useLoadingStates"
-import { apiWithToken } from "../../functions"
-import { token } from "../../constants"
-import { ProviderProps } from "../../@types/context"
+import { createContext, useEffect, useState } from 'react'
+import { api } from '../../services/api'
+import { useLoadingStates } from '../../hooks/useLoadingStates'
+import { apiWithToken } from '../../functions'
+import { token } from '../../constants'
+import { ProviderProps } from '../../types/context'
 import {
   Account,
   AccountsContextType,
   NewAccountProps,
   Statics,
   UpdatedData,
-} from "./account"
+} from './account'
 
 export const AccountsContext = createContext({} as AccountsContextType)
 
@@ -29,12 +29,12 @@ export function AccountsProvider({ children }: ProviderProps) {
 
     if (token) {
       try {
-        const { data } = await api.get("/users/account", apiWithToken(token))
+        const { data } = await api.get('/users/account', apiWithToken(token))
 
         setStatics(data.Statics)
         setAccountsList(data.AccountStatics)
       } catch (error) {
-        console.error("Error fetching accounts:", error)
+        console.error('Error fetching accounts:', error)
       } finally {
         setIsloading(false)
       }
@@ -49,7 +49,7 @@ export function AccountsProvider({ children }: ProviderProps) {
     try {
       setIsloading(true)
       const { data } = await api.post(
-        "/account/register",
+        '/account/register',
         AccountData,
         apiWithToken(token)
       )
@@ -78,7 +78,7 @@ export function AccountsProvider({ children }: ProviderProps) {
         }
       })
     } catch (error) {
-      console.error("Error creating account:", error)
+      console.error('Error creating account:', error)
     } finally {
       setIsloading(false)
     }
@@ -107,7 +107,7 @@ export function AccountsProvider({ children }: ProviderProps) {
         )
       )
     } catch (error) {
-      console.error("Erro ao atualizar a conta:", error)
+      console.error('Erro ao atualizar a conta:', error)
     } finally {
       setIsloading(false)
     }
@@ -141,7 +141,7 @@ export function AccountsProvider({ children }: ProviderProps) {
         })
       }
     } catch (error) {
-      console.error("Error deleting account:", error)
+      console.error('Error deleting account:', error)
     } finally {
       setIsloading(false)
     }

@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const ContainerFooter = styled.footer`
   background-color: ${(props) => props.theme.primaryGray};

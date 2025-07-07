@@ -1,12 +1,12 @@
-import { createContext, useContext, useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { api } from "../../services/api"
-import { ProfileFormData } from "../../pages/Profile"
-import { AccountsContext, GoalsContext, TransactionsContext } from ".."
-import { useLoadingStates } from "../../hooks/useLoadingStates"
-import { token } from "../../constants"
-import { apiWithToken } from "../../functions"
-import { ProviderProps } from "../../@types/context"
+import { createContext, useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { api } from '../../services/api'
+import { ProfileFormData } from '../../pages/Profile'
+import { AccountsContext, GoalsContext, TransactionsContext } from '..'
+import { useLoadingStates } from '../../hooks/useLoadingStates'
+import { token } from '../../constants'
+import { apiWithToken } from '../../functions'
+import { ProviderProps } from '../../types/context'
 import {
   AccountState,
   RelativeCategoryStatsProps,
@@ -14,7 +14,7 @@ import {
   UserLoginFormData,
   UserProviderType,
   UserRegisterFormData,
-} from "./user"
+} from './user'
 
 const initialValueStatic = {
   DEP: 0,
@@ -50,17 +50,17 @@ export function UseProvider({ children }: ProviderProps) {
 
   const isAuthenticated = async () => {
     if (!token) {
-      navigate("/login")
+      navigate('/login')
     }
   }
 
   async function userRegister(data: UserRegisterFormData) {
     try {
-      await api.post("/users/register", data)
-      navigate("/login")
+      await api.post('/users/register', data)
+      navigate('/login')
 
       await userLogin({
-        Email: data.Email, 
+        Email: data.Email,
         Senha: data.Senha,
       })
     } catch (error) {
@@ -71,15 +71,15 @@ export function UseProvider({ children }: ProviderProps) {
   async function userLogin(userData: UserLoginFormData) {
     try {
       setIsLoadingDataUser(true)
-      const { data } = await api.patch("/auth/login", userData)
-      localStorage.setItem("@token", data.Token)
+      const { data } = await api.patch('/auth/login', userData)
+      localStorage.setItem('@token', data.Token)
 
       await loadUser()
       await fetchUserStatic()
-      navigate("/")
+      navigate('/')
     } catch (error) {
-      console.log("Informações incorretas")
-      const errorOfResponse = "Email ou senha incorretas."
+      console.log('Informações incorretas')
+      const errorOfResponse = 'Email ou senha incorretas.'
       return errorOfResponse
     } finally {
       setIsLoadingDataUser(false)
@@ -102,9 +102,9 @@ export function UseProvider({ children }: ProviderProps) {
   }
 
   function userLogout() {
-    localStorage.removeItem("@token")
+    localStorage.removeItem('@token')
     setUserData(null)
-    navigate("/login")
+    navigate('/login')
   }
 
   async function userResetAccount() {
@@ -125,7 +125,7 @@ export function UseProvider({ children }: ProviderProps) {
       setIsLoadingDeleteAccount(true)
       await api.delete(`/users/reset`, apiWithToken(token))
 
-      navigate("/singUp")
+      navigate('/singUp')
     } catch (error) {
       console.log(error)
     } finally {
@@ -137,7 +137,7 @@ export function UseProvider({ children }: ProviderProps) {
     if (token) {
       try {
         setIsLoadingStatic(true)
-        const { data } = await api.get("/users/statistic", apiWithToken(token))
+        const { data } = await api.get('/users/statistic', apiWithToken(token))
 
         setAccountState(data.AccountState)
         setRelativeCategoryStats(data.Relative)
@@ -157,9 +157,9 @@ export function UseProvider({ children }: ProviderProps) {
 
   async function UserVisitMode() {
     try {
-      const { data } = await api.patch("/auth/login/guest", {})
-      localStorage.setItem("@token", data.Token)
-      navigate("/")
+      const { data } = await api.patch('/auth/login/guest', {})
+      localStorage.setItem('@token', data.Token)
+      navigate('/')
     } catch (error) {
       console.log(error)
     }

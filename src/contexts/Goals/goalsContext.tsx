@@ -1,12 +1,12 @@
-import { createContext, useEffect, useState } from "react"
-import { api } from "../../services/api"
-import { CreateGoalFormData } from "../../schemas/goal/CreateGoalFormSchema"
-import { UpdateGoalFormData } from "../../schemas/goal/UpdateGoalFormSchema"
-import { useLoadingStates } from "../../hooks/useLoadingStates"
-import { token } from "../../constants"
-import { apiWithToken } from "../../functions"
-import { ProviderProps } from "../../@types/context"
-import { Goal, GoalList, GoalsContextType } from "./goals"
+import { createContext, useEffect, useState } from 'react'
+import { api } from '../../services/api'
+import { CreateGoalFormData } from '../../schemas/goal/CreateGoalFormSchema'
+import { UpdateGoalFormData } from '../../schemas/goal/UpdateGoalFormSchema'
+import { useLoadingStates } from '../../hooks/useLoadingStates'
+import { token } from '../../constants'
+import { apiWithToken } from '../../functions'
+import { ProviderProps } from '../../types/context'
+import { Goal, GoalList, GoalsContextType } from './goals'
 
 const initialValueGoalList = {
   unCompletedGoals: [],
@@ -30,7 +30,7 @@ export function GoalsProvider({ children }: ProviderProps) {
       setIsLoadingGoals(true)
 
       const { data } = await api.post(
-        "/goals/create",
+        '/goals/create',
         goalData,
         apiWithToken(token)
       )
@@ -55,7 +55,7 @@ export function GoalsProvider({ children }: ProviderProps) {
       try {
         setIsLoadingGoals(true)
 
-        const { data } = await api.get("/goals", apiWithToken(token))
+        const { data } = await api.get('/goals', apiWithToken(token))
         setGoalsList({
           unCompletedGoals: data.unCompletedGoals,
           ExpiredGoals: data.ExpiredGoals,
