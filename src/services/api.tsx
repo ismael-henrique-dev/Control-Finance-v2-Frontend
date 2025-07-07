@@ -1,5 +1,7 @@
-import axios from "axios";
+import axios from 'axios'
+
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const api = axios.create({
-  baseURL: "https://control-finance-v2-api.onrender.com",
+  baseURL: apiUrl,
 })
