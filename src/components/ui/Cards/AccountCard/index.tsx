@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { PopeoverOptionsAccount } from "./PopoverOptionsAccount"
+import { useState } from 'react'
+import { PopeoverOptionsAccount } from './PopoverOptionsAccount'
 import {
   Coins,
   Handshake,
@@ -8,16 +8,17 @@ import {
   TrendingDown,
   TrendingUp,
   Wallet,
-} from "lucide-react"
+} from 'lucide-react'
 import {
   AccountCardConatiner,
   AccountSummary,
   ActionsArea,
   ButtonAdd,
   SummaryType,
-} from "./styles"
-import { NewTransactionModal } from "../../../form/NewTransactionModal"
-import { priceFormatter } from "../../../../utils/formatter"
+} from './styles'
+
+import { priceFormatter } from '../../../../utils/formatter'
+import { NewTransactionModal } from '../../Modals/NewTransactionModal'
 
 interface AccountCardProps {
   isPageAccounts: boolean
@@ -65,14 +66,14 @@ export function AccountCard({
       </header>
       <strong>{priceFormatter(total)}</strong>
       <AccountSummary>
-        <SummaryType variant="income">
+        <SummaryType variant='income'>
           <div>
             <TrendingUp />
             Depositos
           </div>
           <span>{priceFormatter(income)}</span>
         </SummaryType>
-        <SummaryType variant="outcome">
+        <SummaryType variant='outcome'>
           <div>
             <TrendingDown />
             Saídas

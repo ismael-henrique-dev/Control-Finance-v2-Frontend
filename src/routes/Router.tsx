@@ -5,18 +5,18 @@ import {
   Goals,
   Auth,
   Profile,
-  SingUp,
+  Login,
+  Register,
   Home,
   Transactions,
   FinancialIncome,
-  Login,
 } from '../pages'
 
 export function Router() {
   return (
     <Routes>
       <Route path='/login' element={<Login />} />
-      <Route path='/singUp' element={<SingUp />} />
+      <Route path='/register' element={<Register />} />
       <Route path='/auth' element={<Auth />} />
 
       <Route path='' element={<DefaultLayout />}>

@@ -20,7 +20,7 @@ interface UserRegisterFormData {
   UsernName: string
 }
 
-export function SingUp() {
+export function Register() {
   const [showPassword, setShowPassword] = useState(false)
 
   const { userRegister } = useContext(UserContext)

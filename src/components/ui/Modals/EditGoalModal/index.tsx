@@ -1,19 +1,17 @@
 import { useContext } from 'react'
-import { GoalsContext } from '../../../contexts/Goals/goalsContext'
+import { GoalsContext } from '../../../../contexts/Goals/goalsContext'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  ModalBase,
-  ModalBasePropsDefault,
-} from '../../../components/form/NewTransactionModal/ModalBase'
+
 import {
   UpdateGoalFormData,
   updateGoalFormSchema,
-} from '../../../schemas/goal/UpdateGoalFormSchema'
-import { TextFiled } from '../../../components/ui/TextField'
+} from '../../../../validators/goal/UpdateGoalFormSchema'
+import { TextFiled } from '../../TextField'
 import { Input, InputAdornment, InputLabel } from '@mui/material'
 import { Calendar } from 'lucide-react'
 import CurrencyInput from 'react-currency-input-field'
+import { ModalBase, ModalBasePropsDefault } from '../NewTransactionModal/ModalBase'
 
 interface EditGoalProps extends ModalBasePropsDefault {
   goalId: string

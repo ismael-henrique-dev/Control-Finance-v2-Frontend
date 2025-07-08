@@ -12,7 +12,7 @@ import { useContext, useState } from 'react'
 import { UserContext } from '../../contexts/User/userContext'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginFormSchema } from './loginFormSchema'
+import { loginFormSchema } from '../../validators/auth/LoginFormSchema'
 
 interface UserLoginFormData {
   Email: string
@@ -60,7 +60,7 @@ export function Login() {
       <Sponsor />
       <AuthForm
         isLogin
-        routeAuth='/singUp'
+        routeAuth='/register'
         text='Não tem uma conta? '
         navLinkText='Cadraste-se'
         authType='Entrar'

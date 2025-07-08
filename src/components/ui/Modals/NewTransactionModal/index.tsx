@@ -4,18 +4,18 @@ import InputLabel from '@mui/material/InputLabel'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ModalBase, ModalBasePropsDefault } from './ModalBase'
-import { TextFiled } from '../../ui/TextField'
-import { TransactionsContext } from '../../../contexts/Transactions/transactionsContext'
-import {
-  createTransactionFormSchema,
-  CreateTransactionFormSchema,
-} from '../../../schemas/transactions/CreateTransactionFormSchema'
+
+
 import { Controller, useForm } from 'react-hook-form'
-import { AccountsContext } from '../../../contexts/Accounts/accountsContext'
+
 import SelectVariants from './ModalBase/SelectField'
-import { selectCategoryData } from '../../../utils/data'
+
 import CurrencyInput from 'react-currency-input-field'
 import { StyledMenuItem } from './ModalBase/SelectField/styles'
+import { TransactionsContext, AccountsContext } from '../../../../contexts'
+import { selectCategoryData } from '../../../../utils/data'
+import { CreateTransactionFormSchema, createTransactionFormSchema } from '../../../../validators/transactions/CreateTransactionFormSchema'
+import { TextFiled } from '../../TextField'
 
 interface NewTransactionModalProps extends ModalBasePropsDefault {
   accountId?: string

@@ -20,28 +20,28 @@ export const HomeSummary = styled.div`
   }
 `
 
-export const MainBalance = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: auto;
+// export const MainBalance = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+//   margin: auto;
 
-  strong {
-    font-weight: 600;
-    font-size: 2rem;
-    color: ${(props) => props.theme.secundary};
-  }
+//   strong {
+//     font-weight: 600;
+//     font-size: 2rem;
+//     color: ${(props) => props.theme.secundary};
+//   }
 
-  span {
-    color: ${(props) => props.theme.terciaryGray};
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-`
+//   span {
+//     color: ${(props) => props.theme.terciaryGray};
+//     font-weight: 600;
+//     font-size: 0.875rem;
+//   }
+// `
 
-interface TypeTransactionIconProps {
-  variant: 'income' | 'outcome'
+type TypeTransactionIconProps = {
+  variant: 'income' | 'outcome' | 'total'
 }
 
 export const TransactionType = styled.div<TypeTransactionIconProps>`
@@ -50,7 +50,6 @@ export const TransactionType = styled.div<TypeTransactionIconProps>`
   align-items: center;
   gap: 0.75rem;
   flex: 1;
-  /* width: 100%; */
 
   div {
     display: flex;
@@ -59,14 +58,34 @@ export const TransactionType = styled.div<TypeTransactionIconProps>`
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: ${(props) =>
-      props.variant === 'income' ? props.theme.green : props.theme.red};
+    background-color: ${(props) => {
+      switch (props.variant) {
+        case 'income':
+          return props.theme.green
+        case 'outcome':
+          return props.theme.red
+        case 'total':
+          return props.theme.primary
+        default:
+          return props.theme.primary
+      }
+    }};
     color: ${(props) => props.theme.white};
   }
 
   span {
-    color: ${(props) =>
-      props.variant === 'income' ? props.theme.green : props.theme.red};
+    color: ${(props) => {
+      switch (props.variant) {
+        case 'income':
+          return props.theme.green
+        case 'outcome':
+          return props.theme.red
+        case 'total':
+          return props.theme.primary
+        default:
+          return props.theme.primary
+      }
+    }};
     font-weight: 600;
     font-size: 1.25rem;
   }

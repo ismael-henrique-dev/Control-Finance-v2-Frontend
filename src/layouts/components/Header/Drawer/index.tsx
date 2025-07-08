@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, NavLinkProps } from 'react-router-dom'
 import {
   ArrowRightLeft,
   BarChart,
@@ -16,6 +16,28 @@ import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
 import testImage from '../../../../assets/test-image.svg'
 import { darkTheme } from '../../../../styles/themes/dark'
+import { ThemeContext } from '../../../../contexts'
+import { lightTheme } from '../../../../styles/themes/light'
+
+function LinkCustom({ ...props }: NavLinkProps) {
+  const themeContext = useContext(ThemeContext)
+  const { theme } = themeContext
+
+  return (
+    <NavLink
+      {...props}
+      style={({ isActive, isPending }) => ({
+        color: isActive
+          ? darkTheme.secundary
+          : isPending
+          ? 'blue'
+          : theme === 'dark'
+          ? darkTheme.white
+          : lightTheme.text,
+      })}
+    />
+  )
+}
 
 export function DrawerBasic() {
   const [open, setOpen] = useState(false)
@@ -63,78 +85,23 @@ export function DrawerBasic() {
             <ListContainer>
               <ListItem>
                 <PieChart />
-                <NavLink
-                  to='/'
-                  style={({ isActive, isPending }) => ({
-                    color: isActive
-                      ? darkTheme.primary
-                      : isPending
-                      ? 'blue'
-                      : '#fff',
-                  })}
-                >
-                  Dashboard
-                </NavLink>
+                <LinkCustom to={'/'}>Dashboard</LinkCustom>
               </ListItem>
               <ListItem>
                 <ArrowRightLeft />
-                <NavLink
-                  to='/transacoes'
-                  style={({ isActive, isPending }) => ({
-                    color: isActive
-                      ? darkTheme.primary
-                      : isPending
-                      ? 'blue'
-                      : '#fff',
-                  })}
-                >
-                  Transações
-                </NavLink>
+                <LinkCustom to={'/transacoes'}>Transações</LinkCustom>
               </ListItem>
               <ListItem>
                 <PiggyBank />
-                <NavLink
-                  to='/contas'
-                  style={({ isActive, isPending }) => ({
-                    color: isActive
-                      ? darkTheme.primary
-                      : isPending
-                      ? 'blue'
-                      : '#fff',
-                  })}
-                >
-                  Contas
-                </NavLink>
+                <LinkCustom to={'/contas'}>Transações</LinkCustom>
               </ListItem>
               <ListItem>
                 <BarChart />
-                <NavLink
-                  to='/rendimento'
-                  style={({ isActive, isPending }) => ({
-                    color: isActive
-                      ? darkTheme.primary
-                      : isPending
-                      ? 'blue'
-                      : '#fff',
-                  })}
-                >
-                  Rendimento
-                </NavLink>
+                <LinkCustom to={'/rendimento'}>Rendimento</LinkCustom>
               </ListItem>
               <ListItem>
                 <Goal />
-                <NavLink
-                  to='/metas'
-                  style={({ isActive, isPending }) => ({
-                    color: isActive
-                      ? darkTheme.primary
-                      : isPending
-                      ? 'blue'
-                      : '#fff',
-                  })}
-                >
-                  Metas
-                </NavLink>
+                <LinkCustom to={'/metas'}>Metas</LinkCustom>
               </ListItem>
             </ListContainer>
           </div>

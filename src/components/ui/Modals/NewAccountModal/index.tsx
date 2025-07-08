@@ -1,23 +1,25 @@
 import { useContext } from 'react'
-import { AccountsContext } from '../../../contexts'
+import { AccountsContext } from '../../../../contexts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, Controller } from 'react-hook-form'
-import {
-  ModalBase,
-  ModalBasePropsDefault,
-} from '../../../components/form/NewTransactionModal/ModalBase'
-import { TextFiled } from '../../../components/ui/TextField'
-import { ValidateSelectArea } from '../../../components/ui/TextField/styles'
-import { StyledMenuItem } from '../../../components/form/NewTransactionModal/ModalBase/SelectField/styles'
+
+import { TextFiled } from '../../TextField'
+import { ValidateSelectArea } from '../../TextField/styles'
+
 import {
   createAccountFormSchema,
   CreateAccountFormSchema,
-} from '../../../schemas/account/CreateAccountFormSchema'
-import { selectAccountTypeData } from '../../../utils/data'
+} from '../../../../validators/account/CreateAccountFormSchema'
+import { selectAccountTypeData } from '../../../../utils/data'
 import CurrencyInput from 'react-currency-input-field'
 import Input from '@mui/material/Input'
 import InputLabel from '@mui/material/InputLabel'
-import SelectVariants from '../../../components/form/NewTransactionModal/ModalBase/SelectField'
+import {
+  ModalBasePropsDefault,
+  ModalBase,
+} from '../NewTransactionModal/ModalBase'
+import SelectVariants from '../NewTransactionModal/ModalBase/SelectField'
+import { StyledMenuItem } from '../NewTransactionModal/ModalBase/SelectField/styles'
 
 export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
   const { createAccount } = useContext(AccountsContext)

@@ -1,17 +1,17 @@
-import { CircleUserRound, Moon, Search, Sun } from "lucide-react"
-import { NavLink } from "react-router-dom"
-import { DrawerBasic } from "./Drawer"
-import { SearchBarArea } from "./SearchBarArea"
-import { useContext, useState } from "react"
-import { ThemeContext } from "../../../contexts/Theme/styledThemeContext"
-import logoWhite from "../../../assets/logo-white.svg"
-import logoDark from "../../../assets/logo-dark.svg"
+import { CircleUserRound, Moon, Search, Sun } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
+import { DrawerBasic } from './Drawer'
+import { SearchBarArea } from './SearchBarArea'
+import { useContext, useState } from 'react'
+import { ThemeContext } from '../../../contexts/Theme/styledThemeContext'
+import logoWhite from '../../../assets/logo-white.svg'
+import logoDark from '../../../assets/logo-dark.svg'
 import {
   ActionsContainer,
   HeaderContainer,
   InputArea,
   LeftContainer,
-} from "./styles"
+} from './styles'
 
 export function Header() {
   const themeContext = useContext(ThemeContext)
@@ -24,7 +24,9 @@ export function Header() {
     <HeaderContainer>
       <LeftContainer>
         <DrawerBasic />
-        <img src={theme === "light" ? logoWhite : logoDark} />
+        <NavLink to={{ pathname: '/' }}>
+          <img src={theme === 'light' ? logoWhite : logoDark} />
+        </NavLink>
       </LeftContainer>
       <InputArea onClick={handleOpen}>
         <Search />
@@ -37,9 +39,9 @@ export function Header() {
           <Search />
         </button>
         <button onClick={toggleTheme}>
-          {theme === "light" ? <Sun size={24} /> : <Moon size={24} />}
+          {theme === 'light' ? <Sun size={24} /> : <Moon size={24} />}
         </button>
-        <NavLink to="/profile">
+        <NavLink to='/profile'>
           <CircleUserRound />
           <span>Preferências da conta</span>
         </NavLink>

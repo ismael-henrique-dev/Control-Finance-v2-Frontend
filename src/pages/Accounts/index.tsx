@@ -1,19 +1,19 @@
-import { useContext, useState } from "react"
-import { Button } from "../../components/ui/Button"
-import { AccountCard } from "../../components/ui/Cards/AccountCard"
-import { PaginationMenu } from "../../components/form/PaginationMenu"
-import { Summary } from "../../components/ui/Summary"
-import { NewAccountModaL } from "./NewAccountModal"
-import { AccountsContext } from "../../contexts/Accounts/accountsContext"
-import { EmptyAccounts } from "../../components/ui/EmptyComponent"
-import { useParams } from "react-router-dom"
+import { useContext, useState } from 'react'
+import { Button } from '../../components/ui/Button'
+import { AccountCard } from '../../components/ui/Cards/AccountCard'
+import { PaginationMenu } from '../../components/form/PaginationMenu'
+import { Summary } from '../../components/ui/Summary'
+import { NewAccountModaL } from '../../components/ui/Modals/NewAccountModal'
+import { AccountsContext } from '../../contexts/Accounts/accountsContext'
+import { EmptyAccounts } from '../../components/ui/EmptyComponent'
+import { useParams } from 'react-router-dom'
 import {
   AccountsContainer,
   ContainerBarSummary,
   LinearProgressCustom,
   MainContainer,
   Section,
-} from "./styles"
+} from './styles'
 
 export function Accounts() {
   const [open, setOpen] = useState(false)
@@ -49,7 +49,7 @@ export function Accounts() {
         />
       </Section>
       <MainContainer>
-        {filteredAccounts.length === 0 && <EmptyAccounts mensageType="conta" />}
+        {filteredAccounts.length === 0 && <EmptyAccounts mensageType='conta' />}
         {isLoading === true ? (
           <LinearProgressCustom />
         ) : (

@@ -1,16 +1,14 @@
-import { useContext } from "react"
-import { GoalsContext } from "../../../contexts/Goals/goalsContext"
-import { Controller, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  ModalBase,
-  ModalBasePropsDefault,
-} from "../../../components/form/NewTransactionModal/ModalBase"
+import { useContext } from 'react'
+import { GoalsContext } from '../../../../contexts/Goals/goalsContext'
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
 import {
   CreateNewDepositOfGoalFormData,
   createNewDepositOfGoalFormSchema,
-} from "../../../schemas/goal/CreateNewDepositOfGoalFormSchema"
-import CurrencyInput from "react-currency-input-field"
+} from '../../../../validators/goal/CreateNewDepositOfGoalFormSchema'
+import CurrencyInput from 'react-currency-input-field'
+import { ModalBase, ModalBasePropsDefault } from '../NewTransactionModal/ModalBase'
 
 interface NewDepositOfGoalProps extends ModalBasePropsDefault {
   goalId: string
@@ -36,27 +34,27 @@ export function NewDepositOfGoalModal({
 
   return (
     <ModalBase
-      type="createAccount"
+      type='createAccount'
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Novo depósito"
+      submitButtonTitle='Novo depósito'
       erros={!formState.isValid}
       submit={handleSubmit(handleNewDepositOfGoal)}
       inputValue={
         <Controller
-          name="DepositValue"
+          name='DepositValue'
           control={control}
           render={({ field }) => (
             <CurrencyInput
               defaultValue={0}
-              id="account-initial-value"
-              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-              decimalSeparator=","
-              groupSeparator="."
+              id='account-initial-value'
+              intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+              decimalSeparator=','
+              groupSeparator='.'
               value={field.value}
               onValueChange={(value) => {
                 const numericValue = value
-                  ? parseFloat(value.replace(/[^\d.-]/g, ""))
+                  ? parseFloat(value.replace(/[^\d.-]/g, ''))
                   : 0
                 field.onChange(numericValue)
               }}

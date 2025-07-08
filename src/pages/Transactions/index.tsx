@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { useParams } from "react-router-dom" // Adicione isso
-import { NewTransactionModal } from "../../components/form/NewTransactionModal"
+
 import { useSummaryTransaction } from "../../hooks/useSummaryTransaction"
 import { SelectFilter } from "../../components/form/FilterSelect"
 import { Summary } from "../../components/ui/Summary"
@@ -17,6 +17,7 @@ import {
   TransactionsContainer,
 } from "./styles"
 import { AccountsContext } from "../../contexts"
+import { NewTransactionModal } from "../../components/ui/Modals/NewTransactionModal"
 
 export function Transactions() {
   const { id } = useParams<{ id: string }>()

@@ -1,7 +1,7 @@
 export { Accounts } from './Accounts'
 export { Goals } from './Goals'
 export { Profile } from './Profile'
-export { SingUp } from './Register'
+export { Register } from './Register'
 export { Auth } from './Auth'
 export { Home } from './Home'
 export { Transactions } from './Transactions'

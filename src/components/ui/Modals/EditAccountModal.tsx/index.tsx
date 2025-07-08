@@ -6,19 +6,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {
   updateAccountFormSchema,
   UpdateAccountFormSchema,
-} from '../../../schemas/account/UpdateAccountFormSchema'
+} from '../../../../validators/account/UpdateAccountFormSchema'
 
-import {
-  ModalBase,
-  ModalBasePropsDefault,
-} from '../../../components/form/NewTransactionModal/ModalBase'
-import { TextFiled } from '../../../components/ui/TextField'
-import { ValidateSelectArea } from '../../../components/ui/TextField/styles'
-import { StyledMenuItem } from '../../../components/form/NewTransactionModal/ModalBase/SelectField/styles'
-import SelectVariants from '../../../components/form/NewTransactionModal/ModalBase/SelectField'
-import { selectAccountTypeData } from '../../../utils/data'
-import { AccountsContext } from '../../../contexts'
-import { UpdatedData } from '../../../contexts/Accounts/account'
+
+import { TextFiled } from '../../TextField'
+import { ValidateSelectArea } from '../../TextField/styles'
+import { selectAccountTypeData } from '../../../../utils/data'
+import { AccountsContext } from '../../../../contexts'
+import { UpdatedData } from '../../../../contexts/Accounts/account'
+import { ModalBase, ModalBasePropsDefault } from '../NewTransactionModal/ModalBase'
+import SelectVariants from '../NewTransactionModal/ModalBase/SelectField'
+import { StyledMenuItem } from '../NewTransactionModal/ModalBase/SelectField/styles'
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string

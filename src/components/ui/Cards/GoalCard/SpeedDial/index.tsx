@@ -1,16 +1,16 @@
-import { useContext, useState } from "react"
+import { useContext, useState } from 'react'
 import {
   CircleCheckBig,
   CirclePlus,
   EllipsisVertical,
   Pencil,
   Trash2,
-} from "lucide-react"
-import { Actions, Container, PopoverStyle } from "./styles"
-import { NewDepositOfGoalModal } from "../../../../../pages/Goals/NewDepositOfGoalModal"
-import Popover from "@mui/material/Popover"
-import { GoalsContext } from "../../../../../contexts/Goals/goalsContext"
-import { EditGoalModal } from "../../../../../pages/Goals/EditGoalModal"
+} from 'lucide-react'
+import { Actions, Container, PopoverStyle } from './styles'
+import { NewDepositOfGoalModal } from '../../../Modals/NewDepositOfGoalModal'
+import Popover from '@mui/material/Popover'
+import { GoalsContext } from '../../../../../contexts/Goals/goalsContext'
+import { EditGoalModal } from '../../../Modals/EditGoalModal'
 
 interface MoreGoalOptionProps {
   isGoalsPage: boolean
@@ -68,17 +68,17 @@ export function MoreGoalOption({ isGoalsPage, goalId }: MoreGoalOptionProps) {
     <Container>
       <EllipsisVertical onClick={handleClick} />
       <Popover
-        id="click-popover"
+        id='click-popover'
         sx={PopoverStyle}
         open={openPopover}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus

@@ -1,11 +1,11 @@
-import { useContext, useState } from "react"
-import { Pencil, Settings2, Trash } from "lucide-react"
-import { Actions, Container } from "../../GoalCard/SpeedDial/styles.ts"
-import { AccountsContext } from "../../../../../contexts/Accounts/accountsContext.tsx"
-import { EditAccountModal } from "../../../../../pages/Accounts/EditAccountModal.tsx/index.tsx"
-import { ButtonAdd } from "../styles.ts"
-import { ActionsStyle, PopoverStyle } from "./styles.ts"
-import Popover from "@mui/material/Popover"
+import { useContext, useState } from 'react'
+import { Pencil, Settings2, Trash } from 'lucide-react'
+import { Actions, Container } from '../../GoalCard/SpeedDial/styles.ts'
+import { AccountsContext } from '../../../../../contexts/Accounts/accountsContext.tsx'
+import { EditAccountModal } from '../../../Modals/EditAccountModal.tsx/index.tsx'
+import { ButtonAdd } from '../styles.ts'
+import { ActionsStyle, PopoverStyle } from './styles.ts'
+import Popover from '@mui/material/Popover'
 
 interface PopeoverOptionsAccountProps {
   accountId: string
@@ -50,20 +50,20 @@ export function PopeoverOptionsAccount({
   return (
     <Container>
       <ButtonAdd onClick={handleClick}>
-        <Settings2 color="#fff" />
+        <Settings2 color='#fff' />
       </ButtonAdd>
       <Popover
-        id="click-popover"
+        id='click-popover'
         sx={PopoverStyle}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus

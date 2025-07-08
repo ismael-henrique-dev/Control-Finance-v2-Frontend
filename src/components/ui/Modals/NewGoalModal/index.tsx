@@ -1,19 +1,16 @@
 import Input from '@mui/material/Input'
 import InputLabel from '@mui/material/InputLabel'
-import {
-  ModalBase,
-  ModalBasePropsDefault,
-} from '../../../components/form/NewTransactionModal/ModalBase'
-import { TextFiled } from '../../../components/ui/TextField'
+import { TextFiled } from '../../TextField'
 import { Controller, useForm } from 'react-hook-form'
 import CurrencyInput from 'react-currency-input-field'
 import {
   CreateGoalFormData,
   createGoalFormSchema,
-} from '../../../schemas/goal/CreateGoalFormSchema'
+} from '../../../../validators/goal/CreateGoalFormSchema'
 import { useContext } from 'react'
-import { GoalsContext } from '../../../contexts/Goals/goalsContext'
+import { GoalsContext } from '../../../../contexts/Goals/goalsContext'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ModalBase, ModalBasePropsDefault } from '../NewTransactionModal/ModalBase'
 
 export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
   const { createGoal } = useContext(GoalsContext)
