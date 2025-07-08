@@ -1,21 +1,21 @@
-import { useContext, useEffect, useState } from "react"
-import Input from "@mui/material/Input"
-import InputLabel from "@mui/material/InputLabel"
+import { useContext, useEffect, useState } from 'react'
+import Input from '@mui/material/Input'
+import InputLabel from '@mui/material/InputLabel'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { ModalBase, ModalBasePropsDefault } from "./ModalBase"
-import { TextFiled } from "../TextField"
-import { TransactionsContext } from "../../../contexts/Transactions/transactionsContext"
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ModalBase, ModalBasePropsDefault } from './ModalBase'
+import { TextFiled } from '../../ui/TextField'
+import { TransactionsContext } from '../../../contexts/Transactions/transactionsContext'
 import {
   createTransactionFormSchema,
   CreateTransactionFormSchema,
-} from "../../../schemas/transactions/CreateTransactionFormSchema"
-import { Controller, useForm } from "react-hook-form"
-import { AccountsContext } from "../../../contexts/Accounts/accountsContext"
-import SelectVariants from "./ModalBase/SelectField"
-import { selectCategoryData } from "../../../utils/data"
-import CurrencyInput from "react-currency-input-field"
-import { StyledMenuItem } from "./ModalBase/SelectField/styles"
+} from '../../../schemas/transactions/CreateTransactionFormSchema'
+import { Controller, useForm } from 'react-hook-form'
+import { AccountsContext } from '../../../contexts/Accounts/accountsContext'
+import SelectVariants from './ModalBase/SelectField'
+import { selectCategoryData } from '../../../utils/data'
+import CurrencyInput from 'react-currency-input-field'
+import { StyledMenuItem } from './ModalBase/SelectField/styles'
 
 interface NewTransactionModalProps extends ModalBasePropsDefault {
   accountId?: string
@@ -36,19 +36,19 @@ export function NewTransactionModal({
   const [categories, setCategories] = useState<CategoriesType[]>([])
   const { createTransaction } = useContext(TransactionsContext)
   const { accountsList } = useContext(AccountsContext)
-  const [acTitle, setAcTitle] = useState(accountTitle || "")
+  const [acTitle, setAcTitle] = useState(accountTitle || '')
 
   const { control, register, handleSubmit, watch, reset, formState } =
     useForm<CreateTransactionFormSchema>({
       resolver: zodResolver(createTransactionFormSchema),
       defaultValues: {
-        Type: "DEP",
-        Categories: "",
-        accountId: accountId || "",
+        Type: 'DEP',
+        Categories: '',
+        accountId: accountId || '',
       },
     })
 
-  const selectedType = watch("Type")
+  const selectedType = watch('Type')
 
   useEffect(() => {
     const selectedCategoryData = selectCategoryData.find(
@@ -85,27 +85,27 @@ export function NewTransactionModal({
 
   return (
     <ModalBase
-      type="createAccount"
+      type='createAccount'
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Adicionar nova transação"
+      submitButtonTitle='Adicionar nova transação'
       submit={handleSubmit(handleCreateTransaction)}
       erros={!formState.isValid}
       inputValue={
         <Controller
-          name="Value"
+          name='Value'
           control={control}
           render={({ field }) => (
             <CurrencyInput
               defaultValue={0}
-              id="account-initial-value"
-              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-              decimalSeparator=","
-              groupSeparator="."
+              id='account-initial-value'
+              intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+              decimalSeparator=','
+              groupSeparator='.'
               value={field.value}
               onValueChange={(value) => {
                 const numericValue = value
-                  ? parseFloat(value.replace(/[^\d.-]/g, ""))
+                  ? parseFloat(value.replace(/[^\d.-]/g, ''))
                   : 0
                 field.onChange(numericValue)
               }}
@@ -114,22 +114,22 @@ export function NewTransactionModal({
         />
       }
     >
-      <TextFiled variant="standard" formControlWidth="90%">
-        <InputLabel htmlFor="transaction-name">Nome da transação</InputLabel>
+      <TextFiled variant='standard' formControlWidth='90%'>
+        <InputLabel htmlFor='transaction-name'>Nome da transação</InputLabel>
         <Input
-          type="text"
-          id="transaction-name"
-          {...register("Title")}
+          type='text'
+          id='transaction-name'
+          {...register('Title')}
           error={false}
         />
       </TextFiled>
 
       <Controller
-        name="Type"
+        name='Type'
         control={control}
         render={({ field }) => (
           <SelectVariants
-            title="Tipo de transação"
+            title='Tipo de transação'
             erros={!!formState.errors.Type}
             onChange={(value) => {
               field.onChange(value)
@@ -146,11 +146,11 @@ export function NewTransactionModal({
       />
 
       <Controller
-        name="Categories"
+        name='Categories'
         control={control}
         render={({ field }) => (
           <SelectVariants
-            title="Categoria"
+            title='Categoria'
             value={field.value}
             onChange={field.onChange}
             erros={!!formState.errors.Categories}
@@ -165,11 +165,11 @@ export function NewTransactionModal({
       />
 
       <Controller
-        name="accountId"
+        name='accountId'
         control={control}
         render={({ field }) => (
           <SelectVariants
-            title="Conta"
+            title='Conta'
             erros={!!formState.errors.accountId}
             onChange={field.onChange}
             value={field.value}

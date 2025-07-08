@@ -1,7 +1,7 @@
-import { styled } from "styled-components"
+import { styled } from 'styled-components'
 
 export const HomeSummary = styled.div`
-  width: 20rem;
+  flex: 1;
   border-radius: 12px;
   background-color: ${(props) => props.theme.primaryGray};
   display: flex;
@@ -16,6 +16,7 @@ export const HomeSummary = styled.div`
     flex-direction: column;
     gap: 1.75rem;
     align-items: start;
+    width: 100%;
   }
 `
 
@@ -40,7 +41,7 @@ export const MainBalance = styled.div`
 `
 
 interface TypeTransactionIconProps {
-  variant: "income" | "outcome"
+  variant: 'income' | 'outcome'
 }
 
 export const TransactionType = styled.div<TypeTransactionIconProps>`
@@ -48,6 +49,8 @@ export const TransactionType = styled.div<TypeTransactionIconProps>`
   justify-content: center;
   align-items: center;
   gap: 0.75rem;
+  flex: 1;
+  /* width: 100%; */
 
   div {
     display: flex;
@@ -57,13 +60,13 @@ export const TransactionType = styled.div<TypeTransactionIconProps>`
     height: 2.5rem;
     border-radius: 50%;
     background-color: ${(props) =>
-      props.variant === "income" ? props.theme.green : props.theme.red};
+      props.variant === 'income' ? props.theme.green : props.theme.red};
     color: ${(props) => props.theme.white};
   }
 
   span {
     color: ${(props) =>
-      props.variant === "income" ? props.theme.green : props.theme.red};
+      props.variant === 'income' ? props.theme.green : props.theme.red};
     font-weight: 600;
     font-size: 1.25rem;
   }

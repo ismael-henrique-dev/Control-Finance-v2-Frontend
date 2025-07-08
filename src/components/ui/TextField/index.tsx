@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 import { FormControlContainer } from "./styles"
 
-interface TextFieldProps {
+type TextFieldProps = {
   variant?: "standard"
   children: ReactNode
   formControlWidth?: string

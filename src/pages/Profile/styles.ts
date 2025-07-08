@@ -1,13 +1,13 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const ResponsiveContainerPage = styled.div`
-  min-height: 80vh;
   display: flex;
   align-items: center;
+  justify-content: center;
+  height: 100%
 `
 
 export const ProfileContainer = styled.div`
-  max-width: 50.75rem;
   background-color: ${(props) => props.theme.primaryGray};
   display: flex;
   justify-content: center;
@@ -16,7 +16,8 @@ export const ProfileContainer = styled.div`
   padding: 2.5rem;
   margin: 2rem auto;
   flex-wrap: wrap;
-  border-radius: 12px;  
+  border-radius: 12px;
+  /* height: 100%; */
 `
 
 export const ContainerForm = styled.form`
@@ -71,7 +72,7 @@ export const ContainerButtonsForm = styled.div`
 `
 
 interface ButtonVariants {
-  variant?: "purple" | "red"
+  variant?: 'purple' | 'red'
 }
 
 export const Button = styled.button<ButtonVariants>`
@@ -94,9 +95,9 @@ export const Button = styled.button<ButtonVariants>`
 
   background-color: ${(props) => {
     switch (props.variant) {
-      case "purple":
+      case 'purple':
         return props.theme.secundary
-      case "red":
+      case 'red':
         return props.theme.red
       default:
         return props.theme.secundaryGray

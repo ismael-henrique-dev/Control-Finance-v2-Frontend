@@ -4,9 +4,17 @@ import { Header } from '../components/Header'
 
 export function DefaultLayout() {
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
       <Header />
-      <Outlet />
+      <main style={{ flex: 1 }}>
+        <Outlet />
+      </main>
       <Footer />
     </div>
   )

@@ -1,27 +1,28 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
-  max-width: 64rem;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  margin: 2rem auto; /* alterar dps */
-  /* flex-wrap: wrap; */
+  margin: 2rem auto;
   gap: 2rem;
   min-height: 100vh;
+  width: 100%;
+  padding: 2rem 8rem;
 
   @media (max-width: 768px) {
+    padding: 1rem;
   }
 `
 
 interface DefaultContainerProps {
-  content: "center" | "start"
+  content: 'center' | 'start'
 }
 
 export const DefaultContainer = styled.div<DefaultContainerProps>`
   display: flex;
-
+  width: 100%;
   gap: 2rem;
   justify-content: center;
   align-items: center;
@@ -43,10 +44,26 @@ export const DefaultContainer = styled.div<DefaultContainerProps>`
   }
 `
 
+export const SummaryGridContainer = styled.div`
+  display: grid;
+  width: 100%;
+  gap: 2rem;
+
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* auto-fit = preenche o espaço com o máximo de colunas possível */
+  /* minmax = define tamanho mínimo e máximo para os cards */
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+`
+
 export const EstatisticCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  flex: 1;
 
   h1 {
     color: ${(props) => props.theme.text};

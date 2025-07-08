@@ -1,30 +1,30 @@
-import { useContext } from "react"
-import { AccountsContext } from "../../../contexts"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, Controller } from "react-hook-form"
+import { useContext } from 'react'
+import { AccountsContext } from '../../../contexts'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm, Controller } from 'react-hook-form'
 import {
   ModalBase,
   ModalBasePropsDefault,
-} from "../../../components/form/NewTransactionModal/ModalBase"
-import { TextFiled } from "../../../components/form/TextField"
-import { ValidateSelectArea } from "../../../components/form/TextField/styles"
-import { StyledMenuItem } from "../../../components/form/NewTransactionModal/ModalBase/SelectField/styles"
+} from '../../../components/form/NewTransactionModal/ModalBase'
+import { TextFiled } from '../../../components/ui/TextField'
+import { ValidateSelectArea } from '../../../components/ui/TextField/styles'
+import { StyledMenuItem } from '../../../components/form/NewTransactionModal/ModalBase/SelectField/styles'
 import {
   createAccountFormSchema,
   CreateAccountFormSchema,
-} from "../../../schemas/account/CreateAccountFormSchema"
-import { selectAccountTypeData } from "../../../utils/data"
-import CurrencyInput from "react-currency-input-field"
-import Input from "@mui/material/Input"
-import InputLabel from "@mui/material/InputLabel"
-import SelectVariants from "../../../components/form/NewTransactionModal/ModalBase/SelectField"
+} from '../../../schemas/account/CreateAccountFormSchema'
+import { selectAccountTypeData } from '../../../utils/data'
+import CurrencyInput from 'react-currency-input-field'
+import Input from '@mui/material/Input'
+import InputLabel from '@mui/material/InputLabel'
+import SelectVariants from '../../../components/form/NewTransactionModal/ModalBase/SelectField'
 
 export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
   const { createAccount } = useContext(AccountsContext)
 
   const { register, handleSubmit, reset, control, formState } =
     useForm<CreateAccountFormSchema>({
-      mode: "onChange",
+      mode: 'onChange',
       resolver: zodResolver(createAccountFormSchema),
     })
 
@@ -40,25 +40,25 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
     <ModalBase
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Criar nova conta"
+      submitButtonTitle='Criar nova conta'
       submit={handleSubmit(handleCreateAccount)}
       erros={!formState.isValid}
-      type="createAccount"
+      type='createAccount'
       inputValue={
         <Controller
-          name="Value"
+          name='Value'
           control={control}
           render={({ field }) => (
             <CurrencyInput
               defaultValue={0}
-              id="account-initial-value"
-              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-              decimalSeparator=","
-              groupSeparator="."
+              id='account-initial-value'
+              intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+              decimalSeparator=','
+              groupSeparator='.'
               value={field.value}
               onValueChange={(value) => {
                 const numericValue = value
-                  ? parseFloat(value.replace(/[^\d.-]/g, ""))
+                  ? parseFloat(value.replace(/[^\d.-]/g, ''))
                   : 0
                 field.onChange(numericValue)
               }}
@@ -67,26 +67,26 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
         />
       }
     >
-      <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-name" error={!!formState.errors.Name}>
+      <TextFiled formControlWidth='90%' variant='standard'>
+        <InputLabel htmlFor='account-name' error={!!formState.errors.Name}>
           Nome da conta
         </InputLabel>
         <Input
-          type="text"
-          id="account-name"
-          {...register("Name")}
+          type='text'
+          id='account-name'
+          {...register('Name')}
           error={!!formState.errors.Name}
         />
         {formState.errors.Name && <p>{formState.errors.Name.message}</p>}
       </TextFiled>
 
       <Controller
-        name="Type"
+        name='Type'
         control={control}
         render={({ field }) => (
           <ValidateSelectArea>
             <SelectVariants
-              title="Tipo de conta"
+              title='Tipo de conta'
               onChange={field.onChange}
               value={field.value}
               erros={!!formState.errors.Type}
@@ -103,17 +103,17 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
         )}
       />
 
-      <TextFiled formControlWidth="90%" variant="standard">
+      <TextFiled formControlWidth='90%' variant='standard'>
         <InputLabel
-          htmlFor="account-description"
+          htmlFor='account-description'
           error={!!formState.errors.Description}
         >
           Descrição
         </InputLabel>
         <Input
-          type="text"
-          id="account-description"
-          {...register("Description")}
+          type='text'
+          id='account-description'
+          {...register('Description')}
           error={!!formState.errors.Description}
         />
         {formState.errors.Description && (

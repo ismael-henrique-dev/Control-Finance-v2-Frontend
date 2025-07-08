@@ -1,18 +1,18 @@
-import { Sponsor } from "../../components/auth/Sponsor"
-import { AuthForm } from "../../components/auth/AuthForm"
-import { AuthResposiveContainer } from "../../components/auth/ResposiveContainer"
-import { TextFiled } from "../../components/form/TextField"
-import InputLabel from "@mui/material/InputLabel"
-import Input from "@mui/material/Input"
-import InputAdornment from "@mui/material/InputAdornment"
-import IconButton from "@mui/material/IconButton"
-import { useContext, useState } from "react"
-import { LockOpen, Lock } from "lucide-react"
-import { Button } from "../../components/auth/AuthForm/styles"
-import { useForm } from "react-hook-form"
-import { UserContext } from "../../contexts/User/userContext"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { registerUserFormSchema } from "./registerFormSchema"
+import { Sponsor } from '../../components/auth/Sponsor'
+import { AuthForm } from '../../components/auth/AuthForm'
+import { AuthResposiveContainer } from '../../components/auth/ResposiveContainer'
+import { TextFiled } from '../../components/ui/TextField'
+import InputLabel from '@mui/material/InputLabel'
+import Input from '@mui/material/Input'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import { useContext, useState } from 'react'
+import { LockOpen, Lock } from 'lucide-react'
+import { Button } from '../../components/auth/AuthForm/styles'
+import { useForm } from 'react-hook-form'
+import { UserContext } from '../../contexts/User/userContext'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { registerUserFormSchema } from './registerFormSchema'
 
 interface UserRegisterFormData {
   Email: string
@@ -35,7 +35,7 @@ export function SingUp() {
     formState: { errors, isValid },
   } = useForm<UserRegisterFormData>({
     resolver: zodResolver(registerUserFormSchema),
-    mode: "onChange",
+    mode: 'onChange',
   })
 
   async function handleUserRegister(data: UserRegisterFormData) {
@@ -55,49 +55,49 @@ export function SingUp() {
       <Sponsor />
       <AuthForm
         isLogin={false}
-        text="já tem uma conta? "
-        authType="Cadraste-se"
-        routeAuth="/login"
-        navLinkText="Entrar"
+        text='já tem uma conta? '
+        authType='Cadraste-se'
+        routeAuth='/login'
+        navLinkText='Entrar'
       >
         <form onSubmit={handleSubmit(handleUserRegister)}>
-          <TextFiled variant="standard">
-            <InputLabel htmlFor="user-name" error={!!errors.UsernName}>
+          <TextFiled variant='standard'>
+            <InputLabel htmlFor='user-name' error={!!errors.UsernName}>
               Nome
             </InputLabel>
             <Input
-              type="text"
-              id="user-name"
+              type='text'
+              id='user-name'
               error={!!errors.UsernName}
-              {...register("UsernName")}
+              {...register('UsernName')}
             />
             {errors.UsernName && <p>{errors.UsernName.message}</p>}
           </TextFiled>
-          <TextFiled variant="standard">
-            <InputLabel htmlFor="user-email" error={!!errors.Email}>
+          <TextFiled variant='standard'>
+            <InputLabel htmlFor='user-email' error={!!errors.Email}>
               Email
             </InputLabel>
             <Input
-              type="email"
-              id="user-email"
+              type='email'
+              id='user-email'
               error={!!errors.Email}
-              {...register("Email")}
+              {...register('Email')}
             />
             {errors.Email && <p>{errors.Email.message}</p>}
           </TextFiled>
-          <TextFiled variant="standard">
-            <InputLabel htmlFor="user-password" error={!!errors.Senha}>
+          <TextFiled variant='standard'>
+            <InputLabel htmlFor='user-password' error={!!errors.Senha}>
               Senha
             </InputLabel>
             <Input
-              id="user-password"
-              {...register("Senha")}
+              id='user-password'
+              {...register('Senha')}
               error={!!errors.Senha}
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               endAdornment={
-                <InputAdornment position="end">
+                <InputAdornment position='end'>
                   <IconButton
-                    aria-label="toggle password visibility"
+                    aria-label='toggle password visibility'
                     onClick={handleClickShowPassword}
                   >
                     {showPassword ? <LockOpen /> : <Lock />}
@@ -107,7 +107,7 @@ export function SingUp() {
             />
             {errors.Senha && <p>{errors.Senha.message}</p>}
           </TextFiled>
-          <Button type="submit" disabled={!isValid}>
+          <Button type='submit' disabled={!isValid}>
             Cadrastar
           </Button>
         </form>

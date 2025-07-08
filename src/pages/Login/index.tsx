@@ -1,18 +1,18 @@
-import { Sponsor } from "../../components/auth/Sponsor"
-import { AuthResposiveContainer } from "../../components/auth/ResposiveContainer"
-import { AuthForm } from "../../components/auth/AuthForm"
-import { TextFiled } from "../../components/form/TextField"
-import InputLabel from "@mui/material/InputLabel"
-import Input from "@mui/material/Input"
-import InputAdornment from "@mui/material/InputAdornment"
-import IconButton from "@mui/material/IconButton"
-import { Button } from "../../components/auth/AuthForm/styles"
-import { LockOpen, Lock } from "lucide-react"
-import { useContext, useState } from "react"
-import { UserContext } from "../../contexts/User/userContext"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { loginFormSchema } from "./loginFormSchema"
+import { Sponsor } from '../../components/auth/Sponsor'
+import { AuthResposiveContainer } from '../../components/auth/ResposiveContainer'
+import { AuthForm } from '../../components/auth/AuthForm'
+import { TextFiled } from '../../components/ui/TextField'
+import InputLabel from '@mui/material/InputLabel'
+import Input from '@mui/material/Input'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import { Button } from '../../components/auth/AuthForm/styles'
+import { LockOpen, Lock } from 'lucide-react'
+import { useContext, useState } from 'react'
+import { UserContext } from '../../contexts/User/userContext'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { loginFormSchema } from './loginFormSchema'
 
 interface UserLoginFormData {
   Email: string
@@ -31,11 +31,11 @@ export function Login() {
   const {
     register,
     handleSubmit,
-    setError, 
+    setError,
     formState: { errors, isValid },
   } = useForm<UserLoginFormData>({
     resolver: zodResolver(loginFormSchema),
-    mode: "onChange",
+    mode: 'onChange',
   })
 
   async function handleUserLogin(data: UserLoginFormData) {
@@ -45,13 +45,13 @@ export function Login() {
     try {
       const responseError = await userLogin({ Email, Senha })
       if (responseError) {
-        setError("root", {
-          type: "manual",
-          message: "Email ou senha incorretos.",
+        setError('root', {
+          type: 'manual',
+          message: 'Email ou senha incorretos.',
         })
       }
     } catch (error) {
-      console.log("Erro ao fazer login.", error)
+      console.log('Erro ao fazer login.', error)
     }
   }
 
@@ -60,35 +60,35 @@ export function Login() {
       <Sponsor />
       <AuthForm
         isLogin
-        routeAuth="/singUp"
-        text="Não tem uma conta? "
-        navLinkText="Cadraste-se"
-        authType="Entrar"
+        routeAuth='/singUp'
+        text='Não tem uma conta? '
+        navLinkText='Cadraste-se'
+        authType='Entrar'
       >
         <form onSubmit={handleSubmit(handleUserLogin)}>
-          <TextFiled variant="standard">
-            <InputLabel htmlFor="user-email" error={!!errors.Email}>
+          <TextFiled variant='standard'>
+            <InputLabel htmlFor='user-email' error={!!errors.Email}>
               Email
             </InputLabel>
             <Input
-              type="email"
-              id="user-email"
+              type='email'
+              id='user-email'
               error={!!errors.Email}
-              {...register("Email")}
+              {...register('Email')}
             />
-            {errors.Email && <p>{errors.Email.message}</p>}{" "}
+            {errors.Email && <p>{errors.Email.message}</p>}{' '}
             {/* Mostra o erro */}
           </TextFiled>
-          <TextFiled variant="standard">
-            <InputLabel htmlFor="user-password">Senha</InputLabel>
+          <TextFiled variant='standard'>
+            <InputLabel htmlFor='user-password'>Senha</InputLabel>
             <Input
-              id="user-password"
-              type={showPassword ? "text" : "password"}
-              {...register("Senha")}
+              id='user-password'
+              type={showPassword ? 'text' : 'password'}
+              {...register('Senha')}
               endAdornment={
-                <InputAdornment position="end">
+                <InputAdornment position='end'>
                   <IconButton
-                    aria-label="toggle password visibility"
+                    aria-label='toggle password visibility'
                     onClick={handleClickShowPassword}
                   >
                     {showPassword ? <LockOpen /> : <Lock />}
@@ -96,12 +96,12 @@ export function Login() {
                 </InputAdornment>
               }
             />
-            {errors.Senha && <p>{errors.Senha.message}</p>}{" "}
-             {errors.root && <p>{errors.root.message}</p>}{" "}
+            {errors.Senha && <p>{errors.Senha.message}</p>}{' '}
+            {errors.root && <p>{errors.root.message}</p>}{' '}
           </TextFiled>
-         
-          <Button type="submit" disabled={!isValid}>
-            {isLoadingDataUser ? "Entrando..." : "Entrar"}
+
+          <Button type='submit' disabled={!isValid}>
+            {isLoadingDataUser ? 'Entrando...' : 'Entrar'}
           </Button>
         </form>
       </AuthForm>

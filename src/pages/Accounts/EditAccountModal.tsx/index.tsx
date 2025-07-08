@@ -1,24 +1,24 @@
-import InputLabel from "@mui/material/InputLabel"
-import Input from "@mui/material/Input"
-import { useContext, useEffect, useState } from "react"
-import { useForm, Controller } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+import InputLabel from '@mui/material/InputLabel'
+import Input from '@mui/material/Input'
+import { useContext, useEffect, useState } from 'react'
+import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   updateAccountFormSchema,
   UpdateAccountFormSchema,
-} from "../../../schemas/account/UpdateAccountFormSchema"
+} from '../../../schemas/account/UpdateAccountFormSchema'
 
 import {
   ModalBase,
   ModalBasePropsDefault,
-} from "../../../components/form/NewTransactionModal/ModalBase"
-import { TextFiled } from "../../../components/form/TextField"
-import { ValidateSelectArea } from "../../../components/form/TextField/styles"
-import { StyledMenuItem } from "../../../components/form/NewTransactionModal/ModalBase/SelectField/styles"
-import SelectVariants from "../../../components/form/NewTransactionModal/ModalBase/SelectField"
-import { selectAccountTypeData } from "../../../utils/data"
-import { AccountsContext } from "../../../contexts"
-import { UpdatedData } from "../../../contexts/Accounts/account"
+} from '../../../components/form/NewTransactionModal/ModalBase'
+import { TextFiled } from '../../../components/ui/TextField'
+import { ValidateSelectArea } from '../../../components/ui/TextField/styles'
+import { StyledMenuItem } from '../../../components/form/NewTransactionModal/ModalBase/SelectField/styles'
+import SelectVariants from '../../../components/form/NewTransactionModal/ModalBase/SelectField'
+import { selectAccountTypeData } from '../../../utils/data'
+import { AccountsContext } from '../../../contexts'
+import { UpdatedData } from '../../../contexts/Accounts/account'
 
 interface EditModalProps extends ModalBasePropsDefault {
   AccountId: string
@@ -35,7 +35,7 @@ export function EditAccountModal({
 
   const { register, handleSubmit, reset, control, formState } =
     useForm<UpdateAccountFormSchema>({
-      mode: "all",
+      mode: 'all',
       resolver: zodResolver(updateAccountFormSchema),
     })
 
@@ -73,29 +73,29 @@ export function EditAccountModal({
     <ModalBase
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Editar conta"
+      submitButtonTitle='Editar conta'
       submit={handleSubmit(handleUpdatedAccount)}
-      type="updatedAccount"
+      type='updatedAccount'
       erros={!formState.isValid}
     >
-      <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-name">Nome da conta</InputLabel>
+      <TextFiled formControlWidth='90%' variant='standard'>
+        <InputLabel htmlFor='account-name'>Nome da conta</InputLabel>
         <Input
-          type="text"
-          id="account-name"
-          {...register("Name")}
+          type='text'
+          id='account-name'
+          {...register('Name')}
           error={!!formState.errors.Name}
         />
         {formState.errors.Name && <p>{formState.errors.Name.message}</p>}
       </TextFiled>
 
       <Controller
-        name="Type"
+        name='Type'
         control={control}
         render={({ field }) => (
           <ValidateSelectArea>
             <SelectVariants
-              title="Tipo de conta"
+              title='Tipo de conta'
               value={field.value}
               onChange={field.onChange}
               erros={!!formState.errors.Type}
@@ -112,12 +112,12 @@ export function EditAccountModal({
         )}
       />
 
-      <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="account-description">Descrição</InputLabel>
+      <TextFiled formControlWidth='90%' variant='standard'>
+        <InputLabel htmlFor='account-description'>Descrição</InputLabel>
         <Input
-          type="text"
-          id="account-description"
-          {...register("Description")}
+          type='text'
+          id='account-description'
+          {...register('Description')}
           error={!!formState.errors.Description}
         />
         {formState.errors.Description && (

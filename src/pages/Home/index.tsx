@@ -1,19 +1,20 @@
-import { useContext } from "react"
-import { NavLink } from "react-router-dom"
-import { AccountsContext } from "../../contexts/Accounts/accountsContext"
-import { AccountCard } from "../../components/ui/Cards/AccountCard"
-import { GoalCard } from "../../components/ui/Cards/GoalCard"
-import { DonutChart } from "./Chart"
-import { Summary } from "./HomeSummary"
-import { GoalsContext } from "../../contexts/Goals/goalsContext"
-import { EmptyAccounts } from "../../components/ui/EmptyComponent"
-import { LinearProgressCustom } from "../Accounts/styles"
+import { useContext } from 'react'
+import { NavLink } from 'react-router-dom'
+import { AccountsContext } from '../../contexts/Accounts/accountsContext'
+import { AccountCard } from '../../components/ui/Cards/AccountCard'
+import { GoalCard } from '../../components/ui/Cards/GoalCard'
+import { DonutChart } from '../../components/home/Chart'
+import { Summary } from '../../components/home/HomeSummary'
+import { GoalsContext } from '../../contexts/Goals/goalsContext'
+import { EmptyAccounts } from '../../components/ui/EmptyComponent'
+import { LinearProgressCustom } from '../Accounts/styles'
 import {
   DefaultContainer,
   EstatisticCard,
   HomeContainer,
+  SummaryGridContainer,
   TopContainer,
-} from "./styles"
+} from './styles'
 
 export function Home() {
   const { accountsList, isLoading } = useContext(AccountsContext)
@@ -21,27 +22,27 @@ export function Home() {
 
   return (
     <HomeContainer>
-      <DefaultContainer content="center">
+      <SummaryGridContainer content='center'>
         <EstatisticCard>
           <h1>Saldo total</h1>
           <Summary />
         </EstatisticCard>
         <EstatisticCard>
           <h1>Resumo dos depósitos</h1>
-          <DonutChart chartType="DEP" />
+          <DonutChart chartType='DEP' />
         </EstatisticCard>
         <EstatisticCard>
           <h1>Resumo dos saques</h1>
-          <DonutChart chartType="SAL" />
+          <DonutChart chartType='SAL' />
         </EstatisticCard>
-      </DefaultContainer>
+      </SummaryGridContainer>
       <TopContainer>
         <h1>Contas</h1>
-        <NavLink to="/contas">ver mais</NavLink>
+        {accountsList.length > 3 && <NavLink to='/contas'>ver mais</NavLink>}
       </TopContainer>
-      <DefaultContainer content="start">
+      <DefaultContainer content='start'>
         <main>
-          {accountsList.length === 0 && <EmptyAccounts mensageType="conta" />}
+          {accountsList.length === 0 && <EmptyAccounts mensageType='conta' />}
           {isLoading ? (
             <LinearProgressCustom />
           ) : (
@@ -64,10 +65,10 @@ export function Home() {
       </DefaultContainer>
       <TopContainer>
         <h1>Metas</h1>
-        <NavLink to="/metas">ver mais</NavLink>
+        {goalsArrayList.length > 3 && <NavLink to='/metas'>ver mais</NavLink>}
       </TopContainer>
-      <DefaultContainer content="start">
-        {goalsArrayList.length === 0 && <EmptyAccounts mensageType="meta" />}
+      <DefaultContainer content='start'>
+        {goalsArrayList.length === 0 && <EmptyAccounts mensageType='meta' />}
         <main>
           {isLoadingGoals ? (
             <LinearProgressCustom />

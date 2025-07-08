@@ -1,7 +1,6 @@
-import { styled } from "styled-components"
+import { styled } from 'styled-components'
 
 export const ChartContainer = styled.div`
-  width: 20rem;
   height: 15rem;
   background-color: ${(props) => props.theme.primaryGray};
   border-radius: 12px;
@@ -10,9 +9,8 @@ export const ChartContainer = styled.div`
   justify-content: center;
   padding: 0 1.5rem;
 
-
   p {
-    color: ${props => props.theme.text};
+    color: ${(props) => props.theme.text};
   }
 `
 
@@ -36,7 +34,7 @@ export const LegendItem = styled.div<{ color: string }>`
   }
 
   &:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 1.25rem;
     height: 1.25rem;

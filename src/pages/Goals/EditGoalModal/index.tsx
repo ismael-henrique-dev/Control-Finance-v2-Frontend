@@ -1,19 +1,19 @@
-import { useContext } from "react"
-import { GoalsContext } from "../../../contexts/Goals/goalsContext"
-import { Controller, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { useContext } from 'react'
+import { GoalsContext } from '../../../contexts/Goals/goalsContext'
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   ModalBase,
   ModalBasePropsDefault,
-} from "../../../components/form/NewTransactionModal/ModalBase"
+} from '../../../components/form/NewTransactionModal/ModalBase'
 import {
   UpdateGoalFormData,
   updateGoalFormSchema,
-} from "../../../schemas/goal/UpdateGoalFormSchema"
-import { TextFiled } from "../../../components/form/TextField"
-import { Input, InputAdornment, InputLabel } from "@mui/material"
-import { Calendar } from "lucide-react"
-import CurrencyInput from "react-currency-input-field"
+} from '../../../schemas/goal/UpdateGoalFormSchema'
+import { TextFiled } from '../../../components/ui/TextField'
+import { Input, InputAdornment, InputLabel } from '@mui/material'
+import { Calendar } from 'lucide-react'
+import CurrencyInput from 'react-currency-input-field'
 
 interface EditGoalProps extends ModalBasePropsDefault {
   goalId: string
@@ -43,24 +43,24 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
       submit={handleSubmit(handleUpdateGoal)}
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Editar meta"
-      type="createAccount"
+      submitButtonTitle='Editar meta'
+      type='createAccount'
       erros={!formState.isValid}
       inputValue={
         <Controller
-          name="Value"
+          name='Value'
           control={control}
           render={({ field }) => (
             <CurrencyInput
               defaultValue={0}
-              id="account-initial-value"
-              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-              decimalSeparator=","
-              groupSeparator="."
+              id='account-initial-value'
+              intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+              decimalSeparator=','
+              groupSeparator='.'
               value={field.value}
               onValueChange={(value) => {
                 const numericValue = value
-                  ? parseFloat(value.replace(/[^\d.-]/g, ""))
+                  ? parseFloat(value.replace(/[^\d.-]/g, ''))
                   : 0
                 field.onChange(numericValue)
               }}
@@ -69,39 +69,39 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
         />
       }
     >
-      <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="standard-adornment-password">
+      <TextFiled formControlWidth='90%' variant='standard'>
+        <InputLabel htmlFor='standard-adornment-password'>
           Nome da meta
         </InputLabel>
-        <Input type="text" {...register("Title")} error={false} />
+        <Input type='text' {...register('Title')} error={false} />
       </TextFiled>
-      <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="standard-adornment-password">
+      <TextFiled formControlWidth='90%' variant='standard'>
+        <InputLabel htmlFor='standard-adornment-password'>
           Valor final
         </InputLabel>
         <Input
-          type="number"
-          {...register("TargetedValue", { valueAsNumber: true })}
+          type='number'
+          {...register('TargetedValue', { valueAsNumber: true })}
           error={false}
         />
       </TextFiled>
-      <TextFiled formControlWidth="90%" variant="standard">
-        <InputLabel htmlFor="standard-adornment-password" />
+      <TextFiled formControlWidth='90%' variant='standard'>
+        <InputLabel htmlFor='standard-adornment-password' />
         <Input
-          type="date"
+          type='date'
           error={false}
-          {...register("EndTime", {
+          {...register('EndTime', {
             valueAsDate: true, // Converte o valor para Date
             setValueAs: (value) => {
               // Transforma para 'YYYY-MM-DD' antes de enviar
               return value
-                ? new Date(value).toISOString().split("T")[0]
+                ? new Date(value).toISOString().split('T')[0]
                 : undefined
             },
           })}
           endAdornment={
-            <InputAdornment position="end">
-              <Calendar color="#4C3299" size={20} />
+            <InputAdornment position='end'>
+              <Calendar color='#4C3299' size={20} />
             </InputAdornment>
           }
         />
