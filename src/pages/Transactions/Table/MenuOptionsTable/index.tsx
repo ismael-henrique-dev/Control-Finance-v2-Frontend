@@ -1,10 +1,10 @@
-import { useContext, useState } from "react"
-import { TransactionsContext } from "../../../../contexts/Transactions/transactionsContext"
-import { MoreHorizontal, Pencil, Trash } from "lucide-react"
-import { EditTransactionModal } from "../../EditTransactionModal"
-import Popover from "@mui/material/Popover"
-import { Actions, Container, PopoverStyle } from "./styles"
-import { Button } from "../styles"
+import { useContext, useState } from 'react'
+import { TransactionsContext } from '../../../../contexts/Transactions/transactionsContext'
+import { MoreHorizontal, Pencil, Trash } from 'lucide-react'
+import { EditTransactionModal } from '../../../../components/ui/Modals/EditTransactionModal'
+import Popover from '@mui/material/Popover'
+import { Actions, Container, PopoverStyle } from './styles'
+import { Button } from '../styles'
 
 type TransactionId = { transactionId: string }
 
@@ -44,21 +44,21 @@ export function MenuOptionsTable({ transactionId }: TransactionId) {
 
   return (
     <Container>
-      <Button variant="more" onClick={handleClick}>
+      <Button variant='more' onClick={handleClick}>
         <MoreHorizontal />
       </Button>
       <Popover
-        id="click-popover"
+        id='click-popover'
         sx={PopoverStyle}
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus
@@ -68,7 +68,7 @@ export function MenuOptionsTable({ transactionId }: TransactionId) {
             <Pencil />
           </button>
           <button onClick={handleClickDeleteTransaction}>
-            <Trash color="#DC2626" />
+            <Trash color='#DC2626' />
           </button>
         </Actions>
       </Popover>

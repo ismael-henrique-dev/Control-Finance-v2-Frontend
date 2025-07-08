@@ -1,6 +1,6 @@
-import styled from "styled-components"
-import Box from "@mui/material/Box"
-import List from "@mui/material/List"
+import styled from 'styled-components'
+import Box from '@mui/material/Box'
+import List from '@mui/material/List'
 
 export const ContainerDrawer = styled(Box)`
   width: 20rem;
@@ -36,13 +36,8 @@ export const PresentationSection = styled.section`
   gap: 0.25rem;
   padding: 2rem;
 
-  img {
-    width: 7.5rem;
-    height: 7.5rem;
-    border-radius: 100%;
-  }
-
   span {
+    margin-top: 1rem;
     font-size: 0.875rem;
     font-weight: 500;
     color: ${(props) => props.theme.secundary};
@@ -74,10 +69,7 @@ export const ListContainer = styled(List)`
   }
 
   &:last-child {
-
   }
-
- 
 
   li {
     display: flex;

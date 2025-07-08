@@ -8,12 +8,14 @@ export const ContainerSummary = styled.div`
   background-color: ${(props) => props.theme.primaryGray};
   gap: 1.5rem;
   border-radius: 12px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 
   @media (max-width: 768px) {
     & {
       width: 20rem;
       justify-content: start;
+      flex-direction: column;
+      align-items: start;
     }
   }
 `;

@@ -1,4 +1,4 @@
-import { CircleUserRound, Moon, Search, Sun } from 'lucide-react'
+import { Moon, Search, Sun } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { DrawerBasic } from './Drawer'
 import { SearchBarArea } from './SearchBarArea'
@@ -12,6 +12,7 @@ import {
   InputArea,
   LeftContainer,
 } from './styles'
+import { Avatar } from '../../../components/ui/Avatar'
 
 export function Header() {
   const themeContext = useContext(ThemeContext)
@@ -42,7 +43,7 @@ export function Header() {
           {theme === 'light' ? <Sun size={24} /> : <Moon size={24} />}
         </button>
         <NavLink to='/profile'>
-          <CircleUserRound />
+          <Avatar variant='small'/>
           <span>Preferências da conta</span>
         </NavLink>
       </ActionsContainer>

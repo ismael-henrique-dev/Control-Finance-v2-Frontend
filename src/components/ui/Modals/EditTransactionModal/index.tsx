@@ -7,14 +7,17 @@ import { Controller, useForm } from 'react-hook-form'
 import {
   editTransactionFormSchema,
   EditTransactionFormSchema,
-} from '../../../validators/transactions/EditTransactionFormSchema'
-import { TransactionsContext } from '../../../contexts'
-import { selectCategoryData } from '../../../utils/data'
+} from '../../../../validators/transactions/EditTransactionFormSchema'
+import { TransactionsContext } from '../../../../contexts'
+import { selectCategoryData } from '../../../../utils/data'
 
-import { StyledMenuItem } from '../../FinancialIncome/Select/styles'
-import { TextFiled } from '../../../components/ui/TextField'
-import { ModalBase, ModalBasePropsDefault } from '../../../components/ui/Modals/NewTransactionModal/ModalBase'
-import SelectVariants from '../../../components/ui/Modals/NewTransactionModal/ModalBase/SelectField'
+import { StyledMenuItem } from '../../../../pages/FinancialIncome/Select/styles'
+import { TextFiled } from '../../TextField'
+import {
+  ModalBase,
+  ModalBasePropsDefault,
+} from '../NewTransactionModal/ModalBase'
+import SelectVariants from '../NewTransactionModal/ModalBase/SelectField'
 
 interface CategoriesType {
   name: string

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { NavLink, NavLinkProps } from 'react-router-dom'
 import {
   ArrowRightLeft,
@@ -14,10 +14,10 @@ import { UserContext } from '../../../../contexts/User/userContext'
 import Drawer from '@mui/material/Drawer'
 import ListItem from '@mui/material/ListItem'
 import Box from '@mui/material/Box'
-import testImage from '../../../../assets/test-image.svg'
 import { darkTheme } from '../../../../styles/themes/dark'
 import { ThemeContext } from '../../../../contexts'
 import { lightTheme } from '../../../../styles/themes/light'
+import { Avatar } from '../../../../components/ui/Avatar'
 
 function LinkCustom({ ...props }: NavLinkProps) {
   const themeContext = useContext(ThemeContext)
@@ -41,16 +41,7 @@ function LinkCustom({ ...props }: NavLinkProps) {
 
 export function DrawerBasic() {
   const [open, setOpen] = useState(false)
-  const [image, setImage] = useState<string | null>(null)
   const { userData, userLogout } = useContext(UserContext)
-
-  useEffect(() => {
-    if (userData && userData.ProfileUrl) {
-      setImage(userData.ProfileUrl)
-    } else {
-      setImage(testImage)
-    }
-  }, [userData])
 
   const toggleDrawer =
     (inOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -76,7 +67,7 @@ export function DrawerBasic() {
         >
           <div>
             <PresentationSection>
-              <img src={image || testImage} />
+              <Avatar variant='big' />
               <span>Bem-vindo(a) novamente!</span>
               <strong>
                 {!userData?.UsernName ? 'Carregando...' : userData.UsernName}
@@ -93,7 +84,7 @@ export function DrawerBasic() {
               </ListItem>
               <ListItem>
                 <PiggyBank />
-                <LinkCustom to={'/contas'}>Transações</LinkCustom>
+                <LinkCustom to={'/contas'}>Contas</LinkCustom>
               </ListItem>
               <ListItem>
                 <BarChart />

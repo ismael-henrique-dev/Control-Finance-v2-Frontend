@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
   background-color: ${(props) => props.theme.primaryGray};
@@ -136,6 +136,12 @@ export const ActionsContainer = styled.div`
 
     span {
       display: none;
+    }
+
+    div,
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
     }
   }
 `
