@@ -3,7 +3,7 @@ import { AccountsContext } from '../../../../contexts'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, Controller } from 'react-hook-form'
 
-import { TextFiled } from '../../TextField'
+// import { TextFiled } from '../../TextField'
 import { ValidateSelectArea } from '../../TextField/styles'
 
 import {
@@ -69,7 +69,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
         />
       }
     >
-      <TextFiled formControlWidth='90%' variant='standard'>
+      {/* <TextFiled formControlWidth='90%' variant='standard'>
         <InputLabel htmlFor='account-name' error={!!formState.errors.Name}>
           Nome da conta
         </InputLabel>
@@ -80,7 +80,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
           error={!!formState.errors.Name}
         />
         {formState.errors.Name && <p>{formState.errors.Name.message}</p>}
-      </TextFiled>
+      </TextFiled> */}
 
       <Controller
         name='Type'
@@ -105,7 +105,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
         )}
       />
 
-      <TextFiled formControlWidth='90%' variant='standard'>
+      {/* <TextFiled formControlWidth='90%' variant='standard'>
         <InputLabel
           htmlFor='account-description'
           error={!!formState.errors.Description}
@@ -121,7 +121,7 @@ export function NewAccountModaL({ open, handleClose }: ModalBasePropsDefault) {
         {formState.errors.Description && (
           <p>{formState.errors.Description.message}</p>
         )}
-      </TextFiled>
+      </TextFiled> */}
     </ModalBase>
   )
 }

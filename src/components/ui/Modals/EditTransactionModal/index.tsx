@@ -12,7 +12,7 @@ import { TransactionsContext } from '../../../../contexts'
 import { selectCategoryData } from '../../../../utils/data'
 
 import { StyledMenuItem } from '../../../../pages/FinancialIncome/Select/styles'
-import { TextFiled } from '../../TextField'
+// import { TextFiled } from '../../TextField'
 import {
   ModalBase,
   ModalBasePropsDefault,
@@ -98,7 +98,7 @@ export function EditTransactionModal({
         />
       }
     >
-      <TextFiled variant='standard' formControlWidth='90%'>
+      {/* <TextFiled variant='standard' formControlWidth='90%'>
         <InputLabel htmlFor='transaction-name'>Nome da transação</InputLabel>
         <Input
           type='text'
@@ -106,7 +106,7 @@ export function EditTransactionModal({
           {...register('Title')}
           error={false}
         />
-      </TextFiled>
+      </TextFiled> */}
 
       <Controller
         name='Type'

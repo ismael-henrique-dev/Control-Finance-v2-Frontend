@@ -1,6 +1,6 @@
 import Input from '@mui/material/Input'
 import InputLabel from '@mui/material/InputLabel'
-import { TextFiled } from '../../TextField'
+// import { TextFiled } from '../../TextField'
 import { Controller, useForm } from 'react-hook-form'
 import CurrencyInput from 'react-currency-input-field'
 import {
@@ -55,7 +55,7 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
         />
       }
     >
-      <TextFiled formControlWidth='90%' variant='standard'>
+      {/* <TextFiled formControlWidth='90%' variant='standard'>
         <InputLabel htmlFor='standard-adornment-password'>
           Nome da meta
         </InputLabel>
@@ -79,7 +79,7 @@ export function GoalModal({ open, handleClose }: ModalBasePropsDefault) {
       <TextFiled formControlWidth='90%' variant='standard'>
         <InputLabel htmlFor='standard-adornment-password' />
         <Input type='date' error={false} {...register('EndTime')} />
-      </TextFiled>
+      </TextFiled> */}
     </ModalBase>
   )
 }

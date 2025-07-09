@@ -2,7 +2,8 @@ import { styled } from "styled-components";
 
 export const ContainerSponsor = styled.div`
   text-align: center;
-  width: 20rem;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
   display: flex;
   justify-content: center;

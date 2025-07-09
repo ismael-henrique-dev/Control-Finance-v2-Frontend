@@ -15,7 +15,7 @@ import { StyledMenuItem } from './ModalBase/SelectField/styles'
 import { TransactionsContext, AccountsContext } from '../../../../contexts'
 import { selectCategoryData } from '../../../../utils/data'
 import { CreateTransactionFormSchema, createTransactionFormSchema } from '../../../../validators/transactions/CreateTransactionFormSchema'
-import { TextFiled } from '../../TextField'
+// import { TextFiled } from '../../TextField'
 
 interface NewTransactionModalProps extends ModalBasePropsDefault {
   accountId?: string
@@ -114,7 +114,7 @@ export function NewTransactionModal({
         />
       }
     >
-      <TextFiled variant='standard' formControlWidth='90%'>
+      {/* <TextFiled variant='standard' formControlWidth='90%'>
         <InputLabel htmlFor='transaction-name'>Nome da transação</InputLabel>
         <Input
           type='text'
@@ -122,7 +122,7 @@ export function NewTransactionModal({
           {...register('Title')}
           error={false}
         />
-      </TextFiled>
+      </TextFiled> */}
 
       <Controller
         name='Type'

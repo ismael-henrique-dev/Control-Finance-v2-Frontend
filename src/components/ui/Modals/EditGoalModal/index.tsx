@@ -7,11 +7,11 @@ import {
   UpdateGoalFormData,
   updateGoalFormSchema,
 } from '../../../../validators/goal/UpdateGoalFormSchema'
-import { TextFiled } from '../../TextField'
-import { Input, InputAdornment, InputLabel } from '@mui/material'
-import { Calendar } from 'lucide-react'
+import { TextField } from '../../TextField' // ← novo componente
 import CurrencyInput from 'react-currency-input-field'
 import { ModalBase, ModalBasePropsDefault } from '../NewTransactionModal/ModalBase'
+import { InputAdornment } from '@mui/material'
+import { Calendar } from 'lucide-react'
 
 interface EditGoalProps extends ModalBasePropsDefault {
   goalId: string
@@ -25,14 +25,8 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
     })
 
   async function handleUpdateGoal(data: UpdateGoalFormData) {
-    console.log(data)
     const { Title, Value, TargetedValue, EndTime } = data
-    await updateGoal(goalId, {
-      Title,
-      Value,
-      TargetedValue,
-      EndTime,
-    })
+    await updateGoal(goalId, { Title, Value, TargetedValue, EndTime })
     handleClose()
   }
 
@@ -41,20 +35,20 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
       submit={handleSubmit(handleUpdateGoal)}
       open={open}
       handleClose={handleClose}
-      submitButtonTitle='Editar meta'
-      type='createAccount'
+      submitButtonTitle="Editar meta"
+      type="createAccount"
       erros={!formState.isValid}
       inputValue={
         <Controller
-          name='Value'
+          name="Value"
           control={control}
           render={({ field }) => (
             <CurrencyInput
               defaultValue={0}
-              id='account-initial-value'
+              id="goal-current-value"
               intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
-              decimalSeparator=','
-              groupSeparator='.'
+              decimalSeparator=","
+              groupSeparator="."
               value={field.value}
               onValueChange={(value) => {
                 const numericValue = value
@@ -67,43 +61,36 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
         />
       }
     >
-      <TextFiled formControlWidth='90%' variant='standard'>
-        <InputLabel htmlFor='standard-adornment-password'>
-          Nome da meta
-        </InputLabel>
-        <Input type='text' {...register('Title')} error={false} />
-      </TextFiled>
-      <TextFiled formControlWidth='90%' variant='standard'>
-        <InputLabel htmlFor='standard-adornment-password'>
-          Valor final
-        </InputLabel>
-        <Input
-          type='number'
-          {...register('TargetedValue', { valueAsNumber: true })}
-          error={false}
-        />
-      </TextFiled>
-      <TextFiled formControlWidth='90%' variant='standard'>
-        <InputLabel htmlFor='standard-adornment-password' />
-        <Input
-          type='date'
-          error={false}
-          {...register('EndTime', {
-            valueAsDate: true, // Converte o valor para Date
-            setValueAs: (value) => {
-              // Transforma para 'YYYY-MM-DD' antes de enviar
-              return value
-                ? new Date(value).toISOString().split('T')[0]
-                : undefined
-            },
-          })}
-          endAdornment={
-            <InputAdornment position='end'>
-              <Calendar color='#4C3299' size={20} />
-            </InputAdornment>
-          }
-        />
-      </TextFiled>
+      <TextField
+        label="Nome da meta"
+        id="goal-title"
+        {...register('Title')}
+        error={!!formState.errors.Title}
+        helperText={formState.errors.Title?.message}
+      />
+
+      <TextField
+        label="Valor final"
+        type="number"
+        id="goal-target"
+        {...register('TargetedValue', { valueAsNumber: true })}
+        error={!!formState.errors.TargetedValue}
+        helperText={formState.errors.TargetedValue?.message}
+      />
+
+      <TextField
+        label="Data final"
+        type="date"
+        id="goal-end-date"
+        {...register('EndTime', {
+          valueAsDate: true,
+          setValueAs: (value) =>
+            value ? new Date(value).toISOString().split('T')[0] : undefined,
+        })}
+        error={!!formState.errors.EndTime}
+        helperText={formState.errors.EndTime?.message}
+     
+      />
     </ModalBase>
   )
 }

@@ -14,6 +14,7 @@ import {
   MainContainer,
   Section,
 } from './styles'
+import { Plus } from 'lucide-react'
 
 export function Accounts() {
   const [open, setOpen] = useState(false)
@@ -38,7 +39,9 @@ export function Accounts() {
           income={statics?.totalDeposit ?? 0}
           outcome={statics?.totalWithdraw ?? 0}
         />
-        <Button handleClick={handleOpen} />
+        <Button iconOnly onClick={handleOpen}>
+          <Plus size={24} />
+        </Button>
       </ContainerBarSummary>
       <Section>
         <strong>Contas</strong>
@@ -50,7 +53,7 @@ export function Accounts() {
       </Section>
       <MainContainer>
         {filteredAccounts.length === 0 && <EmptyAccounts mensageType='conta' />}
-        {isLoading === true ? (
+        {/* {isLoading === true ? (
           <LinearProgressCustom />
         ) : (
           filteredAccounts
@@ -67,7 +70,7 @@ export function Accounts() {
                 accountType={account.Type}
               />
             ))
-        )}
+        )} */}
       </MainContainer>
       <NewAccountModaL open={open} handleClose={handleClose} />
     </AccountsContainer>
