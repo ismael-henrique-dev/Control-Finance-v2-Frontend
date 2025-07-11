@@ -10,9 +10,9 @@ import { ValidateSelectArea } from '../../TextField/styles'
 import { selectAccountTypeData } from '../../../../utils/data'
 import { AccountsContext } from '../../../../contexts'
 import { UpdatedData } from '../../../../contexts/Accounts/account'
-import { ModalBase, ModalBasePropsDefault } from '../NewTransactionModal/ModalBase'
-import SelectVariants from '../NewTransactionModal/ModalBase/SelectField'
-import { StyledMenuItem } from '../NewTransactionModal/ModalBase/SelectField/styles'
+import { ModalBase, ModalBasePropsDefault } from '../ModalBase'
+import SelectVariants from '../ModalBase/SelectField'
+import { StyledMenuItem } from '../ModalBase/SelectField/styles'
 import { TextField } from '../../TextField' // ← novo TextField
 
 interface EditModalProps extends ModalBasePropsDefault {
@@ -67,27 +67,27 @@ export function EditAccountModal({
     <ModalBase
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Editar conta"
+      submitButtonTitle='Editar conta'
       submit={handleSubmit(handleUpdatedAccount)}
-      type="updatedAccount"
+      type='updatedAccount'
       erros={!isValid}
     >
       <TextField
-        id="account-name"
-        label="Nome da conta"
-        variant="text"
+        id='account-name'
+        label='Nome da conta'
+        variant='text'
         {...register('Name')}
         error={!!errors.Name}
         helperText={errors.Name?.message}
       />
 
       <Controller
-        name="Type"
+        name='Type'
         control={control}
         render={({ field }) => (
           <ValidateSelectArea>
             <SelectVariants
-              title="Tipo de conta"
+              title='Tipo de conta'
               value={field.value}
               onChange={field.onChange}
               erros={!!errors.Type}
@@ -104,10 +104,10 @@ export function EditAccountModal({
         )}
       />
 
-      <TextField  
-        id="account-description"
-        label="Descrição"
-        variant="text"
+      <TextField
+        id='account-description'
+        label='Descrição'
+        variant='text'
         {...register('Description')}
         error={!!errors.Description}
         helperText={errors.Description?.message}

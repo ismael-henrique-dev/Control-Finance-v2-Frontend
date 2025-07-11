@@ -13,11 +13,8 @@ import { selectCategoryData } from '../../../../utils/data'
 
 import { StyledMenuItem } from '../../../../pages/FinancialIncome/Select/styles'
 // import { TextFiled } from '../../TextField'
-import {
-  ModalBase,
-  ModalBasePropsDefault,
-} from '../NewTransactionModal/ModalBase'
-import SelectVariants from '../NewTransactionModal/ModalBase/SelectField'
+import { ModalBase, ModalBasePropsDefault } from '../ModalBase'
+import SelectVariants from '../ModalBase/SelectField'
 
 interface CategoriesType {
   name: string

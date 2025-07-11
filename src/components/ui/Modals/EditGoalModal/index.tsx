@@ -9,7 +9,7 @@ import {
 } from '../../../../validators/goal/UpdateGoalFormSchema'
 import { TextField } from '../../TextField' // ← novo componente
 import CurrencyInput from 'react-currency-input-field'
-import { ModalBase, ModalBasePropsDefault } from '../NewTransactionModal/ModalBase'
+import { ModalBase, ModalBasePropsDefault } from '../ModalBase'
 import { InputAdornment } from '@mui/material'
 import { Calendar } from 'lucide-react'
 
@@ -35,20 +35,20 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
       submit={handleSubmit(handleUpdateGoal)}
       open={open}
       handleClose={handleClose}
-      submitButtonTitle="Editar meta"
-      type="createAccount"
+      submitButtonTitle='Editar meta'
+      type='createAccount'
       erros={!formState.isValid}
       inputValue={
         <Controller
-          name="Value"
+          name='Value'
           control={control}
           render={({ field }) => (
             <CurrencyInput
               defaultValue={0}
-              id="goal-current-value"
+              id='goal-current-value'
               intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
-              decimalSeparator=","
-              groupSeparator="."
+              decimalSeparator=','
+              groupSeparator='.'
               value={field.value}
               onValueChange={(value) => {
                 const numericValue = value
@@ -62,26 +62,26 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
       }
     >
       <TextField
-        label="Nome da meta"
-        id="goal-title"
+        label='Nome da meta'
+        id='goal-title'
         {...register('Title')}
         error={!!formState.errors.Title}
         helperText={formState.errors.Title?.message}
       />
 
       <TextField
-        label="Valor final"
-        type="number"
-        id="goal-target"
+        label='Valor final'
+        type='number'
+        id='goal-target'
         {...register('TargetedValue', { valueAsNumber: true })}
         error={!!formState.errors.TargetedValue}
         helperText={formState.errors.TargetedValue?.message}
       />
 
       <TextField
-        label="Data final"
-        type="date"
-        id="goal-end-date"
+        label='Data final'
+        type='date'
+        id='goal-end-date'
         {...register('EndTime', {
           valueAsDate: true,
           setValueAs: (value) =>
@@ -89,7 +89,6 @@ export function EditGoalModal({ open, handleClose, goalId }: EditGoalProps) {
         })}
         error={!!formState.errors.EndTime}
         helperText={formState.errors.EndTime?.message}
-     
       />
     </ModalBase>
   )

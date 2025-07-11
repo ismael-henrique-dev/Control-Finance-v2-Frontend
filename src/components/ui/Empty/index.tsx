@@ -6,9 +6,10 @@ type EmptyProps = {
   type: 'account' | 'transaction' | 'goal'
   title: string
   description: string
+  onCreateClick?: () => void
 }
 
-export function Empty({ type, title, description }: EmptyProps) {
+export function Empty({ type, title, description, onCreateClick }: EmptyProps) {
   return (
     <Container>
       {type === 'account' && <Wallet />}
@@ -18,7 +19,11 @@ export function Empty({ type, title, description }: EmptyProps) {
         <strong>{title}</strong>
         <span>{description}</span>
       </div>
-      <Button variant='primary' style={{ width: '7rem' }}>
+      <Button
+        variant='primary'
+        style={{ width: '7rem' }}
+        onClick={onCreateClick}
+      >
         Crie uma
       </Button>
     </Container>

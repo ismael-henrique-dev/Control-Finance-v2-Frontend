@@ -1,12 +1,10 @@
-import styled from "styled-components"
-import Modal from "@mui/material/Modal"
+import styled from 'styled-components'
+import Modal from '@mui/material/Modal'
 
-export const ModalGlobal = styled(Modal)`
+export const ModalOverlay = styled(Modal)`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  
 `
 
 export const ModalHeader = styled.header`
@@ -14,7 +12,6 @@ export const ModalHeader = styled.header`
   justify-content: center;
   align-items: start;
   flex-direction: column;
-  /* height: 6rem; */
   background-color: ${(props) => props.theme.primary};
   padding: 1rem 1.25rem;
   gap: 1.5rem;
@@ -34,7 +31,7 @@ export const ModalHeader = styled.header`
     border: 0;
     cursor: pointer;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   div {
@@ -56,7 +53,7 @@ export const ModalHeader = styled.header`
   }
 `
 
-export const ModalContainer = styled.form`
+export const ModalContainer = styled.div`
   width: 30rem;
   height: auto;
   background-color: ${(props) => props.theme.primaryGray};
@@ -81,23 +78,5 @@ export const MainContainer = styled.main`
     button {
       width: 17rem;
     }
-  }
-`
-
-export const SubmitButton = styled.button`
-  width: 27rem;
-  height: 2rem;
-  border: 0;
-  border-radius: 12px;
-  background-color: ${(props) => props.theme.primary};
-  color: ${props => props.theme.white};
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  cursor: pointer;
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
   }
 `

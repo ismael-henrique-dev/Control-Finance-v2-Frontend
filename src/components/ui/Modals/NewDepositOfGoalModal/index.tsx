@@ -8,7 +8,7 @@ import {
   createNewDepositOfGoalFormSchema,
 } from '../../../../validators/goal/CreateNewDepositOfGoalFormSchema'
 import CurrencyInput from 'react-currency-input-field'
-import { ModalBase, ModalBasePropsDefault } from '../NewTransactionModal/ModalBase'
+import { ModalBase, ModalBasePropsDefault } from '../ModalBase'
 
 interface NewDepositOfGoalProps extends ModalBasePropsDefault {
   goalId: string
