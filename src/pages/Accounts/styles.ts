@@ -1,15 +1,21 @@
-import styled from "styled-components"
-import LinearProgress from "@mui/material/LinearProgress"
+import styled from 'styled-components'
+import LinearProgress from '@mui/material/LinearProgress'
 
 export const AccountsContainer = styled.div`
-  max-width: 64rem;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   padding: 0;
   margin: 2rem auto;
   gap: 2rem;
-  min-height: 100vh;
+  width: 100%;
+  padding: 2rem 4rem;
+
+  @media (max-width: 768px) {
+    & {
+      padding: 0 1rem;
+    }
+  }
 `
 
 export const ContainerBarSummary = styled.div`
@@ -49,12 +55,12 @@ export const Section = styled.section`
 export const MainContainer = styled.main`
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem; 
+  gap: 4rem;
   justify-content: safe;
   max-width: 64rem;
 
   @media (max-width: 768px) {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     justify-content: center;
     padding: 0;
     margin: auto;

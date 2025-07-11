@@ -1,15 +1,21 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const GoalsContainer = styled.div`
-  max-width: 64rem;
+  /* max-width: 64rem; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: start;
-  padding: 0;
+  align-items: center;
+  padding: 2rem 4rem;
   margin: 2rem auto;
   gap: 2rem;
-  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    & {
+      padding: 0 1rem;
+    }
+  }
 `
 
 export const ContainerBarSummary = styled.div`
@@ -26,7 +32,7 @@ export const ContainerBarSummary = styled.div`
       flex-direction: column-reverse;
     }
   }
-`;
+`
 
 export const Section = styled.section`
   width: 100%;
@@ -44,17 +50,16 @@ export const Section = styled.section`
     width: 20rem;
     margin: auto;
   }
-`;
+`
 
 export const MainContainer = styled.main`
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 4rem;
   justify-content: safe;
   max-width: 64rem;
 
   @media (max-width: 768px) {
-    min-height: 100vh;
     justify-content: center;
     padding: 0;
     margin: auto;

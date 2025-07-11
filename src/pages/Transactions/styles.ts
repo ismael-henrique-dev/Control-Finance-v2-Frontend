@@ -1,15 +1,21 @@
-import { styled } from "styled-components"
+import { styled } from 'styled-components'
 
 export const TransactionsContainer = styled.div`
-  max-width: 68rem;
+  /* max-width: 68rem; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: start;
-  padding: 0;
+  align-items: center;
+  padding: 2rem 4rem;
   margin: 2rem auto;
   gap: 2rem;
-  min-height: 100vh;
+
+   @media (max-width: 768px) {
+    & {
+      padding: 0 1rem;
+    }
+  }
 `
 
 export const ContainerBarSummary = styled.div`
@@ -31,14 +37,14 @@ export const ContainerBarSummary = styled.div`
 export const MainContainer = styled.main`
   display: flex;
   justify-content: start;
-  /* align-items: center; */
   flex-direction: column;
-  /* flex-wrap: wrap; */
   gap: 2rem;
-  max-width: 64rem;
+  /* max-width: 64rem; */
+  width: 100%;
 
   @media (max-width: 768px) {
-    width: 20rem;
+    /* width: 20rem; */
+    padding: 0 1rem;
     margin: auto;
   }
 
@@ -46,6 +52,7 @@ export const MainContainer = styled.main`
     font-size: 1.5rem;
     font-weight: 600;
     color: ${(props) => props.theme.text};
+    width: 100%;
   }
 
   @media (max-width: 768px) {

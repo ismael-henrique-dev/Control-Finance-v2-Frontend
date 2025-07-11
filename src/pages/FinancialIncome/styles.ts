@@ -31,7 +31,7 @@ export const FinancialIncomeContainer = styled.main`
 `
 
 export const ResponsiveContainerPage = styled.div`
-  min-height: 80vh;
+  flex: 1;
   display: flex;
   align-items: center;
 `

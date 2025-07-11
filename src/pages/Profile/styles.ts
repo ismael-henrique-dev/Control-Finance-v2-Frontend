@@ -4,7 +4,8 @@ export const ResponsiveContainerPage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%
+  /* height: 100%;   */
+  flex: 1;
 `
 
 export const ProfileContainer = styled.div`

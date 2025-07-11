@@ -44,7 +44,7 @@ export const StyledButton = styled.button<StyledProps>`
       case 'primary':
         return css`
           background: ${theme.primary};
-          color: ${theme.text};
+          color: ${theme.white};
         `
       case 'secondary':
         return css`

@@ -1,28 +1,29 @@
-import { useContext, useState } from "react"
-import { useParams } from "react-router-dom" // Adicione isso
+import { useContext, useState } from 'react'
+import { useParams } from 'react-router-dom' // Adicione isso
 
-import { useSummaryTransaction } from "../../hooks/useSummaryTransaction"
-import { SelectFilter } from "../../components/form/FilterSelect"
-import { Summary } from "../../components/ui/Summary"
-import { Button } from "../../components/ui/Button"
-import { Table } from "./Table"
-import { SearchBarTransaction } from "./SearchBarTransaction"
-import { TransactionsContext } from "../../contexts/Transactions/transactionsContext"
-import { LinearProgressCustom } from "../Accounts/styles"
-import { EmptyAccounts } from "../../components/ui/EmptyComponent"
-import { SelectChangeEvent } from "@mui/material"
+import { useSummaryTransaction } from '../../hooks/useSummaryTransaction'
+import { SelectFilter } from '../../components/form/FilterSelect'
+import { Summary } from '../../components/ui/Summary'
+import { Button } from '../../components/ui/Button'
+import { Table } from './Table'
+import { SearchBarTransaction } from './SearchBarTransaction'
+import { TransactionsContext } from '../../contexts/Transactions/transactionsContext'
+import { LinearProgressCustom } from '../Accounts/styles'
+import { Empty } from '../../components/ui/Empty'
+import { SelectChangeEvent } from '@mui/material'
 import {
   ContainerBarSummary,
   MainContainer,
   TransactionsContainer,
-} from "./styles"
-import { AccountsContext } from "../../contexts"
-import { NewTransactionModal } from "../../components/ui/Modals/NewTransactionModal"
+} from './styles'
+import { AccountsContext } from '../../contexts'
+import { NewTransactionModal } from '../../components/ui/Modals/NewTransactionModal'
+import { Plus } from 'lucide-react'
 
 export function Transactions() {
   const { id } = useParams<{ id: string }>()
-  const [search, setSearch] = useState("")
-  const [filter, setFilter] = useState<string>("Todas")
+  const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState<string>('Todas')
   const { transactions, isLoadingTransactionsList } =
     useContext(TransactionsContext)
   const { accountsList } = useContext(AccountsContext)
@@ -36,16 +37,18 @@ export function Transactions() {
     if (!desabledState) {
       handleOpen()
     } else {
-      window.alert("Você ainda não tem uma conta, crie uma para poder realizar transações.")
+      window.alert(
+        'Você ainda não tem uma conta, crie uma para poder realizar transações.'
+      )
     }
   }
 
   const summary = useSummaryTransaction()
 
   const selectOptionsTransactionsFilter = [
-    "Todas",
-    "Maior valor",
-    "Menor valor",
+    'Todas',
+    'Maior valor',
+    'Menor valor',
   ]
 
   const getFilteredTransactions = () => {
@@ -55,10 +58,10 @@ export function Transactions() {
       ? originalListTransactions.filter((t) => t.Id === id)
       : originalListTransactions
 
-    if (filter === "Maior valor") {
+    if (filter === 'Maior valor') {
       const greaterValue = filteredByAccount.sort((a, b) => b.Value - a.Value)
       return greaterValue
-    } else if (filter === "Menor valor") {
+    } else if (filter === 'Menor valor') {
       const lowestValue = filteredByAccount.sort((a, b) => a.Value - b.Value)
       return lowestValue
     } else {
@@ -89,14 +92,20 @@ export function Transactions() {
           change={handleChange}
           value={filter}
         />
-        <Button handleClick={handleClick} />
+        <Button iconOnly onClick={handleOpen}>
+          <Plus size={24} />
+        </Button>
       </ContainerBarSummary>
       <MainContainer>
         <strong>Histórico de transações</strong>
         {isLoadingTransactionsList ? (
           <LinearProgressCustom />
         ) : filteredTransactions.length === 0 ? (
-          <EmptyAccounts mensageType="transação" />
+          <Empty
+            type='transaction'
+            title='Você não tem nenhuma transação ainda'
+            description='Caso não tenha uma conta, crie uma e adicione uma transação.'
+          />
         ) : (
           <>
             <SearchBarTransaction

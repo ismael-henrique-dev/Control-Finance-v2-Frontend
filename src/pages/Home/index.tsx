@@ -6,7 +6,7 @@ import { GoalCard } from '../../components/ui/Cards/GoalCard'
 import { DonutChart } from '../../components/home/Chart'
 import { Summary } from '../../components/home/HomeSummary'
 import { GoalsContext } from '../../contexts/Goals/goalsContext'
-import { EmptyAccounts } from '../../components/ui/EmptyComponent'
+import { Empty } from '../../components/ui/Empty'
 import { LinearProgressCustom } from '../Accounts/styles'
 import {
   DefaultContainer,
@@ -42,8 +42,14 @@ export function Home() {
       </TopContainer>
       <DefaultContainer content='start'>
         <main>
-          {accountsList.length === 0 && <EmptyAccounts mensageType='conta' />}
-          {isLoading ? (
+          {accountsList.length === 0 && (
+            <Empty
+              type='account'
+              title='Você não tem nenhuma conta ainda'
+              description='Crie uma conta para poder organizar suas movimentações.'
+            />
+          )}
+          {/* {isLoading ? (
             <LinearProgressCustom />
           ) : (
             accountsList
@@ -60,7 +66,7 @@ export function Home() {
                   key={account.AcId}
                 />
               ))
-          )}
+          )} */}
         </main>
       </DefaultContainer>
       <TopContainer>
@@ -68,7 +74,13 @@ export function Home() {
         {goalsArrayList.length > 3 && <NavLink to='/metas'>ver mais</NavLink>}
       </TopContainer>
       <DefaultContainer content='start'>
-        {goalsArrayList.length === 0 && <EmptyAccounts mensageType='meta' />}
+        {goalsArrayList.length === 0 && (
+          <Empty
+            type='goal'
+            title='Você ainda não criou nenhuma meta'
+            description='Defina metas para alcançar seus objetivos financeiros com mais foco e organização.'
+          />
+        )}
         <main>
           {isLoadingGoals ? (
             <LinearProgressCustom />

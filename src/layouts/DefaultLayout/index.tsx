@@ -12,7 +12,7 @@ export function DefaultLayout() {
       }}
     >
       <Header />
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, display: 'flex' }}>
         <Outlet />
       </main>
       <Footer />
