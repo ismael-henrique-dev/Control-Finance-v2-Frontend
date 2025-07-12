@@ -1,6 +1,5 @@
-import { Sponsor } from '../../components/ui/Sponsor'
 import { AuthResposiveContainer } from '../../components/auth/ResposiveContainer'
-import { LoginForm } from '../../components/ui/Forms/LoginForm'
+import { LoginForm, Sponsor } from '@/components/ui'
 
 export function Login() {
   return (

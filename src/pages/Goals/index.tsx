@@ -17,6 +17,8 @@ import {
   Section,
 } from './styles'
 import { CreateGoalModal } from '../../components/ui/Modals/CreateGoalModal'
+import { Button } from '@/components/ui'
+import { Plus } from 'lucide-react'
 
 export function Goals() {
   const { goalsList, goalsArrayList, isLoadingGoals } = useContext(GoalsContext)
@@ -71,6 +73,11 @@ export function Goals() {
         <CreateGoalModal
           isOpen={isCreateModalOpen}
           setIsOpen={setIsCreateModalOpen}
+          trigger={
+            <Button iconOnly onClick={() => setIsCreateModalOpen(true)}>
+              <Plus size={24} />
+            </Button>
+          }
         />
       </ContainerBarSummary>
       <Section>

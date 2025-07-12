@@ -1,15 +1,11 @@
 import { useContext, useState } from 'react'
-import { useParams } from 'react-router-dom' // Adicione isso
-
+import { useParams } from 'react-router-dom'
 import { useSummaryTransaction } from '../../hooks/useSummaryTransaction'
 import { SelectFilter } from '../../components/form/FilterSelect'
-import { Summary } from '../../components/ui/Summary'
-import { Button } from '../../components/ui/Button'
 import { Table } from './Table'
 import { SearchBarTransaction } from './SearchBarTransaction'
 import { TransactionsContext } from '../../contexts/Transactions/transactionsContext'
 import { LinearProgressCustom } from '../Accounts/styles'
-import { Empty } from '../../components/ui/Empty'
 import { SelectChangeEvent } from '@mui/material'
 import {
   ContainerBarSummary,
@@ -17,8 +13,9 @@ import {
   TransactionsContainer,
 } from './styles'
 import { AccountsContext } from '../../contexts'
-import { NewTransactionModal } from '../../components/ui/Modals/NewTransactionModal'
+
 import { Plus } from 'lucide-react'
+import { Button, CreateTransactionModal, Empty, Summary } from '@/components/ui'
 
 export function Transactions() {
   const { id } = useParams<{ id: string }>()
@@ -27,21 +24,10 @@ export function Transactions() {
   const { transactions, isLoadingTransactionsList } =
     useContext(TransactionsContext)
   const { accountsList } = useContext(AccountsContext)
-  const desabledState = accountsList.length === 0
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-
-  const handleClick = () => {
-    if (!desabledState) {
-      handleOpen()
-    } else {
-      window.alert(
-        'Você ainda não tem uma conta, crie uma para poder realizar transações.'
-      )
-    }
-  }
 
   const summary = useSummaryTransaction()
 
@@ -92,9 +78,15 @@ export function Transactions() {
           change={handleChange}
           value={filter}
         />
-        <Button iconOnly onClick={handleOpen}>
-          <Plus size={24} />
-        </Button>
+        <CreateTransactionModal
+          isOpen={open}
+          setIsOpen={handleClose}
+          trigger={
+            <Button iconOnly onClick={handleOpen}>
+              <Plus size={24} />
+            </Button>
+          }
+        />
       </ContainerBarSummary>
       <MainContainer>
         <strong>Histórico de transações</strong>
@@ -105,6 +97,7 @@ export function Transactions() {
             type='transaction'
             title='Você não tem nenhuma transação ainda'
             description='Caso não tenha uma conta, crie uma e adicione uma transação.'
+            onCreateClick={handleOpen}
           />
         ) : (
           <>
@@ -119,7 +112,6 @@ export function Transactions() {
           </>
         )}
       </MainContainer>
-      <NewTransactionModal open={open} handleClose={handleClose} />
     </TransactionsContainer>
   )
 }

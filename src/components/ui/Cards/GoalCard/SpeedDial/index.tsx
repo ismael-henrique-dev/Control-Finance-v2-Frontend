@@ -102,7 +102,7 @@ export function MoreGoalOption({ isGoalsPage, goalId }: MoreGoalOptionProps) {
           </button>
         </Actions>
       </Popover>
-      <NewDepositOfGoalModal
+      {/* <NewDepositOfGoalModal
         open={openNewDepositOfGoalModal}
         handleClose={handleCloseNewDepositOfGoalModal}
         goalId={goalId}
@@ -111,7 +111,7 @@ export function MoreGoalOption({ isGoalsPage, goalId }: MoreGoalOptionProps) {
         open={openModalEdit}
         handleClose={handleCloseModaEdit}
         goalId={goalId}
-      />
+      /> */}
     </Container>
   )
 }

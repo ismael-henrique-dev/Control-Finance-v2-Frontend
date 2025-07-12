@@ -1,6 +1,5 @@
-import { Sponsor } from '../../components/ui/Sponsor'
+import { RegisterForm, Sponsor } from '@/components/ui'
 import { AuthResposiveContainer } from '../../components/auth/ResposiveContainer'
-import { RegisterForm } from '../../components/ui/Forms/RegisterForm'
 
 export function Register() {
   return (

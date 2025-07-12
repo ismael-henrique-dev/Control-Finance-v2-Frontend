@@ -6,10 +6,10 @@ type Props = {
   trigger?: React.ReactNode
 }
 
-export function CreateGoalModal({ isOpen, setIsOpen, trigger }: Props) {
+export function CreateTransactionModal({ isOpen, setIsOpen, trigger }: Props) {
   return (
     <ModalBase
-      title='Criar meta'
+      title='Criar transação'
       open={isOpen}
       handleClose={() => setIsOpen(false)}
       trigger={trigger}

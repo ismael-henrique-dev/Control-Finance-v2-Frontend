@@ -18,7 +18,7 @@ import {
 } from './styles'
 
 import { priceFormatter } from '../../../../utils/formatter'
-import { NewTransactionModal } from '../../Modals/NewTransactionModal'
+
 
 interface AccountCardProps {
   isPageAccounts: boolean
@@ -81,12 +81,6 @@ export function AccountCard({
           <span>{priceFormatter(outcome)}</span>
         </SummaryType>
       </AccountSummary>
-      <NewTransactionModal
-        open={open}
-        handleClose={handleClose}
-        accountId={accountId}
-        accountTitle={accountTitle}
-      />
     </AccountCardConatiner>
   )
 }

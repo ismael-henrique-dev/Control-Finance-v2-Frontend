@@ -8,7 +8,6 @@ import { DonutChart } from '../../components/home/Chart'
 import { Summary } from '../../components/home/HomeSummary'
 import { Empty } from '../../components/ui/Empty'
 import { CreateAccountModal } from '../../components/ui/Modals/CreateAccountModal'
-
 import { LinearProgressCustom } from '../Accounts/styles'
 import {
   DefaultContainer,
@@ -17,8 +16,7 @@ import {
   SummaryGridContainer,
   TopContainer,
 } from './styles'
-import { CreateGoalModal } from '../../components/ui/Modals/CreateGoalModal'
-
+import { CreateGoalModal } from '@/components/ui/Modals/CreateGoalModal'
 
 export function Home() {
   const { accountsList, isLoading } = useContext(AccountsContext)
