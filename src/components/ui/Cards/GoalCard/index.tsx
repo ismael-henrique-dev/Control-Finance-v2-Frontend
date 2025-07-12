@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
-import { CircleDollarSign } from "lucide-react"
-import { MoreGoalOption } from "./SpeedDial"
-import { BarLinearProgress, ContainerCard } from "./styles"
-import dayjs from "dayjs"
-import { priceFormatter } from "../../../../utils/formatter"
+import { useEffect, useState } from 'react'
+import { CircleDollarSign } from 'lucide-react'
+import { MoreGoalOption } from './SpeedDial'
+import { BarLinearProgress, ContainerCard } from './styles'
+import dayjs from 'dayjs'
+import { priceFormatter } from '../../../../utils/PriceFormatter'
 
 export interface GoalCardProps {
   isGoalsPage: boolean
@@ -41,12 +41,12 @@ export function GoalCard({
           <MoreGoalOption isGoalsPage={isGoalsPage} goalId={goalId} />
         </button>
       </header>
-      <span>Vencimento: {dayjs(goalDate).format("DD/MM/YYYY")}</span>
+      <span>Vencimento: {dayjs(goalDate).format('DD/MM/YYYY')}</span>
       <section>
         <strong>
           {priceFormatter(currentValue)} de {priceFormatter(targetValue)}
         </strong>
-        <BarLinearProgress variant="determinate" value={progress} />
+        <BarLinearProgress variant='determinate' value={progress} />
       </section>
     </ContainerCard>
   )

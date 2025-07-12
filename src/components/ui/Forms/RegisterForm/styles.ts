@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
-export const AuthContainer = styled.div`
-  /* width: 20rem; */
+export const RegisterContainer = styled.div`
   width: 100%;
   text-align: start;
   background-color: transparent;
@@ -9,7 +8,7 @@ export const AuthContainer = styled.div`
   align-items: center;
   justify-content: start;
   flex-direction: column;
-  gap: 1.125rem; /* 18px */
+  gap: 1.125rem;
 
   form {
     width: 100%;
@@ -34,7 +33,7 @@ export const AuthContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;
-    gap: 1.125rem; /* 18px */
+    gap: 1.125rem;
     width: 100%;
   }
 

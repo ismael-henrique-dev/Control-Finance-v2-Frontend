@@ -1,24 +1,24 @@
-import { useState } from "react"
-import { Transaction } from "../../../contexts/Transactions/transactions"
-import { MenuOptionsTable } from "./MenuOptionsTable"
+import { useState } from 'react'
+import { Transaction } from '../../../contexts/Transactions/transactions'
+import { MenuOptionsTable } from './MenuOptionsTable'
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-} from "lucide-react"
-import dayjs from "dayjs"
-import relativeTime from "dayjs/plugin/relativeTime"
-import "dayjs/locale/pt-br"
-import { priceFormatter } from "../../../utils/formatter"
+} from 'lucide-react'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/pt-br'
+import { priceFormatter } from '../../../utils/PriceFormatter'
 import {
   Button,
   ContainerTable,
   NavContainer,
   TransactionsTable,
-} from "./styles"
+} from './styles'
 dayjs.extend(relativeTime)
-dayjs.locale("pt-br")
+dayjs.locale('pt-br')
 
 interface TableProps {
   searchInput: string
@@ -34,11 +34,10 @@ export function Table({ searchInput, filteredTransactions }: TableProps) {
 
   const totalTransactions = searchResultTransacions.length
   const totalPages = Math.ceil(totalTransactions / 10)
- const intervalOfTransactionsPage = Math.min(
-   searchResultTransacions.length - (currentPage - 1) * 10,
-   10
- )
-
+  const intervalOfTransactionsPage = Math.min(
+    searchResultTransacions.length - (currentPage - 1) * 10,
+    10
+  )
 
   function handleNextPage() {
     if (currentPage < totalPages) {
@@ -83,12 +82,12 @@ export function Table({ searchInput, filteredTransactions }: TableProps) {
                   <td>{transaction.Title}</td>
                   <td>{priceFormatter(transaction.Value)}</td>
                   <td>{dayjs(transaction.CreatedAt).fromNow()}</td>
-                  <td>{transaction.Type === "DEP" ? "Depósito" : "Saída"}</td>
+                  <td>{transaction.Type === 'DEP' ? 'Depósito' : 'Saída'}</td>
                   <td>
-                    <div className="icon-text">{transaction.AccountTitle}</div>
+                    <div className='icon-text'>{transaction.AccountTitle}</div>
                   </td>
                   <td>
-                    <div className="icon-text">{transaction.Categories}</div>
+                    <div className='icon-text'>{transaction.Categories}</div>
                   </td>
                   <td>
                     <MenuOptionsTable transactionId={transaction.Id} />
@@ -101,7 +100,7 @@ export function Table({ searchInput, filteredTransactions }: TableProps) {
           <tr>
             <td colSpan={4}>
               <span>
-                Mostrando {intervalOfTransactionsPage} de {totalTransactions}{" "}
+                Mostrando {intervalOfTransactionsPage} de {totalTransactions}{' '}
                 transações
               </span>
             </td>
@@ -112,28 +111,28 @@ export function Table({ searchInput, filteredTransactions }: TableProps) {
                 </span>
                 <NavContainer>
                   <Button
-                    variant="nav"
+                    variant='nav'
                     onClick={handleFirstPage}
                     disabled={currentPage === 1}
                   >
                     <ChevronsLeft />
                   </Button>
                   <Button
-                    variant="nav"
+                    variant='nav'
                     onClick={handlePrevPage}
                     disabled={currentPage === 1}
                   >
                     <ChevronLeft />
                   </Button>
                   <Button
-                    variant="nav"
+                    variant='nav'
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}
                   >
                     <ChevronRight />
                   </Button>
                   <Button
-                    variant="nav"
+                    variant='nav'
                     onClick={handleLastPage}
                     disabled={currentPage === totalPages}
                   >

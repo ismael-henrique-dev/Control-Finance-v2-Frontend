@@ -1,32 +1,31 @@
-import { ArrowDown, ArrowUp, DollarSign } from "lucide-react"
-import { ContainerSummary, TransactionType } from "./styles"
-import { priceFormatter } from "../../../utils/formatter"
+import { ArrowDown, ArrowUp, DollarSign } from 'lucide-react'
+import { ContainerSummary, TransactionType } from './styles'
+import { priceFormatter } from '@/utils/PriceFormatter'
 
-interface SummaryProps {
-  type?: "goal"
+type SummaryProps = {
+  type?: 'goal'
   total: number
   income: number
   outcome: number
 }
 
 export function Summary({ total, income, outcome, type }: SummaryProps) {
-
   return (
     <ContainerSummary>
-      <TransactionType variant="total">
+      <TransactionType variant='total'>
         <div>
           <DollarSign />
         </div>
         <span>{priceFormatter(total)}</span>
       </TransactionType>
-      <TransactionType variant="income">
+      <TransactionType variant='income'>
         <div>
           <ArrowUp />
         </div>
         <span>{priceFormatter(income)}</span>
       </TransactionType>
-      {type !== "goal" && (
-        <TransactionType variant="outcome">
+      {type !== 'goal' && (
+        <TransactionType variant='outcome'>
           <div>
             <ArrowDown />
           </div>

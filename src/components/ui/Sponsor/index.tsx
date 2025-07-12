@@ -1,19 +1,19 @@
-import { useContext } from "react"
-import { ThemeContext } from "../../../contexts/Theme/styledThemeContext"
-import { ContainerSponsor } from "./styles"
-import logoWhite from "../../../assets/logo-white.svg"
-import logoDark from "../../../assets/logo-dark.svg"
-import sponsor from "../../../assets/sponsor.svg"
+import { useContext } from 'react'
+import { ThemeContext } from '@/contexts/Theme/styledThemeContext'
+import { SponsorContainer } from './styles'
+import logoWhite from '@/assets/logo-white.svg'
+import logoDark from '@/assets/logo-dark.svg'
+import sponsor from '@/assets/sponsor.svg'
 
 export function Sponsor() {
   const themeContext = useContext(ThemeContext)
   const { theme } = themeContext
 
   return (
-    <ContainerSponsor>
+    <SponsorContainer>
       <img
-        src={theme === "light" ? logoWhite : logoDark}
-        alt="logo control finance v2"
+        src={theme === 'light' ? logoWhite : logoDark}
+        alt='logo control finance v2'
       />
       <span>Domine suas finanças com o Control Finance.</span>
       <img src={sponsor} />
@@ -21,6 +21,6 @@ export function Sponsor() {
         Monitore gastos, crie orçamentos e alcance suas metas financeiras com
         facilidade.
       </span>
-    </ContainerSponsor>
+    </SponsorContainer>
   )
 }

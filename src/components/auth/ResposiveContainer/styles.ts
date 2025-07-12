@@ -2,17 +2,16 @@ import { styled } from 'styled-components'
 
 export const MainContainer = styled.div`
   width: 100vw;
-
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 20rem;
+  padding: 4rem 30rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     padding: 0 0;
     /* flex: 1; */
   }
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     /* padding: 0 0; */
     height: 100vh;
     /* flex: 1; */
@@ -43,7 +42,7 @@ export const ResposiveContainer = styled.main`
     color: ${(props) => props.theme.text};
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     flex-direction: column;
     padding: 4rem 2rem;
     /* width: 100%; */

@@ -1,11 +1,13 @@
-import { AuthResposiveContainer } from '../../components/auth/ResposiveContainer'
 import { LoginForm, Sponsor } from '@/components/ui'
+import { LoginContainer, LoginContent } from './styles'
 
 export function Login() {
   return (
-    <AuthResposiveContainer>
-      <Sponsor />
-      <LoginForm />
-    </AuthResposiveContainer>
+    <LoginContainer>
+      <LoginContent>
+        <Sponsor />
+        <LoginForm />
+      </LoginContent>
+    </LoginContainer>
   )
 }

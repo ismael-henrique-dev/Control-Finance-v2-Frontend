@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const LoginContainer = styled.div`
-  /* width: 20rem; */
   width: 100%;
   text-align: start;
   background-color: transparent;
@@ -9,7 +8,8 @@ export const LoginContainer = styled.div`
   align-items: center;
   justify-content: start;
   flex-direction: column;
-  gap: 1.125rem; /* 18px */
+  gap: 1.125rem;
+  /* height: 100%; */
 
   form {
     width: 100%;
@@ -34,7 +34,7 @@ export const LoginContainer = styled.div`
   section {
     display: flex;
     flex-direction: column;
-    gap: 1.125rem; /* 18px */
+    gap: 1.125rem;
     width: 100%;
   }
 
@@ -43,5 +43,3 @@ export const LoginContainer = styled.div`
     gap: 0.25rem;
   }
 `
-
-

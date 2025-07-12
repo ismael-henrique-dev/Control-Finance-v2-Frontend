@@ -1,11 +1,13 @@
 import { RegisterForm, Sponsor } from '@/components/ui'
-import { AuthResposiveContainer } from '../../components/auth/ResposiveContainer'
+import { RegisterContainer, RegisterContent } from './styles'
 
 export function Register() {
   return (
-    <AuthResposiveContainer>
-      <Sponsor />
-      <RegisterForm />
-    </AuthResposiveContainer>
+    <RegisterContainer>
+      <RegisterContent>
+        <Sponsor />
+        <RegisterForm />
+      </RegisterContent>
+    </RegisterContainer>
   )
 }

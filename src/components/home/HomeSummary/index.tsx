@@ -2,7 +2,7 @@ import { ArrowDown, ArrowUp, DollarSign } from 'lucide-react'
 import { HomeSummary, TransactionType } from './styles'
 import { useContext } from 'react'
 import { AccountsContext } from '../../../contexts/Accounts/accountsContext'
-import { priceFormatter } from '../../../utils/formatter'
+import { priceFormatter } from '../../../utils/PriceFormatter'
 
 export function Summary() {
   const { statics } = useContext(AccountsContext)

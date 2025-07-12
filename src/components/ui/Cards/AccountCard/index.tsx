@@ -17,8 +17,7 @@ import {
   SummaryType,
 } from './styles'
 
-import { priceFormatter } from '../../../../utils/formatter'
-
+import { priceFormatter } from '../../../../utils/PriceFormatter'
 
 // interface AccountCardProps {
 //   isPageAccounts: boolean

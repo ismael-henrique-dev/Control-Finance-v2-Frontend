@@ -5,7 +5,7 @@ import { loginFormSchema } from '@/validators/auth/LoginFormSchema'
 import { Button } from '../../Button'
 import { TextField } from '../../TextField'
 import { Separator } from '../../Separator'
-import { AuthContainer } from './styles'
+import { RegisterContainer } from './styles'
 import iconGoogle from '@/assets/icon-google.svg'
 
 export function RegisterForm() {
@@ -26,7 +26,7 @@ export function RegisterForm() {
   }
 
   return (
-    <AuthContainer>
+    <RegisterContainer>
       <form onSubmit={handleSubmit(handleUserLogin)}>
         <TextField
           id='name'
@@ -68,6 +68,6 @@ export function RegisterForm() {
           <strong> Entrar</strong>
         </NavLink>
       </span>
-    </AuthContainer>
+    </RegisterContainer>
   )
 }
