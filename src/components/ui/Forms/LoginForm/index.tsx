@@ -1,13 +1,13 @@
+import { NavLink } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { PersonStanding } from 'lucide-react'
-import { Button } from '../../Button'
-import { loginFormSchema } from '../../../../validators/auth/LoginFormSchema'
-import { AuthContainer } from './styles'
-import { NavLink } from 'react-router-dom'
-import { TextField } from '../../TextField'
-import iconGoogle from '../../../../assets/icon-google.svg'
+import { loginFormSchema } from '@/validators/auth/LoginFormSchema'
+import { LoginContainer } from './styles'
 import { Separator } from '../../Separator'
+import { Button } from '../../Button'
+import { TextField } from '../../TextField'
+import iconGoogle from '@/assets/icon-google.svg'
 
 export function LoginForm() {
   const {
@@ -27,7 +27,7 @@ export function LoginForm() {
   }
 
   return (
-    <AuthContainer>
+    <LoginContainer>
       <form onSubmit={handleSubmit(handleUserLogin)}>
         <TextField
           id='email'
@@ -68,56 +68,6 @@ export function LoginForm() {
           <strong> Cadraste-se</strong>
         </NavLink>
       </span>
-    </AuthContainer>
-    // <AuthResposiveContainer>
-    //   <Sponsor />
-    //   <AuthForm
-    //     isLogin
-    //     routeAuth='/register'
-    //     text='Não tem uma conta? '
-    //     navLinkText='Cadraste-se'
-    //     authType='Entrar'
-    //   >
-    //     <form onSubmit={handleSubmit(handleUserLogin)}>
-    //       <TextFiled variant='standard'>
-    //         <InputLabel htmlFor='user-email' error={!!errors.Email}>
-    //           Email
-    //         </InputLabel>
-    //         <Input
-    //           type='email'
-    //           id='user-email'
-    //           error={!!errors.Email}
-    //           {...register('Email')}
-    //         />
-    //         {errors.Email && <p>{errors.Email.message}</p>}{' '}
-    //         {/* Mostra o erro */}
-    //       </TextFiled>
-    //       <TextFiled variant='standard'>
-    //         <InputLabel htmlFor='user-password'>Senha</InputLabel>
-    //         <Input
-    //           id='user-password'
-    //           type={showPassword ? 'text' : 'password'}
-    //           {...register('Senha')}
-    //           endAdornment={
-    //             <InputAdornment position='end'>
-    //               <IconButton
-    //                 aria-label='toggle password visibility'
-    //                 onClick={handleClickShowPassword}
-    //               >
-    //                 {showPassword ? <LockOpen /> : <Lock />}
-    //               </IconButton>
-    //             </InputAdornment>
-    //           }
-    //         />
-    //         {errors.Senha && <p>{errors.Senha.message}</p>}{' '}
-    //         {errors.root && <p>{errors.root.message}</p>}{' '}
-    //       </TextFiled>
-
-    //       <Button type='submit' disabled={!isValid}>
-    //         {/* {isLoadingDataUser ? 'Entrando...' : 'Entrar'} */}
-    //       </Button>
-    //     </form>
-    //   </AuthForm>
-    // </AuthResposiveContainer>
+    </LoginContainer>
   )
 }

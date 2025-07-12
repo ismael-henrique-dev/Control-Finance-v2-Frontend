@@ -13,6 +13,7 @@ import {
   DefaultContainer,
   EstatisticCard,
   HomeContainer,
+  List,
   SummaryGridContainer,
   TopContainer,
 } from './styles'
@@ -58,20 +59,14 @@ export function Home() {
               onCreateClick={() => setIsAccountModalOpen(true)}
             />
           ) : (
-            accountsList
-              .slice(0, 3)
-              .map((account) => (
-                <AccountCard
-                  key={account.AcId}
-                  accountTitle={account.accountTitle}
-                  accountId={account.AcId}
-                  accountType={account.Type}
-                  income={account.DepositValue}
-                  outcome={account.WithdrawValue}
-                  total={account.sum}
-                  isPageAccounts={false}
-                />
-              ))
+            <List>
+              {Array.from({ length: 5 })
+                .slice(0, 3)
+                .map((account) => (
+                  <AccountCard
+                  />
+                ))}
+            </List>
           )}
         </main>
       </DefaultContainer>

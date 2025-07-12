@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const AuthContainer = styled.div`
+export const LoginContainer = styled.div`
   /* width: 20rem; */
   width: 100%;
   text-align: start;

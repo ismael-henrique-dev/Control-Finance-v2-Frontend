@@ -1,12 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { Button } from '../../Button'
-import { loginFormSchema } from '../../../../validators/auth/LoginFormSchema'
 import { NavLink } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { loginFormSchema } from '@/validators/auth/LoginFormSchema'
+import { Button } from '../../Button'
 import { TextField } from '../../TextField'
 import { Separator } from '../../Separator'
 import { AuthContainer } from './styles'
-import iconGoogle from '../../../../assets/icon-google.svg'
+import iconGoogle from '@/assets/icon-google.svg'
 
 export function RegisterForm() {
   const {

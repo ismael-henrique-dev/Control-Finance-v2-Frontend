@@ -95,3 +95,19 @@ export const TopContainer = styled.div`
     margin: auto;
   }
 `
+
+export const List = styled.div`
+  display: grid;
+  gap: 1.5rem;
+  flex: 1;
+
+  grid-template-columns: repeat(3, 1fr); // 3 colunas padrão
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr); // 2 colunas em telas médias
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr; // 1 coluna em telas pequenas
+  }
+`

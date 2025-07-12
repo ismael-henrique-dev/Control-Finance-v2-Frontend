@@ -8,7 +8,8 @@ export const AccountCardConatiner = styled.div`
   background-color: ${(props) => props.theme.primaryGray};
   padding: 1.5rem;
   border-radius: 12px;
-  width: 20rem;
+  /* width: 20rem; */
+  flex: 1;
   height: 13rem;
   gap: 1.25rem;
 
