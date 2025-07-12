@@ -1,5 +1,5 @@
-import Modal from "@mui/material/Modal"
-import styled from "styled-components"
+import Modal from '@mui/material/Modal'
+import styled from 'styled-components'
 
 export const ModalStyled = styled(Modal)`
   display: flex;
@@ -19,11 +19,11 @@ export const ContainerModal = styled.div`
   flex-direction: column;
   gap: 0.75rem;
 
-  header {
+  div {
     width: 100%;
     display: inline-flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     gap: 1.5rem;
 
     button {
@@ -31,7 +31,7 @@ export const ContainerModal = styled.div`
       height: 2.5rem;
       display: flex;
       align-items: center;
-      justify-content: center; 
+      justify-content: center;
       background-color: transparent;
       border: 0;
       font-size: 1rem;
@@ -182,4 +182,52 @@ export const Suggestion = styled.li`
       }
     }
   }
+`
+export const CommandTrigger = styled.div`
+  border-radius: 12px;
+  background-color: ${(props) => props.theme.secundaryGray};
+  color: ${(props) => props.theme.text};
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  flex: 1;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: ${(props) => props.theme.text};
+  }
+
+  div {
+    background-color: transparent;
+    border: 0;
+    color: ${(props) => props.theme.text};
+    flex: 1;
+    line-height: 0.5;
+    font-size: 1rem;
+
+    span {
+      color: ${(props) => props.theme.text};
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    & {
+      display: none;
+    }
+  }
+`
+
+export const NoResearch = styled.div`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `

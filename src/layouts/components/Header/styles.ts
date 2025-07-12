@@ -31,44 +31,7 @@ export const HeaderContainer = styled.header`
   }
 `
 
-export const InputArea = styled.div`
-  border-radius: 12px;
-  background-color: ${(props) => props.theme.secundaryGray};
-  color: ${(props) => props.theme.text};
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  flex: 1;
 
-  svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    color: ${(props) => props.theme.text};
-  }
-
-  div {
-    background-color: transparent;
-    border: 0;
-    color: ${(props) => props.theme.text};
-    flex: 1;
-    line-height: 0.5;
-    font-size: 1rem;
-
-    span {
-      color: ${(props) => props.theme.text};
-      font-size: 1rem;
-      font-weight: 500;
-    }
-  }
-
-  @media (max-width: 1000px) {
-    & {
-      display: none;
-    }
-  }
-`
 
 export const LeftContainer = styled.div`
   display: flex;
