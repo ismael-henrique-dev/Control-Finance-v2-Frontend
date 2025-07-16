@@ -1,8 +1,8 @@
-import FormControl from "@mui/material/FormControl"
-import { styled } from "styled-components"
+import FormControl from '@mui/material/FormControl'
+import { styled } from 'styled-components'
 
 export const FormControlContainer = styled(FormControl)`
-  width: 20rem;
+  width: 100%;
 
   & .MuiInputLabel-root {
     color: ${(props) => props.theme.primary}; // Cor do label padrão
@@ -57,6 +57,18 @@ export const FormControlContainer = styled(FormControl)`
     color: ${(props) => props.theme.red}; // Cor do texto de erro
   }
 
+  & .MuiInputLabel-root.Mui-error {
+    color: ${(props) => props.theme.red};
+  }
+
+  &.MuiFormControl-root.Mui-error input {
+    color: ${(props) => props.theme.red};
+  }
+
+  &.MuiFormControl-root.Mui-error svg {
+    color: ${(props) => props.theme.red};
+  }
+
   input {
     color: ${(props) => props.theme.primary};
   }
@@ -72,6 +84,13 @@ export const FormControlContainer = styled(FormControl)`
     color: ${(props) => props.theme.primary};
     width: 1.5rem;
     height: 1.5rem;
+  }
+
+  input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px transparent inset !important;
+    -webkit-text-fill-color: ${(props) => props.theme.primary} !important;
+    caret-color: ${(props) => props.theme.primary};
+    transition: background-color 5000s ease-in-out 0s;
   }
 `
 

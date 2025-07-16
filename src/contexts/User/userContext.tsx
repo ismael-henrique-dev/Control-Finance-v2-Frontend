@@ -50,7 +50,7 @@ export function UseProvider({ children }: ProviderProps) {
 
   const isAuthenticated = async () => {
     if (!token) {
-      navigate('/login')
+      navigate('/signIn')
     }
   }
 
@@ -104,7 +104,7 @@ export function UseProvider({ children }: ProviderProps) {
   function userLogout() {
     localStorage.removeItem('@token')
     setUserData(null)
-    navigate('/login')
+    navigate('/signIn')
   }
 
   async function userResetAccount() {

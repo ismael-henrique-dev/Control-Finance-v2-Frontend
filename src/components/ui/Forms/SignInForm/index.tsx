@@ -3,13 +3,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { PersonStanding } from 'lucide-react'
 import { loginFormSchema } from '@/validators/auth/LoginFormSchema'
-import { LoginContainer } from './styles'
+import { SignInWrapperFormContainer } from './styles'
 import { Separator } from '../../Separator'
 import { Button } from '../../Button'
 import { TextField } from '../../TextField'
 import iconGoogle from '@/assets/icon-google.svg'
 
-export function LoginForm() {
+export function SignInForm() {
   const {
     register,
     handleSubmit,
@@ -27,7 +27,7 @@ export function LoginForm() {
   }
 
   return (
-    <LoginContainer>
+    <SignInWrapperFormContainer>
       <form onSubmit={handleSubmit(handleUserLogin)}>
         <TextField
           id='email'
@@ -64,10 +64,10 @@ export function LoginForm() {
       </section>
       <span>
         Não tem uma conta?
-        <NavLink to={'/register'}>
+        <NavLink to={'/signUp'}>
           <strong> Cadraste-se</strong>
         </NavLink>
       </span>
-    </LoginContainer>
+    </SignInWrapperFormContainer>
   )
 }

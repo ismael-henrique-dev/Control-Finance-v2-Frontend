@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const RegisterContainer = styled.div`
+export const SignUpFormWrapperContainer = styled.div`
   width: 100%;
   text-align: start;
   background-color: transparent;

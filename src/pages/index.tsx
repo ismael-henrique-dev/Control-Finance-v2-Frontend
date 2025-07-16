@@ -1,9 +1,10 @@
 export { Accounts } from './Accounts'
 export { Goals } from './Goals'
 export { Profile } from './Profile'
-export { Register } from './Register'
+export { SingUp } from './SingUp'
+export { SignIn } from './SignIn'
 export { Auth } from './Auth'
 export { Home } from './Home'
 export { Transactions } from './Transactions'
 export { FinancialIncome } from './FinancialIncome'
-export { Login } from './Login'
+

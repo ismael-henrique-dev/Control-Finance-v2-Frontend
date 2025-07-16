@@ -1,11 +1,11 @@
 import styled, { css, keyframes } from 'styled-components'
 import { ButtonVariant } from './index'
 
-interface StyledProps {
+type StyledProps = {
   variant: ButtonVariant
   fullWidth?: boolean
   isLoading?: boolean
-  $iconOnly?: boolean
+  iconOnly?: boolean
   size?: 'md' | 'sm'
 }
 
@@ -14,7 +14,10 @@ const sizes = {
   sm: '2.5rem',
 }
 
-export const StyledButton = styled.button<StyledProps>`
+export const StyledButton = styled.button.withConfig({
+  shouldForwardProp: (prop) =>
+    !['isLoading', 'iconOnly', 'variant', 'fullWidth', 'size'].includes(prop),
+})<StyledProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +29,7 @@ export const StyledButton = styled.button<StyledProps>`
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  width: 100%;
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
 
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease,
     transform 0.2s ease;
@@ -64,8 +67,8 @@ export const StyledButton = styled.button<StyledProps>`
     }
   }}
 
-  ${({ theme, $iconOnly, size = 'md' }) =>
-    $iconOnly &&
+  ${({ theme, iconOnly, size = 'md' }) =>
+    iconOnly &&
     css`
       padding: 0;
       width: ${sizes[size]};
@@ -80,11 +83,6 @@ export const StyledButton = styled.button<StyledProps>`
         margin: 0;
       }
     `}
-
-  &:hover {
-    opacity: 0.6;
-    cursor: pointer;
-  }
 
   &:disabled {
     opacity: 0.6;

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, forwardRef } from 'react'
 import { StyledButton, Spinner } from './styles'
 import { ButtonHTMLAttributes } from 'react'
 
@@ -14,39 +14,45 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'md' | 'sm'
 }
 
-export const Button = ({
-  children,
-  variant = 'primary',
-  fullWidth = false,
-  iconLeft,
-  iconRight,
-  isLoading = false,
-  disabled,
-  iconOnly = false,
-  size = 'md',
-  ...rest
-}: ButtonProps) => {
-  const isDisabled = disabled || isLoading
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      variant = 'primary',
+      fullWidth = false,
+      iconLeft,
+      iconRight,
+      isLoading = false,
+      disabled,
+      iconOnly = false,
+      size = 'md',
+      ...rest
+    },
+    ref
+  ) => {
+    const isDisabled = disabled || isLoading
 
-  return (
-    <StyledButton
-      variant={variant}
-      fullWidth={fullWidth}
-      disabled={isDisabled}
-      isLoading={isLoading}
-      $iconOnly={iconOnly}
-      size={size}
-      {...rest}
-    >
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <>
-          {iconLeft && <span className="icon-left">{iconLeft}</span>}
-          {children}
-          {iconRight && <span className="icon-right">{iconRight}</span>}
-        </>
-      )}
-    </StyledButton>
-  )
-}
+    return (
+      <StyledButton
+        ref={ref}
+        variant={variant}
+        fullWidth={fullWidth}
+        isLoading={isLoading}
+        iconOnly={iconOnly}
+        size={size}
+        disabled={isDisabled}
+        {...rest}
+      >
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            {iconLeft && <span className="icon-left">{iconLeft}</span>}
+            {children}
+            {iconRight && <span className="icon-right">{iconRight}</span>}
+          </>
+        )}
+      </StyledButton>
+    )
+  }
+)

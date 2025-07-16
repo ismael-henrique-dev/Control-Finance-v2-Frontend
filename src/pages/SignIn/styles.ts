@@ -1,6 +1,6 @@
 import { styled } from 'styled-components'
 
-export const RegisterContainer = styled.div`
+export const SignInContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +11,7 @@ export const RegisterContainer = styled.div`
   }
 `
 
-export const RegisterContent = styled.div`
+export const SignInContent = styled.div`
   border-radius: 12px;
   background-color: ${(props) => props.theme.primaryGray};
   padding: 4rem;

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const LoginContainer = styled.div`
+export const SignInWrapperFormContainer = styled.div`
   width: 100%;
   text-align: start;
   background-color: transparent;
@@ -9,7 +9,6 @@ export const LoginContainer = styled.div`
   justify-content: start;
   flex-direction: column;
   gap: 1.125rem;
-  /* height: 100%; */
 
   form {
     width: 100%;

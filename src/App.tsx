@@ -15,6 +15,8 @@ import {
 } from './contexts'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Toaster } from 'sonner'
+
 const queryClient = new QueryClient()
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
     <StyledThemeProvider theme={currentTheme}>
       <GlobalStyle />
       <Router />
+      <Toaster richColors />
     </StyledThemeProvider>
   )
 }
