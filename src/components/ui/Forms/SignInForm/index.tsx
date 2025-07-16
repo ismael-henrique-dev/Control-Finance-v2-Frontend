@@ -2,51 +2,78 @@ import { NavLink } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { PersonStanding } from 'lucide-react'
-import { loginFormSchema } from '@/validators/auth/LoginFormSchema'
 import { SignInWrapperFormContainer } from './styles'
 import { Separator } from '../../Separator'
 import { Button } from '../../Button'
 import { TextField } from '../../TextField'
+import { useState } from 'react'
+import { SignInFormData, signInFormSchema } from '@/validators/auth/SignIn'
+import { singIn } from '@/services/http/auth/SignIn'
+import { toast } from 'sonner'
+import { getErrorMessage } from '@/utils/GetErrorMessage'
 import iconGoogle from '@/assets/icon-google.svg'
 
 export function SignInForm() {
+  const [isLoading, setIsLoading] = useState(false)
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
-    resolver: zodResolver(loginFormSchema),
+  } = useForm<SignInFormData>({
+    resolver: zodResolver(signInFormSchema),
     mode: 'onChange',
   })
 
-  async function handleUserLogin() {
+  async function handleSignIn(data: SignInFormData) {
+    const signInData = {
+      email: data.email,
+      password: data.password,
+    }
+
     try {
+      setIsLoading(true)
+
+      const response = await singIn(signInData)
+
+      const token = response.meta.token
+
+      localStorage.setItem('token', token)
+
+      toast.success('Login com êxito.')
     } catch (error) {
-      console.log('Erro ao fazer login.', error)
+      const errorMessage = getErrorMessage(error)
+
+      toast.error(errorMessage)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <SignInWrapperFormContainer>
-      <form onSubmit={handleSubmit(handleUserLogin)}>
+      <form onSubmit={handleSubmit(handleSignIn)}>
         <TextField
           id='email'
           label='Email'
           variant='email'
-          error={!!errors.Senha}
-          // helperText={errors.Senha?.message}
-          {...register('Email')}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          {...register('email')}
         />
         <TextField
-          id='Senha'
+          id='password'
           label='Senha'
           variant='password'
-          error={!!errors.Senha}
-          // helperText={errors.Senha?.message}
-          {...register('Senha')}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          {...register('password')}
         />
 
-        <Button type='submit' disabled={!isValid}>
+        <Button
+          isLoading={isLoading}
+          type='submit'
+          disabled={!isValid || isLoading}
+        >
           Entrar
         </Button>
       </form>
@@ -54,11 +81,20 @@ export function SignInForm() {
       <NavLink to='/'>esqueceu a senha?</NavLink>
       <Separator />
       <section>
-        <Button iconLeft={<img src={iconGoogle} />} variant='ghost'>
+        <Button
+          iconLeft={<img src={iconGoogle} />}
+          variant='ghost'
+          disabled={isLoading}
+        >
           Entrar com o google
         </Button>
 
-        <Button iconLeft={<PersonStanding />} type='button' variant='secondary'>
+        <Button
+          iconLeft={<PersonStanding />}
+          type='button'
+          variant='secondary'
+          disabled={isLoading}
+        >
           Entrar como visitante
         </Button>
       </section>

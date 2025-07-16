@@ -4,13 +4,13 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../Button'
 import { TextField } from '../../TextField'
 import { Separator } from '../../Separator'
-import { SignUpFormWrapperContainer } from './styles'
 import { SignUpFormData, signUpFormSchema } from '@/validators/auth/SignUp'
 import { useState } from 'react'
 import { singUp } from '@/services/http/auth/SignUp'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/utils/GetErrorMessage'
 import iconGoogle from '@/assets/icon-google.svg'
+import { SignUpWrapperFormContainer } from './styles'
 
 export function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false)
@@ -53,7 +53,7 @@ export function SignUpForm() {
   }
 
   return (
-    <SignUpFormWrapperContainer>
+    <SignUpWrapperFormContainer>
       <form onSubmit={handleSubmit(handleSignUp)}>
         <TextField
           id='userName'
@@ -112,6 +112,6 @@ export function SignUpForm() {
           <strong> Entrar</strong>
         </NavLink>
       </span>
-    </SignUpFormWrapperContainer>
+    </SignUpWrapperFormContainer>
   )
 }
