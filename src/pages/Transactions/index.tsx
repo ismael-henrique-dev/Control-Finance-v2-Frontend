@@ -12,7 +12,6 @@ import {
   MainContainer,
   TransactionsContainer,
 } from './styles'
-import { AccountsContext } from '../../contexts'
 
 import { Plus } from 'lucide-react'
 import { Button, CreateTransactionModal, Empty, Summary } from '@/components/ui'
@@ -23,7 +22,6 @@ export function Transactions() {
   const [filter, setFilter] = useState<string>('Todas')
   const { transactions, isLoadingTransactionsList } =
     useContext(TransactionsContext)
-  const { accountsList } = useContext(AccountsContext)
 
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -67,11 +65,11 @@ export function Transactions() {
   return (
     <TransactionsContainer>
       <ContainerBarSummary>
-        <Summary
+        {/* <Summary
           income={summary.income}
           outcome={summary.outcome}
           total={summary.total}
-        />
+        /> */}
 
         <SelectFilter
           data={selectOptionsTransactionsFilter}

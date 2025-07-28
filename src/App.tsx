@@ -8,7 +8,6 @@ import { Router } from './routes/Router'
 import {
   ThemeProvider,
   ThemeContext,
-  AccountsProvider,
   TransactionsProvider,
   GoalsProvider,
   UseProvider,
@@ -40,17 +39,15 @@ export default function MainApp() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <BrowserRouter>
-          <AccountsProvider>
-            <TransactionsProvider>
-              <GoalsProvider>
-                <UseProvider>
-                  <GoogleOAuthProvider clientId={clientID}>
-                    <App />
-                  </GoogleOAuthProvider>
-                </UseProvider>
-              </GoalsProvider>
-            </TransactionsProvider>
-          </AccountsProvider>
+          <TransactionsProvider>
+            <GoalsProvider>
+              <UseProvider>
+                <GoogleOAuthProvider clientId={clientID}>
+                  <App />
+                </GoogleOAuthProvider>
+              </UseProvider>
+            </GoalsProvider>
+          </TransactionsProvider>
         </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>

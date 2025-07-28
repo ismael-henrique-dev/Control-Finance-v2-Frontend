@@ -22,7 +22,7 @@ export function Router() {
       <Route path='' element={<DefaultLayout />}>
         <Route path='/' element={<Home />} />
         <Route path='/transacoes/:id?' element={<Transactions />} />
-        <Route path='/contas/:id?' element={<Accounts />} />
+        <Route path='/contas/:page?' element={<Accounts />} />
         <Route path='/metas/:id?' element={<Goals />} />
         <Route path='/rendimento' element={<FinancialIncome />} />
         <Route path='/profile' element={<Profile />} />

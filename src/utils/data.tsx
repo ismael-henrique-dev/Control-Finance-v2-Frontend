@@ -50,12 +50,12 @@ export const selectCategoryData = [
 ]
 
 export const accountOptions = [
-  { name: 'Carteira', value: 'Carteira', icon: Wallet },
-  { name: 'Conta bancária', value: 'CartContaBancariaeira', icon: Landmark },
-  { name: 'Poupança', value: 'Poupanca', icon: Coins },
+  { name: 'Carteira', value: 'carteira', icon: Wallet },
+  { name: 'Conta bancária', value: 'contaBancaria', icon: Landmark },
+  { name: 'Poupança', value: 'poupanca', icon: Coins },
   {
     name: 'Corretora de investimentos',
-    value: 'CorretoraDeInvestimentos',
+    value: 'corretoraDeInvestimentos',
     icon: Handshake,
   },
 ]

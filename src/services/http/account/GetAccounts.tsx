@@ -11,15 +11,18 @@ type GetAccountsResponse = {
   links: Links
 }
 
-export async function getAccounts(): Promise<GetAccountsResponse> {
+export async function getAccounts(
+  currentPage: number
+): Promise<GetAccountsResponse> {
   try {
     const response = await api.get<GetAccountsResponse>('/account', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
       params: {
-        page: 1
-      }
+        page: currentPage,
+        pageSize: 6
+      },
     })
 
     return response.data

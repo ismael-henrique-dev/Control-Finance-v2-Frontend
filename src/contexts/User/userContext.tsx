@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../services/api'
 import { ProfileFormData } from '../../pages/Profile'
-import { AccountsContext, GoalsContext, TransactionsContext } from '..'
+import { GoalsContext, TransactionsContext } from '..'
 import { useLoadingStates } from '../../hooks/useLoadingStates'
 import { token } from '../../constants'
 import { apiWithToken } from '../../functions'
@@ -43,7 +43,7 @@ export function UseProvider({ children }: ProviderProps) {
   } = useLoadingStates()
   const { fetchTransactions } = useContext(TransactionsContext)
   const { fetchGoals } = useContext(GoalsContext)
-  const { fetchAccounts } = useContext(AccountsContext)
+
 
   const navigate = useNavigate()
   const pathname = window.location.pathname
@@ -85,7 +85,7 @@ export function UseProvider({ children }: ProviderProps) {
       setIsLoadingDataUser(false)
       await fetchTransactions()
       await fetchGoals()
-      await fetchAccounts()
+    
     }
   }
 

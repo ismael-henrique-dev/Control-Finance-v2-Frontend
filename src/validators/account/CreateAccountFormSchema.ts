@@ -5,9 +5,9 @@ export const createAccountFormSchema = z.object({
     .string()
     .min(3, "O nome deve conter no mínimo 03 caracteres.")
     .max(50, "O nome deve conter no máximo 50 caracteres."),
-  initialBalance: z.number().min(0),
+  value: z.number().min(0),
   type: z.enum(
-    ["Carteira", "ContaBancaria", "Poupanca", "CorretoraDeInvestimentos"],
+    ["carteira", "contaBancaria", "poupanca", "corretoraDeInvestimentos"],
     {
       errorMap: () => ({ message: "Selecione um tipo de conta válido." }),
     }

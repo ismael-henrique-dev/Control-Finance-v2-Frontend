@@ -1,11 +1,17 @@
-type AccountType = 'bank'
+type Resume = {
+  income: number
+  outcome: number
+  per_income: number
+  per_outcome: number
+  transactions: number
+}
 
 type Account = {
   id: string
-  name: string
-  value: number
-  type: AccountType
-  createdAt: Date
+  title: string
+  type: string
+  description: string
   userId: string
-  description?: string
+  value: number
+  resume: Resume
 }

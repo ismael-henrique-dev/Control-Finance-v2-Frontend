@@ -1,8 +1,6 @@
 import { useContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { AccountsContext } from '../../contexts/Accounts/accountsContext'
 import { GoalsContext } from '../../contexts/Goals/goalsContext'
-import { AccountCard } from '../../components/ui/Cards/AccountCard'
 import { GoalCard } from '../../components/ui/Cards/GoalCard'
 import { DonutChart } from '../../components/home/Chart'
 import { Summary } from '../../components/home/HomeSummary'
@@ -13,14 +11,12 @@ import {
   DefaultContainer,
   EstatisticCard,
   HomeContainer,
-  List,
   SummaryGridContainer,
   TopContainer,
 } from './styles'
 import { CreateGoalModal } from '@/components/ui/Modals/CreateGoalModal'
 
 export function Home() {
-  const { accountsList, isLoading } = useContext(AccountsContext)
   const { goalsArrayList, isLoadingGoals } = useContext(GoalsContext)
 
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false)
@@ -46,12 +42,12 @@ export function Home() {
       {/* CONTAS */}
       <TopContainer>
         <h1>Contas</h1>
-        {accountsList.length > 3 && <NavLink to='/contas'>ver mais</NavLink>}
+        {/* {accountsList.length > 3 && <NavLink to='/contas'>ver mais</NavLink>} */}
       </TopContainer>
 
       <DefaultContainer content='start'>
         <main>
-          {accountsList.length === 0 ? (
+          {/* {accountsList.length === 0 ? (
             <Empty
               type='account'
               title='Você não tem nenhuma conta ainda'
@@ -67,7 +63,7 @@ export function Home() {
                   />
                 ))}
             </List>
-          )}
+          )} */}
         </main>
       </DefaultContainer>
 

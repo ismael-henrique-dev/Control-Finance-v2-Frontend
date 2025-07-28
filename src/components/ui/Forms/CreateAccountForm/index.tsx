@@ -18,7 +18,7 @@ import { accountOptions } from '@/utils/data'
 export function CreateAccountForm() {
   const [isLoading, setIsLoading] = useState(false)
 
-  // const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
 
   const {
     register,
@@ -31,8 +31,8 @@ export function CreateAccountForm() {
     defaultValues: {
       description: '',
       title: 'Titulo da conta',
-      type: 'Carteira',
-      initialBalance: 0,
+      type: 'carteira',
+      value: 0,
     },
   })
 
@@ -41,7 +41,7 @@ export function CreateAccountForm() {
       title: data.title,
       description: data.description,
       type: data.type,
-      initialBalance: data.initialBalance,
+      value: data.value,
     }
 
     try {
@@ -50,7 +50,7 @@ export function CreateAccountForm() {
 
       await createAccount(newAccount)
 
-      // queryClient.invalidateQueries({ queryKey: ['pending-goals'] })
+      queryClient.invalidateQueries({ queryKey: ['accounts'] })
       toast.success('Conta criada com êxito.')
     } catch (error) {
       const errorMessage = getErrorMessage(error)
@@ -83,9 +83,9 @@ export function CreateAccountForm() {
         id='initial-balance'
         label='Valor inicial'
         variant='text'
-        error={!!errors.initialBalance}
-        helperText={errors.initialBalance?.message}
-        {...register('initialBalance', { valueAsNumber: true })}
+        error={!!errors.value}
+        helperText={errors.value?.message}
+        {...register('value', { valueAsNumber: true })}
       />
       <Controller
         name='type'

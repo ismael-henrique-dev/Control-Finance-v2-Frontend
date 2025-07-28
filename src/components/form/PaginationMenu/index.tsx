@@ -1,41 +1,46 @@
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { useSearchParams } from 'react-router-dom'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import {
   ContainerPagination,
   PaginationButtonLeft,
   PaginationButtonRight,
-} from "./styles"
+} from './styles'
 
-interface PaginationMenuProps {
-  currentPage: number
+type PaginationMenuProps = {
   totalPages: number
-  onPageChange: (newPage: number) => void
 }
 
-export function PaginationMenu({
-  currentPage,
-  totalPages,
-  onPageChange,
-}: PaginationMenuProps) {
-  function handleNextPage() {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1)
-    }
+export function PaginationMenu({ totalPages }: PaginationMenuProps) {
+  // const location = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const currentPage = Number(searchParams.get('page')) || 1
+
+  const handlePageChange = (pageNumber: number) => {
+    searchParams.set('page', pageNumber.toString())
+    setSearchParams(searchParams)
   }
 
-  function handlePrevPage() {
+  const handlePrevPage = () => {
+    const prevPage = currentPage - 1
+
     if (currentPage > 1) {
-      onPageChange(currentPage - 1)
+      handlePageChange(prevPage)
     }
   }
 
-  const disableButtonLeft = currentPage === 1
-  const disableButtonRight = currentPage === totalPages || totalPages === 0
+  const handleNextPage = () => {
+    const nextPage = currentPage + 1
+
+    if (currentPage === 1 && currentPage < totalPages) {
+      handlePageChange(nextPage)
+    }
+  }
 
   return (
     <ContainerPagination>
       <PaginationButtonLeft
         onClick={handlePrevPage}
-        disabled={disableButtonLeft}
+        // disabled={disableButtonLeft}
       >
         <ChevronLeft />
       </PaginationButtonLeft>
@@ -44,7 +49,7 @@ export function PaginationMenu({
       </section>
       <PaginationButtonRight
         onClick={handleNextPage}
-        disabled={disableButtonRight}
+        // disabled={disableButtonRight}
       >
         <ChevronRight />
       </PaginationButtonRight>

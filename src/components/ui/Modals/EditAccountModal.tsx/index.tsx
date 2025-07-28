@@ -24,7 +24,7 @@ export function EditAccountModal({
   handleClose,
   AccountId,
 }: EditModalProps) {
-  const { updateAccount, getAccountById } = useContext(AccountsContext)
+ 
   const [defaultValue, setDefaultValues] =
     useState<UpdateAccountFormSchema | null>(null)
 

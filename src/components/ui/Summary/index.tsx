@@ -4,32 +4,34 @@ import { priceFormatter } from '@/utils/PriceFormatter'
 
 type SummaryProps = {
   type?: 'goal'
-  total: number
-  income: number
-  outcome: number
+  summary: {
+    value: number
+    income: number
+    outcome: number
+  }
 }
 
-export function Summary({ total, income, outcome, type }: SummaryProps) {
+export function Summary({ summary, type }: SummaryProps) {
   return (
     <ContainerSummary>
       <TransactionType variant='total'>
         <div>
           <DollarSign />
         </div>
-        <span>{priceFormatter(total)}</span>
+        <span>{priceFormatter(summary.value)}</span>
       </TransactionType>
       <TransactionType variant='income'>
         <div>
           <ArrowUp />
         </div>
-        <span>{priceFormatter(income)}</span>
+        <span>{priceFormatter(summary.income)}</span>
       </TransactionType>
       {type !== 'goal' && (
         <TransactionType variant='outcome'>
           <div>
             <ArrowDown />
           </div>
-          <span>{priceFormatter(outcome)}</span>
+          <span>{priceFormatter(summary.outcome)}</span>
         </TransactionType>
       )}
     </ContainerSummary>

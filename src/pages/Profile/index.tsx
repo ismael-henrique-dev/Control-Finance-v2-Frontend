@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import { AccountsContext, UserContext } from "../../contexts"
+import { UserContext } from "../../contexts"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -35,7 +35,6 @@ export function Profile() {
     isLoadingResetAccount,
     isLoadingDeleteAccount,
   } = useContext(UserContext)
-  const { resetAccounts } = useContext(AccountsContext)
   
 
   const { register, handleSubmit, reset, formState } = useForm<ProfileFormData>(
@@ -60,7 +59,7 @@ export function Profile() {
   }
 
   async function handleUserResetAccount() {
-    resetAccounts()
+    // resetAccounts()
     await userResetAccount()
   }
 
