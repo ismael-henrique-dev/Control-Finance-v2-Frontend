@@ -72,7 +72,7 @@ export function UseProvider({ children }: ProviderProps) {
     try {
       setIsLoadingDataUser(true)
       const { data } = await api.patch('/auth/login', userData)
-      localStorage.setItem('@token', data.Token)
+      localStorage.setItem('token', data.Token)
 
       await loadUser()
       await fetchUserStatic()

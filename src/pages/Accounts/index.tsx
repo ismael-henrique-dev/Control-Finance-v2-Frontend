@@ -13,6 +13,7 @@ import {
 } from './styles'
 import { Button } from '../../components/ui/Button'
 import { Plus } from 'lucide-react'
+import { AccountsList } from '@/components/accounts/List'
 
 // Accounts.tsx
 export function Accounts() {
@@ -58,21 +59,7 @@ export function Accounts() {
       </Section>
 
       <MainContainer>
-        {filteredAccounts.length === 0 ? (
-          <Empty
-            type='account'
-            title='Você não tem nenhuma conta ainda'
-            description='Crie uma conta para pode organizar suas movimentações.'
-            onCreateClick={() => setIsCreateModalOpen(true)}
-          />
-        ) : (
-          filteredAccounts
-            .slice((currentPage - 1) * 6, currentPage * 6)
-            .map((account) => (
-              // <AccountCard ... />
-              <div key={account.AcId}>{account.accountTitle}</div>
-            ))
-        )}
+       <AccountsList />
       </MainContainer>
     </AccountsContainer>
   )

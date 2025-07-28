@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { PersonStanding } from 'lucide-react'
@@ -15,6 +15,7 @@ import iconGoogle from '@/assets/icon-google.svg'
 
 export function SignInForm() {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -40,6 +41,8 @@ export function SignInForm() {
       localStorage.setItem('token', token)
 
       toast.success('Login com êxito.')
+      
+      navigate('/')
     } catch (error) {
       const errorMessage = getErrorMessage(error)
 

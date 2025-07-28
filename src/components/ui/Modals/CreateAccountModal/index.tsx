@@ -1,4 +1,4 @@
-
+import { CreateAccountForm } from '../../Forms/CreateAccountForm'
 import { ModalBase } from '../ModalBase'
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   trigger?: React.ReactNode
 }
 
-export function CreateAccountModal({ isOpen, setIsOpen, trigger}: Props) {
+export function CreateAccountModal({ isOpen, setIsOpen, trigger }: Props) {
   return (
     <ModalBase
       title='Criar conta'
@@ -15,7 +15,7 @@ export function CreateAccountModal({ isOpen, setIsOpen, trigger}: Props) {
       handleClose={() => setIsOpen(false)}
       trigger={trigger}
     >
-      <h1>Teste</h1>
+      <CreateAccountForm />
     </ModalBase>
   )
 }
