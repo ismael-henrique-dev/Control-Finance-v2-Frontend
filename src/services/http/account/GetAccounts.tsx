@@ -4,12 +4,12 @@ import { getAxiosStatusCode } from '@/utils/GetAxiosSatatusCode'
 
 type GetAccountsResponse = {
   status: number
-  params: Params
   data: Data
   meta: Meta
   date: string
-  links: Links
 }
+
+const PAGE_SIZE = 6
 
 export async function getAccounts(
   currentPage: number
@@ -21,7 +21,7 @@ export async function getAccounts(
       },
       params: {
         page: currentPage,
-        pageSize: 6
+        pageSize: PAGE_SIZE,
       },
     })
 
@@ -88,35 +88,9 @@ type Data = {
   transactions: TransactionsSummary
 }
 
-type Links = {
-  first: string
-  last: string
-  next: string
-  prev: string
-}
-
 type Meta = {
   maxPage: number
   page: number
   pageSize: number
   totalCount: number
-  links: Links
-}
-
-type Params = {
-  query: string
-  type: string
-  minValue: string
-  maxValue: string
-  page: string
-  pageSize: string
-}
-
-type ApiResponse = {
-  status: number
-  params: Params
-  data: Data
-  meta: Meta
-  date: string
-  links: Links
 }

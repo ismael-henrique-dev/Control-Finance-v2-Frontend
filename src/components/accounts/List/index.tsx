@@ -14,6 +14,10 @@ export function AccountsList({ accounts, isLoading, isError, errorMessage }: Acc
     return <p>Erro ao carregar as contas: {errorMessage}</p>
   }
 
+  // const handleDeleteAccount = () => {
+
+  // }
+
   return (
     <div>
       {accounts.length > 0 ? (
@@ -21,6 +25,7 @@ export function AccountsList({ accounts, isLoading, isError, errorMessage }: Acc
           {accounts.map(account => (
             <li key={account.id}>
               {account.title} - Saldo: R$ {account.value.toFixed(2)}
+              {/* <button onClick={}></button> */}
             </li>
           ))}
         </ul>

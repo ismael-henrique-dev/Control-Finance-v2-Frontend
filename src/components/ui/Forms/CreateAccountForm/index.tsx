@@ -24,17 +24,28 @@ export function CreateAccountForm() {
     register,
     handleSubmit,
     control,
-    formState: { errors, isValid },
+    setValue,
+    formState: { errors },
   } = useForm<CreateAccountFormData>({
     resolver: zodResolver(createAccountFormSchema),
-    mode: 'onChange',
+    mode: 'onSubmit',
     defaultValues: {
       description: '',
-      title: 'Titulo da conta',
+      title: '',
       type: 'carteira',
-      value: 0,
+      value: 0, // valor inicial como string formatada
     },
   })
+
+  function formatCurrency(value: string) {
+    const cleaned = value.replace(/\D/g, '')
+    const numeric = Number(cleaned) / 100
+
+    return numeric.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    })
+  }
 
   async function handleCreateAccount(data: CreateAccountFormData) {
     const newAccount = {
@@ -47,6 +58,7 @@ export function CreateAccountForm() {
     try {
       setIsLoading(true)
       console.log(data)
+      console.log(newAccount)
 
       await createAccount(newAccount)
 
@@ -79,14 +91,26 @@ export function CreateAccountForm() {
         helperText={errors.description?.message}
         {...register('description')}
       />
-      <TextField
-        id='initial-balance'
-        label='Valor inicial'
-        variant='text'
-        error={!!errors.value}
-        helperText={errors.value?.message}
-        {...register('value', { valueAsNumber: true })}
+      <Controller
+        name='value'
+        control={control}
+        // defaultValue='R$ 0,00'
+        render={({ field }) => (
+          <TextField
+            id='initial-balance'
+            label='Valor inicial'
+            variant='text'
+            error={!!errors.value}
+            helperText={errors.value?.message}
+            {...field}
+            onChange={(e) => {
+              const formatted = formatCurrency(e.target.value)
+              field.onChange(formatted) // atualiza o react-hook-form
+            }}
+          />
+        )}
       />
+
       <Controller
         name='type'
         control={control}
@@ -98,11 +122,7 @@ export function CreateAccountForm() {
           />
         )}
       />
-      <Button
-        isLoading={isLoading}
-        type='submit'
-        disabled={!isValid || isLoading}
-      >
+      <Button type='submit' isLoading={isLoading} disabled={isLoading}>
         Criar conta
       </Button>
     </FormContainer>
