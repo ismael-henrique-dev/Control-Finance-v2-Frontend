@@ -60,21 +60,21 @@ export function Accounts() {
       </Section>
 
       <MainContainer>
-        {hasAccounts ? (
+        {/* {hasAccounts ? ( */}
           <AccountsList
             accounts={accounts}
             isLoading={isLoading}
             isError={isError}
             errorMessage={error?.message}
           />
-        ) : (
+        {/* ) : (
           <Empty
             type='account'
             title='Você não tem nenhuma conta ainda'
             description='Crie uma conta para poder organizar suas movimentações.'
             onCreateClick={() => setOpenModal(true)}
           />
-        )}
+        )} */}
       </MainContainer>
     </AccountsContainer>
   )

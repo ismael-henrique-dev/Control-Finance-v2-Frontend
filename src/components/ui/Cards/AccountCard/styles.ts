@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const AccountCardConatiner = styled.div`
+export const AccountCardContainer = styled.div`
   display: flex;
   align-items: start;
   justify-content: center;
@@ -12,6 +12,7 @@ export const AccountCardConatiner = styled.div`
   flex: 1;
   height: 13rem;
   gap: 1.25rem;
+  width: 100%;
 
   strong {
     font-weight: 600;

@@ -1,7 +1,5 @@
-import { deleteAccountById } from '@/services/http/account/DeleteAccount'
-import { getErrorMessage } from '@/utils/GetErrorMessage'
-import { useQueryClient } from '@tanstack/react-query'
-import { toast } from 'sonner'
+import { AccountCard } from '@/components/ui'
+import { AccountsListContainer } from './styles'
 
 type AccountsListProps = {
   accounts: Account[]
@@ -16,8 +14,6 @@ export function AccountsList({
   isError,
   errorMessage,
 }: AccountsListProps) {
-  const queryClient = useQueryClient()
-
   if (isLoading) {
     return <p>Carregando contas...</p>
   }
@@ -26,36 +22,27 @@ export function AccountsList({
     return <p>Erro ao carregar as contas: {errorMessage}</p>
   }
 
-  const handleDeleteAccount = async (id: string) => {
-    try {
-      await deleteAccountById(id)
-
-      queryClient.invalidateQueries({ queryKey: ['accounts'] })
-
-      toast.success('Conta deletada com êxito.')
-    } catch (error) {
-      const errorMessage = getErrorMessage(error)
-
-      toast.error(errorMessage)
-    }
-  }
+  console.log(accounts)
 
   return (
-    <div>
+    <AccountsListContainer>
       {accounts.length > 0 ? (
         <ul>
           {accounts.map((account) => (
             <li key={account.id}>
-              {account.title} - Saldo: R$ {account.value.toFixed(2)}
-              <button onClick={() => handleDeleteAccount(account.id)}>
-                Excluir
-              </button>
+              <AccountCard
+                id={account.id}
+                resume={account.resume}
+                value={account.value}
+                title={account.title}
+                type={account.type}
+              />
             </li>
           ))}
         </ul>
       ) : (
         <p>Nenhuma conta encontrada.</p>
       )}
-    </div>
+    </AccountsListContainer>
   )
 }

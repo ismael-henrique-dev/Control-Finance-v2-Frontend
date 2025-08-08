@@ -54,10 +54,9 @@ export const Section = styled.section`
 
 export const MainContainer = styled.main`
   display: flex;
-  flex-wrap: wrap;
   gap: 4rem;
   justify-content: safe;
-  max-width: 64rem;
+  width: 100%;
 
   @media (max-width: 768px) {
     /* min-height: 100vh; */

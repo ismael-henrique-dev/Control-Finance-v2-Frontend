@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { PopeoverOptionsAccount } from './PopoverOptionsAccount'
 import {
   Coins,
   Handshake,
@@ -10,68 +9,64 @@ import {
   Wallet,
 } from 'lucide-react'
 import {
-  AccountCardConatiner,
+  AccountCardContainer,
   AccountSummary,
   ActionsArea,
   ButtonAdd,
   SummaryType,
 } from './styles'
+import { priceFormatter } from '@/utils/PriceFormatter'
+import { AccountOptionsPopover } from './AccountOptions'
 
-import { priceFormatter } from '../../../../utils/PriceFormatter'
+type AccountCardProps = Omit<Account, 'userId' | 'description'>
 
-// interface AccountCardProps {
-//   isPageAccounts: boolean
-//   accountTitle: string
-//   accountType: string
-//   income: number
-//   outcome: number
-//   total: number
-//   accountId: string
-// }
-
-export function AccountCard() {
+export function AccountCard(props: AccountCardProps) {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
   const iconMap: Record<string, JSX.Element> = {
-    Carteira: <Wallet size={32} />,
-    ContaBancaria: <Landmark size={32} />,
-    CorretoraDeInvestimentos: <Handshake size={32} />,
-    Poupanca: <Coins size={32} />,
+    carteira: <Wallet size={32} />,
+    contaBancaria: <Landmark size={32} />,
+    corretoraDeInvestimentos: <Handshake size={32} />,
+    poupanca: <Coins size={32} />,
   }
 
+  const income = priceFormatter(props.resume.income)
+  const outcome = priceFormatter(props.resume.outcome)
+  const total = priceFormatter(props.value)
+
   return (
-    <AccountCardConatiner>
+    <AccountCardContainer>
       <header>
         <div>
-          {iconMap['Poupanca'] || <Wallet size={32} />}
-          <strong>{'asasa'}</strong>
+          {iconMap[props.type] || <Wallet size={32} />}
+          <strong>{props.title}</strong>
         </div>
         <ActionsArea>
-          {/* {isPageAccounts && <PopeoverOptionsAccount accountId={accountId} />} */}
+          <AccountOptionsPopover accountId={props.id} />
           <ButtonAdd onClick={handleOpen}>
             <Plus />
           </ButtonAdd>
         </ActionsArea>
       </header>
-      <strong>{priceFormatter(23.2)}</strong>
+      <strong>{total}</strong>
       <AccountSummary>
         <SummaryType variant='income'>
           <div>
             <TrendingUp />
-            Depositos
+            Depósitos
           </div>
-          <span>{priceFormatter(1.23)}</span>
+          <span>{income}</span>
         </SummaryType>
         <SummaryType variant='outcome'>
           <div>
             <TrendingDown />
             Saídas
           </div>
-          <span>{priceFormatter(122)}</span>
+          <span>{outcome}</span>
         </SummaryType>
       </AccountSummary>
-    </AccountCardConatiner>
+    </AccountCardContainer>
   )
 }

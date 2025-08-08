@@ -7,4 +7,4 @@ export const PopoverStyle = {
   },
 }
 
-export const ActionsStyle = { marginLeft: "0.3rem", marginTop: "3rem" }
+export const ActionsStyle = { marginLeft: "0.3rem", marginBottom: "0.5rem" }

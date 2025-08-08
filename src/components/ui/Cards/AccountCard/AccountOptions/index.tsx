@@ -1,20 +1,22 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Pencil, Settings2, Trash } from 'lucide-react'
 import { Actions, Container } from '../../GoalCard/SpeedDial/styles.ts'
-import { AccountsContext } from '../../../../../contexts/Accounts/accountsContext.tsx'
-import { EditAccountModal } from '../../../Modals/EditAccountModal.tsx/index.tsx'
 import { ButtonAdd } from '../styles.ts'
 import { ActionsStyle, PopoverStyle } from './styles.ts'
 import Popover from '@mui/material/Popover'
+import { deleteAccountById } from '@/services/http/account/DeleteAccount.ts'
+import { toast } from 'sonner'
+import { getErrorMessage } from '@/utils/GetErrorMessage.ts'
+import { useQueryClient } from '@tanstack/react-query'
 
-interface PopeoverOptionsAccountProps {
+type AccountOptionsPopoverProps = {
   accountId: string
 }
 
-export function PopeoverOptionsAccount({
+export function AccountOptionsPopover({
   accountId,
-}: PopeoverOptionsAccountProps) {
-  const { deleteAccount } = useContext(AccountsContext)
+}: AccountOptionsPopoverProps) {
+  const queryClient = useQueryClient()
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const [open, setOpen] = useState(false)
@@ -38,13 +40,19 @@ export function PopeoverOptionsAccount({
     handleOpenModalEdit()
   }
 
-  async function handleDeleteAccount() {
-    await deleteAccount(accountId)
-  }
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteAccountById(accountId)
 
-  const handleClickDeleteTransaction = () => {
-    handlePopoverClose()
-    handleDeleteAccount()
+      queryClient.invalidateQueries({ queryKey: ['accounts'] })
+
+      toast.success('Conta deletada com êxito.')
+      handlePopoverClose()
+    } catch (error) {
+      const errorMessage = getErrorMessage(error)
+
+      toast.error(errorMessage)
+    }
   }
 
   return (
@@ -62,7 +70,7 @@ export function PopeoverOptionsAccount({
           horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'left',
         }}
         onClose={handlePopoverClose}
@@ -72,16 +80,16 @@ export function PopeoverOptionsAccount({
           <button onClick={handleClickEditTransaction}>
             <Pencil />
           </button>
-          <button onClick={handleClickDeleteTransaction}>
+          <button onClick={handleDeleteAccount}>
             <Trash />
           </button>
         </Actions>
       </Popover>
-      <EditAccountModal
-        open={openModalEdit}
+      {/* <EditAccountModal
+        // open={openModalEdit}
         handleClose={handleCloseModaEdit}
         AccountId={accountId}
-      />
+      /> */}
     </Container>
   )
 }
