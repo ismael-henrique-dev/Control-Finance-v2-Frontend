@@ -8,6 +8,8 @@ import { deleteAccountById } from '@/services/http/account/DeleteAccount.ts'
 import { toast } from 'sonner'
 import { getErrorMessage } from '@/utils/GetErrorMessage.ts'
 import { useQueryClient } from '@tanstack/react-query'
+import { UpdateAccountModal } from '@/components/ui/Modals/UpdateAccountModal.tsx/index.tsx'
+import { useSearchParams } from 'react-router-dom'
 
 type AccountOptionsPopoverProps = {
   accountId: string
@@ -16,6 +18,7 @@ type AccountOptionsPopoverProps = {
 export function AccountOptionsPopover({
   accountId,
 }: AccountOptionsPopoverProps) {
+  const [searchParams, setSearchParams] = useSearchParams()
   const queryClient = useQueryClient()
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
@@ -23,7 +26,10 @@ export function AccountOptionsPopover({
 
   const [openModalEdit, setOpenModalEdit] = useState(false)
   const handleOpenModalEdit = () => setOpenModalEdit(true)
-  const handleCloseModaEdit = () => setOpenModalEdit(false)
+  const handleCloseModaEdit = () => {
+    setOpenModalEdit(false)
+    handleDeleteParam()
+  }
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -35,7 +41,15 @@ export function AccountOptionsPopover({
     setAnchorEl(null)
   }
 
-  const handleClickEditTransaction = () => {
+
+  const handleDeleteParam = () => {
+    searchParams.delete('accountId')
+    setSearchParams(searchParams)
+  }
+
+  const handleOpenModal = () => {
+    searchParams.set('accountId', accountId.toString())
+    setSearchParams(searchParams)
     handlePopoverClose()
     handleOpenModalEdit()
   }
@@ -77,7 +91,7 @@ export function AccountOptionsPopover({
         disableRestoreFocus
       >
         <Actions style={ActionsStyle}>
-          <button onClick={handleClickEditTransaction}>
+          <button onClick={handleOpenModal}>
             <Pencil />
           </button>
           <button onClick={handleDeleteAccount}>
@@ -85,11 +99,10 @@ export function AccountOptionsPopover({
           </button>
         </Actions>
       </Popover>
-      {/* <EditAccountModal
-        // open={openModalEdit}
-        handleClose={handleCloseModaEdit}
-        AccountId={accountId}
-      /> */}
+      <UpdateAccountModal
+        isOpen={openModalEdit}
+        setIsOpen={handleCloseModaEdit}
+      />
     </Container>
   )
 }

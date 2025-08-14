@@ -15,9 +15,16 @@ import {
 import { CustomSelect } from '../../Select'
 import { accountOptions } from '@/utils/data'
 import { FormContainer } from './styles'
+import { useSearchParams } from 'react-router-dom'
 
-export function EditAccountForm() {
+export function UpdateAccountForm() {
   const [isLoading, setIsLoading] = useState(false)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const handleDeleteParam = () => {
+    searchParams.delete('accountId')
+    setSearchParams(searchParams)
+  }
 
   const queryClient = useQueryClient()
 
@@ -60,10 +67,11 @@ export function EditAccountForm() {
       console.log(data)
       console.log(newAccount)
 
-      await createAccount(newAccount)
+      // await createAccount(newAccount)
 
       queryClient.invalidateQueries({ queryKey: ['accounts'] })
       toast.success('Conta atualizada com êxito.')
+      handleDeleteParam()
     } catch (error) {
       const errorMessage = getErrorMessage(error)
 

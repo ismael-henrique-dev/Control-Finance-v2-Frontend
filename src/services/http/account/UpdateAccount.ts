@@ -15,7 +15,7 @@ type CreateAccountResponse = {
   date: string
 }
 
-export async function editAccount(
+export async function updateAccount(
   updatedAccount: NewAccount
 ): Promise<CreateAccountResponse> {
   try {
